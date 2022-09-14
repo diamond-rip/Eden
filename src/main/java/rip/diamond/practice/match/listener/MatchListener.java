@@ -321,7 +321,7 @@ public class MatchListener implements Listener {
                 //檢查 KitGameRules 水上即死
                 if (gameRules.isDeathOnWater() && match.getState() == MatchState.FIGHTING && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
                     if (gameRules.isPoint()) {
-                        match.score(match.getTeamPlayer(player).getLastHitDamager());
+                        match.score(profile, match.getTeamPlayer(player).getLastHitDamager());
                     } else {
                         Util.damage(player, 99999);
                     }
@@ -332,11 +332,11 @@ public class MatchListener implements Listener {
                 if (gameRules.isBridge() && match.getState() == MatchState.FIGHTING && underBlock.getType() == Material.ENDER_PORTAL) {
                     Team team = match.getTeam(player);
                     //Prevent player scoring their own goal
-                    if (team.getSpawnLocation().distance(to) < 30) {
+                    if (team.getSpawnLocation().distance(to) > 30) {
+                        match.score(profile, match.getTeamPlayer(player));
+                    } else {
                         Util.damage(player, 99999);
-                        return;
                     }
-                    match.score(match.getTeamPlayer(player));
                     return;
                 }
             }

@@ -1,13 +1,14 @@
 package rip.diamond.practice.util;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.IBlockData;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
@@ -21,6 +22,7 @@ import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -165,6 +167,35 @@ public class Util {
         }
 
         return (ImmutableSet.copyOf(classes));
+    }
+
+    //Credit: https://github.com/lulu2002/DatouNms/blob/master/src/main/java/me/lulu/datounms/v1_8_R3/CraftCommonNMS.java
+    public static void playDeathAnimation(Player player, List<Player> viewers) {
+        MinecraftServer nmsServer = ((CraftServer) Bukkit.getServer()).getServer();
+        WorldServer nmsWorld = (( CraftWorld ) player.getWorld()).getHandle();
+        CraftPlayer cp = (CraftPlayer) player;
+        EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, cp.getProfile(), new PlayerInteractManager(nmsWorld));
+        npc.setLocation(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch());
+        PacketPlayOutPlayerInfo removePlayer = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, cp.getHandle());
+        PacketPlayOutPlayerInfo addPlayer = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, npc);
+        PacketPlayOutNamedEntitySpawn entitySpawn = new PacketPlayOutNamedEntitySpawn(npc);
+        PacketPlayOutEntityStatus entityDeath = new PacketPlayOutEntityStatus(npc, ( byte ) 3);
+
+        for (Player o : viewers) {
+            PlayerConnection connection = (( CraftPlayer ) o).getHandle().playerConnection;
+            connection.sendPacket(removePlayer);
+            connection.sendPacket(addPlayer);
+            connection.sendPacket(entitySpawn);
+            connection.sendPacket(entityDeath);
+        }
+        Tasks.runLater(()-> {
+            for (Player o : viewers) {
+                if (o.isOnline()) {
+                    PlayerConnection connection = (( CraftPlayer ) o).getHandle().playerConnection;
+                    connection.sendPacket(removePlayer);
+                }
+            }
+        }, 1L);
     }
 
 }

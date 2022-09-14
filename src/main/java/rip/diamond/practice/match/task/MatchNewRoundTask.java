@@ -10,10 +10,8 @@ import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchTaskTicker;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
-import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.CenteredMessageSender;
-import rip.diamond.practice.util.Cooldown;
 
 import java.util.stream.Collectors;
 
@@ -72,9 +70,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
         if (scoredPlayer != null && match.getState() != MatchState.STARTING && match.getKit().getGameRules().isPoint()) {
             Team team = match.getTeam(scoredPlayer);
             Player player = scoredPlayer.getPlayer();
-            PlayerProfile profile = PlayerProfile.get(scoredPlayer.getUuid());
 
-            profile.getCooldowns().put("score", new Cooldown(1));
             match.broadcastMessage(Language.MATCH_NEW_ROUND_START_SCORE.toStringList(
                     team.getTeamColor().getColor(),
                     scoredPlayer.getUsername(),

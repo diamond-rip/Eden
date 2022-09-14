@@ -815,8 +815,8 @@ party:
   successfully-set-max-size: "&fSuccessfully changed max party size to &b{0} "
   successfully-set-chat: "&fSuccessfully changed party chat to &b{0}"
   announce:
-    message: "&7[&bParty&7] &b{0} &fhas invited&eall online players&fto join! "
-    clickable: "&a(click here to join)"
+    message: "&7[&bParty&7] &b{0} &fhas invited &eall online players &fto join! "
+    clickable: "&a(Click here to join)"
     hover: "&aClick here to join"
   privacy:
     message: "&fYour party privacy settings has been set to: &b{0}"

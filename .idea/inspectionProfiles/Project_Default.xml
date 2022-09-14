@@ -1,0 +1,13 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="InnerClassMayBeStatic" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignorableAnnotations">
+        <set>
+          <option value="lombok.RequiredArgsConstructor" />
+          <option value="org.junit.jupiter.api.Nested" />
+        </set>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

@@ -76,7 +76,7 @@ public abstract class Match {
 
         //Check if the kit allows block building and breaking. If yes, we set the ArenaDetail to using to prevent player using the same arena
         if (kit.getGameRules().isBuild() || kit.getGameRules().isSpleef()) {
-            if (Match.getMatches().values().stream().anyMatch(match -> (match.getKit().getGameRules().isBuild() || match.getKit().getGameRules().isSpleef()) && match.getArenaDetail() == arenaDetail)) {
+            if (Match.getMatches().values().stream().filter(match -> match != this).anyMatch(match -> (match.getKit().getGameRules().isBuild() || match.getKit().getGameRules().isSpleef()) && match.getArenaDetail() == arenaDetail)) {
                 end(true, "其他戰鬥正在使用這個場地, 並且該戰鬥的職業需要使用方塊");
                 return;
             }
@@ -134,7 +134,13 @@ public abstract class Match {
         new MatchNewRoundTask(this);
     }
 
-    public void score(TeamPlayer teamPlayer) {
+    /**
+     * @param profile A random profile from match players which is alive. This is used to create a score cooldown
+     * @param teamPlayer The TeamPlayer who scored the point
+     */
+    public void score(PlayerProfile profile, TeamPlayer teamPlayer) {
+        profile.getCooldowns().put("score", new Cooldown(3));
+
         //TeamPlayer might be null because the player might die without taking any damage from opponents (Using lava to burn themselves)
         if (teamPlayer == null) {
             new MatchNewRoundTask(this, null);
@@ -178,6 +184,7 @@ public abstract class Match {
             ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutSpawnEntityWeather(lightning));
             player.playSound(deadPlayer.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
         }
+        Util.playDeathAnimation(deadPlayer, getPlayersAndSpectators());
 
         //Check if there's only one team survives. If yes, end the match
         if (canEnd()) {
