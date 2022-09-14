@@ -1,0 +1,82 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+group = 'rip.diamond'
+version = getGitHash()
+
+compileJava.options.encoding = 'UTF-8'
+
+compileJava {
+    sourceCompatibility = 8
+    targetCompatibility = 8
+}
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand 'pluginVersion': project.version
+    }
+}
+
+String getGitHash() {
+    def output = new ByteArrayOutputStream()
+    exec {
+        standardOutput = output // Only the std, not errors as it's not to worry about as long as it's a repo
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+    }
+    return output.toString().trim()
+}
+
+repositories {
+    mavenCentral()
+    flatDir { dir("./libs") }
+
+    //Spigot and ImanitySpigot API
+    maven {
+        url "https://maven.imanity.dev/imanity-libraries"
+    }
+    //PlaceholderAPI
+    maven {
+        url "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+    }
+    //ProtocolLib
+    maven {
+        url "https://repo.dmulloy2.net/repository/public/"
+    }
+}
+
+dependencies {
+    implementation 'org.mongodb:mongodb-driver-sync:4.7.1' //MongoDB driver (This has to be included in the plugin jar file, so we use implementation)
+
+    //Libraries from local
+    compileOnly name: 'FastAsyncWorldEdit-bukkit-18.12.19-d131fa6-1241-22.0.3'
+    compileOnly name: 'worldedit-bukkit-6.1.9'
+    compileOnly name: 'ViaVersion-4.4.2'
+
+    //Libraries from others
+    compileOnly 'me.clip:placeholderapi:2.11.2' //PlaceholderAPI
+    compileOnly 'org.imanity.imanityspigot:api:2021.11.1b1' //ImanitySpigot API
+    compileOnly 'org.imanity.paperspigot:paper1.8.8:1.8.8' //PaperSpigot
+    compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
+
+configurations {
+    testCompile.extendsFrom compileOnly
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.forkOptions.jvmArgs.addAll(['--add-opens', 'jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED'])
+}
+
+test {
+    useJUnitPlatform()
+    maxHeapSize = '1G'
+}

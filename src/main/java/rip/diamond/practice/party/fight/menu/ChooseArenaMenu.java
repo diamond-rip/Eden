@@ -1,0 +1,56 @@
+package rip.diamond.practice.party.fight.menu;
+
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.Language;
+import rip.diamond.practice.arenas.Arena;
+import rip.diamond.practice.arenas.ArenaDetail;
+import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.kits.KitMatchType;
+import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.menu.Button;
+import rip.diamond.practice.util.menu.pagination.PaginatedMenu;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RequiredArgsConstructor
+public class ChooseArenaMenu extends PaginatedMenu {
+    private final KitMatchType kitMatchType;
+    private final Kit kit;
+
+    @Override
+    public String getPrePaginatedTitle(Player player) {
+        return Language.PARTY_CHOOSE_ARENA_MENU_TITLE.toString();
+    }
+
+    @Override
+    public Map<Integer, Button> getAllPagesButtons(Player player) {
+        final Map<Integer, Button> buttons = new HashMap<>();
+
+        for (Arena arena : Arena.getArenas()) {
+            ArenaDetail arenaDetail = Arena.getArenaDetail(arena);
+            if (arena.isEnabled() && arenaDetail != null && arena.getAllowedKits().contains(kit.getName())) {
+                buttons.put(buttons.size(), new Button() {
+                    @Override
+                    public ItemStack getButtonItem(Player player) {
+                        return new ItemBuilder(arena.getIcon().clone())
+                                .name(Language.PARTY_CHOOSE_ARENA_MENU_BUTTON_NAME.toString(arena.getName()))
+                                .lore(Language.PARTY_CHOOSE_ARENA_MENU_BUTTON_LORE.toStringList())
+                                .build();
+                    }
+
+                    @Override
+                    public void clicked(Player player, ClickType clickType) {
+                        player.closeInventory();
+                        plugin.getPartyFightManager().startPartyEvent(player, kitMatchType, kit, arena);
+                    }
+                });
+            }
+        }
+
+        return buttons;
+    }
+}

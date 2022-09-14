@@ -1,0 +1,33 @@
+## Developer option, set to false if GoodestEnglish didn't tell you to set to true
+debug: false
+## MongoDB login information
+mongo:
+  uri-mode: false
+  normal:
+    host: 127.0.0.1
+    port: 27017
+    auth:
+      enabled: false
+      username: ''
+      password: ''
+  uri:
+    database: Practice
+    connection-string: mongodb://127.0.0.1:27017/Eden
+## Toggle if the fancy tablist should be enabled or not
+fancy-tablist: true
+nametag:
+  ## Toggle if the plugin should modify the nametag color or not
+  enabled: true
+  ## What color should the nametag be when the player is in lobby?
+  ## Check https://hub.spigotmc.org/javadocs/spigot/org/bukkit/ChatColor.html for available colors
+  color: BLUE
+party:
+  ## When player creates a party, what is the default size?
+  default-max-size: 30
+match:
+  ## If points are enabled, how many points should it be?
+  maximum-points: 3
+  ## How many second(s) should the player respawns after die?
+  respawn-time:
+    bed: 3
+    default: 5

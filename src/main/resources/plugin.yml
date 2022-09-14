@@ -1,0 +1,8 @@
+main: rip.diamond.practice.Eden
+name: Eden
+version: ${pluginVersion}
+author: GoodestEnglish
+description: The best free practice plugin with premium features
+website: https://youtube.com/c/goodestenglishpvp
+depend: [WorldEdit, FastAsyncWorldEdit, ProtocolLib]
+softdepend: [ViaVersion, PlaceholderAPI]

@@ -1,0 +1,117 @@
+items:
+  lobby:
+    unranked-queue:
+      name: "&bUnranked Queue &7(Right-Click)"
+      lore:
+        - ""
+      material: IRON_SWORD
+      durability: 0
+      slot: 0
+    ranked-queue:
+      name: "&bRanked Queue &7(Right-Click)"
+      lore:
+        - ""
+      material: DIAMOND_SWORD
+      durability: 0
+      slot: 1
+    party-open:
+      name: "&bCreate Party &7(Right-Click)"
+      lore:
+        - ""
+      material: NETHER_STAR
+      durability: 0
+      slot: 4
+    leaderboard:
+      name: "&bView Leaderboard &7(Right-Click)"
+      lore:
+        - ""
+      material: EMERALD
+      durability: 0
+      slot: 6
+    settings:
+      name: "&bEdit Settings &7(Right-Click)"
+      lore:
+        - ""
+      material: WATCH
+      durability: 0
+      slot: 7
+    editor:
+      name: "&bEdit Kits &7(Right-Click)"
+      lore:
+        - ""
+      material: BOOK
+      durability: 0
+      slot: 8
+  party:
+    party-list:
+      name: "&bYour Party &7(Right-Click)"
+      lore:
+        - ""
+      material: NETHER_STAR
+      durability: 0
+      slot: 0
+    party-fight:
+      name: "&bParty Events &7(Right-Click)"
+      lore:
+        - ""
+      material: COMPASS
+      durability: 0
+      slot: 1
+    other-parties:
+      name: "&bOther Parties &7(Right-Click)"
+      lore:
+        - ""
+      material: SKULL_ITEM
+      durability: 0
+      slot: 6
+    editor:
+      name: "&bEdit kits &7(Right-Click)"
+      lore:
+        - ""
+      material: BOOK
+      durability: 0
+      slot: 7
+    party-leave:
+      name: "&cLeave Party &7(Right-Click)"
+      lore:
+        - ""
+      material: INK_SACK
+      durability: 1
+      slot: 8
+  queue:
+    leave-queue:
+      name: "&cLeave Queue &7(Right-Click)"
+      lore:
+        - ""
+      material: INK_SACK
+      durability: 1
+      slot: 8
+  spectate:
+    teleporter:
+      name: "&bTeleportation Tool &7(Right-Click)"
+      lore:
+        - ""
+      material: COMPASS
+      durability: 0
+      slot: 3
+    leave-spectate:
+      name: "&cLeave Spectate &7(Right-Click)"
+      lore:
+        - ""
+      material: INK_SACK
+      durability: 1
+      slot: 4
+    toggle-visibility-off:
+      name: "&bDisable Spectators &7(Right-Click)"
+      lore:
+        - ""
+      material: REDSTONE_TORCH_ON
+      durability: 0
+      slot: 5
+    toggle-visibility-on:
+      name: "&bEnable Spectators &7(Right-Click)"
+      lore:
+        - ""
+      material: LEVER
+      durability: 0
+      slot: 5

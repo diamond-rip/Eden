@@ -1,0 +1,117 @@
+items:
+  lobby:
+    unranked-queue:
+      name: "&b匹配經典模式 &7(點擊右鍵)"
+      lore:
+        - "&7點擊匹配經典模式"
+      material: IRON_SWORD
+      durability: 0
+      slot: 0
+    ranked-queue:
+      name: "&b匹配排位模式 &7(點擊右鍵)"
+      lore:
+        - "&7點擊匹配排位模式"
+      material: DIAMOND_SWORD
+      durability: 0
+      slot: 1
+    party-open:
+      name: "&b建立隊伍 &7(點擊右鍵)"
+      lore:
+        - "&7點擊建立一個新的隊伍"
+      material: NETHER_STAR
+      durability: 0
+      slot: 4
+    leaderboard:
+      name: "&b檢視排行榜 &7(點擊右鍵)"
+      lore:
+        - "&7點擊開啟排行榜清單"
+      material: EMERALD
+      durability: 0
+      slot: 6
+    settings:
+      name: "&b編輯設定 &7(點擊右鍵)"
+      lore:
+        - "&7點擊編輯你的個人設定"
+      material: WATCH
+      durability: 0
+      slot: 7
+    editor:
+      name: "&b編輯排版 &7(點擊右鍵)"
+      lore:
+        - "&7開啟編輯排版清單"
+      material: BOOK
+      durability: 0
+      slot: 8
+  party:
+    party-list:
+      name: "&b你的隊伍 &7(點擊右鍵)"
+      lore:
+        - "&7點擊查看你的隊伍狀態"
+      material: NETHER_STAR
+      durability: 0
+      slot: 0
+    party-fight:
+      name: "&b隊伍活動 &7(點擊右鍵)"
+      lore:
+        - "&7點擊舉辦隊伍活動"
+      material: COMPASS
+      durability: 0
+      slot: 1
+    other-parties:
+      name: "&b其他隊伍 &7(點擊右鍵)"
+      lore:
+        - "&7點擊開啟其他隊伍清單"
+      material: SKULL_ITEM
+      durability: 0
+      slot: 6
+    editor:
+      name: "&b編輯排版 &7(點擊右鍵)"
+      lore:
+        - "&7開啟編輯排版清單"
+      material: BOOK
+      durability: 0
+      slot: 7
+    party-leave:
+      name: "&c離開隊伍 &7(點擊右鍵)"
+      lore:
+        - "&7點擊離開現時的隊伍"
+      material: INK_SACK
+      durability: 1
+      slot: 8
+  queue:
+    leave-queue:
+      name: "&c離開匹配 &7(點擊右鍵)"
+      lore:
+        - "&7點擊離開匹配"
+      material: INK_SACK
+      durability: 1
+      slot: 8
+  spectate:
+    teleporter:
+      name: "&b玩家傳送 &7(點擊右鍵)"
+      lore:
+        - "&7點擊開啟玩家傳送清單"
+      material: COMPASS
+      durability: 0
+      slot: 3
+    leave-spectate:
+      name: "&c離開觀戰 &7(點擊右鍵)"
+      lore:
+        - "&7點擊離開觀戰"
+      material: INK_SACK
+      durability: 1
+      slot: 4
+    toggle-visibility-off:
+      name: "&b關閉觀察者顯示 &7(點擊右鍵)"
+      lore:
+        - "&7點擊更改觀察者顯示的狀態"
+      material: REDSTONE_TORCH_ON
+      durability: 0
+      slot: 5
+    toggle-visibility-on:
+      name: "&b開啟觀察者顯示 &7(點擊右鍵)"
+      lore:
+        - "&7點擊更改觀察者顯示的狀態"
+      material: LEVER
+      durability: 0
+      slot: 5
