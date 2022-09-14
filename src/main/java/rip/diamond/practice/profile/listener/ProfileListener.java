@@ -35,6 +35,7 @@ public class ProfileListener implements Listener {
         event.setJoinMessage(null);
 
         Player player = event.getPlayer();
+
         if (PlayerProfile.get(player) != null) {
             player.kickPlayer(CC.RED + "[Eden] Please wait for a few seconds before re-login");
             return;

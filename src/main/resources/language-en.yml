@@ -1017,7 +1017,7 @@ queue:
   wrong-state: "&cCannot join a queue in the current state"
   error-kit-data-not-found: "&cCannot join a queue, please rejoin"
   success-join: "&fYou have joined &b{0} &f's game queue"
-  success-quit: "&fYou have left &b{0} &f'f game queue"
+  success-quit: "&fYou have left &b{0} &f's game queue"
 button:
   back:
     name: "&c&lGo Back"

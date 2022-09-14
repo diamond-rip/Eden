@@ -3,6 +3,7 @@ package rip.diamond.practice.util;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Eden;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -47,10 +48,11 @@ public class VisibilityController {
             //We're not in a match, so we hide other players based on their party/match
             Party targetParty = Party.getByPlayer(target);
 
+            boolean configSettings = Eden.INSTANCE.getConfigFile().getBoolean("lobby.display-players");
             boolean viewerPlayingMatch = pViewer.getPlayerState() == PlayerState.IN_MATCH && pViewer.getMatch() != null;
             boolean viewerSameParty = targetParty != null && targetParty.getMember(viewer.getUniqueId()) != null;
 
-            return viewerPlayingMatch || viewerSameParty;
+            return configSettings || viewerPlayingMatch || viewerSameParty;
         } else {
             //We're in a match, so we only hide other spectators (if our settings say so)
             boolean targetIsSpectator = targetMatch.getSpectators().contains(target) || !targetMatch.getTeamPlayer(target).isAlive() || targetMatch.getTeamPlayer(target).isRespawning();

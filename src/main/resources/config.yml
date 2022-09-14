@@ -24,6 +24,9 @@ nametag:
 party:
   ## When player creates a party, what is the default size?
   default-max-size: 30
+lobby:
+  ## Should player allow to see other players?
+  display-players: false
 match:
   ## If points are enabled, how many points should it be?
   maximum-points: 3

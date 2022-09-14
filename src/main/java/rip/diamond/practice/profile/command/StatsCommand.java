@@ -39,6 +39,7 @@ public class StatsCommand extends Command {
         finalProfile.load(success -> {
             if (success) {
                 new KitStatsMenu(finalProfile).openMenu(player);
+                PlayerProfile.getProfiles().remove(offlinePlayer.getUniqueId());
             } else {
                 Language.PROFILE_ERROR_CANNOT_LOAD_PLAYER.sendMessage(player);
             }
