@@ -260,7 +260,10 @@ public abstract class Match {
         plugin.getLobbyManager().sendToSpawnAndReset(player);
     }
 
-    public void addDroppedItem(Item item) {
+    public void addDroppedItem(Item item, String whoDropped) {
+        if (whoDropped != null) {
+            plugin.getEntityHider().setPlayerWhoDropped(item, whoDropped);
+        }
         getEntities().add(new MatchEntity(item));
     }
 

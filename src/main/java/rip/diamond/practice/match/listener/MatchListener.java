@@ -131,9 +131,10 @@ public class MatchListener implements Listener {
                 if (match.canEnd()) {
                     drops.removeIf(i -> i.getType() == Material.POTION || i.getType() == Material.GLASS_BOTTLE || i.getType() == Material.MUSHROOM_SOUP || i.getType() == Material.BOWL);
                 }
+
                 for (ItemStack itemStack : drops) {
-                    Item item = player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
-                    match.addDroppedItem(item);
+                    Item item = Util.dropItemNaturally(player.getLocation(), itemStack, player);
+                    match.addDroppedItem(item, null); //Already modified the f value of EntityItem, therefore no need to put anything in 2nd variables
                 }
             }
         }
@@ -173,6 +174,10 @@ public class MatchListener implements Listener {
             }
             if (match.getKit().getGameRules().isNoFallDamage() && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 event.setCancelled(true);
+                return;
+            }
+            if (match.getKit().getGameRules().isNoDamage()) {
+                event.setDamage(0);
                 return;
             }
             if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
@@ -261,7 +266,7 @@ public class MatchListener implements Listener {
             }
 
             Match match = profile.getMatch();
-            match.addDroppedItem(item);
+            match.addDroppedItem(item, player.getName());
         }
     }
 
@@ -651,7 +656,7 @@ public class MatchListener implements Listener {
             } else {
                 block.getDrops().forEach(itemStack -> {
                     Item item = block.getLocation().getWorld().dropItemNaturally(block.getLocation().clone().add(0.5,0.5,0.5), itemStack);
-                    match.addDroppedItem(item);
+                    match.addDroppedItem(item, player.getName());
                 });
             }
             block.setType(Material.AIR);

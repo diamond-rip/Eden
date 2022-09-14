@@ -55,6 +55,12 @@ public class EdenCommand extends Command {
                 plugin.getLocationFile().load();
                 Common.sendMessage(player, CC.GREEN + "Files reloaded!", CC.YELLOW + "Remember: some part of the files might require restart the server to work. And we strongly recommend");
                 return;
+            case DEBUG:
+                plugin.getConfigFile().getConfiguration().set("debug", !plugin.getConfigFile().getBoolean("debug"));
+                plugin.getConfigFile().save();
+                plugin.getConfigFile().load();
+                Common.sendMessage(player, CC.GREEN + "Debug is now: " + (plugin.getConfigFile().getBoolean("debug") ? CC.GREEN + Language.ENABLED.toString() : CC.RED + Language.DISABLED.toString()));
+                return;
             case TEST:
                 player.showPlayer(Bukkit.getPlayer(args[1]));
                 Common.sendMessage(player, "Done showing " + Bukkit.getPlayer(args[1]).getName());
@@ -68,6 +74,6 @@ public class EdenCommand extends Command {
     }
 
     enum Action {
-        RELOAD, TEST
+        RELOAD, DEBUG, TEST
     }
 }

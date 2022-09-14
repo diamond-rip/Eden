@@ -35,12 +35,17 @@ public class VisibilityController {
     }
 
     private boolean shouldSeePlayer(Player viewer, Player target) {
+        if (viewer == target) {
+            return true;
+        }
+
         PlayerProfile pViewer = PlayerProfile.get(viewer);
         PlayerProfile pTarget = PlayerProfile.get(target);
 
         if (pViewer == null || pTarget == null || pViewer.getPlayerState() == PlayerState.LOADING || pTarget.getPlayerState() == PlayerState.LOADING) {
             return false;
         }
+
 
         Match targetMatch = pTarget.getMatch();
 
@@ -58,8 +63,10 @@ public class VisibilityController {
             boolean targetIsSpectator = targetMatch.getSpectators().contains(target) || !targetMatch.getTeamPlayer(target).isAlive() || targetMatch.getTeamPlayer(target).isRespawning();
             boolean viewerSpectateSetting = pViewer.getSettings().get(ProfileSettings.SPECTATOR_VISIBILITY).isEnabled();
             boolean viewerIsSpectator = pViewer.getPlayerState() == PlayerState.IN_SPECTATING && pViewer.getMatch() != null;
+            //Also check if the match is the same or not
+            boolean viewerMatchIsSame = targetMatch == pViewer.getMatch();
 
-            return !targetIsSpectator || (viewerSpectateSetting && viewerIsSpectator);
+            return (!targetIsSpectator || (viewerSpectateSetting && viewerIsSpectator)) && viewerMatchIsSame;
         }
     }
 

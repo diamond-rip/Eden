@@ -16,7 +16,6 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.*;
@@ -32,6 +31,7 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.profile.PlayerProfile;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
@@ -44,6 +44,7 @@ import static com.comphenix.protocol.PacketType.Play.Server.*;
  * of projectiles, particle effects and sounds
  * <p>
  * Originally coded by Lipchya and cleaned/improved and maintained by DevDrizzy
+ * Now maintained by GoodestEnglish to make this class fit this project
  *
  * @since 9/13/2021
  * Project: Eden
@@ -53,7 +54,7 @@ public class EntityHider {
 
     protected Table<Integer, Integer, Boolean> observerEntityMap = HashBasedTable.create();
 
-    private Field itemOwner;
+    public Field itemOwner;
     private final PacketType[] ENTITY_PACKETS = {
             ENTITY_EQUIPMENT, BED, ANIMATION, NAMED_ENTITY_SPAWN,
             COLLECT, SPAWN_ENTITY, SPAWN_ENTITY_LIVING, SPAWN_ENTITY_PAINTING, SPAWN_ENTITY_EXPERIENCE_ORB,
@@ -285,7 +286,9 @@ public class EntityHider {
                 // See if this packet should be cancelled
                 if (!isVisible(event.getPlayer(), entityID)) {
                     event.setCancelled(true);
+                    return;
                 }
+
                 PacketType type = event.getPacketType();
                 Player receiver = event.getPlayer();
 
@@ -318,89 +321,74 @@ public class EntityHider {
 
                     if (isInMatch && !isVisible) {
                         event.setCancelled(true);
+                        return;
                     }
-
                 } else if (type == NAMED_SOUND_EFFECT) {
                     String sound = event.getPacket().getStrings().read(0);
-                    if (!sound.equals("RANDOM.bow") && !sound.equals("RANDOM.bowhit") && !sound.equals("RANDOM.pop") && !sound.equals("game.player.hurt"))
-                        return;
+                    
+                    if (sound.equals("random.bow") || sound.equals("random.bowhit") || sound.equals("random.pop") || sound.equals("game.player.hurt")) {
+                        int x = event.getPacket().getIntegers().read(0);
+                        int y = event.getPacket().getIntegers().read(1);
+                        int z = event.getPacket().getIntegers().read(2);
 
-                    int x = event.getPacket().getIntegers().read(0);
-                    int y = event.getPacket().getIntegers().read(1);
-                    int z = event.getPacket().getIntegers().read(2);
+                        // TODO: 14/9/2022 Taken from Array old src, make it look better and possibly recode? (Just need to do more testing to test if this code actually works or not)
+                        boolean hasAnyPlayable = false;
+                        boolean hasAtleastOneMatch = false;
 
-                    boolean isVisible = false;
-                    boolean isInMatch = false;
-
-                    for ( Entity entity : receiver.getWorld().getEntitiesByClasses(Player.class, Projectile.class) ) {
-                        if (!(entity instanceof Player) && !(entity instanceof Projectile))
-                            continue;
-
-                        Player player = null;
-                        Location location = entity.getLocation();
-
-                        if (entity instanceof Player) {
-                            player = (Player) entity;
-                        }
-
-                        if (entity instanceof Projectile) {
-                            Projectile projectile=(Projectile) entity;
-                            if (projectile.getShooter() instanceof Player) {
-                                player = (Player) projectile.getShooter();
-                            }
-                        }
-
-                        if (player == null) continue;
-
-                        boolean one = (location.getX() * 8.0D) == x;
-                        boolean two = (location.getY() * 8.0D) == y;
-                        boolean three = (location.getZ() * 8.0D) == z;
-
-                        if (!one || !two || !three) continue;
-
-                        boolean pass = false;
-
-                        switch (sound) {
-                            case "RANDOM.bow": {
-                                ItemStack hand = player.getItemInHand();
-                                if (hand == null) break;
-                                if (hand.getType() == Material.POTION || hand.getType() == Material.BOW || hand.getType() == Material.ENDER_PEARL) {
-                                    pass = true;
+                        for (Entity entity : receiver.getWorld().getEntitiesByClasses(Player.class , Projectile.class)) {
+                            Player player;
+                            if (entity instanceof Player) {
+                                player = (Player) entity;
+                            } else if (entity instanceof Projectile) {
+                                Projectile projectile = (Projectile) entity;
+                                if (projectile.getShooter() instanceof Player) {
+                                    player = (Player) projectile.getShooter();
+                                } else {
+                                    continue;
                                 }
-                                break;
+                            } else {
+                                continue;
                             }
-                            case "RANDOM.bowhit": {
-                                if (entity instanceof Arrow) {
-                                    pass = true;
-                                    break;
+                            Location location = entity.getLocation();
+                            if(((int)(location.getX() * 8.0D) == x) && ((int)(location.getY() * 8.0D) == y) && ((int)(location.getZ() * 8.0D) == z)) {
+                                boolean pass = false;
+                                if(sound.equals("random.bow")) {
+                                    ItemStack hand = player.getItemInHand();
+                                    if(hand != null) {
+                                        if(hand.getType() == Material.POTION || hand.getType() ==  Material.BOW || hand.getType() == Material.ENDER_PEARL) {
+                                            pass = true;
+                                        }
+                                    }
+                                }else if(sound.equals("random.bowhit")) {
+                                    if(entity instanceof Arrow) {
+                                        pass = true;
+                                    }
+                                }else {
+                                    if(entity instanceof Player) {
+                                        pass = true;
+                                    }
                                 }
-                            }
-                            default: {
-                                if (entity instanceof Player) {
-                                    pass = true;
-                                    break;
+                                if(pass) {
+                                    hasAtleastOneMatch = true;
+                                    if(receiver.canSee(player)) {
+                                        hasAnyPlayable = true;
+                                    }
                                 }
                             }
                         }
-
-                        if (pass) {
-                            isInMatch = true;
-                            if (receiver.canSee(player))
-                                isVisible = true;
+                        if(hasAtleastOneMatch && !hasAnyPlayable) {
+                            event.setCancelled(true);
                         }
                     }
-
-                    if (isInMatch && !isVisible) {
-                        event.setCancelled(true);
-                    }
-
                 } else {
-                    net.minecraft.server.v1_8_R3.Entity entity = ((CraftWorld) receiver.getWorld()).getHandle().a(entityID);
+                    Entity entity = receiver.getWorld().getEntities().stream().filter(e -> e.getEntityId() == entityID).findFirst().orElse(null);
+
                     if (entity instanceof Player) {
                         Player player = (Player) entity;
                         if (receiver.canSee(player)) return;
 
                         event.setCancelled(true);
+                        return;
                     } else if (entity instanceof Projectile) {
                         Projectile projectile = (Projectile) entity;
                         if (!(projectile.getShooter() instanceof Player)) return;
@@ -409,14 +397,17 @@ public class EntityHider {
                         if (receiver.canSee(shooter)) return;
 
                         event.setCancelled(true);
+                        return;
                     } else if (entity instanceof Item) {
                         Item item = (Item) entity;
 
                         Player dropper = getPlayerWhoDropped(item);
                         if (dropper == null) return;
                         if (receiver.canSee(dropper)) return;
+                        if (PlayerProfile.get(receiver) != null && PlayerProfile.get(dropper) != null && PlayerProfile.get(receiver).getMatch() == PlayerProfile.get(dropper).getMatch()) return;
 
                         event.setCancelled(true);
+                        return;
                     }
                 }
             }
@@ -525,6 +516,18 @@ public class EntityHider {
             return Bukkit.getPlayer(name);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public void setPlayerWhoDropped(Item item, String owner) {
+        setPlayerWhoDropped(((CraftEntity)item).getHandle(), owner);
+    }
+
+    public void setPlayerWhoDropped(net.minecraft.server.v1_8_R3.Entity entity, String owner) {
+        try {
+            itemOwner.set(entity, owner);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 

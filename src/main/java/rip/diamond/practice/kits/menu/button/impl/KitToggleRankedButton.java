@@ -22,7 +22,7 @@ public class KitToggleRankedButton extends ToggleButton {
 
     @Override
     public String getDescription() {
-        return Language.KIT_BUTTON_TOGGLE_RANKED_LORE.toString((kit.isRanked() ? "已開啟" : "已關閉"));
+        return Language.KIT_BUTTON_TOGGLE_RANKED_LORE.toString((kit.isRanked() ? Language.ENABLED.toString() : Language.DISABLED.toString()));
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ArenaToggleButton extends ArenaButton {
 
     @Override
     public String getActionDescription() {
-        return !getArena().isFinishedSetup() ? Language.ARENA_EDIT_MENU_TOGGLE_ACTION_DESCRIPTION_NOT_FINISHED_SETUP.toString() : getArena().isEdited() ? Language.ARENA_EDIT_MENU_TOGGLE_ACTION_DESCRIPTION_NOT_FINISHED_SETUP.toString() : Language.ARENA_EDIT_MENU_TOGGLE_ACTION_DESCRIPTION.toString();
+        return !getArena().isFinishedSetup() ? Language.ARENA_EDIT_MENU_TOGGLE_ACTION_DESCRIPTION_NOT_FINISHED_SETUP.toString() : getArena().isEdited() ? Language.ARENA_EDIT_MENU_TOGGLE_ACTION_DESCRIPTION_NEED_RESTART.toString() : Language.ARENA_EDIT_MENU_TOGGLE_ACTION_DESCRIPTION.toString();
     }
 
     @Override

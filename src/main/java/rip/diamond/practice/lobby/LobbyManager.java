@@ -10,6 +10,7 @@ import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.PlayerUtil;
+import rip.diamond.practice.util.Tasks;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
 @Getter
@@ -46,22 +47,24 @@ public class LobbyManager {
     }
 
     public void sendToSpawnAndReset(Player player) {
-        PlayerProfile profile = PlayerProfile.get(player);
+        Tasks.run(()-> {
+            PlayerProfile profile = PlayerProfile.get(player);
 
-        if (profile == null) {
-            return;
-        }
+            if (profile == null) {
+                return;
+            }
 
-        PlayerUtil.reset(player);
+            PlayerUtil.reset(player);
 
-        profile.setMatch(null);
-        profile.setPlayerState(PlayerState.IN_LOBBY);
-        profile.setupItems();
-        profile.getCooldowns().forEach((name, cooldown) -> {
-            cooldown.cancelCountdown();
+            profile.setMatch(null);
+            profile.setPlayerState(PlayerState.IN_LOBBY);
+            profile.setupItems();
+            profile.getCooldowns().forEach((name, cooldown) -> {
+                cooldown.cancelCountdown();
+            });
+
+            teleport(player, spawnLocation);
         });
-
-        teleport(player, spawnLocation);
     }
 
 }
