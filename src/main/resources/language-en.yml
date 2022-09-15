@@ -766,6 +766,49 @@ match:
     not-online: "&cThe selected player is not online"
     target-wrong-state: "&cError: Selected player wrong state"
     not-same-match: "&cError: Incorrect match"
+  view-inventory-menu:
+    title: "Inventory of {0}"
+    open-message: "&fYou are now viewing &b{0}'s &finventory"
+    switch-inventory-button:
+      name: "&eView {0}'s inventory"
+    player-information-button:
+      name: "&bPlayer Information"
+      lore:
+        - ""
+        - "&fHearts: &b{0}/{1} &4❤"
+        - "&fHunger: &b{2}/20"
+        - ""
+    effects-button:
+      name: "&bPotion Effects"
+      no-effects-lore:
+        - ""
+        - "&fNo potion effects found"
+        - ""
+      effects-format: "&f{0} &7- &b{1}"
+    healing-button:
+      name: "Healing Count"
+      no-healing-lore:
+        - ""
+        - "&cNo Healing Method found"
+        - ""
+      healing-lore:
+        - ""
+        - "&b{0} &fhad &b{1} &f{2} left"
+        - ""
+    statistics-button:
+      name: "&bMatch Stats"
+      lore:
+        - ""
+        - "&fHits: &b{0}"
+        - "&fLongest Combo: &b{1}"
+        - "&fPotion Thrown: &b{2}"
+        - "&fPotion Missed: &b{3}"
+        - "&fPotion Accuracy: &b{4}%"
+        - ""
+  healing-method:
+    potion: "health potions"
+    soup: "soup"
+    golden-apple: "golden apple"
   new-round-start:
     message: "&aMatch started!"
     title: "&aMatch started!"

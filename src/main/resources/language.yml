@@ -759,6 +759,49 @@ match:
     not-online: "&c玩家不在線上"
     target-wrong-state: "&c指定玩家的狀態錯誤, 請重試"
     not-same-match: "&c錯誤: 戰鬥不一樣"
+  view-inventory-menu:
+    title: "{0} 的物品欄"
+    open-message: "&f你正在觀看 &b{0} &f的物品欄"
+    switch-inventory-button:
+      name: "&e轉換至 {0} 的物品欄"
+    player-information-button:
+      name: "&b玩家資訊"
+      lore:
+        - ""
+        - "&f血量: &b{0}/{1} &4❤"
+        - "&f飢餓度: &b{2}/20"
+        - ""
+    effects-button:
+      name: "&b藥水效果"
+      no-effects-lore:
+        - ""
+        - "&f沒有任何藥水效果"
+        - ""
+      effects-format: "&f{0} &7- &b{1}"
+    healing-button:
+      name: "治療物品資訊"
+      no-healing-lore:
+        - ""
+        - "&c未能找到任何治療物品"
+        - ""
+      healing-lore:
+        - ""
+        - "&b{0} &f還有 &b{1} &f個{2}"
+        - ""
+    statistics-button:
+      name: "&b戰鬥統計"
+      lore:
+        - ""
+        - "&f擊中次數: &b{0}"
+        - "&f最高連擊: &b{1}"
+        - "&f拋擲藥水次數: &b{2}"
+        - "&f錯過的藥水: &b{3}"
+        - "&f拋擲藥水準確度: &b{4}%"
+        - ""
+  healing-method:
+    potion: "回復藥水"
+    soup: "蘑菇湯"
+    golden-apple: "金蘋果"
   new-round-start:
     message: "&a戰鬥開始!"
     title: "&a戰鬥開始!"

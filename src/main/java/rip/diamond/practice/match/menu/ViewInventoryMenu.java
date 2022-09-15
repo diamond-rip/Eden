@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.match.PostMatchInventory;
 import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.menu.Button;
@@ -19,7 +20,7 @@ public class ViewInventoryMenu extends Menu {
 
 	@Override
 	public String getTitle(Player player) {
-		return info.getOwner() + " 的物品欄";
+		return Language.MATCH_VIEW_INVENTORY_MENU_TITLE.toString(info.getOwner());
 	}
 
 	@Override
@@ -68,14 +69,14 @@ public class ViewInventoryMenu extends Menu {
 
 	@Override
 	public void onOpen(Player player) {
-		player.sendMessage(CC.WHITE + "你正在觀看 " + CC.AQUA + info.getOwner() + CC.WHITE + " 的物品欄");
+		Language.MATCH_VIEW_INVENTORY_MENU_OPEN_MESSAGE.sendMessage(player, info.getOwner());
 	}
 
 	private class SwitchInventoryButton extends Button {
 		@Override
 		public ItemStack getButtonItem(Player player) {
 			return new ItemBuilder(Material.LEVER)
-					.name(CC.YELLOW + "轉換至 " + info.getSwitchTo() + " 的物品欄")
+					.name(Language.MATCH_VIEW_INVENTORY_MENU_SWITCH_INVENTORY_BUTTON_NAME.toString(info.getSwitchTo()))
 					.build();
 		}
 
@@ -91,13 +92,8 @@ public class ViewInventoryMenu extends Menu {
 			return new ItemBuilder(Material.SKULL_ITEM)
 					.durability(3)
 					.headTexture(info.getOwnerHeadValue())
-					.name(CC.AQUA + "玩家資訊")
-					.lore(
-							"",
-							CC.WHITE + "血量: " + CC.AQUA + info.getHealth() + "/" + info.getMaxHealth() + " " + CC.DARK_RED + Symbols.HEALTH,
-							CC.WHITE + "飢餓度: " + CC.AQUA + info.getHunger() + "/20",
-							""
-					)
+					.name(Language.MATCH_VIEW_INVENTORY_MENU_PLAYER_INFORMATION_BUTTON_NAME.toString())
+					.lore(Language.MATCH_VIEW_INVENTORY_MENU_PLAYER_INFORMATION_BUTTON_LORE.toStringList(info.getHealth(), info.getMaxHealth(), info.getHunger()))
 					.build();
 		}
 	}
@@ -106,16 +102,16 @@ public class ViewInventoryMenu extends Menu {
 	private class EffectsButton extends Button {
 		@Override
 		public ItemStack getButtonItem(Player player) {
-			ItemBuilder builder = new ItemBuilder(Material.POTION).name(CC.AQUA + "藥水效果");
+			ItemBuilder builder = new ItemBuilder(Material.POTION).name(Language.MATCH_VIEW_INVENTORY_MENU_EFFECTS_BUTTON_NAME.toString());
 
 			if (info.getEffects().isEmpty()) {
-				builder.lore("", CC.WHITE + "沒有任何藥水效果", "");
+				builder.lore(Language.MATCH_VIEW_INVENTORY_MENU_EFFECTS_BUTTON_NO_EFFECTS_LORE.toStringList());
 			} else {
 				List<String> lore = new ArrayList<>();
 				info.getEffects().forEach(effect -> {
 					String name = WordUtil.toCapital(effect.getType().getName().replace("_", " ")) + " " + (effect.getAmplifier() + 1);
-					String duration = " (" + TimeUtil.millisToTimer((effect.getDuration() / 20) * 1000L) + ")";
-					lore.add(CC.YELLOW + name + duration);
+					String duration = TimeUtil.millisToTimer((effect.getDuration() / 20) * 1000L);
+					lore.add(Language.MATCH_VIEW_INVENTORY_MENU_EFFECTS_BUTTON_EFFECTS_FORMAT.toString(name, duration));
 				});
 				lore.add(0, "");
 				lore.add("");
@@ -130,8 +126,8 @@ public class ViewInventoryMenu extends Menu {
 		@Override
 		public ItemStack getButtonItem(Player player) {
 			return new ItemBuilder(info.getHealingMethod() == null ? new ItemBuilder(Material.STAINED_GLASS_PANE).durability(14).build() : info.getHealingMethod().getItem().clone())
-					.name(CC.AQUA + "治療物品資訊")
-					.lore("", info.getHealingMethod() == null ? CC.RED + "未能找到任何治療物品" : CC.AQUA + info.getOwner() + CC.WHITE + " 還有 " + CC.AQUA + info.getRemainingHealing() + CC.WHITE + " 個" + info.getHealingMethod().getName(), "")
+					.name(Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NAME.toString())
+					.lore(info.getHealingMethod() == null ? Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NO_HEALING_LORE.toStringList() : Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_HEALING_LORE.toStringList(info.getOwner(), info.getRemainingHealing(), info.getHealingMethod().getName()))
 					.build();
 		}
 	}
@@ -140,16 +136,8 @@ public class ViewInventoryMenu extends Menu {
 		@Override
 		public ItemStack getButtonItem(Player player) {
 			return new ItemBuilder(Material.PAPER)
-					.name("&b戰鬥統計")
-					.lore(Arrays.asList(
-							"",
-							CC.WHITE + "擊中次數: " + CC.AQUA + info.getHits(),
-							CC.WHITE + "最高連擊: " + CC.AQUA + info.getLongestCombo(),
-							CC.WHITE + "拋擲藥水次數: " + CC.AQUA + info.getPotionsThrown(),
-							CC.WHITE + "錯過的藥水: " + CC.AQUA + info.getPotionsMissed(),
-							CC.WHITE + "拋擲藥水準確度: " + CC.AQUA + info.getPotionAccuracy() + "%",
-							""
-					))
+					.name(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_NAME.toString())
+					.lore(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_LORE.toStringList(info.getHits(), info.getLongestCombo(), info.getPotionsThrown(), info.getPotionsMissed(), info.getPotionAccuracy()))
 					.build();
 		}
 	}

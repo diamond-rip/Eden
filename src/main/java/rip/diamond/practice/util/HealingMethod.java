@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.Language;
 
 @Getter
 @AllArgsConstructor
 public enum HealingMethod {
-    POTION("回復藥水", new ItemBuilder(Material.POTION).durability(16421).build().clone()),
-    SOUP("蘑菇湯", new ItemStack(Material.MUSHROOM_SOUP).clone()),
-    GOLDEN_APPLE("金蘋果", new ItemStack(Material.GOLDEN_APPLE).clone());
+    POTION(Language.MATCH_HEALING_METHOD_POTION.toString(), new ItemBuilder(Material.POTION).durability(16421).build().clone()),
+    SOUP(Language.MATCH_HEALING_METHOD_SOUP.toString(), new ItemStack(Material.MUSHROOM_SOUP).clone()),
+    GOLDEN_APPLE(Language.MATCH_HEALING_METHOD_GOLDEN_APPLE.toString(), new ItemStack(Material.GOLDEN_APPLE).clone());
 
     private final String name;
     private final ItemStack item;
