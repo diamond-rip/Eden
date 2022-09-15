@@ -779,7 +779,7 @@ match:
         - ""
       effects-format: "&f{0} &7- &b{1}"
     healing-button:
-      name: "治療物品資訊"
+      name: "&b治療物品資訊"
       no-healing-lore:
         - ""
         - "&c未能找到任何治療物品"

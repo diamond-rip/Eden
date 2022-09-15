@@ -786,7 +786,7 @@ match:
         - ""
       effects-format: "&f{0} &7- &b{1}"
     healing-button:
-      name: "Healing Count"
+      name: "&bHealing Count"
       no-healing-lore:
         - ""
         - "&cNo Healing Method found"
