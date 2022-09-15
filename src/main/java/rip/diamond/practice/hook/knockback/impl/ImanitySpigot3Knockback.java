@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.imanity.imanityspigot.knockback.Knockback;
 import rip.diamond.practice.Language;
-import rip.diamond.practice.hook.knockback.KnockbackController;
+import rip.diamond.practice.hook.knockback.SpigotController;
 
-public class ImanitySpigot3Knockback extends KnockbackController {
+public class ImanitySpigot3Knockback extends SpigotController {
 
     @Override
     public void applyKnockback(Player player, String knockbackName) {

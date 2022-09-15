@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftItem;
@@ -242,6 +243,23 @@ public class Util {
         if (loc.getZ() >= Math.ceil(prevZ)) {
             loc.setZ(Math.ceil(prevZ - 0.01));
         }
+    }
+
+    public static List<Block> getBlocksAroundCenter(Location loc, int radius) {
+        List<Block> blocks = new ArrayList<>();
+
+        for (int x = (loc.getBlockX() - radius); x <= (loc.getBlockX() + radius); x++) {
+            for (int y = (loc.getBlockY() - radius); y <= (loc.getBlockY() + radius); y++) {
+                for (int z = (loc.getBlockZ() - radius); z <= (loc.getBlockZ() + radius); z++) {
+                    Location l = new Location(loc.getWorld(), x, y, z);
+                    if (l.distance(loc) <= radius) {
+                        blocks.add(l.getBlock());
+                    }
+                }
+            }
+        }
+
+        return blocks;
     }
 
 }

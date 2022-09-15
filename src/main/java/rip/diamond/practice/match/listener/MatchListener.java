@@ -8,8 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -31,6 +30,7 @@ import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.kits.KitLoadout;
 import rip.diamond.practice.match.Match;
+import rip.diamond.practice.match.MatchEntity;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchType;
 import rip.diamond.practice.match.impl.TeamMatch;
@@ -407,7 +407,21 @@ public class MatchListener implements Listener {
                         Language.MATCH_USE_AGAIN_ENDER_PEARL.sendMessage(player, time);
                         event.setCancelled(true);
                     } else {
-                        profile.getCooldowns().put("enderpearl", new Cooldown(16));
+                        profile.getCooldowns().put("enderpearl", new Cooldown(16) {
+                            @Override
+                            public void run() {
+                                if (isExpired()) {
+                                    Language.MATCH_CAN_USE_ENDERPEARL.sendMessage(player);
+                                    if (player.getLevel() > 0) player.setLevel(0);
+                                    if (player.getExp() > 0.0F) player.setExp(0.0F);
+                                } else {
+                                    int seconds = Math.round(profile.getCooldowns().get("enderpearl").getRemaining()) / 1000;
+
+                                    player.setLevel(seconds);
+                                    player.setExp(profile.getCooldowns().get("enderpearl").getRemaining() / 16000F);
+                                }
+                            }
+                        });
                     }
                 } else if (itemStack.getType() == Material.BOOK || itemStack.getType() == Material.ENCHANTED_BOOK) {
                     net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(itemStack);
@@ -661,6 +675,108 @@ public class MatchListener implements Listener {
             }
             block.setType(Material.AIR);
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPotionSplashEvent(PotionSplashEvent event) {
+        if (event.getPotion().getShooter() instanceof Player) {
+            Player player = (Player) event.getEntity().getShooter();
+            PlayerProfile profile = PlayerProfile.get(player);
+            //PracticePlayer may be null because player left the server but the potion still in there
+            if (profile == null) {
+                return;
+            }
+            if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
+                Match match = profile.getMatch();
+                if (match.getState() != MatchState.FIGHTING) {
+                    return;
+                }
+                if (!match.getTeamPlayer(player).isAlive() || match.getTeamPlayer(player).isRespawning()) {
+                    return;
+                }
+                if (event.getIntensity(player) <= 0.5D) {
+                    match.getTeamPlayer(player).addPotionsMissed();
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onProjectileLaunch(ProjectileLaunchEvent event) {
+        Projectile projectile = event.getEntity();
+        if (projectile.getShooter() instanceof Player) {
+            Player player = (Player) projectile.getShooter();
+            PlayerProfile profile = PlayerProfile.get(player);
+
+            if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
+                Match match = profile.getMatch();
+                if (match.getState() != MatchState.FIGHTING) {
+                    event.setCancelled(true);
+                    return;
+                }
+                if (!match.getTeamPlayer(player).isAlive() || match.getTeamPlayer(player).isRespawning()) {
+                    event.setCancelled(true);
+                    return;
+                }
+                match.getEntities().add(new MatchEntity(projectile));
+                if (projectile instanceof ThrownPotion) {
+                    match.getTeamPlayer(player).addPotionsThrown();
+                } else if (projectile instanceof Arrow && match.getKit().getGameRules().isBridge()) {
+                    profile.getCooldowns().put("arrow", new Cooldown(3500L) {
+                        @Override
+                        public void run() {
+                            if (isExpired()) {
+                                int slot = -1;
+                                //No KitLoadout is received. This will be null when a player didn't select a kit
+                                //Should not happen anymore because kitLoadout is now automatically applied, but just in-case
+                                if (match.getTeamPlayer(player).getKitLoadout() != null) {
+                                    for (int i = 0; i < 36; i++) {
+                                        if (match.getTeamPlayer(player).getKitLoadout().getContents()[i] != null && match.getTeamPlayer(player).getKitLoadout().getContents()[i].getType() == Material.ARROW) slot = i;
+                                    }
+                                }
+                                if (slot == -1 || player.getInventory().getItem(slot) != null) {
+                                    player.getInventory().addItem(new ItemStack(Material.ARROW));
+                                } else {
+                                    player.getInventory().setItem(slot, new ItemStack(Material.ARROW));
+                                }
+                                if (player.getLevel() > 0) player.setLevel(0);
+                                if (player.getExp() > 0.0F) player.setExp(0.0F);
+                            } else {
+                                int seconds = Math.round(profile.getCooldowns().get("arrow").getRemaining()) / 1000;
+
+                                player.setLevel(seconds);
+                                player.setExp(profile.getCooldowns().get("arrow").getRemaining() / 3500F);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onProjectileHitEvent(ProjectileHitEvent event) {
+        Projectile projectile = event.getEntity();
+        if (event.getEntityType() == EntityType.ARROW) {
+            projectile.remove();
+        }
+        if (projectile.getShooter() instanceof Player) {
+            Player player = (Player) projectile.getShooter();
+            PlayerProfile profile = PlayerProfile.get(player);
+            if (profile == null) {
+                return;
+            }
+            if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
+                Match match = profile.getMatch();
+                if (match.getState() != MatchState.FIGHTING) {
+                    return;
+                }
+                if (!match.getTeamPlayer(player).isAlive() || match.getTeamPlayer(player).isRespawning()) {
+                    return;
+                }
+                match.getEntities().removeIf(matchEntity -> matchEntity.getEntity().getEntityId() == projectile.getEntityId());
+            }
         }
     }
 

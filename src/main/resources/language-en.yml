@@ -699,6 +699,7 @@ match:
   received-kit-loadout-because-timeout: "No selected kit loadout. You have been automatically equipped &bdefault &fkit loadout"
   cannot-build-outside: "&cCannot build outside of the arena"
   cannot-break-own-bed: "&cYou cannot break your own bed!"
+  can-use-enderpearl: "&aYou can now use Ender Pearl again."
   bed-break:
     title: "&cBed Destroyed！"
     subtitle: "&fYou will not respawn after die！"

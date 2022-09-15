@@ -34,3 +34,6 @@ match:
   respawn-time:
     bed: 3
     default: 5
+  bridge:
+    portal-protect-radius: 3
+    spawn-protect-distance: 5

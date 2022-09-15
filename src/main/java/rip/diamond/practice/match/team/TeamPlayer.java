@@ -55,6 +55,14 @@ public class TeamPlayer {
 		Tasks.run(()-> getPlayer().teleport(location));
 	}
 
+	public void addPotionsThrown() {
+		potionsThrown++;
+	}
+
+	public void addPotionsMissed() {
+		potionsMissed++;
+	}
+
 	public void handleHit(double damage) {
 		hits++;
 		combo++;

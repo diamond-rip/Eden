@@ -84,10 +84,10 @@ public class ProfileListener implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
 
-        /*if (!Checker.canDamage(player)) {
+        if (profile.getPlayerState() != PlayerState.IN_MATCH) {
             event.setCancelled(true);
             //We don't stop the process here, continue the check
-        }*/
+        }
 
         ItemStack item = event.getItem();
         if (item == null) {

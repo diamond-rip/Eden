@@ -1,9 +1,9 @@
 package rip.diamond.practice.hook.knockback.impl;
 
 import org.bukkit.entity.Player;
-import rip.diamond.practice.hook.knockback.KnockbackController;
+import rip.diamond.practice.hook.knockback.SpigotController;
 
-public class DefaultKnockback extends KnockbackController {
+public class DefaultSpigot extends SpigotController {
     @Override
     public String getPluginName() {
         return "";

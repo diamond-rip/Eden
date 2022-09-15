@@ -1,7 +1,11 @@
 package rip.diamond.practice.profile.task;
 
 import rip.diamond.practice.profile.PlayerProfile;
+import rip.diamond.practice.util.Cooldown;
 import rip.diamond.practice.util.TaskTicker;
+
+import java.util.Iterator;
+import java.util.Map;
 
 public class ProfileCooldownTask extends TaskTicker {
     public ProfileCooldownTask() {
@@ -11,7 +15,17 @@ public class ProfileCooldownTask extends TaskTicker {
     @Override
     public void onRun() {
         for (PlayerProfile profile : PlayerProfile.getProfiles().values()) {
-            profile.getCooldowns().entrySet().removeIf(entry -> entry.getValue().isExpired());
+            Iterator<Map.Entry<String, Cooldown>> cooldownIterator = profile.getCooldowns().entrySet().iterator();
+            while (cooldownIterator.hasNext()) {
+                Cooldown cooldown = cooldownIterator.next().getValue();
+                //expire == 0 means the cooldown is cancelled by other stuff
+                if (cooldown.getExpire() != 0) {
+                    cooldown.run();
+                }
+                if (cooldown.isExpired()) {
+                    cooldownIterator.remove();
+                }
+            }
         }
     }
 

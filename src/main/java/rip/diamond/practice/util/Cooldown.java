@@ -46,12 +46,16 @@ public class Cooldown {
         return (int) getRemaining() / 1000;
     }
 
-    public String getMiliSecondsLeft() {
+    public String getMilliSecondsLeft() {
         return formatSeconds(this.getRemaining());
     }
 
     public void cancelCountdown() {
         this.expire = 0;
+    }
+
+    public void run() {
+
     }
 }
 

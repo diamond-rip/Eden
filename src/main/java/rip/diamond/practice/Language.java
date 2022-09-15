@@ -305,6 +305,7 @@ public enum Language {
     MATCH_RECEIVED_KIT_LOADOUT_BECAUSE_TIMEOUT("match.received-kit-loadout-because-timeout"),
     MATCH_CANNOT_BUILD_OUTSIDE("match.cannot-build-outside"),
     MATCH_CANNOT_BREAK_OWN_BED("match.cannot-break-own-bed"),
+    MATCH_CAN_USE_ENDERPEARL("match.can-use-enderpearl"),
     MATCH_BED_BREAK_TITLE("match.bed-break.title"),
     MATCH_BED_BREAK_SUBTITLE("match.bed-break.subtitle"),
     MATCH_BED_BREAK_MESSAGE("match.bed-break.message"),

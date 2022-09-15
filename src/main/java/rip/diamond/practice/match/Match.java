@@ -113,7 +113,7 @@ public abstract class Match {
             }
 
             //Set up the knockback
-            plugin.getHookManager().getKnockbackController().applyKnockback(player, kit.getName());
+            plugin.getHookManager().getSpigotController().applyKnockback(player, kit.getName());
         }
 
         //Teleport players into their team spawn
@@ -307,6 +307,20 @@ public abstract class Match {
                 case WOOD:
                 case ENDER_STONE:
                     return false;
+            }
+        }
+        if (kit.getGameRules().isBridge()) {
+            long count = Util.getBlocksAroundCenter(location, plugin.getConfigFile().getInt("match.bridge.portal-protect-radius")).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
+            if (count > 0) {
+                return true;
+            }
+            for (Team team : getTeams()) {
+                if (location.distance(team.getSpawnLocation()) < plugin.getConfigFile().getInt("match.bridge.spawn-protect-distance")) {
+                    return true;
+                }
+            }
+            if (location.getBlock().getType() == Material.STAINED_CLAY && (location.getBlock().getData() == 14 || location.getBlock().getData() == 11)) {
+                return false;
             }
         }
         if (!isPlacing) {
