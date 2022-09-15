@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public class Checker {
 
-    public static boolean isPlaceholderAPIEnabled() {
-        return Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+    public static boolean isPluginEnabled(String pluginName) {
+        return Bukkit.getPluginManager().getPlugin(pluginName) != null;
     }
 
     public static boolean isInteger(String index) {

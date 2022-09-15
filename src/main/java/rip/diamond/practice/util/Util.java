@@ -200,7 +200,9 @@ public class Util {
                 if (o.isOnline()) {
                     PlayerConnection connection = ((CraftPlayer) o).getHandle().playerConnection;
                     connection.sendPacket(removePlayer);
-                    connection.sendPacket(addRealPlayer);
+                    if (cp.isOnline()) {
+                        connection.sendPacket(addRealPlayer);
+                    }
                 }
             }
         }, 1L);

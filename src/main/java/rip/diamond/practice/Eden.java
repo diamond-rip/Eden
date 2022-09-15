@@ -61,7 +61,6 @@ import java.util.Arrays;
 public class Eden extends JavaPlugin {
 
     /* TODO LIST
-     * - Lunar Client API support
      * - Event
      * - Clan
      */

@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = getGitHash()
+version = "1.0-BETA-" + getGitHash()
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -58,7 +58,7 @@ dependencies {
     compileOnly 'me.clip:placeholderapi:2.11.2' //PlaceholderAPI
     compileOnly 'org.imanity.imanityspigot:api:2021.11.1b1' //ImanitySpigot API
     compileOnly 'org.imanity.paperspigot:paper1.8.8:1.8.8' //PaperSpigot
-    compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
+    compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0' //ProtocolLib
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'

@@ -24,7 +24,7 @@ public class HookManager {
 
         spigotController = findKnockbackController();
 
-        if (Checker.isPlaceholderAPIEnabled()) {
+        if (Checker.isPluginEnabled("PlaceholderAPI")) {
             new EdenPlaceholderExpansion(plugin).register();
         }
     }
@@ -45,5 +45,7 @@ public class HookManager {
         Common.log(Language.HOOK_CANNOT_FIND_CUSTOM_SPIGOT.toString());
         return new DefaultSpigot();
     }
+
+
 
 }

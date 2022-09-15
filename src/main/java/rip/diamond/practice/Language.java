@@ -522,7 +522,7 @@ public enum Language {
         }
         if (player != null) {
             str = Eden.INSTANCE.getPlaceholder().translateScoreboard(player, str);
-            if (Checker.isPlaceholderAPIEnabled()) {
+            if (Checker.isPluginEnabled("PlaceholderAPI")) {
                 str = PlaceholderAPI.setPlaceholders(player, str);
             }
         }
@@ -544,7 +544,7 @@ public enum Language {
             }
             if (player != null) {
                 str = Eden.INSTANCE.getPlaceholder().translateScoreboard(player, str);
-                if (Checker.isPlaceholderAPIEnabled()) {
+                if (Checker.isPluginEnabled("PlaceholderAPI")) {
                     str = PlaceholderAPI.setPlaceholders(player, str);
                 }
             }
