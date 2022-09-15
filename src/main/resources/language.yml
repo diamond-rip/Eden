@@ -356,7 +356,7 @@ duel:
     - "&c指令用法:"
     - "&c/duel <玩家名稱> - 跟一位玩家決鬥/跟對方的隊伍決鬥"
     - "&c/duel accept <UUID> - 接受玩家的決鬥邀請"
-  choose-area-menu:
+  choose-arena-menu:
     name: "選擇場地"
     button:
       name: "&b{0}"

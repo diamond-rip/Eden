@@ -361,7 +361,7 @@ duel:
     - "&cCommand usage:"
     - "&c/duel <Player ID> - Duel a player/party"
     - "&c/duel accept <UUID> - Accept a duel"
-  choose-area-menu:
+  choose-arena-menu:
     name: "Select arena"
     button:
       name: "&b{0}"
