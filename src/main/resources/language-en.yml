@@ -565,7 +565,7 @@ kit:
     toggle-ranked:
       name: "&b&lRanked mode"
       description: "&7Current status: {0}"
-      success: "&fChanged 7b{0} &f's ranked mode to &b{1}"
+      success: "&fChanged &b{0} &f's ranked mode to &b{1}"
   kit-detail-menu:
     title: "Editing {0}..."
   kit-preview-menu:
@@ -614,6 +614,9 @@ kit:
     point:
       rules: "Point System"
       description: "Setting for match to apply a point system"
+    ranked-point:
+      rules: "Point System (Ranked)"
+      description: "Setting for ranked match to apply a point system"
     reset-arena-when-get-point:
       rules: "Reset Arena After Get A Point"
       description: "Settings for match to reset arena after player get a point"

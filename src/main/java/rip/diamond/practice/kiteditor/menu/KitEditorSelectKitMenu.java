@@ -24,7 +24,7 @@ public class KitEditorSelectKitMenu extends Menu {
 	public Map<Integer, Button> getButtons(Player player) {
 		Map<Integer, Button> buttons = new HashMap<>();
 
-		Kit.getKits().forEach(kit -> {
+		Kit.getKits().stream().filter(kit -> kit.getGameRules().isReceiveKitLoadoutBook()).forEach(kit -> {
 			if (kit.isEnabled()) {
 				buttons.put(buttons.size(), new Button() {
 					@Override

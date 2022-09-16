@@ -269,6 +269,8 @@ public enum Language {
     KIT_GAME_RULES_FOOD_LEVEL_CHANGE_DESCRIPTION("kit.game-rules.food-level-change.description"),
     KIT_GAME_RULES_POINT_RULES("kit.game-rules.point.rules"),
     KIT_GAME_RULES_POINT_DESCRIPTION("kit.game-rules.point.description"),
+    KIT_GAME_RULES_RANKED_POINT_RULES("kit.game-rules.ranked-point.rules"),
+    KIT_GAME_RULES_RANKED_POINT_DESCRIPTION("kit.game-rules.ranked-point.description"),
     KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_RULES("kit.game-rules.reset-arena-when-get-point.rules"),
     KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_DESCRIPTION("kit.game-rules.reset-arena-when-get-point.description"),
     KIT_GAME_RULES_BUILD_RULES("kit.game-rules.build.rules"),

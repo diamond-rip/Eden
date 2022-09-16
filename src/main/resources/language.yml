@@ -609,6 +609,9 @@ kit:
     point:
       rules: "分數機制"
       description: "設置該職業是否應該使用分數機制"
+    ranked-point:
+      rules: "分數機制 (排位限定)"
+      description: "設置該職業是否應該在排位賽使用分數機制"
     reset-arena-when-get-point:
       rules: "獲取分數後重置場地"
       description: "設置該職業是否在玩家獲取分數後重置場地"

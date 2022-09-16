@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.match.Match;
+import rip.diamond.practice.queue.QueueType;
 
 @Setter
 public class KitGameRules {
@@ -21,6 +22,7 @@ public class KitGameRules {
 	@Getter private boolean showHealth = true;
 	@Getter private boolean foodLevelChange = true;
 	private boolean point = false;
+	private boolean rankedPoint = false;
 	@Getter private boolean resetArenaWhenGetPoint = false;
 	@Getter private boolean build = false;
 	@Getter private boolean startFreeze = false;
@@ -37,11 +39,11 @@ public class KitGameRules {
 	public boolean isPoint(Match match) {
 		switch (match.getMatchType()) {
 			case SOLO:
-				return point;
+				return (point && match.getQueueType() != QueueType.RANKED) || (rankedPoint && match.getQueueType() == QueueType.RANKED);
 			case SPLIT:
 				//Need to check if the GameRule contains deathOnWater. This is to prevent if the GameRule contains point and the kit is sumo.
 				//If it is sumo, then we should not display the point out because point should not be in sumo TeamMatch
-				return point && !match.getKit().getGameRules().isDeathOnWater();
+				return ((point && match.getQueueType() != QueueType.RANKED) || (rankedPoint && match.getQueueType() == QueueType.RANKED)) && !match.getKit().getGameRules().isDeathOnWater();
 			case FFA:
 				return false;
 		}
@@ -63,6 +65,7 @@ public class KitGameRules {
 		showHealth(Language.KIT_GAME_RULES_SHOW_HEALTH_RULES.toString(), Language.KIT_GAME_RULES_SHOW_HEALTH_DESCRIPTION.toString()),
 		foodLevelChange(Language.KIT_GAME_RULES_FOOD_LEVEL_CHANGE_RULES.toString(), Language.KIT_GAME_RULES_FOOD_LEVEL_CHANGE_DESCRIPTION.toString()),
 		point(Language.KIT_GAME_RULES_POINT_RULES.toString(), Language.KIT_GAME_RULES_POINT_DESCRIPTION.toString()),
+		rankedPoint(Language.KIT_GAME_RULES_RANKED_POINT_RULES.toString(), Language.KIT_GAME_RULES_RANKED_POINT_DESCRIPTION.toString()),
 		resetArenaWhenGetPoint(Language.KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_RULES.toString(), Language.KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_DESCRIPTION.toString()),
 		build(Language.KIT_GAME_RULES_BUILD_RULES.toString(), Language.KIT_GAME_RULES_BUILD_DESCRIPTION.toString()),
 		startFreeze(Language.KIT_GAME_RULES_START_FREEZE_RULES.toString(), Language.KIT_GAME_RULES_START_FREEZE_DESCRIPTION.toString()),

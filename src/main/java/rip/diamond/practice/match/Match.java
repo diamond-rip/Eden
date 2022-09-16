@@ -205,7 +205,7 @@ public abstract class Match {
             ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutSpawnEntityWeather(lightning));
             player.playSound(deadPlayer.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
         }
-        Util.playDeathAnimation(deadPlayer, getPlayersAndSpectators());
+        Util.playDeathAnimation(deadPlayer, getPlayersAndSpectators().stream().filter(player -> player != deadPlayer).collect(Collectors.toList()));
 
         //Check if there's only one team survives. If yes, end the match
         if (canEnd()) {
