@@ -74,7 +74,7 @@ public class PartyFightManager {
                 Team team2 = new Team(new TeamPlayer(players.get(1)));
 
                 players.stream().filter(player -> !team1.containsPlayer(player) && !team2.containsPlayer(player)).forEach(player -> {
-                    if (team1.getTeamPlayers().size() > team2.getTeamPlayers().size()) {
+                    if (team1.getTeamPlayers().size() < team2.getTeamPlayers().size()) {
                         team1.getTeamPlayers().add(new TeamPlayer(player));
                     } else {
                         team2.getTeamPlayers().add(new TeamPlayer(player));
