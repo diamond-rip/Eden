@@ -782,7 +782,7 @@ public class MatchListener implements Listener {
         TeamPlayer teamPlayer = match.getTeamPlayer(player);
         Kit kit = match.getKit();
 
-        if (kit.getGameRules().isBed() || kit.getGameRules().isPoint()) {
+        if (kit.getGameRules().isBed() || kit.getGameRules().isPoint(match)) {
             match.getTeam(player).dye(teamPlayer);
         }
         player.updateInventory();

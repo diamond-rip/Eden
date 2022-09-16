@@ -4,35 +4,49 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.match.Match;
 
-@Getter
 @Setter
 public class KitGameRules {
 
-	private boolean receiveKitLoadoutBook = true;
-	private boolean deathOnWater = false;
-	private boolean boxing = false;
-	private boolean bed = false;
-	private boolean goal = false;
-	private boolean projectileOnly = false;
-	private boolean hypixelUHC = false;
-	private boolean spleef = false;
-	private boolean healthRegeneration = true;
-	private boolean showHealth = true;
-	private boolean foodLevelChange = true;
+	@Getter private boolean receiveKitLoadoutBook = true;
+	@Getter private boolean deathOnWater = false;
+	@Getter private boolean boxing = false;
+	@Getter private boolean bed = false;
+	@Getter private boolean goal = false;
+	@Getter private boolean projectileOnly = false;
+	@Getter private boolean hypixelUHC = false;
+	@Getter private boolean spleef = false;
+	@Getter private boolean healthRegeneration = true;
+	@Getter private boolean showHealth = true;
+	@Getter private boolean foodLevelChange = true;
 	private boolean point = false;
-	private boolean resetArenaWhenGetPoint = false;
-	private boolean build = false;
-	private boolean startFreeze = false;
-	private boolean noDamage = false;
-	private boolean instantGapple = false;
-	private boolean enderPearlCooldown = false;
-	private boolean clearBlock = false;
-	private boolean dropItemWhenDie = true;
-	private boolean noFallDamage = false;
-	private boolean giveBackArrow = false;
+	@Getter private boolean resetArenaWhenGetPoint = false;
+	@Getter private boolean build = false;
+	@Getter private boolean startFreeze = false;
+	@Getter private boolean noDamage = false;
+	@Getter private boolean instantGapple = false;
+	@Getter private boolean enderPearlCooldown = false;
+	@Getter private boolean clearBlock = false;
+	@Getter private boolean dropItemWhenDie = true;
+	@Getter private boolean noFallDamage = false;
+	@Getter private boolean giveBackArrow = false;
 
-	private int respawnTime = 5;
+	@Getter private int respawnTime = 5;
+
+	public boolean isPoint(Match match) {
+		switch (match.getMatchType()) {
+			case SOLO:
+				return point;
+			case SPLIT:
+				//Need to check if the GameRule contains deathOnWater. This is to prevent if the GameRule contains point and the kit is sumo.
+				//If it is sumo, then we should not display the point out because point should not be in sumo TeamMatch
+				return point && !match.getKit().getGameRules().isDeathOnWater();
+			case FFA:
+				return false;
+		}
+		return false;
+	}
 
 	@Getter
 	@AllArgsConstructor

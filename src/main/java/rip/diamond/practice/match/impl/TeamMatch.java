@@ -118,10 +118,7 @@ public class TeamMatch extends Match {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_TEAMS_BOXING.toStringList(player));
             } else if (getKit().getGameRules().isBed()) {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_TEAMS_BED.toStringList(player));
-            }
-            //Need to check if the GameRule contains deathOnWater. This is to prevent if the GameRule contains point and the kit is sumo.
-            //If it is sumo, then we should not display the point out because point should not be in sumo TeamMatch
-            else if (getKit().getGameRules().isPoint() && !getKit().getGameRules().isDeathOnWater()) {
+            } else if (getKit().getGameRules().isPoint(this)) {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_TEAMS_POINT.toStringList(player));
             } else {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_TEAMS_FIGHTING.toStringList(player));
@@ -141,7 +138,7 @@ public class TeamMatch extends Match {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_TEAMS_BOXING.toStringList(player));
             } else if (getKit().getGameRules().isBed()) {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_TEAMS_BED.toStringList(player));
-            } else if (getKit().getGameRules().isPoint()) {
+            } else if (getKit().getGameRules().isPoint(this)) {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_TEAMS_POINT.toStringList(player));
             } else {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_TEAMS_FIGHTING.toStringList(player));

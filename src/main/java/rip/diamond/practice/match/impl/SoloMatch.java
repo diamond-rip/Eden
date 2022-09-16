@@ -138,7 +138,7 @@ public class SoloMatch extends Match {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_SOLO_BOXING.toStringList(player));
             } else if (getKit().getGameRules().isBed()) {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_SOLO_BED.toStringList(player));
-            } else if (getKit().getGameRules().isPoint()) {
+            } else if (getKit().getGameRules().isPoint(this)) {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_SOLO_POINT.toStringList(player));
             } else {
                 elements.addAll(Language.SCOREBOARD_IN_MATCH_SOLO_FIGHTING.toStringList(player));
@@ -160,7 +160,7 @@ public class SoloMatch extends Match {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_SOLO_BOXING.toStringList(player));
             } else if (getKit().getGameRules().isBed()) {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_SOLO_BED.toStringList(player));
-            } else if (getKit().getGameRules().isPoint()) {
+            } else if (getKit().getGameRules().isPoint(this)) {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_SOLO_POINT.toStringList(player));
             } else {
                 elements.addAll(Language.SCOREBOARD_IN_SPECTATE_SOLO_FIGHTING.toStringList(player));

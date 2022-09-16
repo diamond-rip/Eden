@@ -9,7 +9,6 @@ import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
-import rip.diamond.practice.match.MatchType;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
@@ -47,7 +46,7 @@ public class MatchMovementHandler {
             if (match.getMatchPlayers().stream().filter(Objects::nonNull).noneMatch(p -> PlayerProfile.get(p).getCooldowns().containsKey("score"))) {
                 //檢查 KitGameRules 水上即死
                 if (gameRules.isDeathOnWater() && match.getState() == MatchState.FIGHTING && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
-                    if (gameRules.isPoint() && match.getMatchType() == MatchType.SOLO) {
+                    if (gameRules.isPoint(match)) {
                         match.score(profile, match.getTeamPlayer(player).getLastHitDamager());
                     } else {
                         Util.damage(player, 99999);

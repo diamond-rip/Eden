@@ -61,7 +61,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
         }
 
         //Meaning the game is started and someone scored
-        if (scoredPlayer != null && match.getState() != MatchState.STARTING && match.getKit().getGameRules().isPoint()) {
+        if (scoredPlayer != null && match.getState() != MatchState.STARTING && match.getKit().getGameRules().isPoint(match)) {
             Team team = match.getTeam(scoredPlayer);
             Player player = scoredPlayer.getPlayer();
 
