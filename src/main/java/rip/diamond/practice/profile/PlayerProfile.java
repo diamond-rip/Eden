@@ -135,7 +135,6 @@ public class PlayerProfile {
     }
 
     private void loadDefault() {
-
         Kit.getKits().forEach(kit -> kitData.putIfAbsent(kit.getName(), new ProfileKitData()));
     }
 

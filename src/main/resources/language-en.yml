@@ -875,7 +875,7 @@ match:
   ##Please don't put color code into these
   match-type:
     solo: "Solo"
-    ffa: "FFa"
+    ffa: "FFA"
     split: "Teams"
 party:
   created: "&fYou have created a new &bparty"

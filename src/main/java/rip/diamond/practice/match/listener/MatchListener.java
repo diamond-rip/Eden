@@ -704,18 +704,20 @@ public class MatchListener implements Listener {
                         @Override
                         public void run() {
                             if (isExpired()) {
-                                int slot = -1;
-                                //No KitLoadout is received. This will be null when a player didn't select a kit
-                                //Should not happen anymore because kitLoadout is now automatically applied, but just in-case
-                                if (match.getTeamPlayer(player).getKitLoadout() != null) {
-                                    for (int i = 0; i < 36; i++) {
-                                        if (match.getTeamPlayer(player).getKitLoadout().getContents()[i] != null && match.getTeamPlayer(player).getKitLoadout().getContents()[i].getType() == Material.ARROW) slot = i;
+                                if (!player.getInventory().contains(Material.ARROW)) {
+                                    int slot = -1;
+                                    //No KitLoadout is received. This will be null when a player didn't select a kit
+                                    //Should not happen anymore because kitLoadout is now automatically applied, but just in-case
+                                    if (match.getTeamPlayer(player).getKitLoadout() != null) {
+                                        for (int i = 0; i < 36; i++) {
+                                            if (match.getTeamPlayer(player).getKitLoadout().getContents()[i] != null && match.getTeamPlayer(player).getKitLoadout().getContents()[i].getType() == Material.ARROW) slot = i;
+                                        }
                                     }
-                                }
-                                if (slot == -1 || player.getInventory().getItem(slot) != null) {
-                                    player.getInventory().addItem(new ItemStack(Material.ARROW));
-                                } else {
-                                    player.getInventory().setItem(slot, new ItemStack(Material.ARROW));
+                                    if (slot == -1 || player.getInventory().getItem(slot) != null) {
+                                        player.getInventory().addItem(new ItemStack(Material.ARROW));
+                                    } else {
+                                        player.getInventory().setItem(slot, new ItemStack(Material.ARROW));
+                                    }
                                 }
                                 if (player.getLevel() > 0) player.setLevel(0);
                                 if (player.getExp() > 0.0F) player.setExp(0.0F);
