@@ -31,6 +31,10 @@ match:
   ## If points are enabled, how many points should it be?
   maximum-points: 3
   goal-portal-protect-radius: 3
+  ## Right now boxing will count hit as 2 hits if player is spam clicking and jumping (critical hits)
+  ## This option will change paperspigot's config 'disable-player-crits' to true. So crit hit will not be exists anymore.
+  ## Warning: This option will disable crit damage, and will change and save paperspigot's 'disable-player-crits' settings
+  fix-hit-count-error: true
 ## These options will only works if you are using ImanitySpigot
 ## If you are not using, then turn every imanity related settings off
 imanity:

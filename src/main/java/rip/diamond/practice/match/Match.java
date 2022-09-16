@@ -6,10 +6,12 @@ import net.minecraft.server.v1_8_R3.EntityLightning;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityWeather;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.github.paperspigot.PaperSpigotConfig;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.ArenaDetail;
@@ -27,6 +29,9 @@ import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -56,6 +61,22 @@ public abstract class Match {
         new MatchClearItemTask();
         new MatchPostMatchInventoriesClearTask();
         new ProfileCooldownTask();
+
+        if (Eden.INSTANCE.getConfigFile().getBoolean("match.fix-hit-count-error")) {
+            Bukkit.getWorlds().forEach(world -> {
+                ((CraftWorld) world).getHandle().paperSpigotConfig.disablePlayerCrits = true;
+            });
+
+            try {
+                PaperSpigotConfig.config.set("world-settings.default.game-mechanics.disable-player-crits", true);
+                Field field = PaperSpigotConfig.class.getDeclaredField("CONFIG_FILE");
+                field.setAccessible(true);
+                File file = (File) field.get(null);
+                PaperSpigotConfig.config.save(file);
+            } catch (NoSuchFieldException | IllegalAccessException | IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public Match(ArenaDetail arenaDetail, Kit kit, List<Team> teams) {

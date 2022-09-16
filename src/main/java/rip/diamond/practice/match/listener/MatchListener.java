@@ -1,7 +1,7 @@
 package rip.diamond.practice.match.listener;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.*;
+import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -198,6 +199,12 @@ public class MatchListener implements Listener {
 
         if (entityProfile.getPlayerState() == PlayerState.IN_MATCH && damagerProfile.getPlayerState() == PlayerState.IN_MATCH && entityProfile.getMatch() == damagerProfile.getMatch()) {
             Match match = entityProfile.getMatch();
+
+            //It is cancelled in EntityDamageEvent. Check this again to prevent Boxing hits.
+            if (match.getState() != MatchState.FIGHTING) {
+                event.setCancelled(true);
+                return;
+            }
 
             Team teamEntity = match.getTeam(entity);
             Team teamDamager = match.getTeam(damager);

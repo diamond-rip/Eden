@@ -62,7 +62,7 @@ dependencies {
     //Libraries from others
     compileOnly 'me.clip:placeholderapi:2.11.2' //PlaceholderAPI
     compileOnly 'org.imanity.imanityspigot:api:2022.05.3b1' //ImanitySpigot API
-    compileOnly 'org.imanity.paperspigot:paper1.8.8:1.8.8' //PaperSpigot
+    compileOnly name: 'PaperSpigot-1.8.8' //PaperSpigot
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0' //ProtocolLib
 
     // Lombok
