@@ -433,6 +433,7 @@ kit-editor:
 kit:
   not-exists: "&cKit '{0}' does NOT exist!"
   no-kits-found: "&cNo kit found! Use the command '/kit create <ID>' to create one!"
+  saved: "&aSaved kit &e'{0}' &ato database"
   saved-all-kits: "&aKits saved!"
   kit-already-exists: "&cKit '{0}' already exsits, cannot create kits with the same ID"
   successfully-create: "&aKit created '{0}'!"
@@ -657,7 +658,7 @@ leaderboard:
   kit-stats-menu:
     title: "{0}'s stats"
     global-stats:
-      name: "&b's duel stats"
+      name: "&bDuel stats"
       lore:
         - "&bUnranked:"
         - " &f• Wins: &b{0}"

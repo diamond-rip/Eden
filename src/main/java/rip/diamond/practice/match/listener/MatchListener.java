@@ -187,7 +187,6 @@ public class MatchListener implements Listener {
     }
 
     @EventHandler
-    // TODO: 14/9/2022  EntityDamageByEntityEvent might run two times when spam clicking. Need a fix
     public void onDamageEntity(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player) || !(event.getDamager() instanceof Player)) {
             return;

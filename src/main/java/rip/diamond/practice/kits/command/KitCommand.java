@@ -24,8 +24,12 @@ public class KitCommand extends Command {
                 return;
             }
             new KitsManagementMenu().openMenu(player);
+            return;
         } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("save")) {
+            if (args[0].equalsIgnoreCase("list")) {
+                new KitsManagementMenu().openMenu(player);
+                return;
+            } else if (args[0].equalsIgnoreCase("saveall")) {
                 Kit.getKits().forEach(kit -> kit.save(true));
                 Language.KIT_SAVED_ALL_KITS.sendMessage(player);
                 return;
@@ -53,6 +57,13 @@ public class KitCommand extends Command {
                 }
                 kit.delete(true);
                 Language.KIT_SUCCESSFULLY_DELETE.sendMessage(player, kit.getName());
+            } else if (args[0].equalsIgnoreCase("save")) {
+                if (kit == null) {
+                    Language.KIT_NOT_EXISTS.sendMessage(player, args[0]);
+                    return;
+                }
+                kit.save(true);
+                Language.KIT_SAVED.sendMessage(player, kit.getName());
             }
         }
     }

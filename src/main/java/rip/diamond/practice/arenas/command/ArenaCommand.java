@@ -25,8 +25,10 @@ public class ArenaCommand extends Command {
     public void execute(CommandArguments command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
-
-        if (args.length == 1) {
+        if (args.length == 0) {
+            new ArenasMenu().openMenu(player);
+            return;
+        }if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
                 new ArenasMenu().openMenu(player);
                 return;

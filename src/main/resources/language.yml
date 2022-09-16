@@ -428,6 +428,7 @@ kit-editor:
 kit:
   not-exists: "&c職業 '{0}' 不存在!"
   no-kits-found: "&c你沒有任何職業! 請先使用指令 '/kit create <ID>' 創建一個職業!"
+  saved: "&a成功儲存職業 &e{0} &a到資料庫!"
   saved-all-kits: "&a成功儲存所有職業!"
   kit-already-exists: "&c職業 '{0}' 已經存在, 不能創建同樣 ID 的職業"
   successfully-create: "&a成功創建職業 '{0}'!"

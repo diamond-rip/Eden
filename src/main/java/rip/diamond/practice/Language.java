@@ -175,6 +175,7 @@ public enum Language {
     KIT_EDITOR_EDITING("kit-editor.editing"),
     KIT_NOT_EXISTS("kit.not-exists"),
     KIT_NO_KITS_FOUND("kit.no-kits-found"),
+    KIT_SAVED("kit.saved"),
     KIT_SAVED_ALL_KITS("kit.saved-all-kits"),
     KIT_KIT_ALREADY_EXISTS("kit.kit-already-exists"),
     KIT_SUCCESSFULLY_CREATE("kit.successfully-create"),
