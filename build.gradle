@@ -1,6 +1,10 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+shadowJar {
+    relocate "rip.diamond.practice.util.paperlib", "rip.diamond.practice.util.paperlib"
 }
 
 group = 'rip.diamond'
@@ -34,6 +38,7 @@ repositories {
 
     //Spigot and ImanitySpigot API
     maven {
+        name "imanityLibraries"
         url "https://maven.imanity.dev/imanity-libraries"
     }
     //PlaceholderAPI
@@ -56,7 +61,7 @@ dependencies {
 
     //Libraries from others
     compileOnly 'me.clip:placeholderapi:2.11.2' //PlaceholderAPI
-    compileOnly 'org.imanity.imanityspigot:api:2021.11.1b1' //ImanitySpigot API
+    compileOnly 'org.imanity.imanityspigot:api:2022.05.3b1' //ImanitySpigot API
     compileOnly 'org.imanity.paperspigot:paper1.8.8:1.8.8' //PaperSpigot
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0' //ProtocolLib
 

@@ -30,10 +30,8 @@ lobby:
 match:
   ## If points are enabled, how many points should it be?
   maximum-points: 3
-  ## How many second(s) should the player respawns after die?
-  respawn-time:
-    bed: 3
-    default: 5
-  bridge:
-    portal-protect-radius: 3
-    spawn-protect-distance: 5
+  goal-portal-protect-radius: 3
+## These options will only works if you are using ImanitySpigot
+## If you are not using, then turn every imanity related settings off
+imanity:
+  teleport-async: true

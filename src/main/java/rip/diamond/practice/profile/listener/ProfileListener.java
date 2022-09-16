@@ -44,7 +44,7 @@ public class ProfileListener implements Listener {
 
         //Reset their inventory and their location, to prevent player stuck in other places or contains illegal items
         PlayerUtil.reset(player);
-        player.teleport(plugin.getLobbyManager().getSpawnLocation());
+        Util.teleport(player, plugin.getLobbyManager().getSpawnLocation());
 
         profile.load((success) -> {
             if (!success) {
@@ -85,7 +85,7 @@ public class ProfileListener implements Listener {
         PlayerProfile profile = PlayerProfile.get(player);
 
         if (profile.getPlayerState() != PlayerState.IN_MATCH) {
-            event.setCancelled(true);
+            event.setCancelled(player.getGameMode() != GameMode.CREATIVE);
             //We don't stop the process here, continue the check
         }
 
@@ -165,7 +165,9 @@ public class ProfileListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlace(BlockPlaceEvent event) {
-        if (!Checker.canDamage(event.getPlayer())) {
+        Player player = event.getPlayer();
+        PlayerProfile profile = PlayerProfile.get(player);
+        if (profile.getPlayerState() != PlayerState.IN_MATCH) {
             event.setCancelled(event.getPlayer().getGameMode() != GameMode.CREATIVE);
         }
     }

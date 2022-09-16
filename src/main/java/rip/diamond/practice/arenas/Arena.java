@@ -70,7 +70,9 @@ public class Arena {
     }
 
     public static ArenaDetail getArenaDetail(Arena arena) {
-        return arena.getArenaDetails().stream().filter(arenaDetail -> !arenaDetail.isUsing()).findFirst().orElse(null);
+        return arena.getArenaDetails().stream()
+                .filter(arenaDetail -> !arenaDetail.isUsing())
+                .findFirst().orElse(null);
     }
 
     public Arena(String name) {

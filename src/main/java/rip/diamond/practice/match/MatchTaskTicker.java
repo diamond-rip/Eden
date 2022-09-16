@@ -29,6 +29,8 @@ public abstract class MatchTaskTicker extends TaskTicker {
     @Override
     public synchronized void cancel() throws IllegalStateException {
         super.cancel();
-        match.getTasks().remove(this);
+        if (match.getState() == MatchState.FIGHTING) {
+            match.getTasks().remove(this);
+        }
     }
 }

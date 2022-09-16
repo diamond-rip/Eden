@@ -22,7 +22,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
-import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.event.KitLoadoutReceivedEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
@@ -45,10 +44,8 @@ import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.cuboid.Cuboid;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -118,7 +115,7 @@ public class MatchListener implements Listener {
             Match match = profile.getMatch();
             KitGameRules gameRules = match.getKit().getGameRules();
 
-            if ((match.getKit().getGameRules().isBed() && !match.getTeam(player).isBedDestroyed()) || match.getKit().getGameRules().isBridge()) {
+            if ((match.getKit().getGameRules().isBed() && !match.getTeam(player).isBedDestroyed()) || match.getKit().getGameRules().isGoal()) {
                 new MatchRespawnTask(match, match.getTeamPlayer(player));
             } else {
                 match.die(player, false);
@@ -141,7 +138,7 @@ public class MatchListener implements Listener {
 
         player.setHealth(20);
         player.setVelocity(new Vector());
-        player.teleport(player.getLocation().clone().add(0, 2, 0)); //Teleport 2 blocks higher, to try to re-do what MineHQ did (Make sure to place this line of code after setHealth, otherwise it won't work)
+        Util.teleport(player, player.getLocation().clone().add(0,2,0)); //Teleport 2 blocks higher, to try to re-do what MineHQ did (Make sure to place this line of code after setHealth, otherwise it won't work)
 
         event.setDroppedExp(0);
         event.getDrops().clear();
@@ -296,56 +293,25 @@ public class MatchListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        PlayerProfile profile = PlayerProfile.get(player);
 
-        Location from = event.getFrom();
-        Location to = event.getTo();
+        double fromX = event.getFrom().getX();
+        double fromY = event.getFrom().getY();
+        double fromZ = event.getFrom().getZ();
+        double fromYaw = event.getFrom().getYaw();
+        double fromPitch = event.getFrom().getPitch();
 
-        Block block = event.getTo().getBlock();
-        Block underBlock = event.getTo().clone().add(0, -1, 0).getBlock();
+        double toX = event.getTo().getX();
+        double toY = event.getTo().getY();
+        double toZ = event.getTo().getZ();
+        double toYaw = event.getTo().getYaw();
+        double toPitch = event.getTo().getPitch();
 
-        if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
-            Match match = profile.getMatch();
-            Arena arena = match.getArenaDetail().getArena();
-            Kit kit = match.getKit();
-            KitGameRules gameRules = kit.getGameRules();
+        if (fromX != toX || fromY != toY || fromZ != toZ) {
+            plugin.getMovementHandler().onUpdateLocation(player, event.getFrom(), event.getTo());
+        }
 
-            if (gameRules.isStartFreeze() && match.getState() == MatchState.STARTING && (from.getX() != to.getX() || from.getZ() != to.getZ())) {
-                player.teleport(from);
-                return;
-            }
-
-            if (arena.getYLimit() > player.getLocation().getY()) {
-                Util.damage(player, 99999);
-                return;
-            }
-
-            //Prevent any duplicate scoring
-            //If two people go into the portal at the same time in bridge, it will count as +2 points
-            //If player go into the water and PlayerMoveEvent is too slow to perform teleportation, it will run MatchNewRoundTask multiple times
-            if (match.getMatchPlayers().stream().filter(Objects::nonNull).noneMatch(p -> PlayerProfile.get(p).getCooldowns().containsKey("score"))) {
-                //檢查 KitGameRules 水上即死
-                if (gameRules.isDeathOnWater() && match.getState() == MatchState.FIGHTING && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
-                    if (gameRules.isPoint()) {
-                        match.score(profile, match.getTeamPlayer(player).getLastHitDamager());
-                    } else {
-                        Util.damage(player, 99999);
-                    }
-                    return;
-                }
-
-                //檢查 KitGameRules 是否為戰橋模式
-                if (gameRules.isBridge() && match.getState() == MatchState.FIGHTING && underBlock.getType() == Material.ENDER_PORTAL) {
-                    Team team = match.getTeam(player);
-                    //Prevent player scoring their own goal
-                    if (team.getSpawnLocation().distance(to) > 30) {
-                        match.score(profile, match.getTeamPlayer(player));
-                    } else {
-                        Util.damage(player, 99999);
-                    }
-                    return;
-                }
-            }
+        if (fromYaw != toYaw || fromPitch != toPitch) {
+            plugin.getMovementHandler().onUpdateRotation(player, event.getFrom(), event.getTo());
         }
     }
 
@@ -576,6 +542,10 @@ public class MatchListener implements Listener {
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
+            if (match.getState() == MatchState.STARTING && match.getKit().getGameRules().isStartFreeze()) {
+                event.setCancelled(true);
+                return;
+            }
             if (match.getState() == MatchState.ENDING) {
                 event.setCancelled(true);
                 return;
@@ -603,7 +573,13 @@ public class MatchListener implements Listener {
             match.getPlacedBlocks().add(block.getLocation());
 
             if (match.getKit().getGameRules().isClearBlock()) {
-                new MatchClearBlockTask(match, 10, block.getWorld(), Collections.singletonList(block.getLocation()));
+                TeamPlayer teamPlayer = match.getTeamPlayer(player);
+
+                new MatchClearBlockTask(match, 10, block.getWorld(), block.getLocation(), (itemStacks) -> {
+                    if (player.isOnline() && match == profile.getMatch() && !teamPlayer.isRespawning() && teamPlayer.isAlive()) {
+                        itemStacks.forEach(i -> player.getInventory().addItem(i));
+                    }
+                });
             }
         }
     }
@@ -712,7 +688,7 @@ public class MatchListener implements Listener {
 
             if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
                 Match match = profile.getMatch();
-                if (match.getState() != MatchState.FIGHTING) {
+                if (match.getState() == MatchState.ENDING) {
                     event.setCancelled(true);
                     return;
                 }
@@ -723,7 +699,7 @@ public class MatchListener implements Listener {
                 match.getEntities().add(new MatchEntity(projectile));
                 if (projectile instanceof ThrownPotion) {
                     match.getTeamPlayer(player).addPotionsThrown();
-                } else if (projectile instanceof Arrow && match.getKit().getGameRules().isBridge()) {
+                } else if (projectile instanceof Arrow && match.getKit().getGameRules().isGiveBackArrow()) {
                     profile.getCooldowns().put("arrow", new Cooldown(3500L) {
                         @Override
                         public void run() {

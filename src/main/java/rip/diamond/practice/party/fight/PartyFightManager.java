@@ -40,6 +40,11 @@ public class PartyFightManager {
             return;
         }
 
+        if (arena.isEdited()) {
+            Language.PARTY_START_PARTY_FIGHT_ARENA_DISABLED.sendMessage(leader);
+            return;
+        }
+
         ArenaDetail arenaDetail = Arena.getArenaDetail(arena);
         if (arenaDetail == null) {
             Language.PARTY_START_PARTY_FIGHT_CANNOT_FIND_ARENA.sendMessage(leader);

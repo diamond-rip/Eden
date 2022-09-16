@@ -1,13 +1,10 @@
-package rip.diamond.practice.hook.knockback;
+package rip.diamond.practice.hook.spigot;
 
 import org.bukkit.entity.Player;
 
 public abstract class SpigotController {
 
-
-    public abstract String getPluginName();
-
-    public abstract String getPackage();
+    public abstract SpigotType getSpigotType();
 
     public abstract void applyKnockback(Player player, String knockbackName);
 

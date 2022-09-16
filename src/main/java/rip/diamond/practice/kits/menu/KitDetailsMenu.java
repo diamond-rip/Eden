@@ -53,6 +53,10 @@ public class KitDetailsMenu extends Menu {
                 field.setAccessible(true);
                 buttons.put(buttons.size(), new KitRulesToggleButton(this, kit, field));
             }
+            if (field.getType() == int.class) {
+                field.setAccessible(true);
+                buttons.put(buttons.size(), new KitRulesSetValueButton(this, kit, field));
+            }
         }
 
         return buttons;

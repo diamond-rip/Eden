@@ -385,6 +385,7 @@ duel:
     need-to-be-in-lobby: "&c你必須要在大廳狀態才能跟玩家對決"
     target-need-to-be-in-lobby: "&c對方必須要在大廳狀態才能跟你對決"
     target-duel-request-disabled: "&c對方沒有開啟決鬥邀請"
+    arena-disabled: "&c錯誤: 場地沒有開啟"
     cannot-find-arena: "&c錯誤: 未能找到合適的場地"
     target-in-a-party: "&c該玩家已經在隊伍中"
     target-not-in-a-party: "&c該玩家沒有一個隊伍"
@@ -529,6 +530,19 @@ kit:
         - "&e&n右鍵獲取職業排版"
     rules-toggle:
       success: "&f設置 &b{0} &f{1}到&b{2}"
+    rules-set-value:
+      name: "&b&l{0}"
+      lore:
+        - ""
+        - "&7{0}"
+        - ""
+        - "&7現時數值: {1}"
+        - ""
+        - "&e&n點擊更改數值!"
+      procedure:
+        message: "&e&l正在更改&b&l{0}&e&l... 請在聊天室輸入一個新的數值"
+        success: "&f設置 &b{0} &f到 &b{1}"
+        additional-message: "&c你的訊息必須為數字"
     save-loadout:
       name: "&b&l儲存職業預設排版"
       lore:
@@ -570,9 +584,9 @@ kit:
     bed:
       rules: "床"
       description: "設置職業是否還去因為床而重生"
-    bridge:
-      rules: "Bridge"
-      description: "設置職業是否為戰橋, 戰橋時死亡會立即重生, 進入終界傳送門為之勝利"
+    goal:
+      rules: "進入目標"
+      description: "設置職業是否進入終界傳送門為之勝利"
     projectile-only:
       rules: "只限遠程攻擊"
       description: "設置該職業是否只允許遠程攻擊傷害"
@@ -594,6 +608,9 @@ kit:
     point:
       rules: "分數機制"
       description: "設置該職業是否應該使用分數機制"
+    reset-arena-when-get-point:
+      rules: "獲取分數後重置場地"
+      description: "設置該職業是否在玩家獲取分數後重置場地"
     build:
       rules: "建築"
       description: "設置該職業應不應該允許放置/破壞方塊"
@@ -618,6 +635,12 @@ kit:
     no-fall-damage:
       rules: "防止掉落傷害"
       description: "設置該職業在玩家掉落時不會受到掉落傷害"
+    give-back-arrow:
+      rules: "給回箭矢"
+      description: "設置該職業在玩家使用箭矢後會在3.5秒後給回箭矢"
+    respawn-time:
+      rules: "重生時間"
+      description: "設置該職業在玩家死亡後的重生時間 (只有在 '進入目標' 或 '床' 開啟才會有效)"
 leaderboard:
   reload: "&e正在強制更新排行榜..."
   top10-display:
@@ -968,6 +991,7 @@ party:
   start-party-fight:
     only-leader: "&c需要隊伍隊長才能執行"
     need-more-than-2: "&c你的隊伍必須要有 2 人或以上才能進行這個活動"
+    arena-disabled: "&c錯誤: 場地沒有開啟"
     cannot-find-arena: "&c錯誤: 未能找到合適的場地"
     players-not-in-lobby: "&c{0} 不在大廳"
 profile:
@@ -1063,6 +1087,8 @@ button:
   confirm:
     name-confirm: "&a確定"
     name-cancel: "&c取消"
+  toggle:
+    name: "&b&l{0}"
   jump-to-page:
     name: "&e第 {0} 頁"
     current-page-lore:

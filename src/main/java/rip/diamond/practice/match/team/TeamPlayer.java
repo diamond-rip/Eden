@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import rip.diamond.practice.kits.KitLoadout;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.util.Tasks;
+import rip.diamond.practice.util.Util;
 
 import java.util.UUID;
 
@@ -52,7 +53,7 @@ public class TeamPlayer {
 		if (getPlayer() == null) {
 			return;
 		}
-		Tasks.run(()-> getPlayer().teleport(location));
+		Tasks.run(()-> Util.teleport(getPlayer(), location));
 	}
 
 	public void addPotionsThrown() {

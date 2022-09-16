@@ -12,6 +12,7 @@ import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.HeadUtil;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.pagination.PaginatedMenu;
 
@@ -69,7 +70,7 @@ public class SpectateTeleportMenu extends PaginatedMenu {
                         Language.MATCH_SPECTATE_TELEPORT_MENU_NOT_SAME_MATCH.sendMessage(player);
                         return;
                     }
-                    player.teleport(teamPlayer.getPlayer());
+                    Util.teleport(player, teamPlayer.getPlayer().getLocation());
                 }
             });
         });

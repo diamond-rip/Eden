@@ -335,7 +335,7 @@ arena:
       action-description: "Click here to save arena"
     toggle:
       name: "Arena status"
-      description: "current status: {0}"
+      description: "Current status: {0}"
       need-restart: "&eRestart is required"
       action-description: "Click here to change arena status"
       action-description-not-finished-setup: "&cYou need to complete arena setup to edit this setting"
@@ -390,6 +390,7 @@ duel:
     need-to-be-in-lobby: "&cYou need to be in a lobby to send duel requests"
     target-need-to-be-in-lobby: "&cPlayer needs to be in a lobby to receive your duel request"
     target-duel-request-disabled: "&This player has duel requests disabled"
+    arena-disabled: "&cError: Arena disabled"
     cannot-find-arena: "&cError: cannot find arena"
     target-in-a-party: "&cplayer is already in a party"
     target-not-in-a-party: "&cPlayer is NOT in a party"
@@ -524,7 +525,7 @@ kit:
         - ""
         - "&e&nClick to edit kit priority!"
       procedure:
-        message: "&e&lChanging&b&lkit priority&e&l... Please enter a new value in chat"
+        message: "&e&lChanging &b&lkit priority&e&l... Please enter a new value in chat"
         success: "&fChanged kit &b{0} &f's kit priority to &b{1}"
         additional-message: "&cYour message must be in numbers"
     preview:
@@ -534,6 +535,19 @@ kit:
         - "&e&nRight click to get the kit preview"
     rules-toggle:
       success: "&fChanged &b{0} &f{1} to &b{2}"
+    rules-set-value:
+      name: "&b&l{0}"
+      lore:
+        - ""
+        - "&7{0}"
+        - ""
+        - "&7Current value: {1}"
+        - ""
+        - "&e&nClick to edit value!"
+      procedure:
+        message: "&e&lChanging &b&l{0}&e&l... Please enter a new value in chat"
+        success: "&fChanged kit's &b{0} &fto &b{1}"
+        additional-message: "&cYour message must be in numbers"
     save-loadout:
       name: "&b&lSave kit preset"
       lore:
@@ -575,54 +589,63 @@ kit:
     bed:
       rules: "Bed"
       description: "Setting for players to respawn after bed break"
-    bridge:
-      rules: "Bridge"
-      description: "Setting for bridge, respawn after death, scores after enter into ender portal"
+    goal:
+      rules: "Goal"
+      description: "Setting for wins after enter into ender portal"
     projectile-only:
       rules: "Ranged Damage Only"
       description: "Setting for this duel mode to only receive ranged damage"
     hypixelUHC:
       rules: "HypixelUHC"
-      description: "Setting for duel to replace golden apple's regeneration to Regeneration III, and enable golden head"
+      description: "Setting for match to replace golden apple's regeneration to Regeneration III, and enable golden head"
     spleef:
       rules: "Spleef"
-      description: "Setting for duel to to allow breaking snow and sand"
+      description: "Setting for match to to allow breaking snow and sand"
     health-regeneration:
       rules: "Health Regeneration"
-      description: "Setting for duel to allow auto regeneration"
+      description: "Setting for match to allow auto regeneration"
     show-health:
       rules: "Show Health"
-      description: "Setting for duel to show player's health"
+      description: "Setting for match to show player's health"
     food-level-change:
       rules: "Hunger Bar Change"
-      description: "Setting for duel for players to lose hunger bar"
+      description: "Setting for match for players to lose hunger bar"
     point:
       rules: "Point System"
-      description: "Setting for duel to apply a point system"
+      description: "Setting for match to apply a point system"
+    reset-arena-when-get-point:
+      rules: "Reset Arena After Get A Point"
+      description: "Settings for match to reset arena after player get a point"
     build:
       rules: "Build"
-      description: "Setting for duel to allow block placement/destruction"
+      description: "Setting for match to allow block placement/destruction"
     start-freeze:
       rules: "Start Freeze"
-      description: "Setting for duel to freeze player movement on start"
+      description: "Setting for match to freeze player movement on start"
     no-damage:
       rules: "No Damage"
-      description: "Setting for duel to disable damage"
+      description: "Setting for match to disable damage"
     instant-gapple:
       rules: "Instant Golden Apple"
-      description: "Setting for duel to instant regeneration to full health with golden apple"
+      description: "Setting for match to instant regeneration to full health with golden apple"
     ender-pearl-cooldown:
       rules: "Ender Pearl Cooldown"
-      description: "Setting for duel to set a cooldown of 16 seconds on ender pearls"
+      description: "Setting for match to set a cooldown of 16 seconds on ender pearls"
     clear-block:
       rules: "Clear Block"
-      description: "Setting for duel to remove all blocks placed in the past 10 seconds"
+      description: "Setting for match to remove all blocks placed in the past 10 seconds"
     drop-item-when-die:
       rules: "Item Drop On Death"
       description: "Setting for players to drop items on death"
     no-fall-damage:
       rules: "No Fall Damage"
       description: "Setting for disabling fall damage"
+    give-back-arrow:
+      rules: "Give Back Arrow"
+      description: "Settings for player who uses arrow will give back after 3.5 seconds"
+    respawn-time:
+      rules: "Respawn Time"
+      description: "Settings for the respawn timer (Only works if bed or goal is on)"
 leaderboard:
   reload: "&eReloading leaderboard..."
   top10-display:
@@ -975,6 +998,7 @@ party:
   start-party-fight:
     only-leader: "&cThis can only be started by party leader"
     need-more-than-2: "&cYour party needs to have at least 2 players!"
+    arena-disabled: "&cError: Arena disabled"
     cannot-find-arena: "&cError: Cannot find arena"
     players-not-in-lobby: "&cPlayer {0} is not in a lobby"
 profile:
@@ -1070,6 +1094,8 @@ button:
   confirm:
     name-confirm: "&aConfirm"
     name-cancel: "&cCancel"
+  toggle:
+    name: "&b&l{0}"
   jump-to-page:
     name: "&ePage {0} "
     current-page-lore:

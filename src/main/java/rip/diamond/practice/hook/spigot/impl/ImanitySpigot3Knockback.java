@@ -1,12 +1,18 @@
-package rip.diamond.practice.hook.knockback.impl;
+package rip.diamond.practice.hook.spigot.impl;
 
+import dev.imanity.knockback.api.Knockback;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.imanity.imanityspigot.knockback.Knockback;
 import rip.diamond.practice.Language;
-import rip.diamond.practice.hook.knockback.SpigotController;
+import rip.diamond.practice.hook.spigot.SpigotController;
+import rip.diamond.practice.hook.spigot.SpigotType;
 
 public class ImanitySpigot3Knockback extends SpigotController {
+
+    @Override
+    public SpigotType getSpigotType() {
+        return SpigotType.IMANITY_SPIGOT_3;
+    }
 
     @Override
     public void applyKnockback(Player player, String knockbackName) {
@@ -15,16 +21,6 @@ public class ImanitySpigot3Knockback extends SpigotController {
             Language.HOOK_ERROR_KNOCKBACK_NOT_FOUND.sendMessage(player);
             return;
         }
-        Bukkit.imanity().setKnockback(player, knockback);
-    }
-
-    @Override
-    public String getPluginName() {
-        return "ImanitySpigot3";
-    }
-
-    @Override
-    public String getPackage() {
-        return "org.imanity.imanityspigot.ImanitySpigot";
+        Bukkit.imanity().getKnockbackService().setKnockback(player, knockback);
     }
 }

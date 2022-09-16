@@ -3,6 +3,7 @@ package rip.diamond.practice.match.task;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.match.Match;
@@ -21,18 +22,11 @@ public class MatchNewRoundTask extends MatchTaskTicker {
     private final TeamPlayer scoredPlayer;
     private final boolean newRound;
 
-    public MatchNewRoundTask(Match match) {
-        super(0, 20, false, match);
-        this.match = match;
-        this.scoredPlayer = null;
-        this.newRound = false;
-    }
-
-    public MatchNewRoundTask(Match match, TeamPlayer scoredPlayer) {
+    public MatchNewRoundTask(Match match, TeamPlayer scoredPlayer, boolean newRound) {
         super(0, 20, false, match);
         this.match = match;
         this.scoredPlayer = scoredPlayer;
-        this.newRound = true;
+        this.newRound = newRound;
     }
 
     @Override
@@ -87,6 +81,13 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             //Teleport players into their team spawn
             match.getTeams().forEach(t -> t.teleport(t.getSpawnLocation()));
             match.getTeamPlayers().forEach(teamPlayer -> teamPlayer.respawn(match));
+
+            if (match.getKit().getGameRules().isResetArenaWhenGetPoint()) {
+                match.getArenaDetail().restoreSnapshot();
+
+                //Cancel any runnable which affects the gameplay
+                match.getTasks().stream().filter(taskTicker -> taskTicker instanceof MatchClearBlockTask).forEach(BukkitRunnable::cancel);
+            }
         }
     }
 

@@ -7,10 +7,7 @@ import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
-import rip.diamond.practice.util.CC;
-import rip.diamond.practice.util.Common;
-import rip.diamond.practice.util.PlayerUtil;
-import rip.diamond.practice.util.Tasks;
+import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
 @Getter
@@ -43,7 +40,7 @@ public class LobbyManager {
             Common.log(CC.RED + "Unable to teleport " + player.getName() + " to a certain location. Please check if spawn location and editor location is setup correctly.");
             return;
         }
-        player.teleport(location);
+        Util.teleport(player, location);
     }
 
     public void sendToSpawnAndReset(Player player) {

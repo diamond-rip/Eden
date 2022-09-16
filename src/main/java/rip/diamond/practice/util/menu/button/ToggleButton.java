@@ -14,7 +14,7 @@ public abstract class ToggleButton extends Button {
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(isEnabled(player) ? Material.REDSTONE_TORCH_ON : Material.LEVER)
-                .name(CC.AQUA + CC.BOLD + getOptionName())
+                .name(Language.BUTTON_TOGGLE_NAME.toString(getOptionName()))
                 .lore("", CC.GRAY + getDescription(), "", CC.GREEN + (isEnabled(player) ? " » " : "   ") + Language.ENABLED.toString(), CC.RED + (!isEnabled(player) ? " » " : "   ") + Language.DISABLED.toString(), "")
                 .build();
     }

@@ -131,7 +131,7 @@ public abstract class Match {
         MatchStartEvent event = new MatchStartEvent(this);
         event.call();
 
-        new MatchNewRoundTask(this);
+        new MatchNewRoundTask(this, null, false);
     }
 
     /**
@@ -143,7 +143,7 @@ public abstract class Match {
 
         //TeamPlayer might be null because the player might die without taking any damage from opponents (Using lava to burn themselves)
         if (teamPlayer == null) {
-            new MatchNewRoundTask(this, null);
+            new MatchNewRoundTask(this, null, true);
             return;
         }
         Team team = getTeam(teamPlayer);
@@ -151,7 +151,7 @@ public abstract class Match {
         team.handlePoint();
         if (state == MatchState.FIGHTING && team.getPoints() < Eden.INSTANCE.getConfigFile().getInt("match.maximum-points")) {
             new MatchFireworkTask(team.getTeamColor().getDyeColor().getColor(), this);
-            new MatchNewRoundTask(this, teamPlayer);
+            new MatchNewRoundTask(this, teamPlayer, true);
             return;
         }
 
@@ -244,7 +244,7 @@ public abstract class Match {
 
         broadcastMessage(Language.MATCH_JOIN_SPECTATE.toString(player.getName()));
 
-        player.teleport(target.getLocation());
+        Util.teleport(player, target.getLocation());
         PlayerUtil.spectator(player);
 
         profile.setMatch(this);
@@ -309,15 +309,10 @@ public abstract class Match {
                     return false;
             }
         }
-        if (kit.getGameRules().isBridge()) {
-            long count = Util.getBlocksAroundCenter(location, plugin.getConfigFile().getInt("match.bridge.portal-protect-radius")).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
+        if (kit.getGameRules().isGoal()) {
+            long count = Util.getBlocksAroundCenter(location, plugin.getConfigFile().getInt("match.goal-portal-protect-radius")).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
             if (count > 0) {
                 return true;
-            }
-            for (Team team : getTeams()) {
-                if (location.distance(team.getSpawnLocation()) < plugin.getConfigFile().getInt("match.bridge.spawn-protect-distance")) {
-                    return true;
-                }
             }
             if (location.getBlock().getType() == Material.STAINED_CLAY && (location.getBlock().getData() == 14 || location.getBlock().getData() == 11)) {
                 return false;

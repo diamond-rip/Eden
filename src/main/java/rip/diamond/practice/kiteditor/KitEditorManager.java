@@ -9,6 +9,7 @@ import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.Common;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class KitEditorManager {
         KitEditProfile kProfile = new KitEditProfile(player.getUniqueId(), kit);
         editing.put(player.getUniqueId(), kProfile);
 
-        player.teleport(editorLocation);
+        Util.teleport(player, editorLocation);
         player.getInventory().clear();
         player.getInventory().setContents(kit.getKitLoadout().getContents());
 

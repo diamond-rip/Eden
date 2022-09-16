@@ -4,27 +4,30 @@ import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchTaskTicker;
 import rip.diamond.practice.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.function.Consumer;
 
 @Getter
 public class MatchClearBlockTask extends MatchTaskTicker {
 
     private final Match match;
     private final int seconds;
-    private final List<Location> locations;
+    private final Location location;
     private final World world;
+    private final Consumer<Collection<ItemStack>> callback;
 
-    public MatchClearBlockTask(Match match, int seconds, World world, List<Location> locations) {
+    public MatchClearBlockTask(Match match, int seconds, World world, Location location, Consumer<Collection<ItemStack>> callback) {
         super(seconds * 20, 1, false, match);
         this.match = match;
         this.seconds = seconds;
         this.world = world;
-        this.locations = new ArrayList<>(locations);
+        this.location = location;
+        this.callback = callback;
     }
 
     @Override
@@ -32,13 +35,14 @@ public class MatchClearBlockTask extends MatchTaskTicker {
         if (getTicks() <= 0) {
             cancel();
 
-            for (Location location : locations) {
-                try {
-                    Util.setBlockFast(location, Material.AIR, false);
-                    match.getPlacedBlocks().remove(location);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                Collection<ItemStack> itemStacks = location.clone().getBlock().getDrops();
+
+                Util.setBlockFast(location, Material.AIR, false);
+                match.getPlacedBlocks().remove(location);
+                callback.accept(itemStacks);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

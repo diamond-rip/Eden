@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.imanity.imanityspigot.chunk.AsyncPriority;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.match.team.Team;
@@ -65,6 +66,8 @@ public class Util {
         } catch (final Throwable throwable) {
             throwable.printStackTrace();
         }
+
+
     }
 
     public static Location getBedBlockNearBy(Location location) {
@@ -265,6 +268,14 @@ public class Util {
         }
 
         return blocks;
+    }
+
+    public static void teleport(Player player, Location location) {
+        if (Eden.INSTANCE.getConfigFile().getBoolean("imanity.teleport-async")) {
+            location.getWorld().imanity().getChunkAtAsynchronously(location, AsyncPriority.HIGHER).thenApply(chunk -> player.teleport(location));
+        } else {
+            player.teleport(location);
+        }
     }
 
 }

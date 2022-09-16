@@ -9,6 +9,7 @@ import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.arenas.task.ArenaRemoveTask;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
@@ -47,7 +48,7 @@ public class ArenaDetailButton extends Button {
             new ArenaRemoveTask(player, arena, arenaDetail);
         } else if (clickType == ClickType.RIGHT) {
             player.closeInventory();
-            player.teleport(arenaDetail.getA());
+            Util.teleport(player, arenaDetail.getA());
             Language.ARENA_DETAILS_MENU_DETAIL_TELEPORTED.sendMessage(player, arena.getName(), number);
         }
     }

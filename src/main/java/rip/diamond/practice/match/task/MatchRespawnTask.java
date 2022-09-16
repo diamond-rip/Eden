@@ -2,7 +2,6 @@ package rip.diamond.practice.match.task;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
@@ -11,6 +10,7 @@ import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Common;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.VisibilityController;
 
 public class MatchRespawnTask extends MatchTaskTicker {
@@ -36,7 +36,7 @@ public class MatchRespawnTask extends MatchTaskTicker {
             cancel();
             team.getSpawnLocation().clone().add(0,0,0).getBlock().setType(Material.AIR);
             team.getSpawnLocation().clone().add(0,1,0).getBlock().setType(Material.AIR);
-            player.teleport(team.getSpawnLocation());
+            Util.teleport(player, team.getSpawnLocation());
             player.setAllowFlight(false);
             player.setFlying(false);
             teamPlayer.setRespawning(false);
@@ -63,7 +63,7 @@ public class MatchRespawnTask extends MatchTaskTicker {
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
         player.setAllowFlight(true);
         player.setFlying(true);
-        if (getStartTick() > 0) player.teleport(match.getTeam(player).getSpawnLocation());
+        if (getStartTick() > 0) Util.teleport(player, match.getTeam(player).getSpawnLocation());
 
         //我也不知道為什麼, 這兩項東西需要重新用一次才能正常運作
         player.setAllowFlight(true);
@@ -79,11 +79,6 @@ public class MatchRespawnTask extends MatchTaskTicker {
 
     @Override
     public int getStartTick() {
-        if (match.getKit().getGameRules().isBed()) {
-            return Eden.INSTANCE.getConfigFile().getInt("match.respawn-time.bed");
-        } else if (match.getKit().getGameRules().isBridge()) {
-            return 0;
-        }
-        return Eden.INSTANCE.getConfigFile().getInt("match.respawn-time.default");
+        return match.getKit().getGameRules().getRespawnTime();
     }
 }

@@ -83,6 +83,11 @@ public class DuelRequestManager {
             return false;
         }
 
+        if (arena.isEdited()) {
+            Language.DUEL_VERIFY_ARENA_DISABLED.sendMessage(sender);
+            return false;
+        }
+
         ArenaDetail arenaDetail = Arena.getArenaDetail(arena);
         if (arenaDetail == null) {
             Language.DUEL_VERIFY_CANNOT_FIND_ARENA.sendMessage(sender);

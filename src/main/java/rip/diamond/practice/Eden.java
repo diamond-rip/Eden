@@ -34,6 +34,7 @@ import rip.diamond.practice.match.listener.SpectateListener;
 import rip.diamond.practice.misc.commands.EdenCommand;
 import rip.diamond.practice.misc.commands.ThreadProfilerCommand;
 import rip.diamond.practice.misc.listeners.GeneralListener;
+import rip.diamond.practice.movement.MatchMovementHandler;
 import rip.diamond.practice.party.PartyListener;
 import rip.diamond.practice.party.command.PartyCommand;
 import rip.diamond.practice.party.fight.PartyFightManager;
@@ -87,6 +88,7 @@ public class Eden extends JavaPlugin {
 
     private EntityHider entityHider;
     private SconeyHandler scoreboardHandler;
+    private MatchMovementHandler movementHandler;
     private EdenCache cache;
     private EdenPlaceholder placeholder;
 
@@ -179,6 +181,7 @@ public class Eden extends JavaPlugin {
 
         this.entityHider = new EntityHider(this, EntityHider.Policy.BLACKLIST).init();
         this.scoreboardHandler = new SconeyHandler(this, new ScoreboardAdapter());
+        this.movementHandler = new MatchMovementHandler();
         this.cache = new EdenCache();
         this.placeholder = new EdenPlaceholder(this);
         if (configFile.getBoolean("nametag.enabled")) this.nameTagManager.registerAdapter(new NameTagAdapter());

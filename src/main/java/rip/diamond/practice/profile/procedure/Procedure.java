@@ -27,7 +27,7 @@ public class Procedure {
     }
 
     public static void buildProcedure(Player player, String instructions, ProcedureType procedureType, Consumer<Object> callback) {
-        Common.sendMessage(player, CC.YELLOW + CC.BOLD + instructions, Language.PROFILE_PROCEDURE_ENTER_CANCEL_TO_CANCEL.toString());
+        Common.sendMessage(player, instructions == null ? null : CC.YELLOW + CC.BOLD + instructions, Language.PROFILE_PROCEDURE_ENTER_CANCEL_TO_CANCEL.toString());
 
         Procedure procedure = new Procedure(player.getUniqueId(), procedureType, callback);
         procedures.put(player.getUniqueId(), procedure);
