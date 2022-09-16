@@ -44,6 +44,7 @@ public class KitEditPriorityButton extends KitButton {
             int priority = Integer.parseInt(message);
 
             kit.setPriority(priority);
+            Kit.sortKit();
             Language.KIT_BUTTON_EDIT_PRIORITY_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), kit.getPriority());
             new KitDetailsMenu(kit, null).openMenu(player);
         });

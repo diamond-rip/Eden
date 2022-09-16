@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Kit {
 
-	private static final List<Kit> kits = new ArrayList<>();
+	@Getter private static final List<Kit> kits = new ArrayList<>();
 
 	@Getter @Setter private String name;
 	@Getter @Setter private String displayName;
@@ -54,9 +54,8 @@ public class Kit {
 		kits.sort(Comparator.comparing(Kit::getPriority));
 	}
 
-	public static List<Kit> getKits() {
+	public static void sortKit() {
 		kits.sort(Comparator.comparing(Kit::getPriority));
-		return kits;
 	}
 
 	public ItemStack getDisplayIcon() {
