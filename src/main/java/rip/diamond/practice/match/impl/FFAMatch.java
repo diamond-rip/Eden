@@ -104,6 +104,13 @@ public class FFAMatch extends Match {
     }
 
     @Override
+    public Team getWinningTeam() {
+        List<Team> all = new ArrayList<>(getTeams());
+        all.removeIf(Team::isEliminated);
+        return all.get(0);
+    }
+
+    @Override
     public List<String> getMatchScoreboard(Player player) {
         List<String> elements = new ArrayList<>();
 
@@ -125,11 +132,5 @@ public class FFAMatch extends Match {
             elements.addAll(Language.SCOREBOARD_IN_SPECTATE_FFA_FIGHTING.toStringList(player));
         }
         return elements;
-    }
-
-    public Team getWinningTeam() {
-        List<Team> all = new ArrayList<>(getTeams());
-        all.removeIf(Team::isEliminated);
-        return all.get(0);
     }
 }

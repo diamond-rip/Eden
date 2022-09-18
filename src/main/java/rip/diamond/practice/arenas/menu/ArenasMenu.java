@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.pagination.PaginatedMenu;
 
@@ -34,7 +35,7 @@ public class ArenasMenu extends PaginatedMenu {
 
                 @Override
                 public void clicked(Player player, ClickType clickType) {
-                    player.performCommand("arena edit " + arena.getName());
+                    Util.performCommand(player, "arena edit " + arena.getName());
                 }
             });
         }

@@ -6,6 +6,7 @@ import org.bukkit.event.inventory.ClickType;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
+import rip.diamond.practice.util.Util;
 
 public class ArenaSaveButton extends ArenaButton {
     public ArenaSaveButton(Arena arena) {
@@ -35,7 +36,7 @@ public class ArenaSaveButton extends ArenaButton {
     @Override
     public void clicked(Player player, ClickType clickType) {
         player.closeInventory();
-        player.performCommand("arena save " + getArena().getName());
+        Util.performCommand(player, "arena save " + getArena().getName());
     }
 
     @Override

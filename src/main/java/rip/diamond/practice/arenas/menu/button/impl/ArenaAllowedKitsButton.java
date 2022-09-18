@@ -6,6 +6,7 @@ import org.bukkit.event.inventory.ClickType;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
+import rip.diamond.practice.util.Util;
 
 public class ArenaAllowedKitsButton extends ArenaButton {
     public ArenaAllowedKitsButton(Arena arena) {
@@ -25,7 +26,7 @@ public class ArenaAllowedKitsButton extends ArenaButton {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
         player.closeInventory();
-        player.performCommand("arena setup " + getArena().getName() + " allowed-kits");
+        Util.performCommand(player, "arena setup " + getArena().getName() + " allowed-kits");
     }
 
     @Override

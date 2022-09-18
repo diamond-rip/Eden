@@ -28,7 +28,7 @@ public class KitEditorListener implements Listener {
     public void onPlayerQuitEvent(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         if (plugin.getKitEditorManager().isEditing(player)) {
-            plugin.getKitEditorManager().leaveKitEditor(player);
+            plugin.getKitEditorManager().leaveKitEditor(player, true);
         }
     }
 
@@ -75,7 +75,7 @@ public class KitEditorListener implements Listener {
                 break;
             case WALL_SIGN:
             case SIGN_POST:
-                plugin.getKitEditorManager().leaveKitEditor(player);
+                plugin.getKitEditorManager().leaveKitEditor(player, true);
                 break;
         }
     }

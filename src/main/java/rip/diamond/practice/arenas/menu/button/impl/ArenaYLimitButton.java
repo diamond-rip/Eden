@@ -5,6 +5,7 @@ import org.bukkit.event.inventory.ClickType;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
+import rip.diamond.practice.util.Util;
 
 public class ArenaYLimitButton extends ArenaButton {
     public ArenaYLimitButton(Arena arena) {
@@ -24,7 +25,7 @@ public class ArenaYLimitButton extends ArenaButton {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
         player.closeInventory();
-        player.performCommand("arena setup " + getArena().getName() + " y-limit");
+        Util.performCommand(player, "arena setup " + getArena().getName() + " y-limit");
     }
 
     @Override

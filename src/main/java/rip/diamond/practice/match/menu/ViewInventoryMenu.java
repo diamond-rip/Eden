@@ -82,7 +82,7 @@ public class ViewInventoryMenu extends Menu {
 
 		@Override
 		public void clicked(Player player, ClickType clickType) {
-			player.performCommand("viewinv " + info.getSwitchToUUID().toString());
+			Util.performCommand(player, "viewinv " + info.getSwitchToUUID().toString());
 		}
 	}
 

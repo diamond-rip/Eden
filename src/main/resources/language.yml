@@ -743,6 +743,12 @@ match:
       - "{post-match-inventories}"
       - "&7&m------------------------------------------------"
     rating-changes: "&e積分轉變: &a{0} +{1} ({2})  &c{3} -{4} ({5})"
+  force-end:
+    not-online: "&c玩家不在線上"
+    profile-not-found: "&c無法找到該玩家的資料"
+    not-in-match: "&c玩家不在戰鬥中"
+    reason: "&c管理員指令"
+    success: "&a成功讓 {0} 的戰鬥強制結束"
   spectate:
     wrong-state: "&c你不能在這個情況下觀察戰鬥"
     have-party: "&c你不能在擁有隊伍的情況下觀察戰鬥"

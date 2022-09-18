@@ -11,6 +11,9 @@ import rip.diamond.practice.database.MongoManager;
 import rip.diamond.practice.duel.DuelRequest;
 import rip.diamond.practice.duel.DuelRequestManager;
 import rip.diamond.practice.duel.command.DuelCommand;
+import rip.diamond.practice.events.command.EventCommand;
+import rip.diamond.practice.events.command.JoinEventCommand;
+import rip.diamond.practice.events.listener.EventListener;
 import rip.diamond.practice.hook.HookManager;
 import rip.diamond.practice.kiteditor.KitEditorListener;
 import rip.diamond.practice.kiteditor.KitEditorManager;
@@ -26,6 +29,7 @@ import rip.diamond.practice.leaderboard.command.ReloadLeaderboardCommand;
 import rip.diamond.practice.lobby.LobbyManager;
 import rip.diamond.practice.lobby.command.LocationCommand;
 import rip.diamond.practice.match.Match;
+import rip.diamond.practice.match.command.ForceEndCommand;
 import rip.diamond.practice.match.command.LeaveSpectateCommand;
 import rip.diamond.practice.match.command.SpectateCommand;
 import rip.diamond.practice.match.command.ViewInventoryCommand;
@@ -139,9 +143,10 @@ public class Eden extends JavaPlugin {
     private void loadListeners() {
         Arrays.asList(
                 new MenuListener(this),
-                new GeneralListener(this),
+                new EventListener(this),
                 new KitListener(),
                 new MatchListener(this),
+                new GeneralListener(this),
                 new ProfileListener(this),
                 new ProcedureListener(),
                 new KitEditorListener(this),
@@ -161,7 +166,10 @@ public class Eden extends JavaPlugin {
         new EditKitsCommand();
         new PartyCommand();
         new DuelCommand();
+        new EventCommand();
+        new JoinEventCommand();
         new StatsCommand();
+        new ForceEndCommand();
         new LeaveSpectateCommand();
         new SpectateCommand();
         new ViewInventoryCommand();

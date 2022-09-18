@@ -15,6 +15,7 @@ import org.github.paperspigot.PaperSpigotConfig;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.ArenaDetail;
+import rip.diamond.practice.event.MatchEndEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
 import rip.diamond.practice.kits.Kit;
@@ -237,6 +238,9 @@ public abstract class Match {
 
         Common.debug("正在結束 " + getClass().getSimpleName() + " 戰鬥 (" + teams.stream().map(team -> team.getLeader().getUsername()).collect(Collectors.joining(" vs ")) + ") (職業: " + kit.getName() + ") (地圖: " + arenaDetail.getArena().getName() + ") (UUID: " + uuid + ")");
         state = MatchState.ENDING;
+
+        MatchEndEvent event = new MatchEndEvent(this, forced);
+        event.call();
 
         if (forced) {
             broadcastMessage("", CC.RED + "本場戰鬥已強制終止", CC.RED + "原因: " + reason, "");
@@ -487,6 +491,8 @@ public abstract class Match {
 
     public abstract TeamPlayer getOpponent(TeamPlayer teamPlayer);
     public abstract List<TeamPlayer> getWinningPlayers();
+
+    public abstract Team getWinningTeam();
 
     public abstract List<String> getMatchScoreboard(Player player);
 

@@ -5,6 +5,7 @@ import org.bukkit.event.inventory.ClickType;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
 public class ArenaMinPositionButton extends ArenaButton {
@@ -25,7 +26,7 @@ public class ArenaMinPositionButton extends ArenaButton {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
         player.closeInventory();
-        player.performCommand("arena setup " + getArena().getName() + " min");
+        Util.performCommand(player, "arena setup " + getArena().getName() + " min");
     }
 
     @Override

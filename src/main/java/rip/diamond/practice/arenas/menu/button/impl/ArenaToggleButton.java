@@ -7,6 +7,7 @@ import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
 import rip.diamond.practice.util.CC;
+import rip.diamond.practice.util.Util;
 
 public class ArenaToggleButton extends ArenaButton {
     public ArenaToggleButton(Arena arena) {
@@ -35,6 +36,6 @@ public class ArenaToggleButton extends ArenaButton {
 
     @Override
     public void clicked(Player player, ClickType clickType) {
-        player.performCommand("arena setup " + getArena().getName() + " toggle");
+        Util.performCommand(player, "arena setup " + getArena().getName() + " toggle");
     }
 }

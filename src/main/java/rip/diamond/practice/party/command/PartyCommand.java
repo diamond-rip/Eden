@@ -10,6 +10,7 @@ import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.util.Checker;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
@@ -115,7 +116,7 @@ public class PartyCommand extends Command {
                 return;
             }
             else if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("list")) {
-                player.performCommand("party info " + player.getName());
+                Util.performCommand(player, "party info " + player.getName());
                 return;
             }
         } else if (args.length == 2) {

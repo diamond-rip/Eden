@@ -1,7 +1,7 @@
 package rip.diamond.practice.match.listener;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -9,7 +9,6 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.*;
-import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -60,6 +59,10 @@ public class MatchListener implements Listener {
         Kit kit = match.getKit();
 
         match.getMatchPlayers().forEach(p -> {
+            if (plugin.getKitEditorManager().isEditing(p)) {
+                plugin.getKitEditorManager().leaveKitEditor(p, false);
+            }
+
             String opponents;
             switch (match.getMatchType()) {
                 case SOLO:

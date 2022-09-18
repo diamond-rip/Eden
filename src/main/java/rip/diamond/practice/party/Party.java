@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.event.PartyDisbandEvent;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.Clickable;
@@ -131,12 +132,13 @@ public class Party {
     }
 
     public void disband(boolean forced) {
-        parties.remove(uniqueID);
-        getAllPartyMembers().stream().map(partyMember -> PlayerProfile.get(partyMember.getUniqueID())).forEach(PlayerProfile::setupItems);
-
+        Party party = parties.remove(uniqueID);
         broadcast(Language.PARTY_DISBAND.toString());
-
+        getAllPartyMembers().stream().map(partyMember -> PlayerProfile.get(partyMember.getUniqueID())).forEach(PlayerProfile::setupItems);
         getAllPartyMembers().forEach(partyMember -> VisibilityController.updateVisibility(partyMember.getPlayer()));
+
+        PartyDisbandEvent event = new PartyDisbandEvent(party, forced);
+        event.call();
     }
 
     public void invite(Player player) {

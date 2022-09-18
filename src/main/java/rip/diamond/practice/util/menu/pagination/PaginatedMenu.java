@@ -77,9 +77,7 @@ public abstract class PaginatedMenu extends Menu {
 		Map<Integer, Button> global = getGlobalButtons(player);
 
 		if (global != null) {
-			for (Map.Entry<Integer, Button> gent : global.entrySet()) {
-				buttons.put(gent.getKey(), gent.getValue());
-			}
+			buttons.putAll(global);
 		}
 
 		return buttons;

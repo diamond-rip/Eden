@@ -89,6 +89,15 @@ public class TeamMatch extends Match {
 
     }
 
+    @Override
+    public List<TeamPlayer> getWinningPlayers() {
+        if (getState() != MatchState.ENDING) {
+            throw new PracticeUnexpectedException("Cannot get Winning Players when match isn't ending");
+        }
+        return getWinningTeam().getTeamPlayers();
+    }
+
+    @Override
     public Team getWinningTeam() {
         if (teamA.isEliminated()) {
             return teamB;
@@ -97,14 +106,6 @@ public class TeamMatch extends Match {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public List<TeamPlayer> getWinningPlayers() {
-        if (getState() != MatchState.ENDING) {
-            throw new PracticeUnexpectedException("Cannot get Winning Players when match isn't ending");
-        }
-        return getWinningTeam().getTeamPlayers();
     }
 
     @Override

@@ -128,6 +128,17 @@ public class SoloMatch extends Match {
     }
 
     @Override
+    public Team getWinningTeam() {
+        if (teamA.isEliminated()) {
+            return teamB;
+        } else if (teamB.isEliminated()) {
+            return teamA;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public List<String> getMatchScoreboard(Player player) {
         List<String> elements = new ArrayList<>();
 

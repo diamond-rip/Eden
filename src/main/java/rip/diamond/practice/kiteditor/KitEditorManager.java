@@ -71,9 +71,11 @@ public class KitEditorManager {
         Language.KIT_EDITOR_EDITING.sendListOfMessage(player, kit.getDisplayName());
     }
 
-    public void leaveKitEditor(Player player) {
+    public void leaveKitEditor(Player player, boolean sendToSpawnAndReset) {
         editing.remove(player.getUniqueId());
-        plugin.getLobbyManager().sendToSpawnAndReset(player);
+        if (sendToSpawnAndReset) {
+            plugin.getLobbyManager().sendToSpawnAndReset(player);
+        }
     }
 
 }

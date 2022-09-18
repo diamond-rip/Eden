@@ -102,39 +102,39 @@ public class ProfileListener implements Listener {
 
             //Lobby items
             if (item.equals(EdenItems.LOBBY_UNRANKED_QUEUE.getItemStack())) {
-                player.performCommand("queue unranked");
+                Util.performCommand(player, "queue unranked");
             } else if (item.equals(EdenItems.LOBBY_RANKED_QUEUE.getItemStack())) {
-                player.performCommand("queue ranked");
+                Util.performCommand(player, "queue ranked");
             } else if (item.equals(EdenItems.LOBBY_PARTY_OPEN.getItemStack())) {
-                player.performCommand("party create");
+                Util.performCommand(player, "party create");
             } else if (item.equals(EdenItems.LOBBY_LEADERBOARD.getItemStack())) {
-                player.performCommand("stats");
+                Util.performCommand(player, "stats");
             } else if (item.equals(EdenItems.LOBBY_SETTINGS.getItemStack())) {
-                player.performCommand("settings");
+                Util.performCommand(player, "settings");
             } else if (item.equals(EdenItems.LOBBY_EDITOR.getItemStack())) {
-                player.performCommand("editkits");
+                Util.performCommand(player, "editkits");
             }
             //Party items
             else if (item.equals(EdenItems.PARTY_PARTY_LIST.getItemStack())) {
-                player.performCommand("party list");
+                Util.performCommand(player, "party list");
             } else if (item.equals(EdenItems.PARTY_PARTY_FIGHT.getItemStack())) {
                 new ChooseMatchTypeMenu().openMenu(player);
             } else if (item.equals(EdenItems.PARTY_OTHER_PARTIES.getItemStack())) {
                 new OtherPartiesMenu().openMenu(player);
             } else if (item.equals(EdenItems.PARTY_EDITOR.getItemStack())) {
-                player.performCommand("editkits");
+                Util.performCommand(player, "editkits");
             } else if (item.equals(EdenItems.PARTY_PARTY_LEAVE.getItemStack())) {
-                player.performCommand("party leave");
+                Util.performCommand(player, "party leave");
             }
             //Queue items
             else if (item.equals(EdenItems.QUEUE_LEAVE_QUEUE.getItemStack())) {
-                player.performCommand("queue leave");
+                Util.performCommand(player, "queue leave");
             }
             //Spectate items
             else if (item.equals(EdenItems.SPECTATE_TELEPORTER.getItemStack())) {
                 new SpectateTeleportMenu(profile.getMatch()).openMenu(player);
             } else if (item.equals(EdenItems.SPECTATE_LEAVE_SPECTATE.getItemStack())) {
-                player.performCommand("leavespectate");
+                Util.performCommand(player, "leavespectate");
             } else if (item.equals(EdenItems.SPECTATE_TOGGLE_VISIBILITY_OFF.getItemStack()) || item.equals(EdenItems.SPECTATE_TOGGLE_VISIBILITY_ON.getItemStack())) {
                 ProfileSettings settings = ProfileSettings.SPECTATOR_VISIBILITY;
                 Option currentOption = profile.getSettings().get(settings);

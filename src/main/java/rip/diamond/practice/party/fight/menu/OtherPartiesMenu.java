@@ -6,10 +6,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.party.Party;
-import rip.diamond.practice.util.CC;
-import rip.diamond.practice.util.HeadUtil;
-import rip.diamond.practice.util.ItemBuilder;
-import rip.diamond.practice.util.Symbols;
+import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.pagination.PaginatedMenu;
 
@@ -53,7 +50,7 @@ public class OtherPartiesMenu extends PaginatedMenu {
                 @Override
                 public void clicked(Player player, ClickType clickType) {
                     player.closeInventory();
-                    player.performCommand("duel " + party.getLeader().getUsername());
+                    Util.performCommand(player, "duel " + party.getLeader().getUsername());
                 }
             });
         }

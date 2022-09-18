@@ -15,6 +15,7 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.imanity.imanityspigot.chunk.AsyncPriority;
@@ -48,6 +49,15 @@ public class Util {
 
         if (!event.isCancelled()) {
             player.damage(damage);
+        }
+    }
+    
+    public static void performCommand(Player player, String command) {
+        PlayerCommandPreprocessEvent event = new PlayerCommandPreprocessEvent(player, "/" + command);
+        Bukkit.getPluginManager().callEvent(event);
+        
+        if (!event.isCancelled()) {
+            player.performCommand(command);
         }
     }
 
