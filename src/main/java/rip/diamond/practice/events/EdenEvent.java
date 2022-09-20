@@ -64,7 +64,7 @@ public abstract class EdenEvent {
         return party != null && onGoingEvent != null && onGoingEvent.getParties().contains(party);
     }
 
-    private List<Player> getTotalPlayers() {
+    public List<Player> getTotalPlayers() {
         List<Player> players = new ArrayList<>();
         parties.forEach(party -> players.addAll(party.getAllPartyMembers().stream().map(PartyMember::getPlayer).collect(Collectors.toList())));
         return players;
@@ -99,11 +99,18 @@ public abstract class EdenEvent {
         setCountdown(new EventCountdown(seconds, 45,30,15,10,5,4,3,2,1) {
             @Override
             public void runTick(int tick) {
-                Common.broadcastMessage("&7[&b活動&7] &b" + eventType.getName() + " &f將會在 &b&l" + tick + " &f秒後開始");
+                Clickable clickable = new Clickable("&7[&b活動&7] &b" + eventType.getName() + " &f將會在 &b&l" + tick + " &f秒後開始 ");
+                clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
+                Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
             }
 
             @Override
             public void run() {
+                if (getMinPlayers() > getTotalPlayers().size()) {
+                    Common.broadcastMessage("&7[&b活動&7] &c參加人數不足! 活動已強制終止");
+                    destroy();
+                    return;
+                }
                 start();
             }
         });
@@ -115,8 +122,6 @@ public abstract class EdenEvent {
         }
         onGoingEvent = null;
     }
-
-    public abstract Listener constructListener();
 
     public void start() {
         state = EventState.RUNNING;
@@ -132,4 +137,20 @@ public abstract class EdenEvent {
         }
         this.countdown = countdown;
     }
+
+    public abstract Listener constructListener();
+
+    /**
+     * The Scoreboard which displays to everyone who's in the lobby (Their profile state should be IN_LOBBY)
+     * @param player The player who will receive the scoreboard layout
+     * @return The list of string which displays in the scoreboard
+     */
+    public abstract List<String> getLobbyScoreboard(Player player);
+
+    /**
+     * The Scoreboard which displays to players which is in the event when the event is running or ending
+     * @param player The player who will receive the scoreboard layout
+     * @return The list of string which displays in the scoreboard
+     */
+    public abstract List<String> getInGameScoreboard(Player player);
 }

@@ -6,6 +6,7 @@ import io.github.epicgo.sconey.element.SconeyElementMode;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -40,11 +41,16 @@ public class ScoreboardAdapter implements SconeyElementAdapter {
         Party party = Party.getByPlayer(player);
         QueueProfile qProfile = Queue.getPlayers().get(player.getUniqueId());
         Match match = profile.getMatch();
+        EdenEvent event = EdenEvent.getOnGoingEvent();
 
         if (profile.getPlayerState() == PlayerState.LOADING) {
             element.addAll(Language.SCOREBOARD_LOADING.toStringList(player));
         } else if (profile.getPlayerState() == PlayerState.IN_LOBBY && party == null) {
-            element.addAll(Language.SCOREBOARD_IN_LOBBY.toStringList(player));
+            if (event != null) {
+                element.addAll(event.getLobbyScoreboard(player));
+            } else {
+                element.addAll(Language.SCOREBOARD_IN_LOBBY.toStringList(player));
+            }
         } else if (profile.getPlayerState() == PlayerState.IN_LOBBY && party != null) {
             element.addAll(Language.SCOREBOARD_IN_PARTY.toStringList(player));
         } else if (profile.getPlayerState() == PlayerState.IN_EDIT) {
@@ -53,6 +59,8 @@ public class ScoreboardAdapter implements SconeyElementAdapter {
             element.addAll(Language.SCOREBOARD_IN_QUEUE_UNRANKED.toStringList(player));
         } else if (profile.getPlayerState() == PlayerState.IN_QUEUE && qProfile != null && qProfile.getQueueType() == QueueType.RANKED) {
             element.addAll(Language.SCOREBOARD_IN_QUEUE_RANKED.toStringList(player));
+        } else if (event != null && event.getTotalPlayers().contains(player) && event.getInGameScoreboard(player) != null) {
+            element.addAll(event.getInGameScoreboard(player));
         } else if (profile.getPlayerState() == PlayerState.IN_MATCH && match != null) {
             if (!profile.getSettings().get(ProfileSettings.MATCH_SCOREBOARD).isEnabled()) {
                 return element;

@@ -1,5 +1,7 @@
 package rip.diamond.practice.events.impl;
 
+import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -23,14 +25,17 @@ import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Tasks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public class Tournament extends EdenEvent {
 
     private final Kit kit;
     private final List<Match> matches = new ArrayList<>();
+    private TournamentState tournamentState = TournamentState.NONE;
     private int round = 0;
 
     public Tournament(String hoster, int minPlayers, int maxPlayers, Kit kit, int teamSize) {
@@ -77,6 +82,49 @@ public class Tournament extends EdenEvent {
     }
 
     @Override
+    public List<String> getLobbyScoreboard(Player player) {
+        /*
+         * 如果 tournamentState == TournamentState.NONE, 意思就是錦標賽還沒開始
+         * 這個情況下, getState() 應該會回傳 EventState.WAITING 或者 EventState.STARTING
+         */
+        String countdown = getCountdown() == null ? "-1" : getCountdown().getSecondsLeft() + "";
+
+        if (tournamentState == TournamentState.NONE) {
+            return Arrays.asList(
+                    "&7&m----------------------",
+                    getEventType().getName(),
+                    " &f現時人數: &b" + getTotalPlayers().size() + "&7/&b" + getMaxPlayers(),
+                    "",
+                    "&f將會在 &b&l" + countdown + " &f秒後開始",
+                    "&7&m----------------------"
+            );
+        } else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
+            return Arrays.asList(
+                    "&7&m----------------------",
+                    getEventType().getName(),
+                    "",
+                    "&f第 &b&l" + round + " &f回合",
+                    "&7將會在 &b" + countdown + " &7秒後開始",
+                    "&7&m----------------------"
+            );
+        } else if (tournamentState == TournamentState.FIGHTING) {
+            return Arrays.asList(
+                    "&7&m----------------------",
+                    getEventType().getName(),
+                    "",
+                    "&f第 &b&l" + round + " &f回合",
+                    "&f使用指令 &b/event state &f查看本回合的戰鬥",
+                    "&7&m----------------------"
+            );
+        } else return new ArrayList<>();
+    }
+
+    @Override
+    public List<String> getInGameScoreboard(Player player) {
+        return null;
+    }
+
+    @Override
     public void start() {
         super.start();
         startNewRound();
@@ -85,7 +133,7 @@ public class Tournament extends EdenEvent {
     @Override
     public void end() {
         super.end();
-
+        tournamentState = TournamentState.ENDING;
         new BukkitRunnable() {
             private final String winners = getParties().get(0).getAllPartyMembers().stream().map(PartyMember::getUsername).collect(Collectors.joining("&7, &b"));
             private int count = 5;
@@ -105,6 +153,7 @@ public class Tournament extends EdenEvent {
 
     private void startNewRound() {
         round++;
+        tournamentState = TournamentState.STARTING_NEW_ROUND;
         setCountdown(new EventCountdown(10, 10,5,4,3,2,1) {
             @Override
             public void runTick(int tick) {
@@ -149,7 +198,16 @@ public class Tournament extends EdenEvent {
                 if (matchParties.size() == 1) {
                     matchParties.get(0).broadcast("&7[&b活動&7] &e本回合派對總數為單數, 你的隊伍已被自動晉級 &a:)");
                 }
+
+                tournamentState = TournamentState.FIGHTING;
             }
         });
+    }
+
+    enum TournamentState {
+        NONE,
+        STARTING_NEW_ROUND,
+        FIGHTING,
+        ENDING
     }
 }
