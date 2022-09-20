@@ -17,8 +17,6 @@ import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.SettingsChangeEvent;
 import rip.diamond.practice.match.menu.SpectateTeleportMenu;
-import rip.diamond.practice.party.fight.menu.ChooseMatchTypeMenu;
-import rip.diamond.practice.party.fight.menu.OtherPartiesMenu;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
@@ -118,9 +116,9 @@ public class ProfileListener implements Listener {
             else if (item.equals(EdenItems.PARTY_PARTY_LIST.getItemStack())) {
                 Util.performCommand(player, "party list");
             } else if (item.equals(EdenItems.PARTY_PARTY_FIGHT.getItemStack())) {
-                new ChooseMatchTypeMenu().openMenu(player);
+                Util.performCommand(player, "choosematchtype");
             } else if (item.equals(EdenItems.PARTY_OTHER_PARTIES.getItemStack())) {
-                new OtherPartiesMenu().openMenu(player);
+                Util.performCommand(player, "otherparties");
             } else if (item.equals(EdenItems.PARTY_EDITOR.getItemStack())) {
                 Util.performCommand(player, "editkits");
             } else if (item.equals(EdenItems.PARTY_PARTY_LEAVE.getItemStack())) {

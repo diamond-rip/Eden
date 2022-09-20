@@ -40,6 +40,8 @@ import rip.diamond.practice.misc.commands.ThreadProfilerCommand;
 import rip.diamond.practice.misc.listeners.GeneralListener;
 import rip.diamond.practice.movement.MatchMovementHandler;
 import rip.diamond.practice.party.PartyListener;
+import rip.diamond.practice.party.command.ChooseMatchTypeCommand;
+import rip.diamond.practice.party.command.OtherPartiesCommand;
 import rip.diamond.practice.party.command.PartyCommand;
 import rip.diamond.practice.party.fight.PartyFightManager;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -164,6 +166,8 @@ public class Eden extends JavaPlugin {
         new EdenCommand();
         new ThreadProfilerCommand();
         new EditKitsCommand();
+        new ChooseMatchTypeCommand();
+        new OtherPartiesCommand();
         new PartyCommand();
         new DuelCommand();
         new EventCommand();

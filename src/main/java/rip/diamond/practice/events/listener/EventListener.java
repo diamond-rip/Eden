@@ -7,8 +7,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.PartyDisbandEvent;
 import rip.diamond.practice.events.EdenEvent;
+import rip.diamond.practice.events.EventState;
+import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.util.Common;
 
@@ -62,6 +65,21 @@ public class EventListener implements Listener {
         if (edenEvent.getParties().contains(party)) {
             edenEvent.getParties().remove(party);
             party.broadcast("&e由於隊伍已解散, 你的隊伍已自動退出活動");
+        }
+    }
+
+    @EventHandler
+    public void onMatchStart(MatchStartEvent event) {
+        Match match = event.getMatch();
+        EdenEvent edenEvent = EdenEvent.getOnGoingEvent();
+        if (edenEvent != null && (edenEvent.getState() == EventState.WAITING || edenEvent.getState() == EventState.STARTING)) {
+            match.getMatchPlayers().forEach(player -> {
+                Party party = Party.getByPlayer(player);
+                boolean exists = edenEvent.getParties().removeIf(p -> p == party);
+                if (exists) {
+                    party.broadcast("&c錯誤: 你已被本活動移除", "&c這是一個系統錯誤, 請回報給系統管理員");
+                }
+            });
         }
     }
 
