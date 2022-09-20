@@ -115,7 +115,7 @@ public class EventSettingsMenu extends Menu {
             });
         }
         if (eventType.isKit()) {
-            buttons.put(1, new Button() {
+            buttons.put(buttons.size(), new Button() {
                 @Override
                 public ItemStack getButtonItem(Player player) {
                     return new ItemBuilder(Material.BOOK)

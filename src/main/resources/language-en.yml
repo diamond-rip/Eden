@@ -11,6 +11,7 @@ scoreboard:
     - "&b&l┃ &fIn Queue: &b{queue-players}"
     - "&b&l┃ &fIn Fights: &b{match-players}"
     - ""
+    - "{event-information}"
   in-party:
     - ""
     - "&b&l┃ &fOnline: &b{online-players}"
@@ -21,6 +22,7 @@ scoreboard:
     - "&b&l┃ &f Leader: &b{party-leader}"
     - "&b&l┃ &f Member(s): &b{party-members}&7/&b{party-max}"
     - ""
+    - "{event-information}"
   in-edit:
     - ""
     - "&b&l┃ &fRight click the &banvil &fto save,"
@@ -43,6 +45,7 @@ scoreboard:
     - "&b&l┃ &fQueuing: &b{queue-kit}"
     - "&b&l┃ &fTime: &b{queue-time}"
     - ""
+    - "{event-information}"
   in-queue-ranked:
     - ""
     - "&b&l┃ &fOnline: &b{online-players}"
@@ -53,6 +56,7 @@ scoreboard:
     - "&b&l┃ &fTime: &b{queue-time}"
     - "&b&l┃ &fRange: &7[&b{queue-ranked-min} &9-> &b{queue-ranked-max}&7]"
     - ""
+    - "{event-information}"
   in-match-solo:
     fighting:
       - ""

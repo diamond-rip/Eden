@@ -1,7 +1,9 @@
 package rip.diamond.practice;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.impl.FFAMatch;
@@ -24,8 +26,10 @@ import java.util.List;
 public class EdenPlaceholder {
 
     private final Eden plugin;
+    public static final String SKIP_LINE = "<skip-line>";
+    public static final String NEW_LINE = "<new-line>";
 
-    public String translateScoreboard(Player player, String str) {
+    public String translate(Player player, String str) {
         if (player != null) {
             PlayerProfile profile = PlayerProfile.get(player);
 
@@ -36,6 +40,10 @@ public class EdenPlaceholder {
             Party party = Party.getByPlayer(player);
             QueueProfile qProfile = Queue.getPlayers().get(player.getUniqueId());
             Match match = profile.getMatch();
+            EdenEvent event = EdenEvent.getOnGoingEvent();
+
+            str = str
+                    .replace("{event-information}", event != null ? StringUtils.join(event.getLobbyScoreboard(player), NEW_LINE) : SKIP_LINE);
 
             if (party != null) {
                 str = str
@@ -180,11 +188,15 @@ public class EdenPlaceholder {
             }
         }
 
-        return str
-                .replace("{online-players}", plugin.getCache().getPlayersSize() + "")
-                .replace("{queue-players}", plugin.getCache().getQueuePlayersSize() + "")
-                .replace("{match-players}", plugin.getCache().getMatchPlayersSize() + "")
-                ;
+        if (str.contains(SKIP_LINE)) {
+            return null;
+        } else {
+            return str
+                    .replace("{online-players}", plugin.getCache().getPlayersSize() + "")
+                    .replace("{queue-players}", plugin.getCache().getQueuePlayersSize() + "")
+                    .replace("{match-players}", plugin.getCache().getMatchPlayersSize() + "")
+                    ;
+        }
     }
 
 }

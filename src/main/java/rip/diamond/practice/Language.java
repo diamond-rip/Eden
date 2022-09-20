@@ -9,9 +9,10 @@ import rip.diamond.practice.util.Checker;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public enum Language {
@@ -539,18 +540,16 @@ public enum Language {
         if (Util.isNull(Eden.INSTANCE.getLanguageFile().getString(path))) {
             return path;
         }
-        String str = CC.translate(Eden.INSTANCE.getLanguageFile().getString(path));
+        String str = Eden.INSTANCE.getLanguageFile().getString(path);
+        str = translate(str, player);
+        if (str == null) {
+            return null;
+        }
         for (int i = 0; i < replacements.length; i++) {
             String replacement = convert(replacements[i]);
             str = str.replace("{" + i + "}", replacement);
         }
-        if (player != null) {
-            str = Eden.INSTANCE.getPlaceholder().translateScoreboard(player, str);
-            if (Checker.isPluginEnabled("PlaceholderAPI")) {
-                str = PlaceholderAPI.setPlaceholders(player, str);
-            }
-        }
-        return str;
+        return CC.translate(str);
     }
 
     public List<String> toStringList(Object... replacements) {
@@ -561,20 +560,34 @@ public enum Language {
         if (Util.isNull(Eden.INSTANCE.getLanguageFile().getString(path))) {
             return Collections.singletonList(path);
         }
-        List<String> strings = Eden.INSTANCE.getLanguageFile().getStringList(path).stream().map(str -> {
+        List<String> strings = new ArrayList<>();
+
+        for (String str : Eden.INSTANCE.getLanguageFile().getStringList(path)) {
+            str = translate(str, player);
+            if (str == null) {
+                continue;
+            }
             for (int i = 0; i < replacements.length; i++) {
                 String replacement = convert(replacements[i]);
                 str = str.replace("{" + i + "}", replacement);
             }
-            if (player != null) {
-                str = Eden.INSTANCE.getPlaceholder().translateScoreboard(player, str);
-                if (Checker.isPluginEnabled("PlaceholderAPI")) {
-                    str = PlaceholderAPI.setPlaceholders(player, str);
-                }
-            }
-            return str;
-        }).collect(Collectors.toList());
+
+            List<String> toBeAdded = Arrays.asList(str.split(EdenPlaceholder.NEW_LINE, -1));
+            strings.addAll(toBeAdded);
+        }
+
         return CC.translate(strings);
+    }
+
+    private String translate(String string, Player player) {
+        String str = string;
+        if (player != null) {
+            str = Eden.INSTANCE.getPlaceholder().translate(player, str);
+            if (str != null && Checker.isPluginEnabled("PlaceholderAPI")) {
+                str = PlaceholderAPI.setPlaceholders(player, str);
+            }
+        }
+        return str;
     }
 
     public void sendMessage(Player player, Object... replacements) {

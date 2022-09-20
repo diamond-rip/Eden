@@ -37,7 +37,7 @@ public class JoinEventCommand extends Command {
         if (party == null) {
             party = new Party(player, event.getTeamSize());
             Common.sendMessage(player, "&7[&b活動&7] &e錦標賽需要擁有一個派對才能參加, 你已自動創建了一個派對");
-        } else if (party.getPartyMembers().size() > event.getTeamSize()) {
+        } else if (party.getAllPartyMembers().size() > event.getTeamSize()) {
             Common.sendMessage(player, "&c你的隊伍人數超出限制! 本活動最大人數為 " + event.getTeamSize());
             return;
         } else if (party.getMaxSize() != event.getTeamSize()) {

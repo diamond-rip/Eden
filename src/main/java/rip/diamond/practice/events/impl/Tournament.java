@@ -101,39 +101,36 @@ public class Tournament extends EdenEvent {
 
     @Override
     public List<String> getLobbyScoreboard(Player player) {
+        String countdown = getCountdown() == null ? "-1" : getCountdown().getSecondsLeft() + "";
+
         /*
          * 如果 tournamentState == TournamentState.NONE, 意思就是錦標賽還沒開始
          * 這個情況下, getState() 應該會回傳 EventState.WAITING
          */
-        String countdown = getCountdown() == null ? "-1" : getCountdown().getSecondsLeft() + "";
-
         if (tournamentState == TournamentState.NONE) {
             return Arrays.asList(
-                    "&7&m----------------------",
                     "&b&l" + getEventName(),
                     " &f現時人數: &b" + getTotalPlayers().size() + "&7/&b" + getMaxPlayers(),
                     "",
                     "&f將會在 &b&l" + countdown + " &f秒後開始",
-                    "&7&m----------------------"
+                    ""
             );
         } else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
             return Arrays.asList(
-                    "&7&m----------------------",
                     "&b&l" + getEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
                     "&7將會在 &b" + countdown + " &7秒後開始",
-                    "&7&m----------------------"
+                    ""
             );
         } else if (tournamentState == TournamentState.FIGHTING) {
             // TODO: 20/9/2022 Code /event state
             return Arrays.asList(
-                    "&7&m----------------------",
                     "&b&l" + getEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
                     "&f使用指令 &b/event state &f查看本回合的戰鬥",
-                    "&7&m----------------------"
+                    ""
             );
         } else return new ArrayList<>();
     }

@@ -46,11 +46,7 @@ public class ScoreboardAdapter implements SconeyElementAdapter {
         if (profile.getPlayerState() == PlayerState.LOADING) {
             element.addAll(Language.SCOREBOARD_LOADING.toStringList(player));
         } else if (profile.getPlayerState() == PlayerState.IN_LOBBY && party == null) {
-            if (event != null) {
-                element.addAll(event.getLobbyScoreboard(player));
-            } else {
-                element.addAll(Language.SCOREBOARD_IN_LOBBY.toStringList(player));
-            }
+            element.addAll(Language.SCOREBOARD_IN_LOBBY.toStringList(player));
         } else if (profile.getPlayerState() == PlayerState.IN_LOBBY && party != null) {
             element.addAll(Language.SCOREBOARD_IN_PARTY.toStringList(player));
         } else if (profile.getPlayerState() == PlayerState.IN_EDIT) {
