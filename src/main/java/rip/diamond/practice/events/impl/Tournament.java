@@ -56,7 +56,7 @@ public class Tournament extends EdenEvent {
     }
 
     private boolean canEnd() {
-        return getParties().size() <= 1;
+        return getState() == EventState.RUNNING && getParties().size() <= 1;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Tournament extends EdenEvent {
 
             @EventHandler
             public void onDisband(PartyDisbandEvent event) {
-                if (getState() == EventState.RUNNING && canEnd()) {
+                if (canEnd()) {
                     end();
                 }
             }
