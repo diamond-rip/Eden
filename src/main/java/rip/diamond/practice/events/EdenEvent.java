@@ -44,15 +44,19 @@ public abstract class EdenEvent {
 
         bukkitListener = constructListener();
         plugin.getServer().getPluginManager().registerEvents(bukkitListener, plugin);
+    }
 
-        Clickable clickable = new Clickable("&7[&b活動&7] &b" + hoster + " &f正在舉辦一個 &b" + eventType.getName() + " &f活動! ");
-        clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
-        Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
-        countdown(60);
+    public String getEventName() {
+        return eventType.getName();
     }
 
     public void create() {
         onGoingEvent = this;
+
+        Clickable clickable = new Clickable("&7[&b活動&7] &b" + hoster + " &f正在舉辦一個 &b" + getEventName() + " &f活動! ");
+        clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
+        Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
+        countdown(60);
     }
 
     public static boolean isInEvent(Player player) {
@@ -77,7 +81,7 @@ public abstract class EdenEvent {
     public void join(Party party) {
         parties.add(party);
 
-        Clickable clickable = new Clickable("&7[&b活動&7] &b" + getPartyName(party) + " &f加入了&b" + eventType.getName() + " &7(&b" + getTotalPlayers().size() + "&7/&b" + maxPlayers + "&7) ");
+        Clickable clickable = new Clickable("&7[&b活動&7] &b" + getPartyName(party) + " &f加入了&b" + getEventName() + " &7(&b" + getTotalPlayers().size() + "&7/&b" + maxPlayers + "&7) ");
         clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
         Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
 
@@ -92,14 +96,14 @@ public abstract class EdenEvent {
 
     public void leave(Party party) {
         parties.remove(party);
-        Common.broadcastMessage("&7[&b活動&7] &b" + getPartyName(party) + " &c離開了&b" + eventType.getName() + " &7(&b" + getTotalPlayers().size() + "&7/&b" + maxPlayers + "&7)");
+        Common.broadcastMessage("&7[&b活動&7] &b" + getPartyName(party) + " &c離開了&b" + getEventName() + " &7(&b" + getTotalPlayers().size() + "&7/&b" + maxPlayers + "&7)");
     }
 
     public void countdown(int seconds) {
         setCountdown(new EventCountdown(seconds, 45,30,15,10,5,4,3,2,1) {
             @Override
             public void runTick(int tick) {
-                Clickable clickable = new Clickable("&7[&b活動&7] &b" + eventType.getName() + " &f將會在 &b&l" + tick + " &f秒後開始 ");
+                Clickable clickable = new Clickable("&7[&b活動&7] &b" + getEventName() + " &f將會在 &b&l" + tick + " &f秒後開始 ");
                 clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
                 Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
             }
@@ -117,6 +121,10 @@ public abstract class EdenEvent {
     }
 
     public void destroy() {
+        if (countdown != null) {
+            countdown.cancelCountdown();
+            countdown = null;
+        }
         if (bukkitListener != null) {
             HandlerList.unregisterAll(bukkitListener);
         }
@@ -129,6 +137,10 @@ public abstract class EdenEvent {
 
     public void end() {
         state = EventState.ENDING;
+        if (countdown != null) {
+            countdown.cancelCountdown();
+            countdown = null;
+        }
     }
 
     public void setCountdown(EventCountdown countdown) {

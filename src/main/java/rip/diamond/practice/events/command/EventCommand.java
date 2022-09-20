@@ -25,7 +25,7 @@ public class EventCommand extends Command {
                     Common.sendMessage(player, "&c現時並沒有一個正在進行的活動!");
                     return;
                 }
-                if (event.getState() != EventState.WAITING && event.getState() != EventState.STARTING) {
+                if (event.getState() != EventState.WAITING) {
                     Common.sendMessage(player, "&c活動已經開始!");
                     return;
                 }

@@ -8,12 +8,6 @@ public enum EventState {
     WAITING,
 
     /**
-     * 該活動正在準備開始
-     * 這個情況下玩家依然可以進入活動
-     */
-    STARTING,
-
-    /**
      * 該活動正在運行中
      */
     RUNNING,

@@ -72,7 +72,7 @@ public class EventListener implements Listener {
     public void onMatchStart(MatchStartEvent event) {
         Match match = event.getMatch();
         EdenEvent edenEvent = EdenEvent.getOnGoingEvent();
-        if (edenEvent != null && (edenEvent.getState() == EventState.WAITING || edenEvent.getState() == EventState.STARTING)) {
+        if (edenEvent != null && (edenEvent.getState() == EventState.WAITING)) {
             match.getMatchPlayers().forEach(player -> {
                 Party party = Party.getByPlayer(player);
                 boolean exists = edenEvent.getParties().removeIf(p -> p == party);

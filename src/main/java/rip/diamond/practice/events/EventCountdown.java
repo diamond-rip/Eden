@@ -21,6 +21,7 @@ public class EventCountdown extends Cooldown {
                 if (isExpired()) {
                     EdenEvent.getOnGoingEvent().setCountdown(null);
                     Tasks.run(EventCountdown.this::run);
+                    cancel();
                     return;
                 }
                 if (Arrays.stream(tick).anyMatch(i -> i == getSecondsLeft())) {

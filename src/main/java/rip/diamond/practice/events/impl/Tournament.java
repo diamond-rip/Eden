@@ -9,8 +9,10 @@ import rip.diamond.practice.Eden;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.MatchEndEvent;
+import rip.diamond.practice.event.PartyDisbandEvent;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventCountdown;
+import rip.diamond.practice.events.EventState;
 import rip.diamond.practice.events.EventType;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.match.Match;
@@ -44,8 +46,17 @@ public class Tournament extends EdenEvent {
         this.kit = kit;
     }
 
+    @Override
+    public String getEventName() {
+        return getTeamSize() + "v" + getTeamSize() + " " + getKit().getDisplayName() + " " + getEventType().getName();
+    }
+
     private String getTeamName(Team team) {
         return team.getLeader().getUsername() + (team.getTeamPlayers().size() <= 1 ? "" : "的隊伍");
+    }
+
+    private boolean canEnd() {
+        return getParties().size() <= 1;
     }
 
     @Override
@@ -68,7 +79,7 @@ public class Tournament extends EdenEvent {
                         getParties().remove(party);
                     }
 
-                    if (getParties().size() <= 1) {
+                    if (canEnd()) {
                         end();
                         return;
                     }
@@ -78,6 +89,13 @@ public class Tournament extends EdenEvent {
                     }
                 }
             }
+
+            @EventHandler
+            public void onDisband(PartyDisbandEvent event) {
+                if (getState() == EventState.RUNNING && canEnd()) {
+                    end();
+                }
+            }
         };
     }
 
@@ -85,14 +103,14 @@ public class Tournament extends EdenEvent {
     public List<String> getLobbyScoreboard(Player player) {
         /*
          * 如果 tournamentState == TournamentState.NONE, 意思就是錦標賽還沒開始
-         * 這個情況下, getState() 應該會回傳 EventState.WAITING 或者 EventState.STARTING
+         * 這個情況下, getState() 應該會回傳 EventState.WAITING
          */
         String countdown = getCountdown() == null ? "-1" : getCountdown().getSecondsLeft() + "";
 
         if (tournamentState == TournamentState.NONE) {
             return Arrays.asList(
                     "&7&m----------------------",
-                    getEventType().getName(),
+                    "&b&l" + getEventName(),
                     " &f現時人數: &b" + getTotalPlayers().size() + "&7/&b" + getMaxPlayers(),
                     "",
                     "&f將會在 &b&l" + countdown + " &f秒後開始",
@@ -101,16 +119,17 @@ public class Tournament extends EdenEvent {
         } else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
             return Arrays.asList(
                     "&7&m----------------------",
-                    getEventType().getName(),
+                    "&b&l" + getEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
                     "&7將會在 &b" + countdown + " &7秒後開始",
                     "&7&m----------------------"
             );
         } else if (tournamentState == TournamentState.FIGHTING) {
+            // TODO: 20/9/2022 Code /event state
             return Arrays.asList(
                     "&7&m----------------------",
-                    getEventType().getName(),
+                    "&b&l" + getEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
                     "&f使用指令 &b/event state &f查看本回合的戰鬥",
@@ -134,6 +153,12 @@ public class Tournament extends EdenEvent {
     public void end() {
         super.end();
         tournamentState = TournamentState.ENDING;
+        if (getParties().isEmpty()) {
+            Common.broadcastMessage("&7[&b活動&7] &c沒有派對生還, 本次活動沒有勝利者");
+            destroy();
+            return;
+        }
+
         new BukkitRunnable() {
             private final String winners = getParties().get(0).getAllPartyMembers().stream().map(PartyMember::getUsername).collect(Collectors.joining("&7, &b"));
             private int count = 5;
