@@ -67,11 +67,6 @@ import java.util.Arrays;
 @Getter
 public class Eden extends JavaPlugin {
 
-    /* TODO LIST
-     * - Event
-     * - Clan
-     */
-
     public static Eden INSTANCE;
     public static DecimalFormat DECIMAL = new DecimalFormat("0.##");
     public static final Gson GSON = new Gson();

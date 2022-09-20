@@ -1,5 +1,6 @@
 package rip.diamond.practice.events.menu;
 
+import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -19,7 +20,7 @@ public class EventSettingsMenu extends Menu {
     private int maxPlayers;
     private int minPlayers;
     private int teamSize = 1;
-    private Kit kit = Kit.getKits().get(0);
+    @Setter private Kit kit = Kit.getKits().get(0);
 
     public EventSettingsMenu(EventType eventType) {
         this.eventType = eventType;
@@ -130,7 +131,7 @@ public class EventSettingsMenu extends Menu {
 
                 @Override
                 public void clicked(Player player, ClickType clickType) {
-                    // TODO: 16/9/2022  Code this
+                    new EventSelectKitMenu(EventSettingsMenu.this).openMenu(player);
                 }
             });
         }

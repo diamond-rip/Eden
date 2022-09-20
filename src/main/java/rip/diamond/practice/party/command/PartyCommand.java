@@ -115,8 +115,8 @@ public class PartyCommand extends Command {
                 party.announce();
                 return;
             }
-            else if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("list")) {
-                Util.performCommand(player, "party info " + player.getName());
+            else if (args[0].equalsIgnoreCase("list")) {
+                Util.performCommand(player, "party list " + player.getName());
                 return;
             }
         } else if (args.length == 2) {
@@ -159,7 +159,7 @@ public class PartyCommand extends Command {
                     Language.PARTY_NOT_INVITED.sendMessage(player);
                 }
                 return;
-            } else if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("list")) {
+            } else if (args[0].equalsIgnoreCase("list")) {
                 Player target = Bukkit.getPlayer(args[1]);
                 if (target == null) {
                     Language.PARTY_PLAYER_NOT_FOUND.sendMessage(player, args[1]);
