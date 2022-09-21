@@ -1,4 +1,4 @@
-package rip.diamond.practice.movement;
+package rip.diamond.practice.movement.impl;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,13 +10,14 @@ import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.team.Team;
+import rip.diamond.practice.movement.MovementHandler;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.Util;
 
 import java.util.Objects;
 
-public class MatchMovementHandler {
+public class MatchMovementHandler extends MovementHandler {
 
     public void onUpdateLocation(Player player, Location from, Location to) {
         PlayerProfile profile = PlayerProfile.get(player);

@@ -300,31 +300,6 @@ public class MatchListener implements Listener {
     }
 
     @EventHandler
-    public void onMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-
-        double fromX = event.getFrom().getX();
-        double fromY = event.getFrom().getY();
-        double fromZ = event.getFrom().getZ();
-        double fromYaw = event.getFrom().getYaw();
-        double fromPitch = event.getFrom().getPitch();
-
-        double toX = event.getTo().getX();
-        double toY = event.getTo().getY();
-        double toZ = event.getTo().getZ();
-        double toYaw = event.getTo().getYaw();
-        double toPitch = event.getTo().getPitch();
-
-        if (fromX != toX || fromY != toY || fromZ != toZ) {
-            plugin.getMovementHandler().onUpdateLocation(player, event.getFrom(), event.getTo());
-        }
-
-        if (fromYaw != toYaw || fromPitch != toPitch) {
-            plugin.getMovementHandler().onUpdateRotation(player, event.getFrom(), event.getTo());
-        }
-    }
-
-    @EventHandler
     public void onConsume(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);

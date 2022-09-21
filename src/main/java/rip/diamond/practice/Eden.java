@@ -38,7 +38,7 @@ import rip.diamond.practice.match.listener.SpectateListener;
 import rip.diamond.practice.misc.commands.EdenCommand;
 import rip.diamond.practice.misc.commands.ThreadProfilerCommand;
 import rip.diamond.practice.misc.listeners.GeneralListener;
-import rip.diamond.practice.movement.MatchMovementHandler;
+import rip.diamond.practice.movement.impl.MatchMovementHandler;
 import rip.diamond.practice.party.PartyListener;
 import rip.diamond.practice.party.command.ChooseMatchTypeCommand;
 import rip.diamond.practice.party.command.OtherPartiesCommand;
