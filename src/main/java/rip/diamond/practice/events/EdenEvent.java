@@ -155,14 +155,21 @@ public abstract class EdenEvent {
     /**
      * The Scoreboard which displays to everyone who's in the lobby (Their profile state should be IN_LOBBY)
      * @param player The player who will receive the scoreboard layout
-     * @return The list of string which displays in the scoreboard
+     * @return A list of string which displays in the scoreboard
      */
     public abstract List<String> getLobbyScoreboard(Player player);
 
     /**
      * The Scoreboard which displays to players which is in the event when the event is running or ending
      * @param player The player who will receive the scoreboard layout
-     * @return The list of string which displays in the scoreboard
+     * @return A list of string which displays in the scoreboard
      */
     public abstract List<String> getInGameScoreboard(Player player);
+
+    /**
+     * Display the current event status
+     * @param player The player who views the event status
+     * @return A list of string which displays the current event status
+     */
+    public abstract List<String> getStatus(Player player);
 }

@@ -18,6 +18,7 @@ public class EventCommand extends Command {
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("create")) {
                 new EventCreateMenu().openMenu(player);
+                return;
             } else if (args[0].equalsIgnoreCase("forcestart")) {
                 EdenEvent event = EdenEvent.getOnGoingEvent();
 
@@ -30,6 +31,21 @@ public class EventCommand extends Command {
                     return;
                 }
                 event.start();
+                return;
+            } else if (args[0].equalsIgnoreCase("status")) {
+                EdenEvent event = EdenEvent.getOnGoingEvent();
+
+                if (event == null) {
+                    Common.sendMessage(player, "&c現時並沒有一個正在進行的活動!");
+                    return;
+                }
+                if (event.getStatus(player) == null) {
+                    Common.sendMessage(player, "&c這個活動沒有狀態可以查看!");
+                    return;
+                }
+
+                Common.sendMessage(player, event.getStatus(player));
+                return;
             }
         }
     }

@@ -1,6 +1,7 @@
 package rip.diamond.practice.events.impl;
 
 import lombok.Getter;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,10 +27,7 @@ import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Tasks;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -49,6 +47,10 @@ public class Tournament extends EdenEvent {
     @Override
     public String getEventName() {
         return getTeamSize() + "v" + getTeamSize() + " " + getKit().getDisplayName() + " " + getEventType().getName();
+    }
+
+    public String getUncoloredEventName() {
+        return ChatColor.stripColor(super.getEventName());
     }
 
     private String getTeamName(Team team) {
@@ -109,27 +111,36 @@ public class Tournament extends EdenEvent {
          */
         if (tournamentState == TournamentState.NONE) {
             return Arrays.asList(
-                    "&b&l" + getEventName(),
+                    "&b&l" + getUncoloredEventName(),
                     " &f現時人數: &b" + getTotalPlayers().size() + "&7/&b" + getMaxPlayers(),
                     "",
                     "&f將會在 &b&l" + countdown + " &f秒後開始",
                     ""
             );
-        } else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
+        }
+        /*
+         * 如果 tournamentState == TournamentState.STARTING_NEW_ROUND, 意思就是錦標賽正在準備開始新的一個回合
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
             return Arrays.asList(
-                    "&b&l" + getEventName(),
+                    "&b&l" + getUncoloredEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
                     "&7將會在 &b" + countdown + " &7秒後開始",
                     ""
             );
-        } else if (tournamentState == TournamentState.FIGHTING) {
-            // TODO: 20/9/2022 Code /event state
+        }
+        /*
+         * 如果 tournamentState == TournamentState.FIGHTING, 意思就是錦標賽回合已經開始, 活動內的玩家正在戰鬥中
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        else if (tournamentState == TournamentState.FIGHTING) {
             return Arrays.asList(
-                    "&b&l" + getEventName(),
+                    "&b&l" + getUncoloredEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
-                    "&f使用指令 &b/event state &f查看本回合的戰鬥",
+                    "&f使用指令 &b/event status &f查看本回合的戰鬥",
                     ""
             );
         } else return new ArrayList<>();
@@ -138,6 +149,29 @@ public class Tournament extends EdenEvent {
     @Override
     public List<String> getInGameScoreboard(Player player) {
         return null;
+    }
+
+    @Override
+    public List<String> getStatus(Player player) {
+        final List<String> toReturn = new ArrayList<>();
+
+        toReturn.addAll(Arrays.asList(
+                "",
+                "&b&l" + getUncoloredEventName(),
+                "&f正在進行第 &b" + round + " 回合",
+                ""
+        ));
+
+        for (Match match : matches) {
+            String team1 = match.getTeams().get(0).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
+            String team2 = match.getTeams().get(1).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
+
+            toReturn.add("&b" + team1 + " &fvs " + "&b" + team2);
+        }
+
+        toReturn.add("");
+
+        return toReturn;
     }
 
     @Override

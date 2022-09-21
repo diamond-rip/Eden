@@ -24,8 +24,6 @@ import java.util.concurrent.ConcurrentMap;
 @Getter
 public abstract class WorldEditRunnable extends BukkitRunnable {
 
-    // TODO: 13/9/2022 Recode these part
-
     private final ConcurrentMap<Location, Block> blocks;
     private final int totalBlocks;
     private final Iterator<Location> iterator;
