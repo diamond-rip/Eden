@@ -25,3 +25,6 @@ Please note that things marked as here is not perfectly supported and may cause 
 * [Sconey](https://github.com/Saturn-Operations/Sconey) - Scoreboard API
 * [TabAPI](https://github.com/NoSequel/TabAPI) - TabAPI
 * [DatouNms](https://github.com/lulu2002/DatouNms) - Player death animation
+
+## Support
+If this plugin helped you, please give me a ⭐ to show your support 😊
