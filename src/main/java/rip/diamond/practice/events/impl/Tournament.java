@@ -111,11 +111,11 @@ public class Tournament extends EdenEvent {
          */
         if (tournamentState == TournamentState.NONE) {
             return Arrays.asList(
+                    "",
                     "&b&l" + getUncoloredEventName(),
                     " &f現時人數: &b" + getTotalPlayers().size() + "&7/&b" + getMaxPlayers(),
                     "",
-                    "&f將會在 &b&l" + countdown + " &f秒後開始",
-                    ""
+                    "&f將會在 &b&l" + countdown + " &f秒後開始"
             );
         }
         /*
@@ -124,11 +124,11 @@ public class Tournament extends EdenEvent {
          */
         else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
             return Arrays.asList(
+                    "",
                     "&b&l" + getUncoloredEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
-                    "&7將會在 &b" + countdown + " &7秒後開始",
-                    ""
+                    "&7將會在 &b" + countdown + " &7秒後開始"
             );
         }
         /*
@@ -137,11 +137,11 @@ public class Tournament extends EdenEvent {
          */
         else if (tournamentState == TournamentState.FIGHTING) {
             return Arrays.asList(
+                    "",
                     "&b&l" + getUncoloredEventName(),
                     "",
                     "&f第 &b&l" + round + " &f回合",
-                    "&f使用指令 &b/event status &f查看本回合的戰鬥",
-                    ""
+                    "&f使用指令 &b/event status &f查看本回合的戰鬥"
             );
         } else return new ArrayList<>();
     }

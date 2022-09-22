@@ -15,12 +15,12 @@ public class ArenaMaxPositionButton extends ArenaButton {
 
     @Override
     public String getName() {
-        return Language.ARENA_EDIT_MENU_BUILD_MAX_NAME.toString();
+        return Language.ARENA_EDIT_MENU_MAX_NAME.toString();
     }
 
     @Override
     public String getDescription() {
-        return Language.ARENA_EDIT_MENU_BUILD_MAX_DESCRIPTION.toString(LocationSerialization.toReadable(getArena().getMax()));
+        return Language.ARENA_EDIT_MENU_MAX_DESCRIPTION.toString(LocationSerialization.toReadable(getArena().getMax()));
     }
 
     @Override

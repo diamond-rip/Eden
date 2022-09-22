@@ -1,4 +1,4 @@
-package rip.diamond.practice.lobby.command;
+package rip.diamond.practice.misc.commands;
 
 import org.bukkit.entity.Player;
 import rip.diamond.practice.util.CC;

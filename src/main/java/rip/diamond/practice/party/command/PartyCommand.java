@@ -239,7 +239,7 @@ public class PartyCommand extends Command {
                     Language.PARTY_ERROR_LEADER_NOT_FOUND.sendMessage(player);
                     return;
                 }
-                int canSetMaxSize = party.getLeader().getPlayer().getEffectivePermissions().stream().filter(permissionAttachmentInfo -> permissionAttachmentInfo.getPermission().contains("practice.party.limits.")).mapToInt(permissionAttachmentInfo -> Integer.parseInt(permissionAttachmentInfo.getPermission().replaceAll("practice.party.limits.", ""))).max().orElse(plugin.getConfigFile().getInt("party.default-max-size"));
+                int canSetMaxSize = party.getLeader().getPlayer().getEffectivePermissions().stream().filter(permissionAttachmentInfo -> permissionAttachmentInfo.getPermission().contains("eden.party.limits.")).mapToInt(permissionAttachmentInfo -> Integer.parseInt(permissionAttachmentInfo.getPermission().replaceAll("eden.party.limits.", ""))).max().orElse(plugin.getConfigFile().getInt("party.default-max-size"));
                 if (canSetMaxSize < size) {
                     Language.PARTY_MAX_SIZE.sendMessage(player, canSetMaxSize);
                     return;

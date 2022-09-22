@@ -10,18 +10,22 @@ import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
 
 public class EventCommand extends Command {
-    @CommandArgs(name = "event", permission = "eden.command.event")
+    @CommandArgs(name = "event")
     public void execute(CommandArguments command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
 
+        EdenEvent event = EdenEvent.getOnGoingEvent();
+
         if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("create")) {
+            if (args[0].equalsIgnoreCase("create") && player.hasPermission("eden.command.event.create")) {
+                if (event != null) {
+                    Common.sendMessage(player, "&c現時有一個正在進行的活動!");
+                    return;
+                }
                 new EventCreateMenu().openMenu(player);
                 return;
-            } else if (args[0].equalsIgnoreCase("forcestart")) {
-                EdenEvent event = EdenEvent.getOnGoingEvent();
-
+            } else if (args[0].equalsIgnoreCase("forcestart") && player.hasPermission("eden.command.event.forcestart")) {
                 if (event == null) {
                     Common.sendMessage(player, "&c現時並沒有一個正在進行的活動!");
                     return;
@@ -33,8 +37,6 @@ public class EventCommand extends Command {
                 event.start();
                 return;
             } else if (args[0].equalsIgnoreCase("status")) {
-                EdenEvent event = EdenEvent.getOnGoingEvent();
-
                 if (event == null) {
                     Common.sendMessage(player, "&c現時並沒有一個正在進行的活動!");
                     return;

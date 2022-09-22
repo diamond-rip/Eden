@@ -3,10 +3,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-shadowJar {
-    relocate "rip.diamond.practice.util.paperlib", "rip.diamond.practice.util.paperlib"
-}
-
 group = 'rip.diamond'
 version = "1.0-BETA-" + getGitHash()
 
@@ -58,6 +54,7 @@ dependencies {
     compileOnly name: 'FastAsyncWorldEdit-bukkit-18.12.19-d131fa6-1241-22.0.3'
     compileOnly name: 'worldedit-bukkit-6.1.9'
     compileOnly name: 'ViaVersion-4.4.2'
+    compileOnly name: 'imanityspigot-api-2022.08.1b2' //ImanitySpigot API
 
     //Libraries from others
     compileOnly 'me.clip:placeholderapi:2.11.2' //PlaceholderAPI

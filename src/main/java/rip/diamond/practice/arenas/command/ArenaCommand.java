@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ArenaCommand extends Command {
-    @CommandArgs(name = "arena", permission = "eden.arena")
+    @CommandArgs(name = "arena", permission = "eden.command.arena")
     public void execute(CommandArguments command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();

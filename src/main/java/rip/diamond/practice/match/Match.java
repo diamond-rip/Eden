@@ -74,8 +74,9 @@ public abstract class Match {
                 field.setAccessible(true);
                 File file = (File) field.get(null);
                 PaperSpigotConfig.config.save(file);
-            } catch (NoSuchFieldException | IllegalAccessException | IOException e) {
+            } catch (IllegalAccessException | IOException e) {
                 e.printStackTrace();
+            } catch (NoSuchFieldException ignored) {
             }
         }
     }

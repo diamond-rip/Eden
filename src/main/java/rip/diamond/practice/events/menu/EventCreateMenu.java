@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.events.EventType;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.ItemBuilder;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.Menu;
@@ -29,13 +30,17 @@ public class EventCreateMenu extends Menu {
                             .name("&b" + eventType.getName())
                             .lore(
                                     "",
-                                    "&e&n點擊進入活動設置界面!"
+                                    player.hasPermission(eventType.getPermission()) ? "&e&n點擊進入活動設置界面!" : "&c你沒有權限創建這個活動!"
                             )
                             .build();
                 }
 
                 @Override
                 public void clicked(Player player, ClickType clickType) {
+                    if (!player.hasPermission(eventType.getPermission())) {
+                        Common.sendMessage(player, "&c你沒有權限創建這個活動!");
+                        return;
+                    }
                     new EventSettingsMenu(eventType).openMenu(player);
                 }
             });

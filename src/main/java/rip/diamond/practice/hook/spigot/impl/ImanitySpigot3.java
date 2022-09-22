@@ -7,7 +7,7 @@ import rip.diamond.practice.Language;
 import rip.diamond.practice.hook.spigot.SpigotController;
 import rip.diamond.practice.hook.spigot.SpigotType;
 
-public class ImanitySpigot3Knockback extends SpigotController {
+public class ImanitySpigot3 extends SpigotController {
 
     @Override
     public SpigotType getSpigotType() {

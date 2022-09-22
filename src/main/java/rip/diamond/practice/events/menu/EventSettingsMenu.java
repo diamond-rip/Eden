@@ -5,9 +5,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventType;
 import rip.diamond.practice.events.impl.Tournament;
 import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.ItemBuilder;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.Menu;
@@ -156,6 +158,13 @@ public class EventSettingsMenu extends Menu {
             @Override
             public void clicked(Player player, ClickType clickType) {
                 player.closeInventory();
+
+                EdenEvent event = EdenEvent.getOnGoingEvent();
+                if (event != null) {
+                    Common.sendMessage(player, "&c現時有一個正在進行的活動!");
+                    return;
+                }
+
                 switch (eventType) {
                     case TOURNAMENT:
                         Tournament tournament = new Tournament(player.getName(), minPlayers, maxPlayers, kit, teamSize);
