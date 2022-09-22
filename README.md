@@ -1,8 +1,10 @@
 # Eden
 Eden is a Minecraft 1.8 version based plugin which offers the best practice core experience.
 
+_**Note: This is a freshly created project and it is still in beta parse. Bugs might happen. If you found a bug, please report them at [issues](https://github.com/RealGoodestEnglish/Eden/issues).**_
+
 ## How To Setup?
-Please check out our [wiki page](https://github.com/RealGoodestEnglish/Eden/wiki). Most of the information are in there.
+Please check out our [Wiki Page](https://github.com/RealGoodestEnglish/Eden/wiki). Most of the information are in there.
 
 Please note that Eden cannot be run with normal Spigot. It has to be run with specific Spigot fork. For more information, please look at [Supported Spigot Forks](https://github.com/RealGoodestEnglish/Eden/wiki/Getting-Started#supported-spigot-forks).
 
