@@ -103,6 +103,8 @@ public class ProfileListener implements Listener {
                 Util.performCommand(player, "queue unranked");
             } else if (item.equals(EdenItems.LOBBY_RANKED_QUEUE.getItemStack())) {
                 Util.performCommand(player, "queue ranked");
+            } else if (item.equals(EdenItems.LOBBY_CREATE_EVENT.getItemStack())) {
+                Util.performCommand(player, "event create");
             } else if (item.equals(EdenItems.LOBBY_PARTY_OPEN.getItemStack())) {
                 Util.performCommand(player, "party create");
             } else if (item.equals(EdenItems.LOBBY_LEADERBOARD.getItemStack())) {

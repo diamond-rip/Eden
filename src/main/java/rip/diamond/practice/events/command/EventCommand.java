@@ -1,6 +1,7 @@
 package rip.diamond.practice.events.command;
 
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventState;
 import rip.diamond.practice.events.menu.EventCreateMenu;
@@ -18,14 +19,22 @@ public class EventCommand extends Command {
         EdenEvent event = EdenEvent.getOnGoingEvent();
 
         if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("create") && player.hasPermission("eden.command.event.create")) {
+            if (args[0].equalsIgnoreCase("create")) {
+                if (!player.hasPermission("eden.command.event.create")) {
+                    Language.NO_PERMISSION.sendMessage(player);
+                    return;
+                }
                 if (event != null) {
                     Common.sendMessage(player, "&c現時有一個正在進行的活動!");
                     return;
                 }
                 new EventCreateMenu().openMenu(player);
                 return;
-            } else if (args[0].equalsIgnoreCase("forcestart") && player.hasPermission("eden.command.event.forcestart")) {
+            } else if (args[0].equalsIgnoreCase("forcestart")) {
+                if (!player.hasPermission("eden.command.event.forcestart")) {
+                    Language.NO_PERMISSION.sendMessage(player);
+                    return;
+                }
                 if (event == null) {
                     Common.sendMessage(player, "&c現時並沒有一個正在進行的活動!");
                     return;

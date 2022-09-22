@@ -36,6 +36,7 @@ public class PlayerProfile {
     private PlayerState playerState = PlayerState.LOADING;
     private final Map<String, Cooldown> cooldowns = new HashMap<>();
     @Setter private Match match;
+    @Setter private Party party;
 
     private boolean saving = false;
 
@@ -111,6 +112,7 @@ public class PlayerProfile {
             if (Party.getByPlayer(player) == null) {
                 EdenItems.giveItem(player, EdenItems.LOBBY_UNRANKED_QUEUE);
                 EdenItems.giveItem(player, EdenItems.LOBBY_RANKED_QUEUE);
+                EdenItems.giveItem(player, EdenItems.LOBBY_CREATE_EVENT);
                 EdenItems.giveItem(player, EdenItems.LOBBY_PARTY_OPEN);
                 EdenItems.giveItem(player, EdenItems.LOBBY_LEADERBOARD);
                 EdenItems.giveItem(player, EdenItems.LOBBY_SETTINGS);

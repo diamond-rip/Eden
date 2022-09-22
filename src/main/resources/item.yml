@@ -14,6 +14,13 @@ items:
       material: DIAMOND_SWORD
       durability: 0
       slot: 1
+    create-event:
+      name: "&bCreate Event &7(Right-Click)"
+      lore:
+        - ""
+      material: EYE_OF_ENDER
+      durability: 0
+      slot: 2
     party-open:
       name: "&bCreate Party &7(Right-Click)"
       lore:

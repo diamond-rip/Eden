@@ -13,6 +13,7 @@ public class EdenItems {
 
     public static EdenItem LOBBY_UNRANKED_QUEUE = loadItem("items.lobby.unranked-queue");
     public static EdenItem LOBBY_RANKED_QUEUE = loadItem("items.lobby.ranked-queue");
+    public static EdenItem LOBBY_CREATE_EVENT = loadItem("items.lobby.create-event");
     public static EdenItem LOBBY_PARTY_OPEN = loadItem("items.lobby.party-open");
     public static EdenItem LOBBY_LEADERBOARD = loadItem("items.lobby.leaderboard");
     public static EdenItem LOBBY_SETTINGS = loadItem("items.lobby.settings");

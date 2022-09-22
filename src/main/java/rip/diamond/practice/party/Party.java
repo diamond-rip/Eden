@@ -29,7 +29,7 @@ public class Party {
     private PartyPrivacy privacy = PartyPrivacy.CLOSED;
 
     public static Party getByPlayer(Player player) {
-        return parties.values().stream().filter(party -> party.getAllPartyMembers().stream().anyMatch(pm -> player.getUniqueId().equals(pm.getUniqueID()))).findFirst().orElse(null);
+        return PlayerProfile.get(player).getParty();
     }
 
     public Party(Player player, int size) {
@@ -38,6 +38,7 @@ public class Party {
         parties.put(uniqueID, this);
 
         PlayerProfile profile = PlayerProfile.get(player);
+        profile.setParty(this);
         profile.setupItems();
 
         Language.PARTY_CREATED.sendMessage(player);
@@ -98,6 +99,7 @@ public class Party {
         }
         invites.removeIf(invite -> invite.getUuid().equals(player.getUniqueId()));
         partyMembers.add(new PartyMember(player));
+        profile.setParty(this);
         profile.setupItems();
 
         broadcast(force ? Language.PARTY_JOIN_MESSAGE_FORCE.toString(player.getName()) : Language.PARTY_JOIN_MESSAGE_NORMAL.toString(player.getName()));
@@ -123,6 +125,7 @@ public class Party {
         }
 
         partyMembers.removeIf(pm -> pm.getUniqueID().equals(member.getUniqueID()));
+        profile.setParty(null);
         profile.setupItems();
 
         broadcast(kick ? Language.PARTY_LEAVE_MESSAGE_FORCE.toString(member.getUsername()) : Language.PARTY_LEAVE_MESSAGE_NORMAL.toString(member.getUsername()));
@@ -134,7 +137,10 @@ public class Party {
     public void disband(boolean forced) {
         Party party = parties.remove(uniqueID);
         broadcast(Language.PARTY_DISBAND.toString());
-        getAllPartyMembers().stream().map(partyMember -> PlayerProfile.get(partyMember.getUniqueID())).forEach(PlayerProfile::setupItems);
+        getAllPartyMembers().stream().map(partyMember -> PlayerProfile.get(partyMember.getUniqueID())).forEach(profile -> {
+            profile.setParty(null);
+            profile.setupItems();
+        });
         getAllPartyMembers().forEach(partyMember -> VisibilityController.updateVisibility(partyMember.getPlayer()));
 
         PartyDisbandEvent event = new PartyDisbandEvent(party, forced);

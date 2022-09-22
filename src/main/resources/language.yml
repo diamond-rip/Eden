@@ -1065,7 +1065,7 @@ profile:
       name: "Party Invites"
       lore:
         - ""
-        - "&7receive party invites in lobby"
+        - "&7Receive party invites in lobby"
         - ""
     spectator-visibility:
       name: "Spectator Visibility"

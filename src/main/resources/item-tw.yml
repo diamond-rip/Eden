@@ -14,6 +14,13 @@ items:
       material: DIAMOND_SWORD
       durability: 0
       slot: 1
+    create-event:
+      name: "&b舉辦活動 &7(點擊右鍵)"
+      lore:
+        - "&7點擊舉辦活動"
+      material: EYE_OF_ENDER
+      durability: 0
+      slot: 2
     party-open:
       name: "&b建立隊伍 &7(點擊右鍵)"
       lore:
