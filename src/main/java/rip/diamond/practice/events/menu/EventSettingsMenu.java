@@ -5,11 +5,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventType;
 import rip.diamond.practice.events.impl.Tournament;
 import rip.diamond.practice.kits.Kit;
-import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.ItemBuilder;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.Menu;
@@ -32,7 +32,7 @@ public class EventSettingsMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "活動設置";
+        return Language.EVENT_EVENT_SETTINGS_MENU_TITLE.toString(player);
     }
 
     @Override
@@ -42,19 +42,8 @@ public class EventSettingsMenu extends Menu {
             @Override
             public ItemStack getButtonItem(Player player) {
                 return new ItemBuilder(Material.GHAST_TEAR)
-                        .name("&b最大人數")
-                        .lore(
-                                "",
-                                "&f現時最大人數: &b" + maxPlayers,
-                                "",
-                                "&a左鍵&f點擊把最大人數提升 1",
-                                "&aShift + 左鍵&f點擊把最大人數提升 10",
-                                "",
-                                "&c右鍵&f點擊把最大人數降低 1",
-                                "&cShift + 右鍵&f點擊把最大人數降低 10",
-                                "",
-                                "&e&n點擊更改最大人數!"
-                        )
+                        .name(Language.EVENT_EVENT_SETTINGS_MENU_MAX_PLAYERS_BUTTON_NAME.toString(player))
+                        .lore(Language.EVENT_EVENT_SETTINGS_MENU_MAX_PLAYERS_BUTTON_LORE.toStringList(player, maxPlayers))
                         .build();
             }
 
@@ -86,16 +75,8 @@ public class EventSettingsMenu extends Menu {
                 public ItemStack getButtonItem(Player player) {
                     return new ItemBuilder(Material.SKULL_ITEM)
                             .durability(3)
-                            .name("&b隊伍人數")
-                            .lore(
-                                    "",
-                                    "&f現時隊伍人數: &b" + teamSize,
-                                    "",
-                                    "&a左鍵&f點擊把隊伍人數提升 1",
-                                    "&c右鍵&f點擊把最大人數降低 1",
-                                    "",
-                                    "&e&n點擊更改隊伍人數!"
-                            )
+                            .name(Language.EVENT_EVENT_SETTINGS_MENU_PARTY_SIZE_BUTTON_NAME.toString(player))
+                            .lore(Language.EVENT_EVENT_SETTINGS_MENU_PARTY_SIZE_BUTTON_LORE.toStringList(player, teamSize))
                             .build();
                 }
 
@@ -121,13 +102,8 @@ public class EventSettingsMenu extends Menu {
                 @Override
                 public ItemStack getButtonItem(Player player) {
                     return new ItemBuilder(Material.BOOK)
-                            .name("&b職業選擇")
-                            .lore(
-                                    "",
-                                    "&f已選擇職業: &b" + kit.getDisplayName(),
-                                    "",
-                                    "&e&n點擊選擇一個職業!"
-                            )
+                            .name(Language.EVENT_EVENT_SETTINGS_MENU_KIT_BUTTON_NAME.toString(player))
+                            .lore(Language.EVENT_EVENT_SETTINGS_MENU_KIT_BUTTON_LORE.toStringList(player, kit.getDisplayName()))
                             .build();
                 }
 
@@ -143,15 +119,8 @@ public class EventSettingsMenu extends Menu {
             public ItemStack getButtonItem(Player player) {
                 return new ItemBuilder(Material.STAINED_GLASS_PANE)
                         .durability(5)
-                        .name("&b開始活動")
-                        .lore(
-                                "",
-                                "&f活動: &b" + eventType.getName(),
-                                "&f最大人數: &b" + maxPlayers,
-                                "&f最小人數: &b" + minPlayers,
-                                "",
-                                "&e&n點擊開始活動!"
-                        )
+                        .name(Language.EVENT_EVENT_SETTINGS_MENU_START_BUTTON_NAME.toString(player))
+                        .lore(Language.EVENT_EVENT_SETTINGS_MENU_START_BUTTON_LORE.toStringList(player, eventType.getName(), maxPlayers, minPlayers))
                         .build();
             }
 
@@ -161,7 +130,7 @@ public class EventSettingsMenu extends Menu {
 
                 EdenEvent event = EdenEvent.getOnGoingEvent();
                 if (event != null) {
-                    Common.sendMessage(player, "&c現時有一個正在進行的活動!");
+                    Language.EVENT_EVENT_IS_RUNNING.sendMessage(player);
                     return;
                 }
 

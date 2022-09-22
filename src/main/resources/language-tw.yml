@@ -458,6 +458,144 @@ duel:
     target-not-in-a-party: "&c該玩家沒有一個隊伍"
     cannot-duel-same-party: "&c你不能對決自己的隊伍"
     player-not-in-lobby: "&c{0} 的隊伍裏的所有玩家必須要在同一個伺服器, 並且要在大廳狀態/編輯職業狀態才能接受決鬥邀請"
+event:
+  event-is-running: "&c現時有一個正在進行的活動!"
+  event-is-not-running: "&c現時並沒有一個正在進行的活動!"
+  event-already-started: "&c活動已經開始!"
+  no-available-status: "&c這個活動沒有狀態可以查看!"
+  wrong-state: "&c你必須要在大廳才能加入活動!"
+  auto-create-party-because-need-a-party: "&7[&b活動&7] &e活動需要擁有一個派對才能參加, 你已自動創建了一個派對"
+  party-size-over: "&c你的隊伍人數超出限制! 本活動最大人數為 {0}"
+  auto-set-party-size: "&7[&b活動&7] &e你在一個隊伍的情況下加入了活動, 已把你的派對最大人數改為 &b&l{0}"
+  cannot-use-this-command: "&c你不能在活動的時候使用這個指令"
+  leave-event-because-party-disband: "&e由於隊伍已解散, 你的隊伍已自動退出活動"
+  leave-event-because-error: "&c錯誤: 你已被本活動移除, 這是一個系統錯誤, 請回報給系統管理員"
+  event-create-menu:
+    title: "建立活動"
+    button:
+      name: "&b{0}"
+      lore:
+        click-to-create-event: "&e&n點擊進入活動設置界面!"
+        no-permission: "&c你沒有權限創建這個活動!"
+  event-select-kit-menu:
+    title: "選擇活動職業"
+    button:
+      name: "{0}"
+      lore:
+        - ""
+        - "&e&n點擊選擇該職業為本次活動的職業!"
+  event-settings-menu:
+    title: "活動設置"
+    max-players-button:
+      name: "&b最大人數"
+      lore:
+        - ""
+        - "&f現時最大人數: &b{0}"
+        - ""
+        - "&a左鍵&f點擊把最大人數提升 1"
+        - "&aShift + 左鍵&f點擊把最大人數提升 10"
+        - ""
+        - "&c右鍵&f點擊把最大人數降低 1"
+        - "&cShift + 右鍵&f點擊把最大人數降低 10"
+        - ""
+        - "&e&n點擊更改最大人數!"
+    party-size-button:
+      name: "&b隊伍人數"
+      lore:
+        - ""
+        - "&f現時隊伍人數: &b{0}"
+        - ""
+        - "&a左鍵&f點擊把隊伍人數提升 1"
+        - "&c右鍵&f點擊把最大人數降低 1"
+        - ""
+        - "&e&n點擊更改隊伍人數!"
+    kit-button:
+      name: "&b職業選擇"
+      lore:
+        - ""
+        - "&f已選擇職業: &b{0}"
+        - ""
+        - "&e&n點擊選擇一個職業!"
+    start-button:
+      name: "&b開始活動"
+      lore:
+        - ""
+        - "&f活動: &b{0}"
+        - "&f最大人數: &b{1}"
+        - "&f最小人數: &b{2}"
+        - ""
+        - "&e&n點擊開始活動!"
+  event-create:
+    message: "&7[&b活動&7] &b{0} &f正在舉辦一個 &b{1} &f活動! "
+    clickable:
+      message: "&a(點我加入活動)"
+      hover: "&e點擊加入活動!"
+  party-name-format: "的隊伍"
+  event-join:
+    message: "&7[&b活動&7] &b{0} &f加入了&b{1} &7(&b{2}&7/&b{3}&7) "
+    clickable:
+      message: "&a(點我加入活動)"
+      hover: "&e點擊加入活動!"
+  starting-full: "&7[&b活動&7] &f活動人數已滿, 準備開始活動..."
+  event-leave:
+    message: "&7[&b活動&7] &b{0} &c離開了&b{1} &7(&b{2}&7/&b{3}&7)"
+  event-start-countdown:
+    message: "&7[&b活動&7] &b{0}&f將會在 &b&l{1} &f秒後開始 "
+    clickable:
+      message: "&a(點我加入活動)"
+      hover: "&e點擊加入活動!"
+  cancel-not-enough-players: "&7[&b活動&7] &c參加人數不足! 活動已強制終止"
+  tournament:
+    name: "錦標賽"
+    match-end-message: "&7[&b活動&7] &a{0} &f擊敗了 &c{1} &7(剩餘 {2} &7場戰鬥)"
+    scoreboard:
+      starting-event:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &f現時人數: &b{event-total-players}&7/&b{event-max-players}"
+        - "&b&l┃  &f將會在 &b&l{event-countdown} &f秒後開始"
+      starting-new-round:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &f第 &b&l{0} &f回合"
+        - "&b&l┃  &f將會在 &b&l{event-countdown} &f秒後開始"
+      fighting:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &f第 &b&l{0} &f回合"
+        - "&b&l┃  &f剩餘戰鬥: &b{1}"
+    status:
+      starting-event:
+        - ""
+        - "&b&l{0}"
+        - "&f正在準備開始..."
+        - ""
+      starting-new-round:
+        - ""
+        - "&b&l{0}"
+        - "&f第 &b&l{1} &f回合正在準備開始"
+        - ""
+      fighting:
+        - ""
+        - "&b&l{0}"
+        - "&f正在進行第 &b&l{1} &f回合"
+        - ""
+        - "{2}"
+        - ""
+      fighting-team-format: "&b{0} &fvs &b{1}"
+    no-winner-because-no-party: "&7[&b活動&7] &c沒有派對生還, 本次活動沒有勝利者"
+    winner-announce:
+      message: "&7[&b活動&7] &a勝利者: &b{0}"
+      split-format: "&7, &b"
+    new-round:
+      countdown: "&7[&b活動&7] &f第 &b&l{0} &f輪錦標賽將會在 &b&l{1} &f秒後開始..."
+      start:
+        - ""
+        - "&7[&b活動&7] &f第 &b&l{0} &f回合已經開始!"
+        - "&7[&b活動&7] &f使用指令 &7'&b/event status&7' &f去查看本輪戰鬥!"
+        - ""
+      no-available-arena: "&7[&b活動&7] &c錯誤: 場地不足, 你的派對將會放置到下一個回合才會開始"
+      auto-promotion: "&7[&b活動&7] &e本回合派對總數為單數, 你的隊伍已被自動晉級 &a:)"
 hook:
   found-custom-spigot: "&a偵測到伺服器正在運行 &b{0}&a, 擊退運作將會使用這個伺服器核心"
   cannot-find-custom-spigot: "&e未能找到特定伺服器核心, 將不會進行任何的擊退更改"

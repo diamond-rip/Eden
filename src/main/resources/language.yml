@@ -403,6 +403,144 @@ duel:
     target-not-in-a-party: "&cPlayer is NOT in a party"
     cannot-duel-same-party: "&cYou can not duel your own party"
     player-not-in-lobby: "&c{0}'s party needs to be in the same lobby to accept duel requests"
+event:
+  event-is-running: "&cThere's no active event!"
+  event-is-not-running: "&cThere's already an active event!"
+  event-already-started: "&cEvent already started!"
+  no-available-status: "&cThis event has no available status to view!"
+  wrong-state: "&cYou must be in lobby to do this!"
+  auto-create-party-because-need-a-party: "&7[&bEvent&7] &eYou have been automatically created a party because event requires to be in a party to join!"
+  party-size-over: "&cYour party team members count is higher than {0}. The current event only allows maximum {0} player(s) per team"
+  auto-set-party-size: "&7[&bEvent&7] &eYour party maximum size has been corrected to &b&l{0} &ebecause you joined an event."
+  cannot-use-this-command: "&cYou cannot use this command when you are in an event"
+  leave-event-because-party-disband: "&eBecause of your party disbanded, your party has been automatically removed from the event"
+  leave-event-because-error: "&cError: System Error. You have been automatically remove from the event"
+  event-create-menu:
+    title: "Create an Event"
+    button:
+      name: "&b{0}"
+      lore:
+        click-to-create-event: "&e&nClick me to setup the Event!"
+        no-permission: "&cYou don't have permission to host this event!"
+  event-select-kit-menu:
+    title: "Choose Event's Kit"
+    button:
+      name: "{0}"
+      lore:
+        - ""
+        - "&e&nClick me to choose this kit!"
+  event-settings-menu:
+    title: "Event Settings"
+    max-players-button:
+      name: "&bMaximum Players"
+      lore:
+        - ""
+        - "&fCurrent Maximum Players: &b{0}"
+        - ""
+        - "&aLEFT CLICK &fto increase Maximum Players by 1"
+        - "&aSHIFT + LEFT CLICK &fto increase Maximum Players by 10"
+        - ""
+        - "&cRIGHT CLICK &fto decrease Maximum Players by 1"
+        - "&cSHIFT + RIGHT CLICK &fto decrease Maximum Players by 10"
+        - ""
+        - "&e&nClick to change Maximum Players!"
+    party-size-button:
+      name: "&bTeam Size"
+      lore:
+        - ""
+        - "&fCurrent Team Size: &b{0}"
+        - ""
+        - "&aLEFT CLICK &fto increase Team Size by 1"
+        - "&cRIGHT CLICK &fto decrease Team Size by 1"
+        - ""
+        - "&e&nClick to change Team Size!"
+    kit-button:
+      name: "&bKit"
+      lore:
+        - ""
+        - "&fCurrent Selected Kit: &b{0}"
+        - ""
+        - "&e&nClick to change a Kit!"
+    start-button:
+      name: "&bStart Event"
+      lore:
+        - ""
+        - "&fEvent: &b{0}"
+        - "&fMinimum Players: &b{1}"
+        - "&fMaximum Players: &b{2}"
+        - ""
+        - "&e&nClick to start Event!"
+  event-create:
+    message: "&7[&bEvent&7] &b{0} &fis hosting a &b{1} &fevent! "
+    clickable:
+      message: "&a(Click To Join)"
+      hover: "&eClick Me To Join!"
+  party-name-format: "'s Team"
+  event-join:
+    message: "&7[&bEvent&7] &b{0} &fjoined &b{1} &7(&b{2}&7/&b{3}&7) "
+    clickable:
+      message: "&a(Click To Join)"
+      hover: "&eClick Me To Join!"
+  starting-full: "&7[&bEvent&7] &fEvent is full. Starting event right now..."
+  event-leave:
+    message: "&7[&bEvent&7] &b{0} &cleft &b{1} &7(&b{2}&7/&b{3}&7)"
+  event-start-countdown:
+    message: "&7[&bEvent&7] &b{0} &fis starting in &b&l{1} &fseconds "
+    clickable:
+      message: "&a(Click To Join)"
+      hover: "&eClick Me To Join!"
+  cancel-not-enough-players: "&7[&bEvent&7] &cEvent is cancelled due to not enough participants"
+  tournament:
+    name: "Tournament"
+    match-end-message: "&7[&bEvent&7] &a{0} &fkilled &c{1} &7({2} &7matches left)"
+    scoreboard:
+      starting-event:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &fPlayers: &b{event-total-players}&7/&b{event-max-players}"
+        - "&b&l┃  &fStarting at &b&l{event-countdown} &fseconds"
+      starting-new-round:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &fRound &b&l{0}"
+        - "&b&l┃  &fStarting at &b&l{event-countdown} &fseconds"
+      fighting:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &fRound &b&l{0}"
+        - "&b&l┃  &fMatches left: &b{1}"
+    status:
+      starting-event:
+        - ""
+        - "&b&l{0}"
+        - "&fStarting soon..."
+        - ""
+      starting-new-round:
+        - ""
+        - "&b&l{0}"
+        - "&fRound &b&l{1} &fis starting soon..."
+        - ""
+      fighting:
+        - ""
+        - "&b&l{0}"
+        - "&fRound &b&l{1} &fis started!"
+        - ""
+        - "{2}"
+        - ""
+      fighting-team-format: "&b{0} &fvs &b{1}"
+    no-winner-because-no-party: "&7[&bEvent&7] &cThis event doesn't have any winners due to no party was alive."
+    winner-announce:
+      message: "&7[&bEvent&7] &aWinners: &b{0}"
+      split-format: "&7, &b"
+    new-round:
+      countdown: "&7[&bEvent&7] &fRound &b&l{0} &fis starting in &b&l{1} &fseconds..."
+      start:
+        - ""
+        - "&7[&bEvent&7] &fRound &b&l{0} &fis started!"
+        - "&7[&bEvent&7] &fUse command &7'&b/event status&7' &fto see who is fighting!"
+        - ""
+      no-available-arena: "&7[&bEvent&7] &cError: Not enough arena. Your party have been automatically promoted to next round."
+      auto-promotion: "&7[&bEvent&7] &eThere were an odd number of teams in this round - so your team has advanced to the next round. &a:)"
 hook:
   found-custom-spigot: "&aRunning spigot version: &b{0}&a, custom knockback will be applied"
   cannot-find-custom-spigot: "&eCannot find the custom spigot, vanilla knockback will be applied"

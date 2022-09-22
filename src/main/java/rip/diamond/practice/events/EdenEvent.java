@@ -3,10 +3,12 @@ package rip.diamond.practice.events;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.event.EventJoinEvent;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
@@ -50,11 +52,15 @@ public abstract class EdenEvent {
         return eventType.getName();
     }
 
+    public String getUncoloredEventName() {
+        return ChatColor.stripColor(getEventName());
+    }
+
     public void create() {
         onGoingEvent = this;
 
-        Clickable clickable = new Clickable("&7[&b活動&7] &b" + hoster + " &f正在舉辦一個 &b" + getEventName() + " &f活動! ");
-        clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
+        Clickable clickable = new Clickable(Language.EVENT_EVENT_CREATE_MESSAGE.toString(hoster, getEventName()));
+        clickable.add(Language.EVENT_EVENT_CREATE_CLICKABLE_MESSAGE.toString(), Language.EVENT_EVENT_CREATE_CLICKABLE_HOVER.toString(), "/joinevent");
         Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
         countdown(60);
     }
@@ -75,43 +81,43 @@ public abstract class EdenEvent {
     }
 
     private String getPartyName(Party party) {
-        return party.getLeader().getUsername() + (party.getPartyMembers().isEmpty() ? "" : "的隊伍");
+        return party.getLeader().getUsername() + (party.getPartyMembers().isEmpty() ? "" : Language.EVENT_PARTY_NAME_FORMAT.toString());
     }
 
     public void join(Party party) {
         parties.add(party);
 
-        Clickable clickable = new Clickable("&7[&b活動&7] &b" + getPartyName(party) + " &f加入了&b" + getEventName() + " &7(&b" + getTotalPlayers().size() + "&7/&b" + maxPlayers + "&7) ");
-        clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
+        Clickable clickable = new Clickable(Language.EVENT_EVENT_JOIN_MESSAGE.toString(getPartyName(party), getEventName(), getTotalPlayers().size(), maxPlayers));
+        clickable.add(Language.EVENT_EVENT_JOIN_CLICKABLE_MESSAGE.toString(), Language.EVENT_EVENT_JOIN_CLICKABLE_HOVER.toString(), "/joinevent");
         Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
 
         EventJoinEvent event = new EventJoinEvent(party, this);
         event.call();
 
         if (getTotalPlayers().size() >= maxPlayers && state == EventState.WAITING) {
-            Common.broadcastMessage("&7[&b活動&7] &f活動人數已滿, 準備開始活動...");
+            Common.broadcastMessage(Language.EVENT_STARTING_FULL.toString());
             countdown(10);
         }
     }
 
     public void leave(Party party) {
         parties.remove(party);
-        Common.broadcastMessage("&7[&b活動&7] &b" + getPartyName(party) + " &c離開了&b" + getEventName() + " &7(&b" + getTotalPlayers().size() + "&7/&b" + maxPlayers + "&7)");
+        Common.broadcastMessage(Language.EVENT_EVENT_LEAVE_MESSAGE.toString(getPartyName(party), getEventName(), getTotalPlayers().size(), maxPlayers));
     }
 
     public void countdown(int seconds) {
         setCountdown(new EventCountdown(seconds, 45,30,15,10,5,4,3,2,1) {
             @Override
             public void runTick(int tick) {
-                Clickable clickable = new Clickable("&7[&b活動&7] &b" + getEventName() + " &f將會在 &b&l" + tick + " &f秒後開始 ");
-                clickable.add("&a(點我加入活動)", "&e點擊加入活動!", "/joinevent");
+                Clickable clickable = new Clickable(Language.EVENT_EVENT_START_COUNTDOWN_MESSAGE.toString(getEventName(), tick));
+                clickable.add(Language.EVENT_EVENT_START_COUNTDOWN_CLICKABLE_MESSAGE.toString(), Language.EVENT_EVENT_START_COUNTDOWN_CLICKABLE_HOVER.toString(), "/joinevent");
                 Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
             }
 
             @Override
             public void run() {
                 if (getMinPlayers() > getTotalPlayers().size()) {
-                    Common.broadcastMessage("&7[&b活動&7] &c參加人數不足! 活動已強制終止");
+                    Common.broadcastMessage(Language.EVENT_CANCEL_NOT_ENOUGH_PLAYERS.toString());
                     destroy();
                     return;
                 }

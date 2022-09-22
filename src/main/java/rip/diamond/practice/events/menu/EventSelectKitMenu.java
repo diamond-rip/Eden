@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitMatchType;
 import rip.diamond.practice.util.ItemBuilder;
@@ -19,7 +20,7 @@ public class EventSelectKitMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "選擇活動職業";
+        return Language.EVENT_EVENT_SELECT_KIT_MENU_TITLE.toString(player);
     }
 
     @Override
@@ -33,11 +34,8 @@ public class EventSelectKitMenu extends Menu {
                     @Override
                     public ItemStack getButtonItem(Player player) {
                         return new ItemBuilder(kit.getDisplayIcon().clone())
-                                .name(kit.getDisplayName())
-                                .lore(
-                                        "",
-                                        "&e&n點擊選擇該職業為本次活動的職業!"
-                                )
+                                .name(Language.EVENT_EVENT_SELECT_KIT_MENU_BUTTON_NAME.toString(player, kit.getDisplayName()))
+                                .lore(Language.EVENT_EVENT_SELECT_KIT_MENU_BUTTON_LORE.toStringList(player))
                                 .build();
                     }
 

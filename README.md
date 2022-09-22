@@ -8,6 +8,12 @@ Please check out our [Wiki Page](https://github.com/RealGoodestEnglish/Eden/wiki
 
 Please note that Eden cannot be run with normal Spigot. It has to be run with specific Spigot fork. For more information, please look at [Supported Spigot Forks](https://github.com/RealGoodestEnglish/Eden/wiki/Getting-Started#supported-spigot-forks).
 
+## Supported Spigot Forks
+Eden supports other Spigot Forks! Check out what other Spigot forks are supported in [here](https://github.com/RealGoodestEnglish/Eden/wiki/Getting-Started#supported-spigot-forks)
+
+## Supported Language
+Eden currently offer 3 support languages - English and Chinese Traditional (Chinese Simplified only works in support, not configuration)! If you wish to download other language translation file, click [here](https://github.com/RealGoodestEnglish/Eden/wiki/Configurations)
+
 ## Bug Report
 Found a bug? Please report them at [issues](https://github.com/RealGoodestEnglish/Eden/issues)!
 

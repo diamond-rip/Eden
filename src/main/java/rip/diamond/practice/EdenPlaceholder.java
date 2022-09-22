@@ -42,14 +42,25 @@ public class EdenPlaceholder {
             Match match = profile.getMatch();
             EdenEvent event = EdenEvent.getOnGoingEvent();
 
-            str = str
-                    .replace("{event-information}", event != null ? StringUtils.join(event.getLobbyScoreboard(player), NEW_LINE) : SKIP_LINE);
+            //Check if the string has {event-information}, otherwise it will cause infinite loop
+            if (str.contains("{event-information}")) {
+                str = str
+                        .replace("{event-information}", event != null ? StringUtils.join(event.getLobbyScoreboard(player), NEW_LINE) : SKIP_LINE);
+            }
 
             if (party != null) {
                 str = str
                         .replace("{party-leader}", party.getLeader().getUsername())
                         .replace("{party-members}", party.getAllPartyMembers().size() + "")
                         .replace("{party-max}", party.getMaxSize() + "");
+            }
+
+            if (event != null) {
+                str = str
+                        .replace("{event-uncolored-name}", event.getUncoloredEventName())
+                        .replace("{event-total-players}", event.getTotalPlayers().size() + "")
+                        .replace("{event-max-players}", event.getMaxPlayers() + "")
+                        .replace("{event-countdown}", event.getCountdown() == null ? "-1" : event.getCountdown().getSecondsLeft() + "");
             }
 
             if (profile.getPlayerState() == PlayerState.IN_QUEUE && qProfile != null) {

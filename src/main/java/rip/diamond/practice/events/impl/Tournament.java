@@ -1,12 +1,14 @@
 package rip.diamond.practice.events.impl;
 
 import lombok.Getter;
-import org.bukkit.ChatColor;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.EdenPlaceholder;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.MatchEndEvent;
@@ -27,7 +29,9 @@ import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Tasks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
@@ -49,12 +53,8 @@ public class Tournament extends EdenEvent {
         return getTeamSize() + "v" + getTeamSize() + " " + getKit().getDisplayName() + " " + getEventType().getName();
     }
 
-    public String getUncoloredEventName() {
-        return ChatColor.stripColor(super.getEventName());
-    }
-
     private String getTeamName(Team team) {
-        return team.getLeader().getUsername() + (team.getTeamPlayers().size() <= 1 ? "" : "的隊伍");
+        return team.getLeader().getUsername() + (team.getTeamPlayers().size() <= 1 ? "" : Language.EVENT_PARTY_NAME_FORMAT.toString());
     }
 
     private boolean canEnd() {
@@ -73,7 +73,7 @@ public class Tournament extends EdenEvent {
                     Team winner = match.getWinningTeam();
                     Team loser = match.getOpponentTeam(winner);
 
-                    Common.broadcastMessage("&7[&b活動&7] &a" + getTeamName(winner) + " &f擊敗了 &c" + getTeamName(loser) + " &7(剩餘 " + matches.size() + " &7場戰鬥)");
+                    Common.broadcastMessage(Language.EVENT_TOURNAMENT_MATCH_END_MESSAGE.toString(getTeamName(winner), getTeamName(loser), matches.size()));
 
                     Party party = Party.getByPlayer(loser.getLeader().getPlayer());
                     //如果玩家在戰鬥時退出伺服器的話, Party 可能會是null
@@ -103,46 +103,26 @@ public class Tournament extends EdenEvent {
 
     @Override
     public List<String> getLobbyScoreboard(Player player) {
-        String countdown = getCountdown() == null ? "-1" : getCountdown().getSecondsLeft() + "";
-
         /*
          * 如果 tournamentState == TournamentState.NONE, 意思就是錦標賽還沒開始
          * 這個情況下, getState() 應該會回傳 EventState.WAITING
          */
         if (tournamentState == TournamentState.NONE) {
-            return Arrays.asList(
-                    "",
-                    "&b&l" + getUncoloredEventName(),
-                    " &f現時人數: &b" + getTotalPlayers().size() + "&7/&b" + getMaxPlayers(),
-                    "",
-                    "&f將會在 &b&l" + countdown + " &f秒後開始"
-            );
+            return Language.EVENT_TOURNAMENT_SCOREBOARD_STARTING_EVENT.toStringList(player);
         }
         /*
          * 如果 tournamentState == TournamentState.STARTING_NEW_ROUND, 意思就是錦標賽正在準備開始新的一個回合
          * 這個情況下, getState() 應該會回傳 EventState.RUNNING
          */
         else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
-            return Arrays.asList(
-                    "",
-                    "&b&l" + getUncoloredEventName(),
-                    "",
-                    "&f第 &b&l" + round + " &f回合",
-                    "&7將會在 &b" + countdown + " &7秒後開始"
-            );
+            return Language.EVENT_TOURNAMENT_SCOREBOARD_STARTING_NEW_ROUND.toStringList(player, round);
         }
         /*
          * 如果 tournamentState == TournamentState.FIGHTING, 意思就是錦標賽回合已經開始, 活動內的玩家正在戰鬥中
          * 這個情況下, getState() 應該會回傳 EventState.RUNNING
          */
         else if (tournamentState == TournamentState.FIGHTING) {
-            return Arrays.asList(
-                    "",
-                    "&b&l" + getUncoloredEventName(),
-                    "",
-                    "&f第 &b&l" + round + " &f回合",
-                    "&f使用指令 &b/event status &f查看本回合的戰鬥"
-            );
+            return Language.EVENT_TOURNAMENT_SCOREBOARD_FIGHTING.toStringList(player, round, matches.size());
         } else return new ArrayList<>();
     }
 
@@ -153,25 +133,35 @@ public class Tournament extends EdenEvent {
 
     @Override
     public List<String> getStatus(Player player) {
-        final List<String> toReturn = new ArrayList<>();
-
-        toReturn.addAll(Arrays.asList(
-                "",
-                "&b&l" + getUncoloredEventName(),
-                "&f正在進行第 &b" + round + " 回合",
-                ""
-        ));
-
-        for (Match match : matches) {
-            String team1 = match.getTeams().get(0).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
-            String team2 = match.getTeams().get(1).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
-
-            toReturn.add("&b" + team1 + " &fvs " + "&b" + team2);
+        /*
+         * 如果 tournamentState == TournamentState.NONE, 意思就是錦標賽還沒開始
+         * 這個情況下, getState() 應該會回傳 EventState.WAITING
+         */
+        if (tournamentState == TournamentState.NONE) {
+            return Language.EVENT_TOURNAMENT_STATUS_STARTING_EVENT.toStringList(player, getUncoloredEventName());
         }
+        /*
+         * 如果 tournamentState == TournamentState.STARTING_NEW_ROUND, 意思就是錦標賽正在準備開始新的一個回合
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
+            return Language.EVENT_TOURNAMENT_STATUS_STARTING_NEW_ROUND.toStringList(player, getUncoloredEventName(), round);
+        }
+        /*
+         * 如果 tournamentState == TournamentState.FIGHTING, 意思就是錦標賽回合已經開始, 活動內的玩家正在戰鬥中
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        else if (tournamentState == TournamentState.FIGHTING) {
+            List<String> listOfFightingPlayers = new ArrayList<>();
 
-        toReturn.add("");
+            for (Match match : matches) {
+                String team1 = match.getTeams().get(0).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
+                String team2 = match.getTeams().get(1).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
+                listOfFightingPlayers.add(Language.EVENT_TOURNAMENT_STATUS_STARTING_FIGHTING_TEAM_FORMAT.toString(team1, team2));
+            }
 
-        return toReturn;
+            return Language.EVENT_TOURNAMENT_STATUS_STARTING_FIGHTING.toStringList(player, getUncoloredEventName(), round, StringUtils.join(listOfFightingPlayers, EdenPlaceholder.NEW_LINE));
+        } else return null;
     }
 
     @Override
@@ -185,13 +175,14 @@ public class Tournament extends EdenEvent {
         super.end();
         tournamentState = TournamentState.ENDING;
         if (getParties().isEmpty()) {
-            Common.broadcastMessage("&7[&b活動&7] &c沒有派對生還, 本次活動沒有勝利者");
+            Common.broadcastMessage(Language.EVENT_TOURNAMENT_NO_WINNER_BECAUSE_NO_PARTY.toString());
+            //This line of code has to be run in the last. This is to unregister the events
             destroy();
             return;
         }
 
         new BukkitRunnable() {
-            private final String winners = getParties().get(0).getAllPartyMembers().stream().map(PartyMember::getUsername).collect(Collectors.joining("&7, &b"));
+            private final String winners = getParties().get(0).getAllPartyMembers().stream().map(PartyMember::getUsername).collect(Collectors.joining(Language.EVENT_TOURNAMENT_WINNER_ANNOUNCE_SPLIT_FORMAT.toString()));
             private int count = 5;
             @Override
             public void run() {
@@ -200,7 +191,7 @@ public class Tournament extends EdenEvent {
                     //This line of code has to be run in the last. This is to unregister the events
                     destroy();
                 } else {
-                    Common.broadcastMessage("&7[&b活動&7] &a勝利者: &b" + winners);
+                    Common.broadcastMessage(Language.EVENT_TOURNAMENT_WINNER_ANNOUNCE_MESSAGE.toString(winners));
                     count--;
                 }
             }
@@ -210,15 +201,15 @@ public class Tournament extends EdenEvent {
     private void startNewRound() {
         round++;
         tournamentState = TournamentState.STARTING_NEW_ROUND;
-        setCountdown(new EventCountdown(10, 10,5,4,3,2,1) {
+        setCountdown(new EventCountdown(30, 30,20,15,10,5,4,3,2,1) {
             @Override
             public void runTick(int tick) {
-                Common.broadcastMessage("&7[&b活動&7] &f第 &b&l" + round + " &f輪錦標賽將會在 &b&l" + tick + " &f秒後開始...");
+                Common.broadcastMessage(Language.EVENT_TOURNAMENT_NEW_ROUND_COUNTDOWN.toString(round, tick));
             }
 
             @Override
             public void run() {
-                Common.broadcastMessage("", "&7[&b活動&7] &f第 &b&l" + round + " &f回合已經開始!", "");
+                Common.broadcastMessage(Language.EVENT_TOURNAMENT_NEW_ROUND_START.toStringList(round));
 
                 List<Party> matchParties = new ArrayList<>(getParties());
                 Collections.shuffle(matchParties);
@@ -230,8 +221,8 @@ public class Tournament extends EdenEvent {
                     ArenaDetail arena = Arena.getAvailableArenaDetail(kit);
                     if (arena == null) {
                         //This should not happen if the server has enough arena. But just in case.
-                        party1.broadcast("&7[&b活動&7] &c錯誤: 場地不足, 你的派對將會放置到下一個回合才會開始");
-                        party2.broadcast("&7[&b活動&7] &c錯誤: 場地不足, 你的派對將會放置到下一個回合才會開始");
+                        party1.broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_NO_AVAILABLE_ARENA.toString());
+                        party2.broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_NO_AVAILABLE_ARENA.toString());
                         continue;
                     }
 
@@ -252,7 +243,7 @@ public class Tournament extends EdenEvent {
                 }
 
                 if (matchParties.size() == 1) {
-                    matchParties.get(0).broadcast("&7[&b活動&7] &e本回合派對總數為單數, 你的隊伍已被自動晉級 &a:)");
+                    matchParties.get(0).broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_AUTO_PROMOTION.toString());
                 }
 
                 tournamentState = TournamentState.FIGHTING;

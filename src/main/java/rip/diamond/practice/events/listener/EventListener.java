@@ -7,13 +7,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.PartyDisbandEvent;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventState;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
-import rip.diamond.practice.util.Common;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class EventListener implements Listener {
         }
 
         if (edenEvent.getParties().contains(party)) {
-            Common.sendMessage(player, "&c你不能在活動的時候使用這個指令");
+            Language.EVENT_CANNOT_USE_THIS_COMMAND.sendMessage(player);
             event.setCancelled(true);
         }
     }
@@ -64,7 +64,7 @@ public class EventListener implements Listener {
         }
         if (edenEvent.getParties().contains(party)) {
             edenEvent.getParties().remove(party);
-            party.broadcast("&e由於隊伍已解散, 你的隊伍已自動退出活動");
+            party.broadcast(Language.EVENT_LEAVE_EVENT_BECAUSE_PARTY_DISBAND.toString());
         }
     }
 

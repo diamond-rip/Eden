@@ -3,8 +3,8 @@ package rip.diamond.practice.events.menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.events.EventType;
-import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.ItemBuilder;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.Menu;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class EventCreateMenu extends Menu {
     @Override
     public String getTitle(Player player) {
-        return "建立活動";
+        return Language.EVENT_EVENT_CREATE_MENU_TITLE.toString(player);
     }
 
     @Override
@@ -27,10 +27,10 @@ public class EventCreateMenu extends Menu {
                 @Override
                 public ItemStack getButtonItem(Player player) {
                     return new ItemBuilder(eventType.getLogo())
-                            .name("&b" + eventType.getName())
+                            .name(Language.EVENT_EVENT_CREATE_MENU_BUTTON_NAME.toString(player, eventType.getName()))
                             .lore(
                                     "",
-                                    player.hasPermission(eventType.getPermission()) ? "&e&n點擊進入活動設置界面!" : "&c你沒有權限創建這個活動!"
+                                    player.hasPermission(eventType.getPermission()) ? Language.EVENT_EVENT_CREATE_MENU_BUTTON_LORE_CLICK_TO_CREATE_EVENT.toString(player) : Language.EVENT_EVENT_CREATE_MENU_BUTTON_LORE_NO_PERMISSION.toString(player)
                             )
                             .build();
                 }
@@ -38,7 +38,7 @@ public class EventCreateMenu extends Menu {
                 @Override
                 public void clicked(Player player, ClickType clickType) {
                     if (!player.hasPermission(eventType.getPermission())) {
-                        Common.sendMessage(player, "&c你沒有權限創建這個活動!");
+                        Language.EVENT_EVENT_CREATE_MENU_BUTTON_LORE_NO_PERMISSION.sendMessage(player);
                         return;
                     }
                     new EventSettingsMenu(eventType).openMenu(player);

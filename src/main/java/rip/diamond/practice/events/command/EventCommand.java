@@ -25,7 +25,7 @@ public class EventCommand extends Command {
                     return;
                 }
                 if (event != null) {
-                    Common.sendMessage(player, "&c現時有一個正在進行的活動!");
+                    Language.EVENT_EVENT_IS_RUNNING.sendMessage(player);
                     return;
                 }
                 new EventCreateMenu().openMenu(player);
@@ -36,22 +36,22 @@ public class EventCommand extends Command {
                     return;
                 }
                 if (event == null) {
-                    Common.sendMessage(player, "&c現時並沒有一個正在進行的活動!");
+                    Language.EVENT_EVENT_IS_NOT_RUNNING.sendMessage(player);
                     return;
                 }
                 if (event.getState() != EventState.WAITING) {
-                    Common.sendMessage(player, "&c活動已經開始!");
+                    Language.EVENT_EVENT_ALREADY_STARTED.sendMessage(player);
                     return;
                 }
                 event.start();
                 return;
             } else if (args[0].equalsIgnoreCase("status")) {
                 if (event == null) {
-                    Common.sendMessage(player, "&c現時並沒有一個正在進行的活動!");
+                    Language.EVENT_EVENT_IS_NOT_RUNNING.sendMessage(player);
                     return;
                 }
                 if (event.getStatus(player) == null) {
-                    Common.sendMessage(player, "&c這個活動沒有狀態可以查看!");
+                    Language.EVENT_NO_AVAILABLE_STATUS.sendMessage(player);
                     return;
                 }
 

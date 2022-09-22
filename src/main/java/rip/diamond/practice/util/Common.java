@@ -40,6 +40,12 @@ public class Common {
         }
     }
 
+    public static void broadcastMessage(List<String> str) {
+        for (String string : str) {
+            Bukkit.broadcastMessage(CC.translate(string));
+        }
+    }
+
     public static void broadcastSound(Sound sound) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.playSound(player.getLocation(), sound, 10, 1);
