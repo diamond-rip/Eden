@@ -31,7 +31,7 @@ public class KitEditPotionEffectButton extends KitButton {
                 .durability(8193)
                 .name(Language.KIT_BUTTON_EDIT_POTION_EFFECT_NAME.toString())
                 .lore(Language.KIT_BUTTON_EDIT_POTION_EFFECT_LORE_START.toStringList(kit.getEffects().size()))
-                .lore(getKit().getEffects().stream().map(effect -> " " + CC.DARK_AQUA + WordUtil.toCapital(effect.getType().getName()) + " " + (effect.getAmplifier() + 1) + CC.GRAY + " - " + CC.WHITE + TimeUtil.millisToTimer(effect.getDuration() / 20 * 1000L)).collect(Collectors.toList()))
+                .lore(getKit().getEffects().stream().map(effect -> " " + CC.DARK_AQUA + WordUtil.formatWords(effect.getType().getName()) + " " + (effect.getAmplifier() + 1) + CC.GRAY + " - " + CC.WHITE + TimeUtil.millisToTimer(effect.getDuration() / 20 * 1000L)).collect(Collectors.toList()))
                 .lore(Language.KIT_BUTTON_EDIT_POTION_EFFECT_LORE_END.toStringList())
                 .hideItemFlags()
                 .build();

@@ -10,6 +10,7 @@ import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.PartyDisbandEvent;
+import rip.diamond.practice.event.PartyJoinEvent;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventState;
 import rip.diamond.practice.match.Match;
@@ -65,6 +66,19 @@ public class EventListener implements Listener {
         if (edenEvent.getParties().contains(party)) {
             edenEvent.getParties().remove(party);
             party.broadcast(Language.EVENT_LEAVE_EVENT_BECAUSE_PARTY_DISBAND.toString());
+        }
+    }
+
+    @EventHandler
+    public void onJoinParty(PartyJoinEvent event) {
+        Party party = event.getParty();
+        EdenEvent edenEvent = EdenEvent.getOnGoingEvent();
+        if (edenEvent == null) {
+            return;
+        }
+
+        if (edenEvent.getParties().contains(party)) {
+            event.setCancelled(true, Language.EVENT_CANNOT_JOIN_PARTY_BECAUSE_IN_EVENT.toString());
         }
     }
 

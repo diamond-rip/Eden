@@ -52,20 +52,6 @@ public class PostMatchInventory {
         this.potionsMissed = teamPlayer.getPotionsMissed();
     }
 
-    public int getRemainingHealing() {
-        if (healingMethod == null) {
-            return -1;
-        }
-
-        int amount = 0;
-        for (ItemStack itemStack : getContents()) {
-            if (itemStack != null && itemStack.isSimilar(healingMethod.getItem())) {
-                amount++;
-            }
-        }
-        return amount;
-    }
-
 
     public double getPotionAccuracy() {
         if (potionsMissed == 0) {

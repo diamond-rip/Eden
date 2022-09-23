@@ -24,7 +24,7 @@ Head over [pulls](https://github.com/RealGoodestEnglish/Eden/pulls) to create a 
 
 ## To-Do List
 Please note that things marked as here is not perfectly supported and may cause major bug. Feature listed in here may also only support Traditional Chinese as of right now. Use these feature in your own risk.
-* Event implementation - Right now everything located in rip.diamond.practice.events are in Chinese. And didn't do much test yet.
+* Event implementation - Need more testing
 * Broken TabAPI - The current TabAPI seems discontinued and have major bug which randomly disconnects player from the server when someone joins.
 * Fix/Recode all To-Do which marked in the code
 

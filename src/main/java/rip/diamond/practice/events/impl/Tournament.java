@@ -166,6 +166,12 @@ public class Tournament extends EdenEvent {
     @Override
     public void start() {
         super.start();
+
+        if (canEnd()) {
+            end();
+            return;
+        }
+
         startNewRound();
     }
 

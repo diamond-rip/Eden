@@ -6,9 +6,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.PartyDisbandEvent;
+import rip.diamond.practice.event.PartyJoinEvent;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.Clickable;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.VisibilityController;
 
 import java.util.*;
@@ -97,6 +99,15 @@ public class Party {
             Language.PARTY_OWN_PROFILE_NOT_FOUND.sendMessage(player);
             return;
         }
+
+        PartyJoinEvent event = new PartyJoinEvent(this, force);
+        event.call();
+
+        if (event.isCancelled()) {
+            Common.sendMessage(player, event.getCancelReason());
+            return;
+        }
+
         invites.removeIf(invite -> invite.getUuid().equals(player.getUniqueId()));
         partyMembers.add(new PartyMember(player));
         profile.setParty(this);

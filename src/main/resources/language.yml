@@ -1,5 +1,5 @@
 scoreboard:
-  title: "&bPractice &7| &93.0-BETA"
+  title: "&bPractice"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -414,6 +414,7 @@ event:
   auto-set-party-size: "&7[&bEvent&7] &eYour party maximum size has been corrected to &b&l{0} &ebecause you joined an event."
   cannot-use-this-command: "&cYou cannot use this command when you are in an event"
   leave-event-because-party-disband: "&eBecause of your party disbanded, your party has been automatically removed from the event"
+  cannot-join-party-because-in-event: "&cYou cannot join a party which is in the event!"
   leave-event-because-error: "&cError: System Error. You have been automatically remove from the event"
   event-create-menu:
     title: "Create an Event"
@@ -844,7 +845,7 @@ leaderboard:
 lobby:
   changed-spawn-location: "&aThe lobby spawn has been changed!"
 match:
-  separate: "&7, &e"
+  separate: "&7, &b"
   start-unranked:
     - ""
     - "&b{0}"
@@ -985,9 +986,10 @@ match:
         - "&fPotion Accuracy: &b{4}%"
         - ""
   healing-method:
-    potion: "health potions"
-    soup: "soup"
-    golden-apple: "golden apple"
+    potion: "Health Potions"
+    soup: "Soup"
+    golden-apple: "Golden Apple"
+    god-apple: "Golden Apple"
   new-round-start:
     message: "&aMatch started!"
     title: "&aMatch started!"
@@ -1050,8 +1052,8 @@ party:
     normal: "&b{0} &fhas joined your party"
     force: "&b{0} &fhas &cHACKED &finto your party"
   leave-message:
-    normal: "&b{0} &fhas been kicked from your party"
-    force: "&b{0} has left the party"
+    normal: "&b{0} &fhas left the party"
+    force: "&b{0} &fhas been &ckicked &ffrom your party"
   disband: "&fParty &cdisbanded"
   invite:
     team-message: "&b{0} &finvited &b{1} &fto join the party! They have &b30 &fseconds to join"

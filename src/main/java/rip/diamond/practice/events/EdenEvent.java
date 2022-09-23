@@ -157,7 +157,7 @@ public abstract class EdenEvent {
 
             @Override
             public void run() {
-                if (getMinPlayers() > getTotalPlayers().size()) {
+                if (getMinPlayers() > parties.size()) {
                     broadcast(Language.EVENT_CANCEL_NOT_ENOUGH_PLAYERS.toString());
                     destroy();
                     return;

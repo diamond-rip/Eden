@@ -109,7 +109,7 @@ public class ViewInventoryMenu extends Menu {
 			} else {
 				List<String> lore = new ArrayList<>();
 				info.getEffects().forEach(effect -> {
-					String name = WordUtil.toCapital(effect.getType().getName().replace("_", " ")) + " " + (effect.getAmplifier() + 1);
+					String name = WordUtil.formatWords(effect.getType().getName()) + " " + (effect.getAmplifier() + 1);
 					String duration = TimeUtil.millisToTimer((effect.getDuration() / 20) * 1000L);
 					lore.add(Language.MATCH_VIEW_INVENTORY_MENU_EFFECTS_BUTTON_EFFECTS_FORMAT.toString(name, duration));
 				});
@@ -127,7 +127,7 @@ public class ViewInventoryMenu extends Menu {
 		public ItemStack getButtonItem(Player player) {
 			return new ItemBuilder(info.getHealingMethod() == null ? new ItemBuilder(Material.STAINED_GLASS_PANE).durability(14).build() : info.getHealingMethod().getItem().clone())
 					.name(Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NAME.toString())
-					.lore(info.getHealingMethod() == null ? Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NO_HEALING_LORE.toStringList() : Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_HEALING_LORE.toStringList(info.getOwner(), info.getRemainingHealing(), info.getHealingMethod().getName()))
+					.lore(info.getHealingMethod() == null ? Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NO_HEALING_LORE.toStringList() : Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_HEALING_LORE.toStringList(info.getOwner(), HealingMethod.getHealingLeft(info.getHealingMethod(), info.getContents()), info.getHealingMethod().getName()))
 					.build();
 		}
 	}

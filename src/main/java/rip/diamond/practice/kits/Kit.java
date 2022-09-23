@@ -93,14 +93,7 @@ public class Kit {
 			return;
 		}
 
-		final Document document = Eden.INSTANCE.getMongoManager().getKits().find(Filters.eq("_id", name)).first();
-
-		if (document == null) {
-			Eden.INSTANCE.getMongoManager().getKits().insertOne(toBson());
-			return;
-		}
-
-		Eden.INSTANCE.getMongoManager().getKits().replaceOne(document, toBson(), new ReplaceOptions().upsert(true));
+		Eden.INSTANCE.getMongoManager().getKits().replaceOne(Filters.eq("_id", name), toBson(), new ReplaceOptions().upsert(true));
 	}
 
 	public static Kit getByName(String name) {

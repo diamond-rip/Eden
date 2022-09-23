@@ -1,5 +1,5 @@
 scoreboard:
-  title: "&b戰鬥練習 &7| &93.0-BETA"
+  title: "&b戰鬥練習"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -469,6 +469,7 @@ event:
   auto-set-party-size: "&7[&b活動&7] &e你在一個隊伍的情況下加入了活動, 已把你的派對最大人數改為 &b&l{0}"
   cannot-use-this-command: "&c你不能在活動的時候使用這個指令"
   leave-event-because-party-disband: "&e由於隊伍已解散, 你的隊伍已自動退出活動"
+  cannot-join-party-because-in-event: "&c你不能進去該隊伍, 因為該隊伍在一個活動裏面"
   leave-event-because-error: "&c錯誤: 你已被本活動移除, 這是一個系統錯誤, 請回報給系統管理員"
   event-create-menu:
     title: "建立活動"
@@ -899,7 +900,7 @@ leaderboard:
 lobby:
   changed-spawn-location: "&a大廳位置已更改!"
 match:
-  separate: "&7, &e"
+  separate: "&7, &b"
   start-unranked:
     - ""
     - "&b{0}"
@@ -1041,6 +1042,7 @@ match:
     potion: "回復藥水"
     soup: "蘑菇湯"
     golden-apple: "金蘋果"
+    god-apple: "金蘋果"
   new-round-start:
     message: "&a戰鬥開始!"
     title: "&a戰鬥開始!"

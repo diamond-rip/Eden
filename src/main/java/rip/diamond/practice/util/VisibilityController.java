@@ -35,6 +35,10 @@ public class VisibilityController {
     }
 
     private boolean shouldSeePlayer(Player viewer, Player target) {
+        if (viewer == null || target == null) {
+            return false;
+        }
+
         if (viewer == target) {
             return true;
         }

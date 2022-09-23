@@ -12,8 +12,6 @@ import rip.diamond.practice.util.command.argument.CommandArguments;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO: 21/9/2022 Create a cloud database which allows server owners to download premade kits. After the completion, document it in wiki
-
 public class KitCommand extends Command {
     @CommandArgs(name = "kit", permission = "eden.command.kit")
     public void execute(CommandArguments command) {
