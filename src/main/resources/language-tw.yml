@@ -1264,6 +1264,12 @@ profile:
         - ""
         - "&7觀察戰鬥時是否能看到其他觀察者"
         - ""
+    event-announcement:
+      name: "活動廣播"
+      lore:
+        - ""
+        - "&7應不應該對你發送活動廣播"
+        - ""
     ping-range:
       name: "延遲範圍"
       lore:

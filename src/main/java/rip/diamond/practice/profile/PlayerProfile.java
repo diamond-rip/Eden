@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
+import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
@@ -112,7 +113,11 @@ public class PlayerProfile {
             if (Party.getByPlayer(player) == null) {
                 EdenItems.giveItem(player, EdenItems.LOBBY_UNRANKED_QUEUE);
                 EdenItems.giveItem(player, EdenItems.LOBBY_RANKED_QUEUE);
-                EdenItems.giveItem(player, EdenItems.LOBBY_CREATE_EVENT);
+                if (EdenEvent.getOnGoingEvent() == null) {
+                    EdenItems.giveItem(player, EdenItems.LOBBY_CREATE_EVENT);
+                } else {
+                    EdenItems.giveItem(player, EdenItems.LOBBY_JOIN_EVENT);
+                }
                 EdenItems.giveItem(player, EdenItems.LOBBY_PARTY_OPEN);
                 EdenItems.giveItem(player, EdenItems.LOBBY_LEADERBOARD);
                 EdenItems.giveItem(player, EdenItems.LOBBY_SETTINGS);

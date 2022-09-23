@@ -12,6 +12,9 @@ import rip.diamond.practice.Language;
 import rip.diamond.practice.event.EventJoinEvent;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
+import rip.diamond.practice.profile.PlayerProfile;
+import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.util.Clickable;
 import rip.diamond.practice.util.Common;
 
@@ -56,13 +59,51 @@ public abstract class EdenEvent {
         return ChatColor.stripColor(getEventName());
     }
 
+    public void broadcast(Clickable clickable) {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            PlayerProfile profile = PlayerProfile.get(player);
+            if (profile == null) {
+                return;
+            }
+            if (profile.getSettings().get(ProfileSettings.EVENT_ANNOUNCEMENT).isEnabled()) {
+                clickable.sendToPlayer(player);
+            }
+        });
+    }
+
+    public void broadcast(String string) {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            PlayerProfile profile = PlayerProfile.get(player);
+            if (profile == null) {
+                return;
+            }
+            if (profile.getSettings().get(ProfileSettings.EVENT_ANNOUNCEMENT).isEnabled()) {
+                Common.sendMessage(player, string);
+            }
+        });
+    }
+
+    public void broadcast(List<String> string) {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            PlayerProfile profile = PlayerProfile.get(player);
+            if (profile == null) {
+                return;
+            }
+            if (profile.getSettings().get(ProfileSettings.EVENT_ANNOUNCEMENT).isEnabled()) {
+                Common.sendMessage(player, string);
+            }
+        });
+    }
+
     public void create() {
         onGoingEvent = this;
 
         Clickable clickable = new Clickable(Language.EVENT_EVENT_CREATE_MESSAGE.toString(hoster, getEventName()));
         clickable.add(Language.EVENT_EVENT_CREATE_CLICKABLE_MESSAGE.toString(), Language.EVENT_EVENT_CREATE_CLICKABLE_HOVER.toString(), "/joinevent");
-        Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
+        broadcast(clickable);
         countdown(60);
+
+        PlayerProfile.getProfiles().values().stream().filter(profile -> profile.getPlayer() != null && !profile.isSaving() && profile.getPlayerState() == PlayerState.IN_LOBBY).forEach(PlayerProfile::setupItems);
     }
 
     public static boolean isInEvent(Player player) {
@@ -89,20 +130,20 @@ public abstract class EdenEvent {
 
         Clickable clickable = new Clickable(Language.EVENT_EVENT_JOIN_MESSAGE.toString(getPartyName(party), getEventName(), getTotalPlayers().size(), maxPlayers));
         clickable.add(Language.EVENT_EVENT_JOIN_CLICKABLE_MESSAGE.toString(), Language.EVENT_EVENT_JOIN_CLICKABLE_HOVER.toString(), "/joinevent");
-        Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
+        broadcast(clickable);
 
         EventJoinEvent event = new EventJoinEvent(party, this);
         event.call();
 
         if (getTotalPlayers().size() >= maxPlayers && state == EventState.WAITING) {
-            Common.broadcastMessage(Language.EVENT_STARTING_FULL.toString());
+            broadcast(Language.EVENT_STARTING_FULL.toString());
             countdown(10);
         }
     }
 
     public void leave(Party party) {
         parties.remove(party);
-        Common.broadcastMessage(Language.EVENT_EVENT_LEAVE_MESSAGE.toString(getPartyName(party), getEventName(), getTotalPlayers().size(), maxPlayers));
+        broadcast(Language.EVENT_EVENT_LEAVE_MESSAGE.toString(getPartyName(party), getEventName(), getTotalPlayers().size(), maxPlayers));
     }
 
     public void countdown(int seconds) {
@@ -111,13 +152,13 @@ public abstract class EdenEvent {
             public void runTick(int tick) {
                 Clickable clickable = new Clickable(Language.EVENT_EVENT_START_COUNTDOWN_MESSAGE.toString(getEventName(), tick));
                 clickable.add(Language.EVENT_EVENT_START_COUNTDOWN_CLICKABLE_MESSAGE.toString(), Language.EVENT_EVENT_START_COUNTDOWN_CLICKABLE_HOVER.toString(), "/joinevent");
-                Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
+                broadcast(clickable);
             }
 
             @Override
             public void run() {
                 if (getMinPlayers() > getTotalPlayers().size()) {
-                    Common.broadcastMessage(Language.EVENT_CANCEL_NOT_ENOUGH_PLAYERS.toString());
+                    broadcast(Language.EVENT_CANCEL_NOT_ENOUGH_PLAYERS.toString());
                     destroy();
                     return;
                 }
@@ -135,6 +176,8 @@ public abstract class EdenEvent {
             HandlerList.unregisterAll(bukkitListener);
         }
         onGoingEvent = null;
+
+        PlayerProfile.getProfiles().values().stream().filter(profile -> profile.getPlayer() != null && !profile.isSaving() && profile.getPlayerState() == PlayerState.IN_LOBBY).forEach(PlayerProfile::setupItems);
     }
 
     public void start() {

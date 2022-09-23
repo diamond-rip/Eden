@@ -21,6 +21,13 @@ items:
       material: EYE_OF_ENDER
       durability: 0
       slot: 2
+    join-event:
+      name: "&b加入活動 &7(點擊右鍵)"
+      lore:
+        - "&7點擊加入活動"
+      material: ENDER_PEARL
+      durability: 0
+      slot: 2
     party-open:
       name: "&b建立隊伍 &7(點擊右鍵)"
       lore:

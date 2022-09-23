@@ -26,7 +26,6 @@ import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
 import rip.diamond.practice.queue.QueueType;
-import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Tasks;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class Tournament extends EdenEvent {
                     Team winner = match.getWinningTeam();
                     Team loser = match.getOpponentTeam(winner);
 
-                    Common.broadcastMessage(Language.EVENT_TOURNAMENT_MATCH_END_MESSAGE.toString(getTeamName(winner), getTeamName(loser), matches.size()));
+                    broadcast(Language.EVENT_TOURNAMENT_MATCH_END_MESSAGE.toString(getTeamName(winner), getTeamName(loser), matches.size()));
 
                     Party party = Party.getByPlayer(loser.getLeader().getPlayer());
                     //如果玩家在戰鬥時退出伺服器的話, Party 可能會是null
@@ -175,7 +174,7 @@ public class Tournament extends EdenEvent {
         super.end();
         tournamentState = TournamentState.ENDING;
         if (getParties().isEmpty()) {
-            Common.broadcastMessage(Language.EVENT_TOURNAMENT_NO_WINNER_BECAUSE_NO_PARTY.toString());
+            broadcast(Language.EVENT_TOURNAMENT_NO_WINNER_BECAUSE_NO_PARTY.toString());
             //This line of code has to be run in the last. This is to unregister the events
             destroy();
             return;
@@ -191,7 +190,7 @@ public class Tournament extends EdenEvent {
                     //This line of code has to be run in the last. This is to unregister the events
                     destroy();
                 } else {
-                    Common.broadcastMessage(Language.EVENT_TOURNAMENT_WINNER_ANNOUNCE_MESSAGE.toString(winners));
+                    broadcast(Language.EVENT_TOURNAMENT_WINNER_ANNOUNCE_MESSAGE.toString(winners));
                     count--;
                 }
             }
@@ -204,12 +203,12 @@ public class Tournament extends EdenEvent {
         setCountdown(new EventCountdown(30, 30,20,15,10,5,4,3,2,1) {
             @Override
             public void runTick(int tick) {
-                Common.broadcastMessage(Language.EVENT_TOURNAMENT_NEW_ROUND_COUNTDOWN.toString(round, tick));
+                broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_COUNTDOWN.toString(round, tick));
             }
 
             @Override
             public void run() {
-                Common.broadcastMessage(Language.EVENT_TOURNAMENT_NEW_ROUND_START.toStringList(round));
+                broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_START.toStringList(round));
 
                 List<Party> matchParties = new ArrayList<>(getParties());
                 Collections.shuffle(matchParties);

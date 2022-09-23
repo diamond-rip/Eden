@@ -10,8 +10,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.Language;
@@ -105,6 +107,8 @@ public class ProfileListener implements Listener {
                 Util.performCommand(player, "queue ranked");
             } else if (item.equals(EdenItems.LOBBY_CREATE_EVENT.getItemStack())) {
                 Util.performCommand(player, "event create");
+            } else if (item.equals(EdenItems.LOBBY_JOIN_EVENT.getItemStack())) {
+                Util.performCommand(player, "joinevent");
             } else if (item.equals(EdenItems.LOBBY_PARTY_OPEN.getItemStack())) {
                 Util.performCommand(player, "party create");
             } else if (item.equals(EdenItems.LOBBY_LEADERBOARD.getItemStack())) {
@@ -192,6 +196,19 @@ public class ProfileListener implements Listener {
         Player player = event.getPlayer();
         if (!Checker.canDamage(player)) {
             event.setCancelled(event.getPlayer().getGameMode() != GameMode.CREATIVE);
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        //防止玩家移動物品欄中的物品
+        if (event.getWhoClicked() instanceof Player) {
+            Player player = (Player) event.getWhoClicked();
+            PlayerProfile profile = PlayerProfile.get(player);
+
+            if (event.getClickedInventory() instanceof PlayerInventory && !profile.getPlayerState().isAbleToMoveItemInInventory()) {
+                event.setCancelled(player.getGameMode() != GameMode.CREATIVE);
+            }
         }
     }
 

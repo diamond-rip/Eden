@@ -21,6 +21,13 @@ items:
       material: EYE_OF_ENDER
       durability: 0
       slot: 2
+    join-event:
+      name: "&bJoin Event &7(Right-Click)"
+      lore:
+        - ""
+      material: ENDER_PEARL
+      durability: 0
+      slot: 2
     party-open:
       name: "&bCreate Party &7(Right-Click)"
       lore:

@@ -404,8 +404,8 @@ duel:
     cannot-duel-same-party: "&cYou can not duel your own party"
     player-not-in-lobby: "&c{0}'s party needs to be in the same lobby to accept duel requests"
 event:
-  event-is-running: "&cThere's no active event!"
-  event-is-not-running: "&cThere's already an active event!"
+  event-is-running: "&cThere's already an active event!"
+  event-is-not-running: "&cThere's no active event!"
   event-already-started: "&cEvent already started!"
   no-available-status: "&cThis event has no available status to view!"
   wrong-state: "&cYou must be in lobby to do this!"
@@ -1210,6 +1210,12 @@ profile:
       lore:
         - ""
         - "&7See other spectators when spectating"
+        - ""
+    event-announcement:
+      name: "Event Announcement"
+      lore:
+        - ""
+        - "&7Receive event announcement"
         - ""
     ping-range:
       name: "Ping Range"

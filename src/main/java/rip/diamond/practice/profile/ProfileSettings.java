@@ -114,6 +114,13 @@ public enum ProfileSettings {
             "eden.settings.spectator-visibility",
             getBooleanDefaultOptions(true)
     ),
+    EVENT_ANNOUNCEMENT(
+            Material.EMERALD,
+            Language.PROFILE_SETTINGS_EVENT_ANNOUNCEMENT_NAME.toString(),
+            Language.PROFILE_SETTINGS_EVENT_ANNOUNCEMENT_LORE.toStringList(),
+            "eden.settings.event-announcement",
+            getBooleanDefaultOptions(true)
+    ),
     PING_RANGE(
             Material.STICK,
             Language.PROFILE_SETTINGS_PING_RANGE_NAME.toString(),
