@@ -12,8 +12,10 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftItem;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
@@ -285,6 +287,26 @@ public class Util {
             location.getWorld().imanity().getChunkAtAsynchronously(location, AsyncPriority.HIGHER).thenApply(chunk -> player.teleport(location));
         } else {
             player.teleport(location);
+        }
+    }
+
+    public static void sendArrowHitMessage(EntityDamageByEntityEvent event) {
+        Player entity = (Player) event.getEntity();
+        Player damager = event.getDamager() instanceof Arrow ? (Player) ((Arrow) event.getDamager()).getShooter() : (Player) event.getDamager();
+
+        double damage = event.getFinalDamage();
+        double absorptionHealth = ((CraftPlayer) entity).getHandle().getAbsorptionHearts();
+        final double absorptionDamage = Math.ceil(absorptionHealth - damage) / 2.0;
+        if (absorptionDamage > 0.0D) {
+            absorptionHealth = absorptionDamage;
+            damage = 0.0;
+        } else {
+            damage -= absorptionHealth;
+            absorptionHealth = 0.0;
+        }
+        final double health = Math.ceil(entity.getHealth() - damage) / 2.0D;
+        if (health > 0) {
+            Language.MATCH_ARROW_DAMAGE.sendMessage(damager, entity.getName(), Eden.DECIMAL.format(health), Eden.DECIMAL.format(absorptionHealth));
         }
     }
 

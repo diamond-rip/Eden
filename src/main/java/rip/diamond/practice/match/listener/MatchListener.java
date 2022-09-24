@@ -8,6 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -191,64 +192,75 @@ public class MatchListener implements Listener {
 
     @EventHandler
     public void onDamageEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player) || !(event.getDamager() instanceof Player)) {
-            return;
-        }
-        Player entity = (Player) event.getEntity();
-        Player damager = (Player) event.getDamager();
-        PlayerProfile entityProfile = PlayerProfile.get(entity);
-        PlayerProfile damagerProfile = PlayerProfile.get(damager);
+        if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Arrow)) {
+            Player entity = (Player) event.getEntity();
+            Player damager = event.getDamager() instanceof Arrow ? (Player) ((Arrow) event.getDamager()).getShooter() : (Player) event.getDamager();
 
-        if (entityProfile.getPlayerState() == PlayerState.IN_MATCH && damagerProfile.getPlayerState() == PlayerState.IN_MATCH && entityProfile.getMatch() == damagerProfile.getMatch()) {
-            Match match = entityProfile.getMatch();
-
-            //It is cancelled in EntityDamageEvent. Check this again to prevent Boxing hits.
-            if (match.getState() != MatchState.FIGHTING) {
+            //Damager might be null because there might be a chance when arrow hit the entity, the damager isn't online
+            if (damager == null) {
                 event.setCancelled(true);
                 return;
             }
 
-            Team teamEntity = match.getTeam(entity);
-            Team teamDamager = match.getTeam(damager);
+            PlayerProfile entityProfile = PlayerProfile.get(entity);
+            PlayerProfile damagerProfile = PlayerProfile.get(damager);
 
-            //檢查攻擊方和被攻擊方是不是同隊
-            if (teamEntity == teamDamager && entity != damager) {
-                event.setCancelled(true);
-                return;
-            }
+            if (entityProfile.getPlayerState() == PlayerState.IN_MATCH && damagerProfile.getPlayerState() == PlayerState.IN_MATCH && entityProfile.getMatch() == damagerProfile.getMatch()) {
+                Match match = entityProfile.getMatch();
 
-            //檢查職業是否只允許遠程攻擊傷害 (這裏的 damager 一定會是玩家, 所以不需要檢查 damager 是不是遠程攻擊)
-            if (match.getKit().getGameRules().isProjectileOnly()) {
-                event.setCancelled(true);
-                return;
-            }
+                //It is cancelled in EntityDamageEvent. Check this again to prevent Boxing hits.
+                if (match.getState() != MatchState.FIGHTING) {
+                    event.setCancelled(true);
+                    return;
+                }
 
-            if (match.getKit().getGameRules().isBoxing() || match.getKit().getGameRules().isNoDamage()) {
-                event.setDamage(0);
-                entity.setHealth(20.0);
-            }
+                Team teamEntity = match.getTeam(entity);
+                Team teamDamager = match.getTeam(damager);
 
-            TeamPlayer teamPlayerEntity = match.getTeamPlayer(entity);
-            TeamPlayer teamPlayerDamager = match.getTeamPlayer(damager);
+                //檢查攻擊方和被攻擊方是不是同隊
+                if (teamEntity == teamDamager && entity != damager) {
+                    event.setCancelled(true);
+                    return;
+                }
 
-            if (!teamPlayerEntity.isAlive() || !teamPlayerDamager.isAlive() || teamPlayerEntity.isRespawning() || teamPlayerDamager.isRespawning()) {
-                event.setCancelled(true);
-                return;
-            }
+                //檢查職業是否只允許遠程攻擊傷害 (這裏的 damager 一定會是玩家, 所以不需要檢查 damager 是不是遠程攻擊)
+                if (match.getKit().getGameRules().isProjectileOnly()) {
+                    event.setCancelled(true);
+                    return;
+                }
 
-            teamPlayerDamager.handleHit(event.getFinalDamage());
-            teamPlayerEntity.handleGotHit(match.getTeamPlayer(damager));
+                if (match.getKit().getGameRules().isBoxing() || match.getKit().getGameRules().isNoDamage()) {
+                    event.setDamage(0);
+                    entity.setHealth(20.0);
+                }
 
-            //檢查職業是否為Boxing, 和檢查是否達到最大Boxing攻擊數, 如果是的話就死亡
-            if (match.getKit().getGameRules().isBoxing() && match.getTeam(entity).getGotHits() >= match.getMaximumBoxingHits()) {
-                switch (match.getMatchType()) {
-                    case SOLO:
-                        Util.damage(entity, 99999);
-                        break;
-                    case SPLIT:
-                    case FFA:
-                        match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> Util.damage(entity, 99999));
-                        break;
+                TeamPlayer teamPlayerEntity = match.getTeamPlayer(entity);
+                TeamPlayer teamPlayerDamager = match.getTeamPlayer(damager);
+
+                if (!teamPlayerEntity.isAlive() || !teamPlayerDamager.isAlive() || teamPlayerEntity.isRespawning() || teamPlayerDamager.isRespawning()) {
+                    event.setCancelled(true);
+                    return;
+                }
+
+                teamPlayerDamager.handleHit(event.getFinalDamage());
+                teamPlayerEntity.handleGotHit(match.getTeamPlayer(damager));
+
+                //顯示造成的傷害
+                if (event.getDamager() instanceof Arrow) {
+                    Util.sendArrowHitMessage(event);
+                }
+
+                //檢查職業是否為Boxing, 和檢查是否達到最大Boxing攻擊數, 如果是的話就死亡
+                if (match.getKit().getGameRules().isBoxing() && match.getTeam(entity).getGotHits() >= match.getMaximumBoxingHits()) {
+                    switch (match.getMatchType()) {
+                        case SOLO:
+                            Util.damage(entity, 99999);
+                            break;
+                        case SPLIT:
+                        case FFA:
+                            match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> Util.damage(entity, 99999));
+                            break;
+                    }
                 }
             }
         }
@@ -739,6 +751,24 @@ public class MatchListener implements Listener {
                     return;
                 }
                 match.getEntities().removeIf(matchEntity -> matchEntity.getEntity().getEntityId() == projectile.getEntityId());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onItemDamage(PlayerItemDamageEvent event) {
+        Player player = event.getPlayer();
+        PlayerProfile profile = PlayerProfile.get(player);
+
+        if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
+            if (!Enchantment.PROTECTION_ENVIRONMENTAL.canEnchantItem(event.getItem())) {
+                return;
+            }
+
+            if (player.getLastDamageCause() != null && player.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
+                if (((EntityDamageByEntityEvent) player.getLastDamageCause()).getDamager() instanceof FishHook) {
+                    event.setCancelled(true);
+                }
             }
         }
     }

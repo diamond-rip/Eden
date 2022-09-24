@@ -16,6 +16,7 @@ import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.profile.task.ProfileAutoSaveTask;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Cooldown;
 import rip.diamond.practice.util.Tasks;
 import rip.diamond.practice.util.VisibilityController;
@@ -48,13 +49,17 @@ public class PlayerProfile {
     public void fromBson(Document document) {
         Document settingsDocument = document.get("settings", Document.class);
         for (String data : settingsDocument.keySet()) {
-            ProfileSettings s = ProfileSettings.valueOf(data);
-            Option option = s.find(settingsDocument.getString(data));
-            //This happens when the option value name is changed
-            if (option == null) {
-                continue;
+            try {
+                ProfileSettings s = ProfileSettings.valueOf(data);
+                Option option = s.find(settingsDocument.getString(data));
+                //This happens when the option value name is changed
+                if (option == null) {
+                    continue;
+                }
+                settings.put(s, option);
+            } catch (IllegalArgumentException e) {
+                Common.debug(username + " 的 SettingsDocument 裏面有不存在的 '" + data + "' 設定, 由於無法找到合適的設定, 所以已把它忽略");
             }
-            settings.put(s, option);
         }
 
         Document kitDataDocument = document.get("kitData", Document.class);

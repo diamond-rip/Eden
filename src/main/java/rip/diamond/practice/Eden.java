@@ -36,6 +36,7 @@ import rip.diamond.practice.match.listener.MatchListener;
 import rip.diamond.practice.match.listener.SpectateListener;
 import rip.diamond.practice.misc.commands.EdenCommand;
 import rip.diamond.practice.misc.commands.LocationCommand;
+import rip.diamond.practice.misc.listeners.ChatListener;
 import rip.diamond.practice.misc.listeners.GeneralListener;
 import rip.diamond.practice.movement.impl.MatchMovementHandler;
 import rip.diamond.practice.party.PartyListener;
@@ -142,6 +143,7 @@ public class Eden extends JavaPlugin {
                 new EventListener(this),
                 new KitListener(),
                 new MatchListener(this),
+                new ChatListener(),
                 new GeneralListener(this),
                 new ProfileListener(this),
                 new ProcedureListener(),

@@ -26,31 +26,26 @@ public class MongoManager {
     public void init() {
         if (plugin.getConfigFile().getBoolean("mongo.uri-mode")) {
             this.client = MongoClients.create(plugin.getConfigFile().getString("mongo.uri.connection-string"));
-            this.database = client.getDatabase(plugin.getConfigFile().getString("mongo.uri.database"));
+        } else {
+            boolean auth = plugin.getConfigFile().getBoolean("mongo.normal.auth.enabled");
+            String host = plugin.getConfigFile().getString("mongo.normal.host");
+            int port = plugin.getConfigFile().getInt("mongo.normal.port");
 
-            this.loadCollections();
-            return;
+            String uri = "mongodb://" + host + ":" + port;
+
+            if (auth) {
+                String username = plugin.getConfigFile().getString("mongo.normal.auth.username");
+                String password = plugin.getConfigFile().getString("mongo.normal.auth.password");
+
+                password = password.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+                password = password.replaceAll("\\+", "%2B");
+
+                uri = "mongodb://" + username + ":" + password + "@" + host + ":" + port;
+            }
+
+            this.client = MongoClients.create(uri);
         }
-
-        boolean auth = plugin.getConfigFile().getBoolean("mongo.normal.auth.enabled");
-        String host = plugin.getConfigFile().getString("mongo.normal.host");
-        int port = plugin.getConfigFile().getInt("mongo.normal.port");
-
-        String uri = "mongodb://" + host + ":" + port;
-
-        if (auth) {
-            String username = plugin.getConfigFile().getString("mongo.normal.auth.username");
-            String password = plugin.getConfigFile().getString("mongo.normal.auth.password");
-
-            password = password.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
-            password = password.replaceAll("\\+", "%2B");
-
-            uri = "mongodb://" + username + ":" + password + "@" + host + ":" + port;
-        }
-
-        this.client = MongoClients.create(uri);
         this.database = client.getDatabase(plugin.getConfigFile().getString("mongo.uri.database"));
-
         this.loadCollections();
     }
 

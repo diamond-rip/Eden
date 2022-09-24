@@ -35,6 +35,13 @@ match:
   ## This option will change paperspigot's config 'disable-player-crits' to true. So crit hit will not be exists anymore.
   ## Warning: This option will disable crit damage, and will change and save paperspigot's 'disable-player-crits' settings
   fix-hit-count-error: true
+## Simple chat format
+chat-format:
+  ## Set this to true if you want to enable chat format
+  enabled: true
+  ## What is the format should be? (This supports PlaceholderAPI)
+  ## Use %1$s for player's name and %2$s for player's message
+  format: "&a%1$s&f: %2$s"
 ## These options will only works if you are using ImanitySpigot
 ## If you are not using, then turn every imanity related settings off
 imanity:

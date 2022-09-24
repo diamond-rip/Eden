@@ -873,6 +873,7 @@ match:
   cannot-build-outside: "&cCannot build outside of the arena"
   cannot-break-own-bed: "&cYou cannot break your own bed!"
   can-use-enderpearl: "&aYou can now use Ender Pearl again."
+  arrow-damage: "&c{0}&e's health: &c{1}❤ &e{2}❤"
   bed-break:
     title: "&cBed Destroyed！"
     subtitle: "&fYou will not respawn after die！"
@@ -1002,8 +1003,8 @@ match:
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
   respawn:
     message: "&aRespawned!"
-  ##As of right now, only red and blue are going to be usable.
-  ##There's a high chance to let players customize their team color soon
+  ## As of right now, only red and blue are going to be usable.
+  ## Not sure what I should do to the rest, but just in case
   team-color:
     red:
       name: "&cRed"

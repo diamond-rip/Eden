@@ -928,6 +928,7 @@ match:
   cannot-build-outside: "&c無法在場地外建設"
   cannot-break-own-bed: "&c你不能破壞自己的床!"
   can-use-enderpearl: "&a你現在可以使用終界珍珠"
+  arrow-damage: "&c{0} &7現在的血量是 &c{1}❤ &e{2}❤"
   bed-break:
     title: "&c床遭到破壞了！"
     subtitle: "&f死後您將無法重生！"
@@ -1055,8 +1056,8 @@ match:
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
   respawn:
     message: "&a你已重生!"
-  ##As of right now, only red and blue are going to be usable.
-  ##There's a high chance to let players customize their team color soon
+  ## As of right now, only red and blue are going to be usable.
+  ## Not sure what I should do to the rest, but just in case
   team-color:
     red:
       name: "&c紅隊"
