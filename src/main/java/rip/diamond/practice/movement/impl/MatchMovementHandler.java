@@ -59,7 +59,7 @@ public class MatchMovementHandler extends MovementHandler {
                 if (match.getState() == MatchState.FIGHTING && underBlock.getType() == Material.ENDER_PORTAL) {
                     Team team = match.getTeam(player);
                     //Prevent player scoring their own goal
-                    if (team.getSpawnLocation().distance(to) > 30) {
+                    if (team.getSpawnLocation().distance(to) > 29) {
                         match.score(profile, match.getTeamPlayer(player));
                     } else {
                         Util.damage(player, 99999);

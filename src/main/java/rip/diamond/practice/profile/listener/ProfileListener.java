@@ -79,7 +79,7 @@ public class ProfileListener implements Listener {
     }
 
     //This event is only to prevent players to open block's inventory. We still allow plugins to run all PlayerInteractEvent
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOW)
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);

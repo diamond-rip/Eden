@@ -223,8 +223,8 @@ public class MatchListener implements Listener {
                     return;
                 }
 
-                //檢查職業是否只允許遠程攻擊傷害 (這裏的 damager 一定會是玩家, 所以不需要檢查 damager 是不是遠程攻擊)
-                if (match.getKit().getGameRules().isProjectileOnly()) {
+                //檢查職業是否只允許遠程攻擊傷害
+                if (match.getKit().getGameRules().isProjectileOnly() && event.getDamager() instanceof Player) {
                     event.setCancelled(true);
                     return;
                 }

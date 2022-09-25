@@ -15,6 +15,7 @@ public class EventCountdown extends Cooldown {
     public EventCountdown(int seconds, int... tick) {
         super(seconds);
 
+        // TODO: 23/9/2022 Tick count is not match scoreboard
         task = new BukkitRunnable() {
             @Override
             public void run() {
