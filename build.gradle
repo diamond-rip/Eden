@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.0.1-BETA-" + getGitHash()
+version = "1.0.2-BETA-" + getGitHash()
 
 compileJava.options.encoding = 'UTF-8'
 
