@@ -1,7 +1,5 @@
 package rip.diamond.practice.util.menu;
 
-import rip.diamond.practice.Eden;
-import rip.diamond.practice.util.CC;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -10,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import rip.diamond.practice.Eden;
+import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.menu.task.MenuUpdateTask;
 
 import java.util.HashMap;
@@ -51,63 +51,46 @@ public abstract class Menu {
 	}
 
 	public void openMenu(final Player player) {
-		this.buttons = this.getButtons(player);
+		try {
+			//Eden Start - Recoded how menu opens. Might contain bugs
+			Menu previousMenu = Menu.currentlyOpenedMenus.get(player.getUniqueId());
+			if (previousMenu != null) {
+				previousMenu.onClose(player);
+				previousMenu.setClosedByMenu(true);
+				Menu.currentlyOpenedMenus.remove(player.getUniqueId());
+			}
 
-		Menu previousMenu = Menu.currentlyOpenedMenus.get(player.getUniqueId());
-		Inventory inventory = null;
-		int size = this.getSize() == -1 ? this.size(this.buttons) : this.getSize();
-		boolean update = false;
-		String title = CC.translate(CC.AQUA + this.getTitle(player));
+			this.buttons = this.getButtons(player);
+			String title = CC.translate(CC.AQUA + this.getTitle(player));
+			if (title.length() > 32) {
+				title = title.substring(0, 32);
+			}
+			int size = this.getSize() == -1 ? this.size(this.buttons) : this.getSize();
 
-		if (title.length() > 32) {
-			title = title.substring(0, 32);
-		}
+			Inventory inventory = Bukkit.createInventory(player, size, title);
 
-		if (player.getOpenInventory() != null) {
-			if (previousMenu == null) {
-				player.closeInventory();
-			} else {
-				int previousSize = player.getOpenInventory().getTopInventory().getSize();
+			for (Map.Entry<Integer, Button> buttonEntry : this.buttons.entrySet()) {
+				inventory.setItem(buttonEntry.getKey(), createItemStack(player, buttonEntry.getValue()));
+			}
 
-				if (previousSize == size && player.getOpenInventory().getTopInventory().getTitle().equals(title)) {
-					inventory = player.getOpenInventory().getTopInventory();
-					update = true;
-				} else {
-					previousMenu.setClosedByMenu(true);
-					player.closeInventory();
+			if (this.isPlaceholder()) {
+				for (int index = 0; index < size; index++) {
+					if (this.buttons.get(index) == null) {
+						this.buttons.put(index, this.placeholderButton);
+						inventory.setItem(index, this.placeholderButton.getButtonItem(player));
+					}
 				}
 			}
-		}
 
-		if (inventory == null) {
-			inventory = Bukkit.createInventory(player, size, title);
-		}
-
-		inventory.setContents(new ItemStack[inventory.getSize()]);
-
-		currentlyOpenedMenus.put(player.getUniqueId(), this);
-
-		for (Map.Entry<Integer, Button> buttonEntry : this.buttons.entrySet()) {
-			inventory.setItem(buttonEntry.getKey(), createItemStack(player, buttonEntry.getValue()));
-		}
-
-		if (this.isPlaceholder()) {
-			for (int index = 0; index < size; index++) {
-				if (this.buttons.get(index) == null) {
-					this.buttons.put(index, this.placeholderButton);
-					inventory.setItem(index, this.placeholderButton.getButtonItem(player));
-				}
-			}
-		}
-
-		if (update) {
-			player.updateInventory();
-		} else {
 			player.openInventory(inventory);
+			Menu.currentlyOpenedMenus.put(player.getUniqueId(), this);
+			this.onOpen(player);
+			this.setClosedByMenu(false);
+			//Eden End
+		} catch (Exception e) {
+			e.printStackTrace();
+			player.closeInventory();
 		}
-
-		this.onOpen(player);
-		this.setClosedByMenu(false);
 	}
 
 	public int size(Map<Integer, Button> buttons) {

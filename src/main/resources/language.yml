@@ -416,6 +416,7 @@ event:
   leave-event-because-party-disband: "&eBecause of your party disbanded, your party has been automatically removed from the event"
   cannot-join-party-because-in-event: "&cYou cannot join a party which is in the event!"
   leave-event-because-error: "&cError: System Error. You have been automatically remove from the event"
+  force-cancel-event: "&c{0} has been cancelled by administrator"
   event-create-menu:
     title: "Create an Event"
     button:

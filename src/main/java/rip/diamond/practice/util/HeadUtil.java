@@ -24,12 +24,18 @@ public class HeadUtil {
     }
 
     public static String[] getValues(Player player) {
+        return getValues(null, player);
+    }
+
+    public static String[] getValues(String key, Player player) {
         if (player != null) {
             EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
             GameProfile gameProfile = entityPlayer.getProfile();
 
             for (Map.Entry<String, Property> entry : gameProfile.getProperties().entries()) {
-                return new String[]{entry.getValue().getValue(), entry.getValue().getSignature()};
+                if (key == null || entry.getKey().equals(key)) {
+                    return new String[]{entry.getValue().getValue(), entry.getValue().getSignature()};
+                }
             }
         }
 

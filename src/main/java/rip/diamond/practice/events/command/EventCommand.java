@@ -57,6 +57,16 @@ public class EventCommand extends Command {
 
                 Common.sendMessage(player, event.getStatus(player));
                 return;
+            } else if (args[0].equalsIgnoreCase("cancel")) {
+                if (!player.hasPermission("eden.command.event.cancel")) {
+                    Language.NO_PERMISSION.sendMessage(player);
+                    return;
+                }
+                if (event == null) {
+                    Language.EVENT_EVENT_IS_NOT_RUNNING.sendMessage(player);
+                    return;
+                }
+                event.end(true);
             }
         }
     }

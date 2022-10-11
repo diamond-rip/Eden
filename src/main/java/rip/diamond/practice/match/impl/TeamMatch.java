@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TeamMatch extends Match {
     @Getter private final Team teamA;
@@ -94,7 +95,7 @@ public class TeamMatch extends Match {
         if (getState() != MatchState.ENDING) {
             throw new PracticeUnexpectedException("Cannot get Winning Players when match isn't ending");
         }
-        return getWinningTeam().getTeamPlayers();
+        return getWinningTeam().getTeamPlayers().stream().filter(TeamPlayer::isAlive).collect(Collectors.toList());
     }
 
     @Override

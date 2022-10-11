@@ -184,7 +184,7 @@ public abstract class EdenEvent {
         state = EventState.RUNNING;
     }
 
-    public void end() {
+    public void end(boolean forced) {
         state = EventState.ENDING;
         if (countdown != null) {
             countdown.cancelCountdown();

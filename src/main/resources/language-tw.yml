@@ -471,6 +471,7 @@ event:
   leave-event-because-party-disband: "&e由於隊伍已解散, 你的隊伍已自動退出活動"
   cannot-join-party-because-in-event: "&c你不能進去該隊伍, 因為該隊伍在一個活動裏面"
   leave-event-because-error: "&c錯誤: 你已被本活動移除, 這是一個系統錯誤, 請回報給系統管理員"
+  force-cancel-event: "&c{0}已被管理員強制結束"
   event-create-menu:
     title: "建立活動"
     button:

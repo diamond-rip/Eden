@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 public class PlayerProfile {
 
-    @Getter private static final Map<UUID, PlayerProfile> profiles = new HashMap<>();
+    @Getter private static final Map<UUID, PlayerProfile> profiles = Collections.synchronizedMap(new HashMap<>());
 
     private final UUID uniqueId;
     private final String username;

@@ -13,7 +13,7 @@ public class ProfileCooldownTask extends TaskTicker {
     }
 
     @Override
-    public void onRun() {
+    public synchronized void onRun() {
         for (PlayerProfile profile : PlayerProfile.getProfiles().values()) {
             Iterator<Map.Entry<String, Cooldown>> cooldownIterator = profile.getCooldowns().entrySet().iterator();
             while (cooldownIterator.hasNext()) {

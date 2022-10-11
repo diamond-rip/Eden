@@ -36,6 +36,8 @@ import java.util.stream.Collectors;
 @Getter
 public class Tournament extends EdenEvent {
 
+    // TODO: 25/9/2022 Add match duration
+
     private final Kit kit;
     private final List<Match> matches = new ArrayList<>();
     private TournamentState tournamentState = TournamentState.NONE;
@@ -81,7 +83,7 @@ public class Tournament extends EdenEvent {
                     }
 
                     if (canEnd()) {
-                        end();
+                        end(false);
                         return;
                     }
 
@@ -94,7 +96,7 @@ public class Tournament extends EdenEvent {
             @EventHandler
             public void onDisband(PartyDisbandEvent event) {
                 if (canEnd()) {
-                    end();
+                    end(false);
                 }
             }
         };
@@ -168,7 +170,7 @@ public class Tournament extends EdenEvent {
         super.start();
 
         if (canEnd()) {
-            end();
+            end(false);
             return;
         }
 
@@ -176,9 +178,17 @@ public class Tournament extends EdenEvent {
     }
 
     @Override
-    public void end() {
-        super.end();
+    public void end(boolean forced) {
+        super.end(forced);
         tournamentState = TournamentState.ENDING;
+
+        if (forced) {
+            broadcast(Language.EVENT_FORCE_CANCEL_EVENT.toString(getEventType().getName()));
+            //This line of code has to be run in the last. This is to unregister the events
+            destroy();
+            return;
+        }
+
         if (getParties().isEmpty()) {
             broadcast(Language.EVENT_TOURNAMENT_NO_WINNER_BECAUSE_NO_PARTY.toString());
             //This line of code has to be run in the last. This is to unregister the events

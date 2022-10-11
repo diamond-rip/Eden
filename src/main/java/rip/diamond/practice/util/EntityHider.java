@@ -25,7 +25,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.ItemStack;
@@ -214,38 +213,6 @@ public class EntityHider {
             @EventHandler
             public void onPlayerQuit(PlayerQuitEvent e) {
                 removePlayer(e.getPlayer());
-            }
-
-            @EventHandler(priority = EventPriority.MONITOR)
-            public void onPlayerPickupItem(PlayerPickupItemEvent event) {
-                Player receiver = event.getPlayer();
-                Item item = event.getItem();
-
-                Player dropper = getPlayerWhoDropped(item);
-                if (dropper == null) return;
-
-                if (!receiver.canSee(dropper)) {
-                    event.setCancelled(true);
-                }
-            }
-
-            @EventHandler(priority = EventPriority.MONITOR)
-            public void onPickup(PlayerPickupItemEvent event) {
-                Player receiver = event.getPlayer();
-
-                Item item = event.getItem();
-                if (item.getItemStack().getType() != Material.ARROW) return;
-
-                Entity entity = ((CraftEntity) item).getHandle().getBukkitEntity();
-                if (!(entity instanceof Arrow)) return;
-
-                Arrow arrow = (Arrow) entity;
-                if (!(arrow.getShooter() instanceof Player)) return;
-
-                Player shooter = (Player) arrow.getShooter();
-                if (!receiver.canSee(shooter)) {
-                    event.setCancelled(true);
-                }
             }
 
 
