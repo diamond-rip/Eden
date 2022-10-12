@@ -44,7 +44,7 @@ public class ProfileListener implements Listener {
 
         //Reset their inventory and their location, to prevent player stuck in other places or contains illegal items
         PlayerUtil.reset(player);
-        Util.teleport(player, plugin.getLobbyManager().getSpawnLocation());
+        plugin.getLobbyManager().teleport(player);
 
         profile.load((success) -> {
             if (!success) {

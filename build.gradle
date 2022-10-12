@@ -4,19 +4,19 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.0.2-BETA-" + getGitHash()
+version = "1.0.3-BETA-" + getGitHash()
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand 'pluginVersion': project.version
+    }
+}
 
 compileJava.options.encoding = 'UTF-8'
 
 compileJava {
     sourceCompatibility = 8
     targetCompatibility = 8
-}
-
-processResources {
-    filesMatching('plugin.yml') {
-        expand 'pluginVersion': project.version
-    }
 }
 
 String getGitHash() {

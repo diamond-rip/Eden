@@ -34,13 +34,13 @@ public class LobbyManager {
         Language.LOBBY_CHANGED_SPAWN_LOCATION.sendMessage(player);
     }
 
-    private void teleport(Player player, Location location) {
-        if (location == null) {
+    public void teleport(Player player) {
+        if (spawnLocation == null) {
             Common.sendMessage(player, CC.RED + "Unable to teleport you to a certain location. Please check if spawn location and editor location is setup correctly.");
             Common.log(CC.RED + "Unable to teleport " + player.getName() + " to a certain location. Please check if spawn location and editor location is setup correctly.");
             return;
         }
-        Util.teleport(player, location);
+        Util.teleport(player, spawnLocation);
     }
 
     public void sendToSpawnAndReset(Player player) {
@@ -60,7 +60,7 @@ public class LobbyManager {
                 cooldown.cancelCountdown();
             });
 
-            teleport(player, spawnLocation);
+            teleport(player);
         });
     }
 
