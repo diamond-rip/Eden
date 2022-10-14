@@ -363,6 +363,15 @@ public class MatchListener implements Listener {
                         event.setCancelled(true);
                     } else {
                         profile.getCooldowns().put("goldenhead", new Cooldown(1));
+                        Common.playSound(player, Sound.EAT);
+                        player.removePotionEffect(PotionEffectType.REGENERATION);
+                        player.removePotionEffect(PotionEffectType.ABSORPTION);
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 2));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 0));
+                        player.setFoodLevel(Math.min(player.getFoodLevel() + 6, 20));
+                        player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
+                        player.updateInventory();
                     }
                 } else if (itemStack.getType() == Material.ENDER_PEARL && match.getKit().getGameRules().isEnderPearlCooldown() && action.name().startsWith("RIGHT_")) {
                     if (profile.getCooldowns().containsKey("enderpearl")) {

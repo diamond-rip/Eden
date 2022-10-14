@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.0.3-BETA-" + getGitHash()
+version = "1.0.4-BETA-" + getGitHash()
 
 processResources {
     filesMatching('plugin.yml') {
