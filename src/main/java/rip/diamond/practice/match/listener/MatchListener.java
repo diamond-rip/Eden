@@ -2,6 +2,7 @@ package rip.diamond.practice.match.listener;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -333,7 +334,7 @@ public class MatchListener implements Listener {
                     ((CraftPlayer) player).getHandle().setAbsorptionHearts(0);
                     player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
                     return;
-                } else if (event.getItem().hasItemMeta() && event.getItem().getItemMeta().getDisplayName().contains("Golden Head")) {
+                } else if (event.getItem().hasItemMeta() && ChatColor.stripColor(event.getItem().getItemMeta().getDisplayName()).toLowerCase().contains("golden head")) {
                     player.removePotionEffect(PotionEffectType.REGENERATION);
                     player.removePotionEffect(PotionEffectType.ABSORPTION);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 1));

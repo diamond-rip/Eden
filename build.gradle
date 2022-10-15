@@ -70,15 +70,15 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
+test {
+    useJUnit()
+    maxHeapSize = '1G'
+}
+
 configurations {
     testCompile.extendsFrom compileOnly
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.forkOptions.jvmArgs.addAll(['--add-opens', 'jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED'])
-}
-
-test {
-    useJUnitPlatform()
-    maxHeapSize = '1G'
 }

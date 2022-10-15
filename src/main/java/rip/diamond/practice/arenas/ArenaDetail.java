@@ -72,7 +72,7 @@ public class ArenaDetail {
      * This method completely restores the arena to its
      * original state, no matter what changes have occurred inside
      * its chunks. This method instead of running a tracker and runnable
-     * might be a bit memory excessive but does better in performance
+     * might be a bit of memory excessive but does better in performance
      * as compared to the latter.
      *
      * @author gatoGamer

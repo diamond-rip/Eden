@@ -1,14 +1,10 @@
 package rip.diamond.practice.match.task;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchTaskTicker;
-import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
-import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
@@ -26,7 +22,7 @@ public class MatchRespawnTask extends MatchTaskTicker {
 
     @Override
     public void onRun() {
-        if (teamPlayer == null || teamPlayer.isDisconnected() || teamPlayer.getPlayer() == null || match.getState() == MatchState.STARTING || match.getState() == MatchState.ENDING) {
+        if (teamPlayer == null || !teamPlayer.isRespawning() || teamPlayer.isDisconnected() || teamPlayer.getPlayer() == null || match.getState() == MatchState.STARTING || match.getState() == MatchState.ENDING) {
             cancel();
             return;
         }
@@ -34,29 +30,7 @@ public class MatchRespawnTask extends MatchTaskTicker {
 
         if (getTicks() <= 0) {
             cancel();
-
-            Team team = match.getTeam(player);
-            team.getSpawnLocation().clone().add(0,0,0).getBlock().setType(Material.AIR);
-            team.getSpawnLocation().clone().add(0,1,0).getBlock().setType(Material.AIR);
-            Util.teleport(player, team.getSpawnLocation());
-            player.setAllowFlight(false);
-            player.setFlying(false);
-            teamPlayer.setRespawning(false);
-            match.getMatchPlayers().forEach(VisibilityController::updateVisibility);
-
-            PlayerProfile profile = PlayerProfile.get(player);
-            //So arrow will not be duplicated if GiveBackArrow is on
-            if (profile.getCooldowns().get("arrow") != null) {
-                profile.getCooldowns().get("arrow").cancelCountdown();
-            }
-
-            player.setExp(0);
-            player.setLevel(0);
-
-            TeamPlayer teamPlayer = match.getTeamPlayer(player);
-            teamPlayer.setProtectionUntil(System.currentTimeMillis() + (3*1000));
-            teamPlayer.respawn(match);
-            Language.MATCH_RESPAWN_MESSAGE.sendMessage(player);
+            match.respawn(teamPlayer);
             return;
         }
         Common.sendMessage(player, CC.YELLOW + getTicks() + "...");
@@ -89,5 +63,10 @@ public class MatchRespawnTask extends MatchTaskTicker {
     @Override
     public int getStartTick() {
         return match.getKit().getGameRules().getRespawnTime();
+    }
+
+    public void instantRespawn() {
+        setTicks(0);
+        onRun();
     }
 }
