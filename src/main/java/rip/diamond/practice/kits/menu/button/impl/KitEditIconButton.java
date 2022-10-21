@@ -8,9 +8,6 @@ import rip.diamond.practice.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.kits.menu.button.KitButton;
-import rip.diamond.practice.profile.procedure.Procedure;
-import rip.diamond.practice.profile.procedure.ProcedureType;
-import rip.diamond.practice.util.Checker;
 import rip.diamond.practice.util.ItemBuilder;
 
 public class KitEditIconButton extends KitButton {
@@ -33,22 +30,11 @@ public class KitEditIconButton extends KitButton {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
         player.closeInventory();
-        Procedure.buildProcedure(player, Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_MESSAGE.toString(), ProcedureType.CHAT, (s) -> {
-            String message = (String) s;
-            String[] args = message.split(";");
 
-            if (!Checker.isMaterial(args[0]) || !Checker.isInteger(args[1])) {
-                Language.INVALID_SYNTAX.sendMessage(player);
-                return;
-            }
+        ItemStack itemStack = player.getItemInHand().clone();
+        kit.setDisplayIcon(itemStack);
 
-            Material material = Material.valueOf(args[0]);
-            int durability = Integer.parseInt(args[1]);
-
-            kit.setDisplayIcon(new ItemBuilder(material).durability(durability).build());
-            Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), message);
-            new KitDetailsMenu(kit, null).openMenu(player);
-        });
-        Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_ADDITIONAL_MESSAGE.sendMessage(player);
+        Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), itemStack.getType().name());
+        new KitDetailsMenu(kit, null).openMenu(player);
     }
 }

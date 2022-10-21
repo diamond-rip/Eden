@@ -634,11 +634,9 @@ kit:
         - "&7Current icon: {0}"
         - "&7Current icon durability: {1}"
         - ""
-        - "&e&nClick to edit kit icon!"
+        - "&e&nClick to set your hand item as kit icon!"
       procedure:
-        message: "&e&lChanging &b&lkit icon&e&l... Please enter a new value in chat"
         success: "&fChanged &b{0} &fkit icon to &b{1}"
-        additional-message: "&cYour message must be '{material};{durability}'"
     edit-match-type:
       name: "&b&lEdit match type"
       lore-click-left: "&e(Left click)"

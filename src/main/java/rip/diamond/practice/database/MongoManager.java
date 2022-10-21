@@ -37,8 +37,9 @@ public class MongoManager {
                 String username = plugin.getConfigFile().getString("mongo.normal.auth.username");
                 String password = plugin.getConfigFile().getString("mongo.normal.auth.password");
 
-                password = password.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
-                password = password.replaceAll("\\+", "%2B");
+                password = password
+                        .replaceAll("%(?![0-9a-fA-F]{2})", "%25")
+                        .replaceAll("\\+", "%2B");
 
                 uri = "mongodb://" + username + ":" + password + "@" + host + ":" + port;
             }

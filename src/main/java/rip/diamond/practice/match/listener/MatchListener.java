@@ -357,16 +357,16 @@ public class MatchListener implements Listener {
 
             ItemStack itemStack = event.getItem();
             if (itemStack != null) {
-                if (itemStack.getType() == Material.SKULL_ITEM && match.getKit().getGameRules().isHypixelUHC()) {
+                if (itemStack.getType() == Material.SKULL_ITEM && match.getKit().getGameRules().isHypixelUHC() && itemStack.hasItemMeta() && ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()).toLowerCase().contains("golden head")) {
                     if (profile.getCooldowns().containsKey("goldenhead")) {
                         String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("goldenhead").getRemaining());
                         Language.MATCH_USE_AGAIN_GOLDEN_HEAD.sendMessage(player, time);
-                        event.setCancelled(true);
                     } else {
                         profile.getCooldowns().put("goldenhead", new Cooldown(1));
                         Common.playSound(player, Sound.EAT);
                         player.removePotionEffect(PotionEffectType.REGENERATION);
                         player.removePotionEffect(PotionEffectType.ABSORPTION);
+                        player.removePotionEffect(PotionEffectType.SPEED);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 2));
                         player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
                         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 0));
@@ -374,6 +374,8 @@ public class MatchListener implements Listener {
                         player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
                         player.updateInventory();
                     }
+                    //無論金頭顱食用結果如何, 都必須要 cancel event, 不然玩家就可以放置金頭顱在地上
+                    event.setCancelled(true);
                 } else if (itemStack.getType() == Material.ENDER_PEARL && match.getKit().getGameRules().isEnderPearlCooldown() && action.name().startsWith("RIGHT_")) {
                     if (profile.getCooldowns().containsKey("enderpearl")) {
                         String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("enderpearl").getRemaining());

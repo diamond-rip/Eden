@@ -689,11 +689,9 @@ kit:
         - "&7現時圖標: {0}"
         - "&7現時圖標耐久: {1}"
         - ""
-        - "&e&n點擊修改職業圖標!"
+        - "&e&n點擊把你手上的物品修改為本職業圖標!"
       procedure:
-        message: "&e&l正在更改&b&l職業圖標&e&l... 請在聊天室輸入一個新的數值"
         success: "&f設置 &b{0} &f的職業圖標到到 &b{1}"
-        additional-message: "&c你的訊息必須為 '{material};{durability}'"
     edit-match-type:
       name: "&b&l修改戰鬥允許類型"
       lore-click-left: "&e(點擊左鍵)"
