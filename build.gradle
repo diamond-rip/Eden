@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.0.6-BETA-" + getGitHash()
+version = "1.0.7-BETA-" + getGitHash()
 
 processResources {
     filesMatching('plugin.yml') {
@@ -30,7 +30,10 @@ String getGitHash() {
 
 repositories {
     mavenCentral()
-    flatDir { dir("./libs") }
+    flatDir {
+        dir("./libs")
+        dir("D:\\Minecraft Related\\Minecraft Plugins")
+    }
 
     //Spigot and ImanitySpigot API
     maven {
@@ -55,11 +58,11 @@ dependencies {
     compileOnly name: 'worldedit-bukkit-6.1.9'
     compileOnly name: 'ViaVersion-4.4.2'
     compileOnly name: 'imanityspigot-api-2022.08.1b2' //ImanitySpigot API
+    compileOnly name: 'CarbonSpigot-v3.2.2'
 
     //Libraries from others
     compileOnly 'me.clip:placeholderapi:2.11.2' //PlaceholderAPI
     compileOnly 'org.imanity.imanityspigot:api:2022.05.3b1' //ImanitySpigot API
-    compileOnly name: 'PaperSpigot-1.8.8' //PaperSpigot
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0' //ProtocolLib
 
     // Lombok

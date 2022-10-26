@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.hook.spigot.SpigotType;
+import rip.diamond.practice.movement.type.CarbonSpigotMovementHandler;
 import rip.diamond.practice.movement.type.DefaultMovementHandler;
 import rip.diamond.practice.movement.type.ImanitySpigotMovementHandler;
 
@@ -14,6 +15,8 @@ public abstract class MovementHandler {
     public MovementHandler() {
         if (plugin.getHookManager().getSpigotController().getSpigotType() == SpigotType.IMANITY_SPIGOT_3) {
             new ImanitySpigotMovementHandler(plugin, this);
+        } if (plugin.getHookManager().getSpigotController().getSpigotType() == SpigotType.CARBON_SPIGOT) {
+            new CarbonSpigotMovementHandler(plugin, this);
         } else {
             new DefaultMovementHandler(plugin, this);
         }

@@ -202,7 +202,7 @@ public class Util {
         PacketPlayOutPlayerInfo addRealPlayer = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, cp.getHandle());
         PacketPlayOutNamedEntitySpawn entitySpawn = new PacketPlayOutNamedEntitySpawn(npc);
         PacketPlayOutEntityStatus entityDeath = new PacketPlayOutEntityStatus(npc, ( byte ) 3);
-
+        
         for (Player o : viewers) {
             PlayerConnection connection = ((CraftPlayer) o).getHandle().playerConnection;
             connection.sendPacket(removeRealPlayer);
@@ -210,6 +210,7 @@ public class Util {
             connection.sendPacket(entitySpawn);
             connection.sendPacket(entityDeath);
         }
+
         Tasks.runLater(()-> {
             for (Player o : viewers) {
                 if (o.isOnline()) {
