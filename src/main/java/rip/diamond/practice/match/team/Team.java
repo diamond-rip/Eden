@@ -180,7 +180,7 @@ public class Team {
 			Common.debug(LocationSerialization.toReadable(location) + CC.RED + " 的區塊還沒加載, 可是系統正在傳送玩家到該位置, 這可能會造成伺服器卡頓, 請盡快修復");
 		}
 		for (TeamPlayer teamPlayer : getTeamPlayers()) {
-			if (teamPlayer.getPlayer() == null) {
+			if (teamPlayer.getPlayer() == null || teamPlayer.isDisconnected()) {
 				continue;
 			}
 			teamPlayer.teleport(location);

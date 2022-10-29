@@ -451,7 +451,7 @@ public abstract class Match {
     public List<TeamPlayer> getTeamPlayers() {
         List<TeamPlayer> players = new ArrayList<>();
         teams.stream().map(Team::getTeamPlayers).forEach(players::addAll);
-        return players;
+        return players.stream().filter(teamPlayer -> !teamPlayer.isDisconnected()).collect(Collectors.toList());
     }
 
     public int getMaximumBoxingHits() {

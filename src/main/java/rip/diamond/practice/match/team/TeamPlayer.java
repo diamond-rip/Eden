@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.kits.KitLoadout;
 import rip.diamond.practice.match.Match;
+import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.util.Tasks;
 import rip.diamond.practice.util.Util;
 
@@ -42,6 +43,10 @@ public class TeamPlayer {
 
 	public Player getPlayer() {
 		return Bukkit.getPlayer(uuid);
+	}
+
+	public PlayerProfile getPlayerProfile() {
+		return PlayerProfile.get(uuid);
 	}
 
 	public int getPing() {

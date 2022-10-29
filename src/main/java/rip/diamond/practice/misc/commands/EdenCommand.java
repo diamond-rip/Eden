@@ -1,7 +1,6 @@
 package rip.diamond.practice.misc.commands;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.util.CC;
@@ -61,10 +60,6 @@ public class EdenCommand extends Command {
                 plugin.getConfigFile().load();
                 Common.sendMessage(player, CC.GREEN + "Debug is now: " + (plugin.getConfigFile().getBoolean("debug") ? CC.GREEN + Language.ENABLED.toString() : CC.RED + Language.DISABLED.toString()));
                 return;
-            case TEST:
-                player.showPlayer(Bukkit.getPlayer(args[1]));
-                Common.sendMessage(player, "Done showing " + Bukkit.getPlayer(args[1]).getName());
-                return;
         }
     }
 
@@ -74,6 +69,6 @@ public class EdenCommand extends Command {
     }
 
     enum Action {
-        RELOAD, DEBUG, TEST
+        RELOAD, DEBUG
     }
 }

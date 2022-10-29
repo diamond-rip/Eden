@@ -60,7 +60,7 @@ public class PageFilterButton<T> extends Button {
 	@Override
 	public void clicked(Player player, ClickType clickType) {
 		if (menu.getFilters() == null || menu.getFilters().isEmpty()) {
-			Language.BUTTON_PAGE_FILTER_NO_FILTERS.toString(player);
+			Language.BUTTON_PAGE_FILTER_NO_FILTERS.sendMessage(player);
 		} else {
 			if (clickType == ClickType.LEFT) {
 				if (menu.getScrollIndex() == menu.getFilters().size() - 1) {

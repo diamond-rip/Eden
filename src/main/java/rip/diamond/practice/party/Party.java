@@ -150,7 +150,10 @@ public class Party {
         broadcast(Language.PARTY_DISBAND.toString());
         getAllPartyMembers().stream().map(partyMember -> PlayerProfile.get(partyMember.getUniqueID())).forEach(profile -> {
             profile.setParty(null);
-            profile.setupItems();
+            //Check if the player is in a match. This is to prevent player's inventory get reset when they are in match
+            if (profile.getPlayerState() != PlayerState.IN_MATCH && profile.getMatch() == null) {
+                profile.setupItems();
+            }
         });
         getAllPartyMembers().forEach(partyMember -> VisibilityController.updateVisibility(partyMember.getPlayer()));
 

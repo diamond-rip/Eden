@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import rip.diamond.practice.Eden;
@@ -103,11 +102,6 @@ public class Kit {
 			}
 		}
 		return null;
-	}
-
-	public static void apply(Player player, Kit kit) {
-		player.getInventory().setContents(kit.getKitLoadout().getContents());
-		player.getInventory().setArmorContents(kit.getKitLoadout().getArmor());
 	}
 
 	public final Document toBson() {

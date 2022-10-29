@@ -390,8 +390,8 @@ duel:
     click-to-accept-hover: "&aClick to accept"
     click-to-view-ping: "&a[Click to see enemy's ping]"
     click-to-view-ping-hover: "&f{0}'s ping: &b{1}ms"
-    success-1v1: "&fYou sent a duel to &b{2} with kit &b{0}&f, arena &b{1}"
-    success-party: "&fYou sent a duel to &b{2}'s party with kit &b{0}&f, arena &b{1}"
+    success-1v1: "&fYou sent a duel to &b{2} &fwith kit &b{0}&f, arena &b{1}"
+    success-party: "&fYou sent a duel to &b{2}'s party &fwith kit &b{0}&f, arena &b{1}"
   verify:
     target-not-found: "&cPlayer is offline"
     need-to-be-in-lobby: "&cYou need to be in a lobby to send duel requests"
