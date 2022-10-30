@@ -61,7 +61,7 @@ import rip.diamond.practice.util.command.CommandManager;
 import rip.diamond.practice.util.menu.Menu;
 import rip.diamond.practice.util.menu.MenuListener;
 import rip.diamond.practice.util.nametags.NameTagManager;
-import rip.diamond.practice.util.tablist.TabHandler;
+import rip.diamond.practice.util.tablist.ImanityTabHandler;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -91,6 +91,7 @@ public class Eden extends JavaPlugin {
 
     private EntityHider entityHider;
     private SconeyHandler scoreboardHandler;
+    private ImanityTabHandler tabHandler;
     private MatchMovementHandler movementHandler;
     private EdenCache cache;
     private EdenPlaceholder placeholder;
@@ -110,6 +111,8 @@ public class Eden extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        //Stop all existing thread
+        if (tabHandler != null) Eden.INSTANCE.getTabHandler().stop();
         //Clean up matches
         for (Match match : Match.getMatches().values()) {
             match.getPlacedBlocks().forEach(location -> location.getBlock().setType(Material.AIR));
@@ -196,6 +199,6 @@ public class Eden extends JavaPlugin {
         this.cache = new EdenCache();
         this.placeholder = new EdenPlaceholder(this);
         if (configFile.getBoolean("nametag.enabled")) this.nameTagManager.registerAdapter(new NameTagAdapter());
-        if (configFile.getBoolean("fancy-tablist")) new TabHandler(new TabAdapter(), this, 20L);
+        if (configFile.getBoolean("fancy-tablist.enabled")) tabHandler = new ImanityTabHandler(new TabAdapter());
     }
 }

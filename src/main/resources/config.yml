@@ -13,8 +13,12 @@ mongo:
   uri:
     database: Practice
     connection-string: mongodb://127.0.0.1:27017/Eden
-## Toggle if the fancy tablist should be enabled or not
-fancy-tablist: true
+fancy-tablist:
+  ## Toggle if the fancy tablist should be enabled or not
+  enabled: true
+  ## How should each tab element shown
+  ## This supports PlaceholderAPI, so if you wish to show player prefix, you can do it!
+  format: "&a{player-name}"
 nametag:
   ## Toggle if the plugin should modify the nametag color or not
   enabled: true

@@ -636,17 +636,6 @@ public enum Language {
         return CC.translate(strings);
     }
 
-    private String translate(String string, Player player) {
-        String str = string;
-        if (player != null) {
-            str = Eden.INSTANCE.getPlaceholder().translate(player, str);
-            if (str != null && Checker.isPluginEnabled("PlaceholderAPI")) {
-                str = PlaceholderAPI.setPlaceholders(player, str);
-            }
-        }
-        return str;
-    }
-
     public void sendMessage(Player player, Object... replacements) {
         Common.sendMessage(player, toString(player, replacements));
     }
@@ -669,5 +658,16 @@ public enum Language {
         } else {
             return (String) object;
         }
+    }
+
+    public static String translate(String string, Player player) {
+        String str = string;
+        if (player != null) {
+            str = Eden.INSTANCE.getPlaceholder().translate(player, str);
+            if (str != null && Checker.isPluginEnabled("PlaceholderAPI")) {
+                str = PlaceholderAPI.setPlaceholders(player, str);
+            }
+        }
+        return str;
     }
 }

@@ -1,11 +1,14 @@
-package rip.diamond.practice.util.tablist.client;
+package rip.diamond.practice.util.tablist.util;
 
 import com.viaversion.viaversion.api.Via;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
+import rip.diamond.practice.util.tablist.util.packet.WrapperPlayServerScoreboardTeam;
 
-public class ClientVersionUtil {
+import java.util.Collection;
+
+public class TablistUtil {
 
     /**
      * Get the protocol version of the client.
@@ -25,6 +28,23 @@ public class ClientVersionUtil {
         }*/
 
         return -1;
+    }
+
+    public static void sendTeam(Player player, String name, String prefix, String suffix, Collection<String> nameSet, int type) {
+        WrapperPlayServerScoreboardTeam packet = new WrapperPlayServerScoreboardTeam();
+
+        packet.setTeamName(name);
+        packet.setTeamDisplayName("");
+        packet.setTeamPrefix(prefix);
+        packet.setTeamSuffix(suffix);
+        packet.setPlayers(nameSet);
+        packet.setPacketMode(type);
+
+        packet.sendPacket(player);
+    }
+
+    public static int getPossibleSlots(Player player) {
+        return getProtocolVersion(player) == 4 || getProtocolVersion(player) == 5 ? 60 : 80;
     }
 
 }

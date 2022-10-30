@@ -2,36 +2,54 @@ package rip.diamond.practice.layout;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.util.HeadUtil;
-import rip.diamond.practice.util.tablist.client.ClientVersionUtil;
-import rip.diamond.practice.util.tablist.entry.TabElement;
-import rip.diamond.practice.util.tablist.entry.TabElementHandler;
-import rip.diamond.practice.util.tablist.entry.TabEntry;
+import rip.diamond.practice.Eden;
+import rip.diamond.practice.Language;
+import rip.diamond.practice.util.tablist.ImanityTabAdapter;
+import rip.diamond.practice.util.tablist.util.BufferedTabObject;
+import rip.diamond.practice.util.tablist.util.Skin;
+import rip.diamond.practice.util.tablist.util.TabColumn;
+import rip.diamond.practice.util.tablist.util.TablistUtil;
 
-public class TabAdapter implements TabElementHandler {
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-    /**
-     * Get the tab element of a player
-     *
-     * @param player the player
-     * @return the element
-     */
+public class TabAdapter implements ImanityTabAdapter {
+
     @Override
-    public TabElement getElement(Player player) {
-        int total = ClientVersionUtil.getProtocolVersion(player) == 47 ? 80 : 60;
-        final TabElement element = new TabElement();
+    public Set<BufferedTabObject> getSlots(Player player) {
+        Set<BufferedTabObject> objects = new HashSet<>();
 
         int i = 0;
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            int x = i % (total / 20);
-            int y = i / (total / 20);
+        int maxSlots = TablistUtil.getPossibleSlots(player);
+        List<Player> playerList = new ArrayList<Player>(Bukkit.getOnlinePlayers()).subList(0, Math.min(Bukkit.getOnlinePlayers().size(), TablistUtil.getPossibleSlots(player)));
 
-            element.add(new TabEntry(x, y, p.getName(), p.spigot().getPing(), HeadUtil.getValues(p)));
+        for (Player target : playerList) {
+            int x = i / (maxSlots / 20) + 1; //Somehow ImanityTablist slot count starts at 1, so we have to start at 1 :shrug:
+            int y = i % (maxSlots / 20);
+
+            objects.add(new BufferedTabObject()
+                    .slot(x)
+                    .column(TabColumn.getFromOrdinal(y))
+                    .text(Language.translate(Eden.INSTANCE.getConfigFile().getString("fancy-tablist.format").replace("{player-name}", target.getName()), target))
+                    .ping(target.spigot().getPing())
+                    .skin(Skin.fromPlayer(target))
+            );
 
             i++;
         }
 
-        return element;
+        return objects;
     }
 
+    @Override
+    public String getFooter(Player player) {
+        return null;
+    }
+
+    @Override
+    public String getHeader(Player player) {
+        return null;
+    }
 }

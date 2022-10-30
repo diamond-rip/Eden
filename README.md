@@ -25,13 +25,13 @@ Head over [pulls](https://github.com/RealGoodestEnglish/Eden/pulls) to create a 
 ## To-Do List
 Please note that things marked as here is not perfectly supported and may cause major bug. Feature listed in here may also only support Traditional Chinese as of right now. Use these feature in your own risk.
 * Event implementation - Need more testing
-* Broken TabAPI - The current TabAPI seems discontinued and have major bug which randomly disconnects player from the server when someone joins.
+* Tablist API - Need more testing
 * Fix/Recode all To-Do which marked in the code
 
 ## Credit
 * [Array](https://github.com/RefineDevelopment/Array) - Arena restore, duplicate system and EntityHider
 * [Sconey](https://github.com/Saturn-Operations/Sconey) - Scoreboard API
-* [TabAPI](https://github.com/NoSequel/TabAPI) - TabAPI
+* [ImanityFramework](https://github.com/FairyProject/ImanityFramework) - Tablist API
 * [DatouNms](https://github.com/lulu2002/DatouNms) - Player death animation
 
 ## Support
