@@ -65,6 +65,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             Team team = match.getTeam(scoredPlayer);
             Player player = scoredPlayer.getPlayer();
 
+            //Display scored message
             match.broadcastMessage(Language.MATCH_NEW_ROUND_START_SCORE.toStringList(
                     team.getTeamColor().getColor(),
                     scoredPlayer.getUsername(),

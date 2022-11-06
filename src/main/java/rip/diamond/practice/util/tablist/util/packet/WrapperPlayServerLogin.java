@@ -141,7 +141,7 @@ public class WrapperPlayServerLogin extends AbstractPacket {
     /**
      * Retrieve the world type.
      * <p>
-     * This is the level-type settign (default, flat, or largeBiomes) in server.properties.
+     * This is the level-type setting (default, flat, or largeBiomes) in server.properties.
      * @return The current world type.
     */
     public WorldType getLevelType() {
@@ -151,7 +151,7 @@ public class WrapperPlayServerLogin extends AbstractPacket {
     /**
      * Set the world type.
      * <p>
-     * This is the level-type settign (default, flat, or largeBiomes) in server.properties.
+     * This is the level-type setting (default, flat, or largeBiomes) in server.properties.
      * @param type - new value.
     */
     public void setLevelType(WorldType type) {
