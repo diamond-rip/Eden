@@ -82,7 +82,7 @@ public class EdenPlaceholder {
                     Team team = match.getTeams().get(i);
                     str = str.replace("{match-team" + (i+1) + "-logo}", team.getTeamColor().getTeamLogo())
                             .replace("{match-team" + (i+1) + "-bed-status}", team.isBedDestroyed() ? CC.RED + "✘" : CC.GREEN + "✔")
-                            .replace("{match-team" + (i+1) + "-points}", Util.renderPointsAsBar(team))
+                            .replace("{match-team" + (i+1) + "-points}", Util.renderPointsAsBar(team, match.getKit().getGameRules().getMaximumPoints()))
                     ;
                 }
 
@@ -148,7 +148,7 @@ public class EdenPlaceholder {
                     Team team = match.getTeams().get(i);
                     str = str.replace("{spectate-team" + (i+1) + "-logo}", team.getTeamColor().getTeamLogo())
                             .replace("{spectate-team" + (i+1) + "-bed-status}", team.isBedDestroyed() ? CC.RED + "✘" : CC.GREEN + "✔")
-                            .replace("{spectate-team" + (i+1) + "-points}", Util.renderPointsAsBar(team))
+                            .replace("{spectate-team" + (i+1) + "-points}", Util.renderPointsAsBar(team, match.getKit().getGameRules().getMaximumPoints()))
                     ;
                 }
 

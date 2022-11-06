@@ -30,7 +30,6 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -63,12 +62,12 @@ public class ImanityTabHandler {
     private PacketAdapter protocolListener;
 
     //Tablist Ticks
-    @Setter private long ticks = 20;
+    private final long ticks;
 
     public ImanityTabHandler(ImanityTabAdapter adapter) {
         this.adapter = adapter;
 
-        //ImanityCommon.injectBean(this); todo: need this?
+        this.ticks = Eden.INSTANCE.getConfigFile().getInt("fancy-tablist.update-ticks");
 
         this.registerImplementation();
         this.setup();

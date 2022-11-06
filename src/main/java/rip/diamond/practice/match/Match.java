@@ -172,7 +172,7 @@ public abstract class Match {
         Team team = getTeam(teamPlayer);
 
         team.handlePoint();
-        if (state == MatchState.FIGHTING && team.getPoints() < Eden.INSTANCE.getConfigFile().getInt("match.maximum-points")) {
+        if (state == MatchState.FIGHTING && team.getPoints() < kit.getGameRules().getMaximumPoints()) {
             new MatchFireworkTask(team.getTeamColor().getDyeColor().getColor(), this);
             new MatchNewRoundTask(this, teamPlayer, true);
             return;

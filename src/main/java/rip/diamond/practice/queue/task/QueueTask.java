@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
+import rip.diamond.practice.event.QueueMatchFoundEvent;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.match.impl.SoloMatch;
 import rip.diamond.practice.match.team.Team;
@@ -32,7 +33,10 @@ public class QueueTask extends TaskTicker {
                 if (qProfile1 == qProfile2) {
                     continue;
                 }
-
+                //Double check if the QueueProfile already found a match
+                if (qProfile1.isFound() || qProfile2.isFound()) {
+                    continue;
+                }
                 if (qProfile1.getKit() != qProfile2.getKit()) {
                     continue;
                 }
@@ -67,6 +71,12 @@ public class QueueTask extends TaskTicker {
                 ArenaDetail arena = Arena.getAvailableArenaDetail(kit);
                 if (arena == null) {
                     //Means no available arena
+                    continue;
+                }
+
+                QueueMatchFoundEvent event = new QueueMatchFoundEvent(player1, player2, qProfile1, qProfile2);
+                event.call();
+                if (event.isCancelled()) {
                     continue;
                 }
 

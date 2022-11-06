@@ -120,8 +120,8 @@ public class Util {
         return sb.toString();
     }
 
-    public static String renderPointsAsBar(Team team) {
-        return Util.getProgressBar(team.getPoints(), Eden.INSTANCE.getConfigFile().getInt("match.maximum-points"), Eden.INSTANCE.getConfigFile().getInt("match.maximum-points"), "⬤", team.getTeamColor().getColor(), CC.GRAY);
+    public static String renderPointsAsBar(Team team, int maxPoints) {
+        return Util.getProgressBar(team.getPoints(), maxPoints, maxPoints, "⬤", team.getTeamColor().getColor(), CC.GRAY);
     }
 
     public static String renderBuildLimit(int current, int max) {

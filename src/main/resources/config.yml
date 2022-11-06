@@ -19,6 +19,9 @@ fancy-tablist:
   ## How should each tab element shown
   ## This supports PlaceholderAPI, so if you wish to show player prefix, you can do it!
   format: "&a{player-name}"
+  ## The ticks of how often the tablist will be updated
+  ## Default is 20, which is 1 second. 1 tick is equal to 0.05 second
+  update-ticks: 20
 nametag:
   ## Toggle if the plugin should modify the nametag color or not
   enabled: true
@@ -32,8 +35,6 @@ lobby:
   ## Should player allow to see other players?
   display-players: false
 match:
-  ## If points are enabled, how many points should it be?
-  maximum-points: 3
   goal-portal-protect-radius: 3
   ## Right now boxing will count hit as 2 hits if player is spam clicking and jumping (critical hits)
   ## This option will change paperspigot's config 'disable-player-crits' to true. So crit hit will not be exists anymore.

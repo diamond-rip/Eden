@@ -195,7 +195,7 @@ public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
      *  <li>{@link Modes#PLAYERS_ADDED}</li>
      *  <li>{@link Modes#PLAYERS_REMOVED}</li>
      * </ul>
-     * @param value - new value.
+     * @param players - new players.
     */
     public void setPlayers(Collection<String> players) {
     	handle.getSpecificModifier(Collection.class).write(0, players);

@@ -795,6 +795,9 @@ kit:
     respawn-time:
       rules: "Respawn Time"
       description: "Settings for the respawn timer (Only works if bed or goal is on)"
+    maximum-points:
+      rules: "Maximum Points"
+      description: "Settings for the maximum points (Only works if point system is on)"
 leaderboard:
   reload: "&eReloading leaderboard..."
   top10-display:

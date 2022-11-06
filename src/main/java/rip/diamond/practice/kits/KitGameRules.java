@@ -35,6 +35,7 @@ public class KitGameRules {
 	@Getter private boolean giveBackArrow = false;
 
 	@Getter private int respawnTime = 5;
+	@Getter private int maximumPoints = 3;
 
 	public boolean isPoint(Match match) {
 		switch (match.getMatchType()) {
@@ -78,6 +79,7 @@ public class KitGameRules {
 		giveBackArrow(Language.KIT_GAME_RULES_GIVE_BACK_ARROW_RULES.toString(), Language.KIT_GAME_RULES_GIVE_BACK_ARROW_DESCRIPTION.toString()),
 
 		respawnTime(Language.KIT_GAME_RULES_RESPAWN_TIME_RULES.toString(), Language.KIT_GAME_RULES_RESPAWN_TIME_DESCRIPTION.toString()),
+		maximumPoints(Language.KIT_GAME_RULES_MAXIMUM_POINTS_RULES.toString(), Language.KIT_GAME_RULES_MAXIMUM_POINTS_DESCRIPTION.toString()),
 		;
 
 		private final String rule;

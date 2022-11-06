@@ -20,6 +20,7 @@ public class MenuListener implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onButtonPress(InventoryClickEvent event) {
+
 		Player player = (Player) event.getWhoClicked();
 		Menu openMenu = Menu.currentlyOpenedMenus.get(player.getUniqueId());
 
