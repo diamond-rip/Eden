@@ -260,6 +260,7 @@ public enum Language {
     KIT_BUTTON_EDIT_EXTRA_ITEMS_LORE("kit.button.edit-extra-items.lore"),
     KIT_BUTTON_EDIT_ICON_NAME("kit.button.edit-icon.name"),
     KIT_BUTTON_EDIT_ICON_LORE("kit.button.edit-icon.lore"),
+    KIT_BUTTON_EDIT_ICON_PROCEDURE_AIR("kit.button.edit-icon.procedure.air"),
     KIT_BUTTON_EDIT_ICON_PROCEDURE_SUCCESS("kit.button.edit-icon.procedure.success"),
     KIT_BUTTON_EDIT_MATCH_TYPE_NAME("kit.button.edit-match-type.name"),
     KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_LEFT("kit.button.edit-match-type.lore-click-left"),

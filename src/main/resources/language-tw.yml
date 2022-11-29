@@ -691,6 +691,7 @@ kit:
         - ""
         - "&e&n點擊把你手上的物品修改為本職業圖標!"
       procedure:
+        air: "&c你不能把職業圖標設置為空氣!"
         success: "&f設置 &b{0} &f的職業圖標到到 &b{1}"
     edit-match-type:
       name: "&b&l修改戰鬥允許類型"

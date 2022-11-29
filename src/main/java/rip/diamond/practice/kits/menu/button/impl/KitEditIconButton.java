@@ -32,9 +32,12 @@ public class KitEditIconButton extends KitButton {
         player.closeInventory();
 
         ItemStack itemStack = player.getItemInHand().clone();
-        kit.setDisplayIcon(itemStack);
-
-        Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), itemStack.getType().name());
+        if (itemStack.getType() == Material.AIR) {
+            Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_AIR.sendMessage(player);
+        } else {
+            kit.setDisplayIcon(itemStack);
+            Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), itemStack.getType().name());
+        }
         new KitDetailsMenu(kit, null).openMenu(player);
     }
 }

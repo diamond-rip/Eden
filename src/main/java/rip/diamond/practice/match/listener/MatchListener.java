@@ -376,27 +376,35 @@ public class MatchListener implements Listener {
                     }
                     //無論金頭顱食用結果如何, 都必須要 cancel event, 不然玩家就可以放置金頭顱在地上
                     event.setCancelled(true);
-                } else if (itemStack.getType() == Material.ENDER_PEARL && match.getKit().getGameRules().isEnderPearlCooldown() && action.name().startsWith("RIGHT_")) {
-                    if (profile.getCooldowns().containsKey("enderpearl")) {
-                        String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("enderpearl").getRemaining());
-                        Language.MATCH_USE_AGAIN_ENDER_PEARL.sendMessage(player, time);
+                    return;
+                } else if (itemStack.getType() == Material.ENDER_PEARL && action.name().startsWith("RIGHT_")) {
+                    Kit kit = match.getKit();
+                    if (match.getState() == MatchState.STARTING && kit.getGameRules().isStartFreeze()) {
                         event.setCancelled(true);
-                    } else {
-                        profile.getCooldowns().put("enderpearl", new Cooldown(16) {
-                            @Override
-                            public void run() {
-                                if (isExpired()) {
-                                    Language.MATCH_CAN_USE_ENDERPEARL.sendMessage(player);
-                                    if (player.getLevel() > 0) player.setLevel(0);
-                                    if (player.getExp() > 0.0F) player.setExp(0.0F);
-                                } else {
-                                    int seconds = Math.round(profile.getCooldowns().get("enderpearl").getRemaining()) / 1000;
+                        return;
+                    }
+                    if (kit.getGameRules().isEnderPearlCooldown()) {
+                        if (profile.getCooldowns().containsKey("enderpearl")) {
+                            String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("enderpearl").getRemaining());
+                            Language.MATCH_USE_AGAIN_ENDER_PEARL.sendMessage(player, time);
+                            event.setCancelled(true);
+                        } else {
+                            profile.getCooldowns().put("enderpearl", new Cooldown(16) {
+                                @Override
+                                public void run() {
+                                    if (isExpired()) {
+                                        Language.MATCH_CAN_USE_ENDERPEARL.sendMessage(player);
+                                        if (player.getLevel() > 0) player.setLevel(0);
+                                        if (player.getExp() > 0.0F) player.setExp(0.0F);
+                                    } else {
+                                        int seconds = Math.round(profile.getCooldowns().get("enderpearl").getRemaining()) / 1000;
 
-                                    player.setLevel(seconds);
-                                    player.setExp(profile.getCooldowns().get("enderpearl").getRemaining() / 16000F);
+                                        player.setLevel(seconds);
+                                        player.setExp(profile.getCooldowns().get("enderpearl").getRemaining() / 16000F);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 } else if (itemStack.getType() == Material.BOOK || itemStack.getType() == Material.ENCHANTED_BOOK) {
                     net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(itemStack);

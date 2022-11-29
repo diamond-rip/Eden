@@ -636,6 +636,7 @@ kit:
         - ""
         - "&e&nClick to set your hand item as kit icon!"
       procedure:
+        air: "&cYou cannot change your kit icon to air!"
         success: "&fChanged &b{0} &fkit icon to &b{1}"
     edit-match-type:
       name: "&b&lEdit match type"
