@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import rip.diamond.practice.util.TaskTicker;
 import rip.diamond.practice.util.menu.Menu;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,15 +17,15 @@ public class MenuUpdateTask extends TaskTicker {
 
 	@Override
 	public void onRun() {
-		for (Map.Entry<UUID, Menu> menuMap : Menu.currentlyOpenedMenus.entrySet()) {
+		Iterator<Map.Entry<UUID, Menu>> menuIterator = Menu.currentlyOpenedMenus.entrySet().iterator();
+		while (menuIterator.hasNext()) {
+			Map.Entry<UUID, Menu> menuMap = menuIterator.next();
 			UUID uuid = menuMap.getKey();
 			Menu menu = menuMap.getValue();
-
 			if (uuid == null || menu == null) {
-				Menu.currentlyOpenedMenus.remove(uuid, menu);
+				menuIterator.remove();
 				continue;
 			}
-
 			final Player player = Bukkit.getPlayer(uuid);
 			if (player == null) return;
 			if (menu.isAutoUpdate()) {
