@@ -862,6 +862,7 @@ leaderboard:
   best-winstreak-menu-title: "最高連勝排行榜"
   elo-menu-title: "積分排行榜"
   wins-menu-title: "勝利場數排行榜"
+  winstreak-menu-title: "連勝排行榜"
   kit-stats-menu:
     title: "{0} 的成績資料"
     global-stats:

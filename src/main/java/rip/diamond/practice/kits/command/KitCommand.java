@@ -52,14 +52,14 @@ public class KitCommand extends Command {
                 Language.KIT_SUCCESSFULLY_CREATE.sendMessage(player, newKit.getName());
             } else if (args[0].equalsIgnoreCase("delete")) {
                 if (kit == null) {
-                    Language.KIT_NOT_EXISTS.sendMessage(player, args[0]);
+                    Language.KIT_NOT_EXISTS.sendMessage(player, args[1]);
                     return;
                 }
                 kit.delete(true);
                 Language.KIT_SUCCESSFULLY_DELETE.sendMessage(player, kit.getName());
             } else if (args[0].equalsIgnoreCase("save")) {
                 if (kit == null) {
-                    Language.KIT_NOT_EXISTS.sendMessage(player, args[0]);
+                    Language.KIT_NOT_EXISTS.sendMessage(player, args[1]);
                     return;
                 }
                 kit.save(true);

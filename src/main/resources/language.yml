@@ -804,9 +804,10 @@ leaderboard:
   top10-display:
     name: "&a{0} &7| &fTop 10"
     lore: "&f#{0}: &b{1} &f- &b{2}"
-  best-winstreak-menu-title: "Winstreak Leaderboard"
+  best-winstreak-menu-title: "Best Winstreak Leaderboard"
   elo-menu-title: "ELO Leaderboard"
   wins-menu-title: "Total Wins Leaderbaord"
+  winstreak-menu-title: "Winstreak Leaderboard"
   kit-stats-menu:
     title: "{0}'s stats"
     global-stats:

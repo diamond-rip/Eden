@@ -47,7 +47,7 @@ public abstract class PaginatedMenu extends Menu {
 	}
 
 	@Override
-	public final Map<Integer, Button> getButtons(Player player) {
+	public Map<Integer, Button> getButtons(Player player) {
 		int minIndex = (int) ((double) (page - 1) * getMaxItemsPerPage(player));
 		int maxIndex = (int) ((double) (page) * getMaxItemsPerPage(player));
 		int topIndex = 0;
@@ -55,14 +55,14 @@ public abstract class PaginatedMenu extends Menu {
 		HashMap<Integer, Button> buttons = new HashMap<>();
 
 		for (Map.Entry<Integer, Button> entry : getAllPagesButtons(player).entrySet()) {
-			int ind = entry.getKey();
+			int index = entry.getKey();
 
-			if (ind >= minIndex && ind < maxIndex) {
-				ind -= (int) ((double) (getMaxItemsPerPage(player)) * (page - 1)) - 9;
-				buttons.put(ind, entry.getValue());
+			if (index >= minIndex && index < maxIndex) {
+				index -= (int) ((double) (getMaxItemsPerPage(player)) * (page - 1)) - 9;
+				buttons.put(index, entry.getValue());
 
-				if (ind > topIndex) {
-					topIndex = ind;
+				if (index > topIndex) {
+					topIndex = index;
 				}
 			}
 		}

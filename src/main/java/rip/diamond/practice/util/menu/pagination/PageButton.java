@@ -19,28 +19,24 @@ public class PageButton extends Button {
 	public ItemStack getButtonItem(Player player) {
 		if (this.mod > 0) {
 			if (hasNext(player)) {
-				return new ItemBuilder(Material.STAINED_GLASS_PANE)
-						.durability(5)
+				return new ItemBuilder(Material.ARROW)
 						.name(Language.BUTTON_PAGE_NEXT_PAGE_AVAILABLE_NAME.toString())
 						.lore(Language.BUTTON_PAGE_NEXT_PAGE_AVAILABLE_LORE.toStringList())
 						.build();
 			} else {
-				return new ItemBuilder(Material.STAINED_GLASS_PANE)
-						.durability(14)
+				return new ItemBuilder(Material.ARROW)
 						.name(Language.BUTTON_PAGE_NEXT_PAGE_CURRENT_NAME.toString())
 						.lore(Language.BUTTON_PAGE_NEXT_PAGE_CURRENT_LORE.toStringList())
 						.build();
 			}
 		} else {
 			if (hasPrevious(player)) {
-				return new ItemBuilder(Material.STAINED_GLASS_PANE)
-						.durability(5)
+				return new ItemBuilder(Material.ARROW)
 						.name(Language.BUTTON_PAGE_PREVIOUS_PAGE_AVAILABLE_NAME.toString())
 						.lore(Language.BUTTON_PAGE_PREVIOUS_PAGE_AVAILABLE_LORE.toStringList())
 						.build();
 			} else {
-				return new ItemBuilder(Material.STAINED_GLASS_PANE)
-						.durability(14)
+				return new ItemBuilder(Material.ARROW)
 						.name(Language.BUTTON_PAGE_PREVIOUS_PAGE_CURRENT_NAME.toString())
 						.lore(Language.BUTTON_PAGE_PREVIOUS_PAGE_CURRENT_LORE.toStringList())
 						.build();

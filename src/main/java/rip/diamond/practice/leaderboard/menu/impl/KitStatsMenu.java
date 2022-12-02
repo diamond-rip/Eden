@@ -14,10 +14,7 @@ import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.util.ItemBuilder;
 import rip.diamond.practice.util.menu.Button;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 public class KitStatsMenu extends LeaderboardMenu {
@@ -25,20 +22,20 @@ public class KitStatsMenu extends LeaderboardMenu {
     private final PlayerProfile profile;
 
     @Override
-    public String getTitle(Player player) {
+    public String getPrePaginatedTitle(Player player) {
         return Language.LEADERBOARD_KIT_STATS_MENU_TITLE.toString(profile.getUsername());
     }
 
     @Override
-    public Map<Integer, Button> getButtons(Player player) {
-        final Map<Integer, Button> buttons = super.getButtons(player);
+    public Map<Integer, Button> getGlobalButtons(Player player) {
+        final Map<Integer, Button> buttons = super.getGlobalButtons(player);
         buttons.put(4, new GlobalStatsButton());
         return buttons;
     }
 
     @Override
-    public List<Button> getLeaderboardButtons(Player player) {
-        List<Button> buttons = new ArrayList<>();
+    public Map<Integer, Button> getAllPagesButtons(Player player) {
+        /*List<Button> buttons = new ArrayList<>();
         for (String kitName : profile.getKitData().keySet()) {
             buttons.add(new KitStatsButton(kitName));
         }
@@ -48,7 +45,11 @@ public class KitStatsMenu extends LeaderboardMenu {
                 return kit.getPriority();
             }
             return 0;
-        }));
+        }));*/
+        final Map<Integer, Button> buttons = new HashMap<>();
+
+        profile.getKitData().keySet().stream().map(Kit::getByName).filter(Objects::nonNull).sorted(Comparator.comparing(Kit::getPriority)).forEach(kit -> buttons.put(buttons.size(), new KitStatsButton(kit.getName())));
+
         return buttons;
     }
 

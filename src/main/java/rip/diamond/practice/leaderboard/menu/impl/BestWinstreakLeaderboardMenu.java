@@ -6,22 +6,20 @@ import rip.diamond.practice.Language;
 import rip.diamond.practice.leaderboard.menu.LeaderboardMenu;
 import rip.diamond.practice.util.menu.Button;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class BestWinstreakLeaderboardMenu extends LeaderboardMenu {
 
     @Override
-    public String getTitle(Player player) {
+    public String getPrePaginatedTitle(Player player) {
         return Language.LEADERBOARD_BEST_WINSTREAK_MENU_TITLE.toString();
     }
 
     @Override
-    public List<Button> getLeaderboardButtons(Player player) {
-        final List<Button> buttons = new ArrayList<>();
+    public Map<Integer, Button> getAllPagesButtons(Player player) {
+        final Map<Integer, Button> buttons = new HashMap<>();
 
-        getPlugin().getLeaderboardManager().getBestWinstreakLeaderboard().values().stream().sorted(Comparator.comparing(leaderboard -> leaderboard.getKit().getPriority())).forEach(leaderboard -> buttons.add(new Button() {
+        getPlugin().getLeaderboardManager().getBestWinstreakLeaderboard().values().stream().sorted(Comparator.comparing(leaderboard -> leaderboard.getKit().getPriority())).forEach(leaderboard -> buttons.put(buttons.size(), new Button() {
             @Override
             public ItemStack getButtonItem(Player player) {
                 return leaderboard.getDisplayIcon();
