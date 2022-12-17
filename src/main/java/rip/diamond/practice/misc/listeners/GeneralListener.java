@@ -37,7 +37,6 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onWorldLoad(WorldLoadEvent event) {
-        event.getWorld().getEntities().clear();
         event.getWorld().setDifficulty(Difficulty.HARD);
     }
 

@@ -238,7 +238,7 @@ public abstract class Match {
         player.setExp(0);
         player.setLevel(0);
 
-        teamPlayer.setProtectionUntil(System.currentTimeMillis() + (3*1000));
+        teamPlayer.setProtectionUntil(System.currentTimeMillis() + (3 * 1000));
         teamPlayer.respawn(this);
         Language.MATCH_RESPAWN_MESSAGE.sendMessage(player);
     }
