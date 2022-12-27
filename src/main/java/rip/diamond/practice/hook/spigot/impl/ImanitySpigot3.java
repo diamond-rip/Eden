@@ -2,7 +2,9 @@ package rip.diamond.practice.hook.spigot.impl;
 
 import dev.imanity.knockback.api.Knockback;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.imanity.imanityspigot.chunk.AsyncPriority;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.hook.spigot.SpigotController;
 import rip.diamond.practice.hook.spigot.SpigotType;
@@ -22,5 +24,9 @@ public class ImanitySpigot3 extends SpigotController {
             return;
         }
         Bukkit.imanity().getKnockbackService().setKnockback(player, knockback);
+    }
+
+    public void teleportAsync(Player player, Location location) {
+        location.getWorld().imanity().getChunkAtAsynchronously(location, AsyncPriority.HIGHER).thenApply(chunk -> player.teleport(location));
     }
 }

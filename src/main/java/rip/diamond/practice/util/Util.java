@@ -20,9 +20,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-import org.imanity.imanityspigot.chunk.AsyncPriority;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.hook.spigot.SpigotController;
+import rip.diamond.practice.hook.spigot.impl.ImanitySpigot3;
 import rip.diamond.practice.match.team.Team;
 
 import java.io.IOException;
@@ -285,10 +286,14 @@ public class Util {
 
     public static void teleport(Player player, Location location) {
         if (Eden.INSTANCE.getConfigFile().getBoolean("imanity.teleport-async")) {
-            location.getWorld().imanity().getChunkAtAsynchronously(location, AsyncPriority.HIGHER).thenApply(chunk -> player.teleport(location));
-        } else {
-            player.teleport(location);
+            SpigotController controller = Eden.INSTANCE.getHookManager().getSpigotController();
+            if ((controller instanceof ImanitySpigot3)) {
+                ((ImanitySpigot3) controller).teleportAsync(player, location);
+                return;
+            }
         }
+
+        player.teleport(location);
     }
 
     public static void sendArrowHitMessage(EntityDamageByEntityEvent event) {
