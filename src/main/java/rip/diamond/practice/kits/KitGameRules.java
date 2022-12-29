@@ -14,7 +14,8 @@ public class KitGameRules {
 	@Getter private boolean deathOnWater = false;
 	@Getter private boolean boxing = false;
 	@Getter private boolean bed = false;
-	@Getter private boolean goal = false;
+	@Getter private boolean breakGoal = false;
+	@Getter private boolean portalGoal = false;
 	@Getter private boolean projectileOnly = false;
 	@Getter private boolean hypixelUHC = false;
 	@Getter private boolean spleef = false;
@@ -36,6 +37,7 @@ public class KitGameRules {
 
 	@Getter private int respawnTime = 5;
 	@Getter private int maximumPoints = 3;
+	@Getter private int newRoundTime = 5;
 
 	public boolean isPoint(Match match) {
 		switch (match.getMatchType()) {
@@ -54,11 +56,13 @@ public class KitGameRules {
 	@Getter
 	@AllArgsConstructor
 	public enum Readable {
+		//boolean
 		receiveKitLoadoutBook(Language.KIT_GAME_RULES_RECEIVE_KIT_LOADOUT_BOOK_RULES.toString(), Language.KIT_GAME_RULES_RECEIVE_KIT_LOADOUT_BOOK_DESCRIPTION.toString()),
 		deathOnWater(Language.KIT_GAME_RULES_DEATH_ON_WATER_RULES.toString(), Language.KIT_GAME_RULES_DEATH_ON_WATER_DESCRIPTION.toString()),
 		boxing(Language.KIT_GAME_RULES_BOXING_RULES.toString(), Language.KIT_GAME_RULES_BOXING_DESCRIPTION.toString()),
 		bed(Language.KIT_GAME_RULES_BED_RULES.toString(), Language.KIT_GAME_RULES_BED_DESCRIPTION.toString()),
-		goal(Language.KIT_GAME_RULES_GOAL_RULES.toString(), Language.KIT_GAME_RULES_GOAL_DESCRIPTION.toString()),
+		breakGoal(Language.KIT_GAME_RULES_BREAK_GOAL_RULES.toString(), Language.KIT_GAME_RULES_BREAK_GOAL_DESCRIPTION.toString()),
+		portalGoal(Language.KIT_GAME_RULES_PORTAL_GOAL_RULES.toString(), Language.KIT_GAME_RULES_PORTAL_GOAL_DESCRIPTION.toString()),
 		projectileOnly(Language.KIT_GAME_RULES_PROJECTILE_ONLY_RULES.toString(), Language.KIT_GAME_RULES_PROJECTILE_ONLY_DESCRIPTION.toString()),
 		hypixelUHC(Language.KIT_GAME_RULES_HYPIXELUHC_RULES.toString(), Language.KIT_GAME_RULES_HYPIXELUHC_DESCRIPTION.toString()),
 		spleef(Language.KIT_GAME_RULES_SPLEEF_RULES.toString(), Language.KIT_GAME_RULES_SPLEEF_DESCRIPTION.toString()),
@@ -77,9 +81,10 @@ public class KitGameRules {
 		dropItemWhenDie(Language.KIT_GAME_RULES_DROP_ITEM_WHEN_DIE_RULES.toString(), Language.KIT_GAME_RULES_DROP_ITEM_WHEN_DIE_DESCRIPTION.toString()),
 		noFallDamage(Language.KIT_GAME_RULES_NO_FALL_DAMAGE_RULES.toString(), Language.KIT_GAME_RULES_NO_FALL_DAMAGE_DESCRIPTION.toString()),
 		giveBackArrow(Language.KIT_GAME_RULES_GIVE_BACK_ARROW_RULES.toString(), Language.KIT_GAME_RULES_GIVE_BACK_ARROW_DESCRIPTION.toString()),
-
+		//integer
 		respawnTime(Language.KIT_GAME_RULES_RESPAWN_TIME_RULES.toString(), Language.KIT_GAME_RULES_RESPAWN_TIME_DESCRIPTION.toString()),
 		maximumPoints(Language.KIT_GAME_RULES_MAXIMUM_POINTS_RULES.toString(), Language.KIT_GAME_RULES_MAXIMUM_POINTS_DESCRIPTION.toString()),
+		newRoundTime(Language.KIT_GAME_RULES_NEW_ROUND_TIME_RULES.toString(), Language.KIT_GAME_RULES_NEW_ROUND_TIME_DESCRIPTION.toString()),
 		;
 
 		private final String rule;

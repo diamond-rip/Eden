@@ -106,6 +106,9 @@ public class MatchNewRoundTask extends MatchTaskTicker {
 
     @Override
     public int getStartTick() {
-        return 5;
+        if (!newRound) {
+            return 5;
+        }
+        return match.getKit().getGameRules().getNewRoundTime();
     }
 }

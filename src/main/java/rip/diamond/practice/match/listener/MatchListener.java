@@ -121,7 +121,7 @@ public class MatchListener implements Listener {
             Match match = profile.getMatch();
             KitGameRules gameRules = match.getKit().getGameRules();
 
-            if ((match.getKit().getGameRules().isBed() && !match.getTeam(player).isBedDestroyed()) || match.getKit().getGameRules().isGoal()) {
+            if ((match.getKit().getGameRules().isBed() && !match.getTeam(player).isBedDestroyed()) || match.getKit().getGameRules().isBreakGoal() || match.getKit().getGameRules().isPortalGoal()) {
                 new MatchRespawnTask(match, match.getTeamPlayer(player));
             } else {
                 match.die(player, false);
@@ -638,9 +638,11 @@ public class MatchListener implements Listener {
                 if (opponentTeam == null) {
                     throw new PracticeUnexpectedException("Cannot find the opponent team when player is destroying a bed (Match UUID: " + match.getUuid() + ")");
                 }
+
+                event.setCancelled(true);
+
                 if (team == opponentTeam) {
                     Language.MATCH_CANNOT_BREAK_OWN_BED.sendMessage(player);
-                    event.setCancelled(true);
                     return;
                 }
                 match.broadcastSound(team, Sound.ENDERDRAGON_GROWL);
@@ -650,10 +652,24 @@ public class MatchListener implements Listener {
                 match.broadcastSubTitle(opponentTeam, Language.MATCH_BED_BREAK_SUBTITLE.toString());
                 match.broadcastMessage(Language.MATCH_BED_BREAK_MESSAGE.toStringList(opponentTeam.getTeamColor().getTeamName(), team.getTeamColor().getColor(), player.getName()));
                 opponentTeam.setBedDestroyed(true);
-                event.setCancelled(true);
 
                 bedLocation1.getBlock().setType(Material.AIR);
                 bedLocation2.getBlock().setType(Material.AIR);
+                return;
+            }
+            if (kit.getGameRules().isBreakGoal() && block.getType() == Material.BED_BLOCK) {
+                Team playerTeam = match.getTeam(player);
+                Team bedBelongsTo = match.getTeams().stream().min(Comparator.comparing(team -> team.getSpawnLocation().distance(block.getLocation()))).orElse(null);
+                if (bedBelongsTo == null) {
+                    Common.log("An error occurred while finding portalBelongsTo, please contact GoodestEnglish to fix");
+                    return;
+                }
+                event.setCancelled(true);
+                if (playerTeam == bedBelongsTo) {
+                    Language.MATCH_CANNOT_BREAK_OWN_BED.sendMessage(player);
+                    return;
+                }
+                match.score(profile, match.getTeamPlayer(player));
                 return;
             }
             if (kit.getGameRules().isSpleef()) {

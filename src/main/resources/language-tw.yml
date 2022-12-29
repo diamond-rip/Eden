@@ -791,7 +791,10 @@ kit:
     bed:
       rules: "床"
       description: "設置職業是否還去因為床而重生"
-    goal:
+    break-goal:
+      rules: "破壞目標"
+      description: "設置職業是否破壞床為之勝利"
+    portal-goal:
       rules: "進入目標"
       description: "設置職業是否進入終界傳送門為之勝利"
     projectile-only:
@@ -854,6 +857,9 @@ kit:
     maximum-points:
       rules: "最大分數"
       description: "設置該職業的最大分數 (只有在 '分數機制' 開啟會才有效)"
+    new-round-time:
+      rules: "新回合等待時間"
+      description: "設置該職業的新回合等待時間 (只有在 '分數機制' 開啟會才有效)"
 leaderboard:
   reload: "&e正在強制更新排行榜..."
   top10-display:

@@ -1,6 +1,6 @@
 main: rip.diamond.practice.Eden
 name: Eden
-version: ${pluginVersion}
+version: '${version}'
 author: GoodestEnglish
 description: The best practice plugin with premium features
 website: https://youtube.com/c/goodestenglishpvp

@@ -4,11 +4,14 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.0.16-BETA-" + getGitHash()
+version = "1.0.17-BETA-" + getGitHash()
 
 processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
-        expand 'pluginVersion': project.version
+        expand props
     }
 }
 

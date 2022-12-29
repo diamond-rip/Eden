@@ -20,6 +20,7 @@ import rip.diamond.practice.kiteditor.KitEditorManager;
 import rip.diamond.practice.kiteditor.command.EditKitsCommand;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitListener;
+import rip.diamond.practice.kits.command.EnchantCommand;
 import rip.diamond.practice.kits.command.GoldenHeadCommand;
 import rip.diamond.practice.kits.command.KitCommand;
 import rip.diamond.practice.layout.NameTagAdapter;
@@ -161,6 +162,7 @@ public class Eden extends JavaPlugin {
 
     private void loadCommands() {
         new ArenaCommand();
+        new EnchantCommand();
         new GoldenHeadCommand();
         new KitCommand();
         new EdenCommand();

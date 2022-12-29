@@ -736,8 +736,11 @@ kit:
     bed:
       rules: "Bed"
       description: "Setting for players to respawn before bed break"
-    goal:
-      rules: "Goal"
+    break-goal:
+      rules: "Break Goal"
+      description: "Setting for wins after breaking the bed"
+    portal-goal:
+      rules: "Portal Goal"
       description: "Setting for wins after enter into ender portal"
     projectile-only:
       rules: "Ranged Damage Only"
@@ -799,6 +802,9 @@ kit:
     maximum-points:
       rules: "Maximum Points"
       description: "Settings for the maximum points (Only works if point system is on)"
+    new-round-time:
+      rules: "New Round Time"
+      description: "Settings for the new round countdown time (Only works if point system is on)"
 leaderboard:
   reload: "&eReloading leaderboard..."
   top10-display:

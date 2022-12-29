@@ -360,7 +360,10 @@ public abstract class Match {
                     return false;
             }
         }
-        if (kit.getGameRules().isGoal()) {
+        if (kit.getGameRules().isBreakGoal() && location.getBlock().getType() == Material.BED_BLOCK) {
+            return false;
+        }
+        if (kit.getGameRules().isPortalGoal()) {
             long count = Util.getBlocksAroundCenter(location, plugin.getConfigFile().getInt("match.goal-portal-protect-radius")).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
             if (count > 0) {
                 return true;

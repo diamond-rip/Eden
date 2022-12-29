@@ -13,8 +13,10 @@ import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.movement.MovementHandler;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class MatchMovementHandler extends MovementHandler {
@@ -55,14 +57,21 @@ public class MatchMovementHandler extends MovementHandler {
                     return;
                 }
 
-                //檢查 KitGameRules 是否有 ENDER_PORTAL
+                //檢查 KitGameRules 進入目標
                 if (match.getState() == MatchState.FIGHTING && underBlock.getType() == Material.ENDER_PORTAL) {
-                    Team team = match.getTeam(player);
-                    //Prevent player scoring their own goal
-                    if (team.getSpawnLocation().distance(to) > 29) {
-                        match.score(profile, match.getTeamPlayer(player));
-                    } else {
-                        Util.damage(player, 99999);
+                    if (gameRules.isPortalGoal()) {
+                        Team playerTeam = match.getTeam(player);
+                        Team portalBelongsTo = match.getTeams().stream().min(Comparator.comparing(team -> team.getSpawnLocation().distance(to))).orElse(null);
+                        if (portalBelongsTo == null) {
+                            Common.log("An error occurred while finding portalBelongsTo, please contact GoodestEnglish to fix");
+                            return;
+                        }
+                        if (portalBelongsTo != playerTeam) {
+                            match.score(profile, match.getTeamPlayer(player));
+                        } else {
+                            //Prevent player scoring their own goal
+                            Util.damage(player, 99999);
+                        }
                     }
                     return;
                 }

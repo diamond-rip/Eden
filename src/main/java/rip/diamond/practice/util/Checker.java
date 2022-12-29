@@ -2,6 +2,7 @@ package rip.diamond.practice.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import rip.diamond.practice.match.MatchState;
@@ -60,6 +61,15 @@ public class Checker {
     public static boolean isMaterial(String index) {
         try {
             Material.valueOf(index.toUpperCase());
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    public static boolean isEnchantment(String index) {
+        try {
+            Enchantment.getByName(index.toUpperCase());
             return true;
         } catch (Exception ignored) {
             return false;
