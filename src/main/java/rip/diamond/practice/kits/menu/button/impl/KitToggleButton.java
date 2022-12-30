@@ -34,6 +34,7 @@ public class KitToggleButton extends ToggleButton {
     public void onClick(Player player, int slot, ClickType clickType, int hotbarSlot) {
         kit.setEnabled(!kit.isEnabled());
         Language.KIT_BUTTON_TOGGLE_SUCCESS.sendMessage(player, kit.getName(), (isEnabled(player) ? CC.GREEN + Language.ENABLED.toString() : CC.RED + Language.DISABLED.toString()));
+        kit.autoSave();
         menu.openMenu(player);
     }
 }

@@ -121,8 +121,10 @@ public class MatchListener implements Listener {
             Match match = profile.getMatch();
             KitGameRules gameRules = match.getKit().getGameRules();
 
-            if ((match.getKit().getGameRules().isBed() && !match.getTeam(player).isBedDestroyed()) || match.getKit().getGameRules().isBreakGoal() || match.getKit().getGameRules().isPortalGoal()) {
+            if ((gameRules.isBed() && !match.getTeam(player).isBedDestroyed()) || gameRules.isBreakGoal() || gameRules.isPortalGoal()) {
                 new MatchRespawnTask(match, match.getTeamPlayer(player));
+            } else if (gameRules.isPoint(match)) {
+                match.score(profile, match.getTeamPlayer(player).getLastHitDamager());
             } else {
                 match.die(player, false);
             }

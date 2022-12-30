@@ -59,6 +59,7 @@ public class KitRulesSetValueButton extends Button {
             try {
                 field.setInt(kit.getGameRules(), i);
                 Language.KIT_BUTTON_RULES_SET_VALUE_PROCEDURE_SUCCESS.sendMessage(player, getName(), i);
+                kit.autoSave();
                 menu.openMenu(player);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 public class Arena {
 
-    @Getter private static List<Arena> arenas = new ArrayList<>();
+    @Getter private static final List<Arena> arenas = new ArrayList<>();
 
     private final String name;
     private ItemStack icon = new ItemBuilder(Material.GRASS).build();
@@ -125,6 +125,12 @@ public class Arena {
 
     public void setMax(Location location) {
         arenaDetails.get(0).setMax(location);
+    }
+
+    public void autoSave() {
+        if (Eden.INSTANCE.getConfigFile().getBoolean("arena-kit-auto-save")) {
+            save();
+        }
     }
 
     public static void init() {

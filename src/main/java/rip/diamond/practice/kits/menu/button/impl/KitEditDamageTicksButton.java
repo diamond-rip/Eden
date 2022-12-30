@@ -15,11 +15,8 @@ import rip.diamond.practice.util.ItemBuilder;
 
 public class KitEditDamageTicksButton extends KitButton {
 
-    private final Kit kit;
-
     public KitEditDamageTicksButton(Kit kit) {
         super(kit);
-        this.kit = kit;
     }
 
     @Override
@@ -45,6 +42,7 @@ public class KitEditDamageTicksButton extends KitButton {
 
             kit.setDamageTicks(damageTicks);
             Language.KIT_BUTTON_EDIT_DAMAGE_TICKS_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), kit.getDamageTicks());
+            kit.autoSave();
             new KitDetailsMenu(kit, null).openMenu(player);
         });
 

@@ -15,11 +15,8 @@ import rip.diamond.practice.util.ItemBuilder;
 
 public class KitEditDisplayNameButton extends KitButton {
 
-    private final Kit kit;
-
     public KitEditDisplayNameButton(Kit kit) {
         super(kit);
-        this.kit = kit;
     }
 
     @Override
@@ -38,6 +35,7 @@ public class KitEditDisplayNameButton extends KitButton {
 
             kit.setDisplayName(message);
             Common.sendMessage(player, Language.KIT_BUTTON_EDIT_DISPLAY_NAME_PROCEDURE_SUCCESS.toString(kit.getName(), kit.getDisplayName()));
+            kit.autoSave();
             new KitDetailsMenu(kit, null).openMenu(player);
         });
     }

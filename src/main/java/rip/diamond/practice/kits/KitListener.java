@@ -40,6 +40,7 @@ public class KitListener implements Listener {
                 kit.getKitExtraItems().add(kitExtraItem);
             });
             Language.KIT_SUCCESSFULLY_UPDATED_EXTRA_ITEMS.sendMessage(player, kit.getName());
+            kit.autoSave();
             Tasks.runLater(()-> new KitDetailsMenu(kit, null).openMenu(player), 1L);
         }
     }

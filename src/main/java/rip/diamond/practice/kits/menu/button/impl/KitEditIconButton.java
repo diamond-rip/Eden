@@ -12,18 +12,15 @@ import rip.diamond.practice.util.ItemBuilder;
 
 public class KitEditIconButton extends KitButton {
 
-    private final Kit kit;
-
     public KitEditIconButton(Kit kit) {
         super(kit);
-        this.kit = kit;
     }
 
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.EYE_OF_ENDER)
                 .name(Language.KIT_BUTTON_EDIT_ICON_NAME.toString())
-                .lore(Language.KIT_BUTTON_EDIT_ICON_LORE.toStringList(getKit().getDisplayIcon().getType().name(), getKit().getDisplayIcon().getDurability()))
+                .lore(Language.KIT_BUTTON_EDIT_ICON_LORE.toStringList(kit.getDisplayIcon().getType().name(), kit.getDisplayIcon().getDurability()))
                 .build();
     }
 
@@ -37,6 +34,7 @@ public class KitEditIconButton extends KitButton {
         } else {
             kit.setDisplayIcon(itemStack);
             Language.KIT_BUTTON_EDIT_ICON_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), itemStack.getType().name());
+            kit.autoSave();
         }
         new KitDetailsMenu(kit, null).openMenu(player);
     }

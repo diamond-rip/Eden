@@ -13,12 +13,8 @@ import rip.diamond.practice.util.menu.menus.ConfirmMenu;
 
 public class KitSaveLoadoutButton extends KitButton {
 
-    private final Kit kit;
-
     public KitSaveLoadoutButton(Kit kit) {
         super(kit);
-
-        this.kit = kit;
     }
 
     @Override
@@ -37,8 +33,9 @@ public class KitSaveLoadoutButton extends KitButton {
                 kit.getKitLoadout().setContents(player.getInventory().getContents());
                 kit.save(true);
                 Language.KIT_BUTTON_SAVE_LOADOUT_SUCCESS.sendMessage(player, kit.getName());
+                kit.autoSave();
             }
-            new KitDetailsMenu(getKit(), null).openMenu(player);
+            new KitDetailsMenu(kit, null).openMenu(player);
         }, true, null).openMenu(player);
     }
 }

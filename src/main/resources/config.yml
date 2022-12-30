@@ -1,5 +1,9 @@
 ## Developer option, set to false if GoodestEnglish didn't tell you to set to true
 debug: false
+## Should arena and kit auto save after you make a changes?
+## If auto save is disabled, you have to use command '/kit save <Kit Name>' or '/arena save <Arena Name>' to save them manually
+## NOTE: Auto save will save each process after you made a changes into arena and kit, and changes are final (which means it cannot be reverted) if you set this to true
+arena-kit-auto-save: false
 ## MongoDB login information
 mongo:
   uri-mode: false

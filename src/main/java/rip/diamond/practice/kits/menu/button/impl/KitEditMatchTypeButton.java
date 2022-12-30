@@ -27,9 +27,9 @@ public class KitEditMatchTypeButton extends KitButton {
                 .name(Language.KIT_BUTTON_EDIT_MATCH_TYPE_NAME.toString())
                 .lore(
                         "",
-                        (getKit().getKitMatchTypes().contains(KitMatchType.SOLO) ? CC.GREEN + " » " : CC.GRAY + "   ") + "Solo " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_LEFT.toString(),
-                        (getKit().getKitMatchTypes().contains(KitMatchType.FFA) ? CC.GREEN + " » " : CC.GRAY + "   ") + "FFA " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_MIDDLE.toString(),
-                        (getKit().getKitMatchTypes().contains(KitMatchType.SPLIT) ? CC.GREEN + " » " : CC.GRAY + "   ") + "Split " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_RIGHT.toString()
+                        (kit.getKitMatchTypes().contains(KitMatchType.SOLO) ? CC.GREEN + " » " : CC.GRAY + "   ") + "Solo " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_LEFT.toString(),
+                        (kit.getKitMatchTypes().contains(KitMatchType.FFA) ? CC.GREEN + " » " : CC.GRAY + "   ") + "FFA " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_MIDDLE.toString(),
+                        (kit.getKitMatchTypes().contains(KitMatchType.SPLIT) ? CC.GREEN + " » " : CC.GRAY + "   ") + "Split " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_RIGHT.toString()
                 )
                 .lore(Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE.toStringList())
                 .build();
@@ -40,29 +40,30 @@ public class KitEditMatchTypeButton extends KitButton {
         playNeutral(player);
         switch (clickType) {
             case LEFT:
-                if (getKit().getKitMatchTypes().contains(KitMatchType.SOLO)) {
-                    getKit().getKitMatchTypes().remove(KitMatchType.SOLO);
+                if (kit.getKitMatchTypes().contains(KitMatchType.SOLO)) {
+                    kit.getKitMatchTypes().remove(KitMatchType.SOLO);
                 } else {
-                    getKit().getKitMatchTypes().add(KitMatchType.SOLO);
+                    kit.getKitMatchTypes().add(KitMatchType.SOLO);
                 }
                 break;
             case MIDDLE:
-                if (getKit().getKitMatchTypes().contains(KitMatchType.FFA)) {
-                    getKit().getKitMatchTypes().remove(KitMatchType.FFA);
+                if (kit.getKitMatchTypes().contains(KitMatchType.FFA)) {
+                    kit.getKitMatchTypes().remove(KitMatchType.FFA);
                 } else {
-                    getKit().getKitMatchTypes().add(KitMatchType.FFA);
+                    kit.getKitMatchTypes().add(KitMatchType.FFA);
                 }
                 break;
             case RIGHT:
-                if (getKit().getKitMatchTypes().contains(KitMatchType.SPLIT)) {
-                    getKit().getKitMatchTypes().remove(KitMatchType.SPLIT);
+                if (kit.getKitMatchTypes().contains(KitMatchType.SPLIT)) {
+                    kit.getKitMatchTypes().remove(KitMatchType.SPLIT);
                 } else {
-                    getKit().getKitMatchTypes().add(KitMatchType.SPLIT);
+                    kit.getKitMatchTypes().add(KitMatchType.SPLIT);
                 }
                 break;
             default:
                 break;
         }
+        kit.autoSave();
         menu.openMenu(player);
     }
 }

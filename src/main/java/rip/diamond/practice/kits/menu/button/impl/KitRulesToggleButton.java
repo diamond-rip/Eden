@@ -40,6 +40,7 @@ public class KitRulesToggleButton extends ToggleButton {
     public void onClick(Player player, int slot, ClickType clickType, int hotbarSlot) {
         field.setBoolean(kit.getGameRules(), !isEnabled(player));
         Language.KIT_BUTTON_RULES_TOGGLE_SUCCESS.sendMessage(player, kit.getName(), getOptionName(), (isEnabled(player) ? Language.ENABLED.toString() : Language.DISABLED.toString()));
+        kit.autoSave();
         menu.openMenu(player);
     }
 }

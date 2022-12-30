@@ -89,6 +89,7 @@ public class ArenaCommand extends Command {
                         arena.setA(player.getLocation());
                         Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "A");
                         arena.setEdited(true);
+                        arena.autoSave();
                         return;
                     case "b":
                         if (arena.hasClone()) {
@@ -98,6 +99,7 @@ public class ArenaCommand extends Command {
                         arena.setB(player.getLocation());
                         Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "B");
                         arena.setEdited(true);
+                        arena.autoSave();
                         return;
                     case "min":
                         if (arena.hasClone()) {
@@ -109,6 +111,7 @@ public class ArenaCommand extends Command {
                             arena.setMin(block.getLocation());
                             Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "min");
                             arena.setEdited(true);
+                            arena.autoSave();
                         });
                         return;
                     case "max":
@@ -121,6 +124,7 @@ public class ArenaCommand extends Command {
                             arena.setMax(block.getLocation());
                             Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "max");
                             arena.setEdited(true);
+                            arena.autoSave();
                         });
                         return;
                     case "y-limit":
@@ -134,6 +138,7 @@ public class ArenaCommand extends Command {
                             arena.setYLimit(i);
                             Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "y-limit");
                             arena.setEdited(true);
+                            arena.autoSave();
                         });
                         return;
                     case "build-max":
@@ -147,6 +152,7 @@ public class ArenaCommand extends Command {
                             arena.setBuildMax(i);
                             Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "build-max");
                             arena.setEdited(true);
+                            arena.autoSave();
                         });
                         return;
                     case "allowed-kits":
@@ -165,6 +171,7 @@ public class ArenaCommand extends Command {
                                 Language.ARENA_EDIT_ALLOWED_KITS_ADDED.sendMessage(player, kit.getName(), arena.getName());
                             }
                             arena.setEdited(true);
+                            arena.autoSave();
                         });
                         return;
                     case "toggle":
@@ -178,6 +185,7 @@ public class ArenaCommand extends Command {
                         }
                         arena.setEnabled(!arena.isEnabled());
                         Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "status " + CC.GRAY + "(" + (arena.isEnabled() ? Language.ENABLED.toString() : Language.DISABLED.toString()) + ")");
+                        arena.autoSave();
                         return;
                 }
             }

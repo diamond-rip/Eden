@@ -15,11 +15,8 @@ import rip.diamond.practice.util.ItemBuilder;
 
 public class KitEditPriorityButton extends KitButton {
 
-    private final Kit kit;
-
     public KitEditPriorityButton(Kit kit) {
         super(kit);
-        this.kit = kit;
     }
 
     @Override
@@ -46,6 +43,7 @@ public class KitEditPriorityButton extends KitButton {
             kit.setPriority(priority);
             Kit.sortKit();
             Language.KIT_BUTTON_EDIT_PRIORITY_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), kit.getPriority());
+            kit.autoSave();
             new KitDetailsMenu(kit, null).openMenu(player);
         });
 

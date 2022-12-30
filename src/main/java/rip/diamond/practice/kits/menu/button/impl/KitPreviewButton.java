@@ -21,8 +21,8 @@ public class KitPreviewButton extends KitButton {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(getKit().getDisplayIcon())
-                .name(getKit().getDisplayName())
+        return new ItemBuilder(kit.getDisplayIcon())
+                .name(kit.getDisplayName())
                 .lore(Language.KIT_BUTTON_PREVIEW_LORE.toStringList())
                 .build();
     }
@@ -30,10 +30,10 @@ public class KitPreviewButton extends KitButton {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
         if (clickType == ClickType.LEFT) {
-            new KitPreviewMenu(getKit(), backMenu).openMenu(player);
+            new KitPreviewMenu(kit, backMenu).openMenu(player);
         } else if (clickType == ClickType.RIGHT) {
-            player.getInventory().setContents(getKit().getKitLoadout().getContents());
-            player.getInventory().setArmorContents(getKit().getKitLoadout().getArmor());
+            player.getInventory().setContents(kit.getKitLoadout().getContents());
+            player.getInventory().setArmorContents(kit.getKitLoadout().getArmor());
             player.updateInventory();
             player.closeInventory();
         }

@@ -95,6 +95,12 @@ public class Kit {
 		Eden.INSTANCE.getMongoManager().getKits().replaceOne(Filters.eq("_id", name), toBson(), new ReplaceOptions().upsert(true));
 	}
 
+	public void autoSave() {
+		if (Eden.INSTANCE.getConfigFile().getBoolean("arena-kit-auto-save")) {
+			save(true);
+		}
+	}
+
 	public static Kit getByName(String name) {
 		for (Kit kit : kits) {
 			if (kit.getName().equalsIgnoreCase(name)) {

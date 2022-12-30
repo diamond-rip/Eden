@@ -16,6 +16,7 @@ import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.MatchEndEvent;
+import rip.diamond.practice.event.MatchPlayerDeathEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
 import rip.diamond.practice.kits.Kit;
@@ -202,12 +203,18 @@ public abstract class Match {
         displayDeathMessage(teamPlayer, deadPlayer);
 
         //Play lightning effect and death animation
-        EntityLightning lightning = new EntityLightning(((CraftPlayer)deadPlayer).getHandle().getWorld(), deadPlayer.getLocation().getX(), deadPlayer.getLocation().getY(), deadPlayer.getLocation().getZ(), true, false);
-        for (Player player : getPlayersAndSpectators()) {
-            ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutSpawnEntityWeather(lightning));
-            player.playSound(deadPlayer.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+        MatchPlayerDeathEvent event = new MatchPlayerDeathEvent(this, deadPlayer);
+        event.call();
+        if (event.isPlayLightingEffect()) {
+            EntityLightning lightning = new EntityLightning(((CraftPlayer)deadPlayer).getHandle().getWorld(), deadPlayer.getLocation().getX(), deadPlayer.getLocation().getY(), deadPlayer.getLocation().getZ(), true, false);
+            for (Player player : getPlayersAndSpectators()) {
+                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutSpawnEntityWeather(lightning));
+                player.playSound(deadPlayer.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+            }
         }
-        Util.playDeathAnimation(deadPlayer, getPlayersAndSpectators().stream().filter(player -> player != deadPlayer).collect(Collectors.toList()));
+        if (event.isPlayDeathEffect()) {
+            Util.playDeathAnimation(deadPlayer, getPlayersAndSpectators().stream().filter(player -> player != deadPlayer).collect(Collectors.toList()));
+        }
 
         //Check if there's only one team survives. If yes, end the match
         if (canEnd()) {
@@ -364,11 +371,12 @@ public abstract class Match {
             return false;
         }
         if (kit.getGameRules().isPortalGoal()) {
+            // TODO: 30/12/2022 Each arena should have a different protect radius according to issues #23
             long count = Util.getBlocksAroundCenter(location, plugin.getConfigFile().getInt("match.goal-portal-protect-radius")).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
             if (count > 0) {
                 return true;
             }
-            if (location.getBlock().getType() == Material.STAINED_CLAY && (location.getBlock().getData() == 14 || location.getBlock().getData() == 11)) {
+            if (location.getBlock().getType() == Material.STAINED_CLAY && (location.getBlock().getData() == 0 || location.getBlock().getData() == 11 || location.getBlock().getData() == 14)) {
                 return false;
             }
         }

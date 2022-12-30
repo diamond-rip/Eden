@@ -17,11 +17,8 @@ import java.util.Arrays;
 
 public class KitEditDescriptionButton extends KitButton {
 
-    private final Kit kit;
-
     public KitEditDescriptionButton(Kit kit) {
         super(kit);
-        this.kit = kit;
     }
 
     @Override
@@ -29,7 +26,7 @@ public class KitEditDescriptionButton extends KitButton {
         return new ItemBuilder(Material.BOOK)
                 .name(Language.KIT_BUTTON_EDIT_DESCRIPTION_NAME.toString())
                 .lore(Language.KIT_BUTTON_EDIT_DESCRIPTION_LORE_START.toStringList())
-                .lore(getKit().getDescription())
+                .lore(kit.getDescription())
                 .lore(Language.KIT_BUTTON_EDIT_DESCRIPTION_LORE_END.toStringList())
                 .build();
     }
@@ -42,6 +39,7 @@ public class KitEditDescriptionButton extends KitButton {
 
             kit.setDescription(Arrays.asList(message.split(";")));
             Language.KIT_BUTTON_EDIT_DESCRIPTION_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), StringUtils.join(kit.getDescription(), ", "));
+            kit.autoSave();
             new KitDetailsMenu(kit, null).openMenu(player);
         });
         Language.KIT_BUTTON_EDIT_DESCRIPTION_PROCEDURE_ADDITIONAL_MESSAGE.sendMessage(player);
