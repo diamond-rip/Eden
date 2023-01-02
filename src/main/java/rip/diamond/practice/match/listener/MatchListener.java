@@ -124,7 +124,12 @@ public class MatchListener implements Listener {
             if ((gameRules.isBed() && !match.getTeam(player).isBedDestroyed()) || gameRules.isBreakGoal() || gameRules.isPortalGoal()) {
                 new MatchRespawnTask(match, match.getTeamPlayer(player));
             } else if (gameRules.isPoint(match)) {
-                match.score(profile, match.getTeamPlayer(player).getLastHitDamager());
+                TeamPlayer lastHitDamager = match.getTeamPlayer(player).getLastHitDamager();
+                //玩家有機會在不被敵方攻擊的情況下死亡, 例如岩漿, 如果是這樣, 就在敵方隊伍隨便抽一個玩家出來
+                if (lastHitDamager == null) {
+                    lastHitDamager = match.getOpponentTeam(match.getTeam(player)).getAliveTeamPlayers().get(0);
+                }
+                match.score(profile, lastHitDamager);
             } else {
                 match.die(player, false);
             }
@@ -332,10 +337,14 @@ public class MatchListener implements Listener {
                     return;
                 } else if (match.getKit().getGameRules().isInstantGapple()) {
                     event.setCancelled(true);
-                    player.setHealth(20);
-                    // TODO: 1/1/2023 Issues #33
-                    ((CraftPlayer) player).getHandle().setAbsorptionHearts(0);
                     player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
+                    player.setHealth(20);
+                    player.setFoodLevel(Math.min(player.getFoodLevel() + 6, 20));
+                    if (Eden.INSTANCE.getConfigFile().getBoolean("match.instant-gapple-effects")) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
+                    } else {
+                        ((CraftPlayer) player).getHandle().setAbsorptionHearts(0);
+                    }
                     return;
                 } else if (event.getItem().hasItemMeta() && ChatColor.stripColor(event.getItem().getItemMeta().getDisplayName()).toLowerCase().contains("golden head")) {
                     player.removePotionEffect(PotionEffectType.REGENERATION);

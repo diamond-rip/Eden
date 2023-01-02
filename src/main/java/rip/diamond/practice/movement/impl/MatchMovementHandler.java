@@ -10,6 +10,7 @@ import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.team.Team;
+import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.movement.MovementHandler;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
@@ -50,7 +51,12 @@ public class MatchMovementHandler extends MovementHandler {
                 //檢查 KitGameRules 水上即死
                 if (gameRules.isDeathOnWater() && match.getState() == MatchState.FIGHTING && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
                     if (gameRules.isPoint(match)) {
-                        match.score(profile, match.getTeamPlayer(player).getLastHitDamager());
+                        TeamPlayer lastHitDamager = match.getTeamPlayer(player).getLastHitDamager();
+                        //玩家有機會在不被敵方攻擊的情況下死亡, 例如岩漿, 如果是這樣, 就在敵方隊伍隨便抽一個玩家出來
+                        if (lastHitDamager == null) {
+                            lastHitDamager = match.getOpponentTeam(match.getTeam(player)).getAliveTeamPlayers().get(0);
+                        }
+                        match.score(profile, lastHitDamager);
                     } else {
                         Util.damage(player, 99999);
                     }

@@ -165,13 +165,7 @@ public abstract class Match {
     public void score(PlayerProfile profile, TeamPlayer teamPlayer) {
         profile.getCooldowns().put("score", new Cooldown(3));
 
-        //TeamPlayer might be null because the player might die without taking any damage from opponents (For example: Using lava to burn themselves)
-        if (teamPlayer == null) {
-            new MatchNewRoundTask(this, null, true);
-            return;
-        }
         Team team = getTeam(teamPlayer);
-
         team.handlePoint();
         if (state == MatchState.FIGHTING && team.getPoints() < kit.getGameRules().getMaximumPoints()) {
             new MatchFireworkTask(team.getTeamColor().getDyeColor().getColor(), this);

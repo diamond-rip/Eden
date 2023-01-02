@@ -47,6 +47,9 @@ match:
   ## Should snow block be removed when the snowball hit the object?
   ## Set to true if you wish to remove the object (which is the snow block)
   remove-snow-block-when-snowball-hit: false
+  ## When player consume a golden apple, should the system gives normal effects to the player (which contains instantly regenerate to full health, saturation and absorption hearts), or just regenerate to full health?
+  ## Default is false which only set the player health to full, no effects are given
+  instant-gapple-effects: false
 ## Simple chat format
 chat-format:
   ## Set this to true if you want to enable chat format
