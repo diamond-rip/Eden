@@ -25,7 +25,7 @@ public class MatchResetTask extends MatchTaskTicker {
             match.getMatchPlayers().stream().filter(player -> Objects.nonNull(player) && player.isOnline()).forEach(player -> plugin.getLobbyManager().sendToSpawnAndReset(player));
             match.getSpectators().forEach(match::leaveSpectate);
             match.getTasks().forEach(BukkitRunnable::cancel);
-            match.getArenaDetail().restoreSnapshot();
+            // TODO: 1/1/2023 Restore arena
             match.getArenaDetail().setUsing(false);
             Match.getMatches().remove(match.getUuid());
         }

@@ -91,7 +91,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             });
 
             if (match.getKit().getGameRules().isResetArenaWhenGetPoint()) {
-                match.getArenaDetail().restoreSnapshot();
+                // TODO: 1/1/2023 Restore arena
 
                 //Cancel any runnable which affects the gameplay
                 match.getTasks().stream().filter(taskTicker -> taskTicker instanceof MatchClearBlockTask).forEach(BukkitRunnable::cancel);
