@@ -34,13 +34,15 @@ public class ArenaChunk extends Reflection {
 
     public void restore() {
         data.forEach((chunkSection, arenaChunkSection) -> {
-            setDeclaredField(chunkSection, "yPos", arenaChunkSection.yPos);
-            setDeclaredField(chunkSection, "nonEmptyBlockCount", arenaChunkSection.nonEmptyBlockCount);
-            setDeclaredField(chunkSection, "tickingBlockCount", arenaChunkSection.tickingBlockCount);
-            setDeclaredField(chunkSection, "blockIds", arenaChunkSection.blockIds);
-            setDeclaredField(chunkSection, "emittedLight", arenaChunkSection.emittedLight);
-            setDeclaredField(chunkSection, "skyLight", arenaChunkSection.skyLight);
-            setDeclaredField(chunkSection, "isDirty", arenaChunkSection.isDirty);
+            ArenaChunkSection section = arenaChunkSection.clone();
+
+            setDeclaredField(chunkSection, "yPos", section.yPos);
+            setDeclaredField(chunkSection, "nonEmptyBlockCount", section.nonEmptyBlockCount);
+            setDeclaredField(chunkSection, "tickingBlockCount", section.tickingBlockCount);
+            setDeclaredField(chunkSection, "blockIds", section.blockIds);
+            setDeclaredField(chunkSection, "emittedLight", section.emittedLight);
+            setDeclaredField(chunkSection, "skyLight", section.skyLight);
+            setDeclaredField(chunkSection, "isDirty", section.isDirty);
         });
 
         world.refreshChunk(x, z);

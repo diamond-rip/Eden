@@ -1,9 +1,11 @@
 package rip.diamond.practice.arenas.chunk;
 
 import io.github.epicgo.sconey.reflection.Reflection;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.server.v1_8_R3.ChunkSection;
 import net.minecraft.server.v1_8_R3.NibbleArray;
 
+@RequiredArgsConstructor
 public class ArenaChunkSection extends Reflection {
 
     public final int yPos;
@@ -28,4 +30,7 @@ public class ArenaChunkSection extends Reflection {
         return new NibbleArray(array.a().clone());
     }
 
+    public ArenaChunkSection clone() {
+        return new ArenaChunkSection(yPos, nonEmptyBlockCount, tickingBlockCount, blockIds.clone(), clone(emittedLight), clone(skyLight), isDirty);
+    }
 }
