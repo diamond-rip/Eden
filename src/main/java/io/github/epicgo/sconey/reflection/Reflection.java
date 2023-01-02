@@ -78,6 +78,21 @@ public class Reflection {
     }
 
     /**
+     * Returns a declared field object for a specific field  name
+     *
+     * @param target the class instance
+     * @param fieldName the name of the field
+     * @return the field object
+     */
+    @SneakyThrows
+    public Object getDeclaredField(final Object target, final String fieldName) {
+        final Field field = target.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+
+        return field.get(target);
+    }
+
+    /**
      * Sets a field object for a specific field objectValue
      *
      * @param target the class instance

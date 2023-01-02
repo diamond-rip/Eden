@@ -164,7 +164,7 @@ public class Arena {
                     Location locCloneMax = LocationSerialization.deserializeLocation(details.getString(id + ".max"));
 
                     ArenaDetail arenaDetail = new ArenaDetail(arena, locCloneA, locCloneB, locCloneMin, locCloneMax);
-                    // TODO: 1/1/2023 Copy arena to cache
+                    arenaDetail.copyChunk();
                     arena.getArenaDetails().add(arenaDetail);
                 });
             }

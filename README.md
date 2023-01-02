@@ -29,7 +29,7 @@ Please note that things marked as here aren't fully supported and may cause majo
 * Fix/Recode all To-Do which marked in the code
 
 ## Credit
-* [Array](https://github.com/RefineDevelopment/Array) - Arena restore, duplicate system and EntityHider
+* [Array](https://github.com/RefineDevelopment/Array) - EntityHider
 * [Sconey](https://github.com/Saturn-Operations/Sconey) - Scoreboard API
 * [ImanityFramework](https://github.com/FairyProject/ImanityFramework) - Tablist API
 * [DatouNms](https://github.com/lulu2002/DatouNms) - Player death animation
