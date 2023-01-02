@@ -164,7 +164,13 @@ public class ProfileListener implements Listener {
 
     @EventHandler
     public void onHunger(FoodLevelChangeEvent event) {
-        event.setFoodLevel(20);
+        if (!(event.getEntity() instanceof Player)) {
+            return;
+        }
+        Player player = (Player) event.getEntity();
+        if (!Checker.canDamage(player)) {
+            event.setFoodLevel(20);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

@@ -44,6 +44,9 @@ match:
   ## This option will change paperspigot's config 'disable-player-crits' to true. So crit hit will not be exists anymore.
   ## Warning: This option will disable crit damage, and will change and save paperspigot's 'disable-player-crits' settings
   fix-hit-count-error: true
+  ## Should snow block be removed when the snowball hit the object?
+  ## Set to true if you wish to remove the object (which is the snow block)
+  remove-snow-block-when-snowball-hit: false
 ## Simple chat format
 chat-format:
   ## Set this to true if you want to enable chat format

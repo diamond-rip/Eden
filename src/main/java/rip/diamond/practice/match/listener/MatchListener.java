@@ -333,6 +333,7 @@ public class MatchListener implements Listener {
                 } else if (match.getKit().getGameRules().isInstantGapple()) {
                     event.setCancelled(true);
                     player.setHealth(20);
+                    // TODO: 1/1/2023 Issues #33
                     ((CraftPlayer) player).getHandle().setAbsorptionHearts(0);
                     player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
                     return;
@@ -773,6 +774,12 @@ public class MatchListener implements Listener {
         Projectile projectile = event.getEntity();
         if (event.getEntityType() == EntityType.ARROW) {
             projectile.remove();
+        }
+        if (event.getEntityType() == EntityType.SNOWBALL) {
+            Location location = event.getEntity().getLocation().clone().add(0, -1, 0);
+            if (location.getBlock().getType() == Material.SNOW_BLOCK && Eden.INSTANCE.getConfigFile().getBoolean("match.remove-snow-block-when-snowball-hit")) {
+                location.getBlock().setType(Material.AIR);
+            }
         }
         if (projectile.getShooter() instanceof Player) {
             Player player = (Player) projectile.getShooter();
