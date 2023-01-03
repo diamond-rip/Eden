@@ -31,7 +31,7 @@ public class KitSaveLoadoutButton extends KitButton {
             if (bool) {
                 kit.getKitLoadout().setArmor(player.getInventory().getArmorContents());
                 kit.getKitLoadout().setContents(player.getInventory().getContents());
-                kit.save(true);
+                kit.save();
                 Language.KIT_BUTTON_SAVE_LOADOUT_SUCCESS.sendMessage(player, kit.getName());
                 kit.autoSave();
             }
