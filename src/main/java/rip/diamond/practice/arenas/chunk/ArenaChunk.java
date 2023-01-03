@@ -1,11 +1,10 @@
-package rip.diamond.practice.arenas;
+package rip.diamond.practice.arenas.chunk;
 
 import io.github.epicgo.sconey.reflection.Reflection;
 import net.minecraft.server.v1_8_R3.ChunkSection;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftChunk;
-import rip.diamond.practice.arenas.chunk.ArenaChunkSection;
 
 import java.util.HashMap;
 import java.util.Map;

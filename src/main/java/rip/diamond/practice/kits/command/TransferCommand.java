@@ -1,6 +1,6 @@
 package rip.diamond.practice.kits.command;
 
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.util.CC;
@@ -15,9 +15,9 @@ import rip.diamond.practice.util.serialization.EffectSerialization;
 import java.util.ArrayList;
 
 public class TransferCommand extends Command {
-    @CommandArgs(name = "kittransfer", permission = "eden.command.kittransfer")
+    @CommandArgs(name = "kittransfer", permission = "eden.command.kittransfer", inGameOnly = false)
     public void execute(CommandArguments command) {
-        Player player = command.getPlayer();
+        CommandSender player = command.getSender();
 
         Eden.INSTANCE.getMongoManager().getKits().find().into(new ArrayList<>()).forEach(document -> {
             Kit kit = new Kit(document.getString("_id"));

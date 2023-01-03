@@ -3,6 +3,7 @@ package rip.diamond.practice.arenas;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
+import rip.diamond.practice.arenas.chunk.ArenaChunk;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.cuboid.Cuboid;
 

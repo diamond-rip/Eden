@@ -64,6 +64,9 @@ public class PlayerProfile {
 
         Document kitDataDocument = document.get("kitData", Document.class);
         for (String data : kitDataDocument.keySet()) {
+            //In case a kit is removed, kitData.get(data) will return null
+            //This is why we need to put a new ProfileKitData, so kitData will also contain removed kit data.
+            kitData.putIfAbsent(data, new ProfileKitData());
             kitData.get(data).fromBson(kitDataDocument.get(data, Document.class));
         }
     }
@@ -147,6 +150,7 @@ public class PlayerProfile {
     }
 
     private void loadDefault() {
+        //Load all the current exist kits into profile kit data
         Kit.getKits().forEach(kit -> kitData.putIfAbsent(kit.getName(), new ProfileKitData()));
     }
 
