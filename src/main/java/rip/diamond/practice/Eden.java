@@ -23,6 +23,7 @@ import rip.diamond.practice.kits.KitListener;
 import rip.diamond.practice.kits.command.EnchantCommand;
 import rip.diamond.practice.kits.command.GoldenHeadCommand;
 import rip.diamond.practice.kits.command.KitCommand;
+import rip.diamond.practice.kits.command.TransferCommand;
 import rip.diamond.practice.layout.NameTagAdapter;
 import rip.diamond.practice.layout.ScoreboardAdapter;
 import rip.diamond.practice.layout.TabAdapter;
@@ -79,6 +80,7 @@ public class Eden extends JavaPlugin {
     private BasicConfigFile locationFile;
     private BasicConfigFile itemFile;
     private BasicConfigFile arenaFile;
+    private BasicConfigFile kitFile;
 
     private CommandManager commandManager;
     private MongoManager mongoManager;
@@ -129,6 +131,7 @@ public class Eden extends JavaPlugin {
         this.locationFile = new BasicConfigFile(this, "locations.yml");
         this.itemFile = new BasicConfigFile(this, "item.yml");
         this.arenaFile = new BasicConfigFile(this, "arena.yml");
+        this.kitFile = new BasicConfigFile(this, "kit.yml");
     }
 
     private void loadManagers() {
@@ -165,6 +168,7 @@ public class Eden extends JavaPlugin {
         new EnchantCommand();
         new GoldenHeadCommand();
         new KitCommand();
+        new TransferCommand();
         new EdenCommand();
         new LocationCommand();
         new TestCommand();

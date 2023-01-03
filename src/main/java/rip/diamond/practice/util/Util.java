@@ -79,8 +79,6 @@ public class Util {
         } catch (final Throwable throwable) {
             throwable.printStackTrace();
         }
-
-
     }
 
     public static Location getBedBlockNearBy(Location location) {

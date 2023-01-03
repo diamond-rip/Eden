@@ -30,7 +30,7 @@ public class KitCommand extends Command {
                 new KitsManagementMenu().openMenu(player);
                 return;
             } else if (args[0].equalsIgnoreCase("saveall")) {
-                Kit.getKits().forEach(kit -> kit.save(true));
+                Kit.getKits().forEach(Kit::save);
                 Language.KIT_SAVED_ALL_KITS.sendMessage(player);
                 return;
             }
@@ -55,14 +55,14 @@ public class KitCommand extends Command {
                     Language.KIT_NOT_EXISTS.sendMessage(player, args[1]);
                     return;
                 }
-                kit.delete(true);
+                kit.delete();
                 Language.KIT_SUCCESSFULLY_DELETE.sendMessage(player, kit.getName());
             } else if (args[0].equalsIgnoreCase("save")) {
                 if (kit == null) {
                     Language.KIT_NOT_EXISTS.sendMessage(player, args[1]);
                     return;
                 }
-                kit.save(true);
+                kit.save();
                 Language.KIT_SAVED.sendMessage(player, kit.getName());
             }
         }

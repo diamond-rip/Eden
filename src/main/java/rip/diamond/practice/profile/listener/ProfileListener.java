@@ -17,6 +17,7 @@ import org.bukkit.inventory.PlayerInventory;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.event.PlayerProfileLoadedEvent;
 import rip.diamond.practice.event.SettingsChangeEvent;
 import rip.diamond.practice.match.menu.SpectateTeleportMenu;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -53,6 +54,9 @@ public class ProfileListener implements Listener {
                 Language.JOIN_MESSAGE.sendListOfMessage(player);
                 plugin.getLobbyManager().sendToSpawnAndReset(player);
                 profile.getSettings().get(ProfileSettings.TIME_CHANGER).run(player);
+
+                PlayerProfileLoadedEvent e = new PlayerProfileLoadedEvent(player, profile);
+                e.call();
             }
         });
     }
