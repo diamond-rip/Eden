@@ -98,7 +98,7 @@ public class Kit {
 	}
 
 	public void save() {
-		FileConfiguration fileConfig = Eden.INSTANCE.getArenaFile().getConfiguration();
+		FileConfiguration fileConfig = Eden.INSTANCE.getKitFile().getConfiguration();
 		String kitRoot = "kits." + name;
 		fileConfig.set(kitRoot, null); //Remove everything related to that kit first, then add the details one by one
 		fileConfig.set(kitRoot + ".enabled", enabled);

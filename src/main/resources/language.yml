@@ -546,7 +546,7 @@ event:
 hook:
   found-custom-spigot: "&aRunning spigot version: &b{0}&a, custom knockback will be applied"
   cannot-find-custom-spigot: "&eCannot find the custom spigot, vanilla knockback will be applied"
-  error-knockback-not-found: "&cError: please report this issue to a moderator(ERROR_KNOCKBACK_NOT_FOUND)"
+  error-knockback-not-found: "&cError: please report this issue to a moderator (ERROR_KNOCKBACK_NOT_FOUND)"
 kit-editor:
   cannot-edit-wrong-state: "&cYou cannot edit kits in this state"
   extra-item-menu-name: "Extra Items"
