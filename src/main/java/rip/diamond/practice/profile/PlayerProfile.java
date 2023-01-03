@@ -16,10 +16,7 @@ import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.profile.task.ProfileAutoSaveTask;
-import rip.diamond.practice.util.Common;
-import rip.diamond.practice.util.Cooldown;
-import rip.diamond.practice.util.Tasks;
-import rip.diamond.practice.util.VisibilityController;
+import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.option.Option;
 
 import java.util.*;
@@ -167,10 +164,14 @@ public class PlayerProfile {
             try {
                 loadDefault();
 
-                Document document = Eden.INSTANCE.getMongoManager().getProfiles().find(Filters.eq("uuid", uniqueId.toString())).first();
-                //Document will be null if the player is new
-                if (document != null) {
-                    fromBson(document);
+                if (Eden.INSTANCE.getConfigFile().getBoolean("mongo.enabled")) {
+                    Document document = Eden.INSTANCE.getMongoManager().getProfiles().find(Filters.eq("uuid", uniqueId.toString())).first();
+                    //Document will be null if the player is new
+                    if (document != null) {
+                        fromBson(document);
+                    }
+                } else {
+                    Common.sendMessage(getPlayer(), CC.RED + "[Eden] WARNING: Database connection is disabled. Statistics will not be loaded and saved.");
                 }
 
                 loadDefaultAfter();
@@ -194,7 +195,7 @@ public class PlayerProfile {
     private void save(Consumer<Boolean> callback) {
         try {
             saving = true;
-            if (playerState != PlayerState.LOADING) {
+            if (playerState != PlayerState.LOADING && Eden.INSTANCE.getConfigFile().getBoolean("mongo.enabled")) {
                 Eden.INSTANCE.getMongoManager().getProfiles().replaceOne(Filters.eq("uuid", uniqueId.toString()), toBson(), new ReplaceOptions().upsert(true));
             }
             callback.accept(true);

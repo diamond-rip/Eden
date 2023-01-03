@@ -3,7 +3,8 @@ scoreboard:
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
-    - "&cPlease wait, if player data fail to load, please contact a moderator and rejoin"
+    - "&cPlease wait, if player data fail to load"
+    - "&c please contact a moderator and rejoin"
     - "&7&m----------------------"
   in-lobby:
     - "&7&m----------------------"

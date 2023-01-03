@@ -6,6 +6,9 @@ debug: false
 arena-kit-auto-save: false
 ## MongoDB login information
 mongo:
+  ## This option should be ALWAYS true. Unless you want to test specific stuff without modifying the database
+  ## If it is disabled, player stats will not be loaded and saved
+  enabled: true
   uri-mode: false
   normal:
     host: 127.0.0.1

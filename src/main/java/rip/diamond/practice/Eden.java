@@ -42,7 +42,6 @@ import rip.diamond.practice.misc.commands.LocationCommand;
 import rip.diamond.practice.misc.commands.TestCommand;
 import rip.diamond.practice.misc.listeners.ChatListener;
 import rip.diamond.practice.misc.listeners.GeneralListener;
-import rip.diamond.practice.movement.impl.MatchMovementHandler;
 import rip.diamond.practice.party.PartyListener;
 import rip.diamond.practice.party.command.ChooseMatchTypeCommand;
 import rip.diamond.practice.party.command.OtherPartiesCommand;
@@ -64,6 +63,7 @@ import rip.diamond.practice.util.menu.Menu;
 import rip.diamond.practice.util.menu.MenuListener;
 import rip.diamond.practice.util.nametags.NameTagManager;
 import rip.diamond.practice.util.tablist.ImanityTabHandler;
+import rip.diamond.spigotapi.SpigotAPI;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -92,16 +92,18 @@ public class Eden extends JavaPlugin {
     private HookManager hookManager;
     private NameTagManager nameTagManager;
 
+    private SpigotAPI spigotAPI;
     private EntityHider entityHider;
     private SconeyHandler scoreboardHandler;
     private ImanityTabHandler tabHandler;
-    private MatchMovementHandler movementHandler;
     private EdenCache cache;
     private EdenPlaceholder placeholder;
 
     @Override
     public void onEnable() {
         INSTANCE = this;
+
+        this.spigotAPI = new SpigotAPI().init(this);
 
         InventoryUtil.removeCrafting();
 
@@ -201,7 +203,6 @@ public class Eden extends JavaPlugin {
 
         this.entityHider = new EntityHider(this, EntityHider.Policy.BLACKLIST).init();
         this.scoreboardHandler = new SconeyHandler(this, new ScoreboardAdapter());
-        this.movementHandler = new MatchMovementHandler();
         this.cache = new EdenCache();
         this.placeholder = new EdenPlaceholder(this);
         if (configFile.getBoolean("nametag.enabled")) this.nameTagManager.registerAdapter(new NameTagAdapter());

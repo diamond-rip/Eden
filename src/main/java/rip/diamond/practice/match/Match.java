@@ -64,6 +64,8 @@ public abstract class Match {
         new MatchPostMatchInventoriesClearTask();
         new ProfileCooldownTask();
 
+        new MatchMovementHandler();
+
         if (Eden.INSTANCE.getConfigFile().getBoolean("match.fix-hit-count-error")) {
             Bukkit.getWorlds().forEach(world -> {
                 ((CraftWorld) world).getHandle().paperSpigotConfig.disablePlayerCrits = true;
@@ -137,7 +139,7 @@ public abstract class Match {
             }
 
             //Set up the knockback
-            plugin.getHookManager().getSpigotController().applyKnockback(player, kit.getName());
+            plugin.getSpigotAPI().getKnockback().applyKnockback(player, kit.getName());
         }
 
         //Teleport players into their team spawn

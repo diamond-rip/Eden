@@ -76,5 +76,10 @@
       <option name="name" value="papermc" />
       <option name="url" value="https://papermc.io/repo/repository/maven-public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="MavenLocal" />
+      <option name="name" value="MavenLocal" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../Matthew%20Yu/.m2/repository/" />
+    </remote-repository>
   </component>
 </project>

@@ -20,7 +20,9 @@ public class MongoManager {
     public MongoManager(Eden plugin) {
         this.plugin = plugin;
 
-        this.init();
+        if (plugin.getConfigFile().getBoolean("mongo.enabled")) {
+            this.init();
+        }
     }
 
     public void init() {

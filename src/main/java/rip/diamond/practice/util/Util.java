@@ -22,9 +22,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
-import rip.diamond.practice.hook.spigot.SpigotController;
-import rip.diamond.practice.hook.spigot.impl.ImanitySpigot3;
 import rip.diamond.practice.match.team.Team;
+import rip.diamond.spigotapi.SpigotType;
 
 import java.io.IOException;
 import java.net.URL;
@@ -283,12 +282,9 @@ public class Util {
     }
 
     public static void teleport(Player player, Location location) {
-        if (Eden.INSTANCE.getConfigFile().getBoolean("imanity.teleport-async")) {
-            SpigotController controller = Eden.INSTANCE.getHookManager().getSpigotController();
-            if ((controller instanceof ImanitySpigot3)) {
-                ((ImanitySpigot3) controller).teleportAsync(player, location);
-                return;
-            }
+        if (Eden.INSTANCE.getConfigFile().getBoolean("imanity.teleport-async") && Eden.INSTANCE.getSpigotAPI().getSpigotType() == SpigotType.IMANITY_SPIGOT_3) {
+            Eden.INSTANCE.getHookManager().getImanitySpigot3Hook().teleportAsync(player, location);
+            return;
         }
 
         player.teleport(location);
