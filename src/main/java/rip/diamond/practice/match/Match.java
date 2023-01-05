@@ -272,7 +272,7 @@ public abstract class Match {
         event.call();
 
         if (forced) {
-            broadcastMessage("", CC.RED + "本場戰鬥已強制終止", CC.RED + "原因: " + reason, "");
+            broadcastMessage(Language.MATCH_FORCE_END_MESSAGE.toString(reason));
         } else {
             //Setup Post-Match Inventories
             for (TeamPlayer teamPlayer : getWinningPlayers()) {

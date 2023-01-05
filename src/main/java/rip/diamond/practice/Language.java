@@ -396,6 +396,7 @@ public enum Language {
     MATCH_POST_MATCH_INVENTORY_HOVER("match.post-match-inventory.hover"),
     MATCH_POST_MATCH_INVENTORY_MESSAGE("match.post-match-inventory.message"),
     MATCH_POST_MATCH_INVENTORY_RATING_CHANGES("match.post-match-inventory.rating-changes"),
+    MATCH_FORCE_END_MESSAGE("match.force-end.message"),
     MATCH_FORCE_END_NOT_ONLINE("match.force-end.not-online"),
     MATCH_FORCE_END_PROFILE_NOT_FOUND("match.force-end.profile-not-found"),
     MATCH_FORCE_END_NOT_IN_MATCH("match.force-end.not-in-match"),

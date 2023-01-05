@@ -907,6 +907,7 @@ match:
       - "&7&m------------------------------------------------"
     rating-changes: "&eELO changes: &a{0} +{1} ({2})  &c{3} -{4} ({5})"
   force-end:
+    message: "&cThe match is cancelled! Reason: {0} (Your stats related to this match will not be saved)"
     not-online: "&cPlayer is not online!"
     profile-not-found: "&cError: Player profile not found"
     not-in-match: "&cPlayer is not in a match!"
