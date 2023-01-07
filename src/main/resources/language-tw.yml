@@ -377,12 +377,15 @@ arena:
     max:
       name: "高點位置"
       description: "現時位置: {0}"
-    build-max:
-      name: "建築高度限制"
-      description: "現時數值: {0}"
     y-limit:
       name: "死亡Y軸"
       description: "現時位置: {0}"
+    build-max:
+      name: "建築高度限制"
+      description: "現時數值: {0}"
+    portal-protection-radius:
+      name: "傳送門保護半徑"
+      description: "現時數值: {0}"
     clone:
       name: "複製場地"
       description: "注意: 擁有複製場地後就不能更改本場地的數值"
@@ -407,6 +410,7 @@ arena:
     max: "&e&l正在更改場地 &b&l{0} &e&l的高點位置... 請左鍵點擊方塊去設置位置"
     y-limit: "&e&l正在更改場地 &b&l{0} &e&l的死亡Y軸... 請在聊天室輸入一個新的數值"
     build-max: "&e&l正在更改場地 &b&l{0} &e&l的建築高度上限... 請在聊天室輸入一個新的數值"
+    portal-protection-radius: "&e&l正在更改場地 &b&l{0} &e&l的傳送門保護半徑... 請在聊天室輸入一個新的數值"
     allowed-kits: "&e&l正在更改場地 &b&l{0} &e&l的可使用職業... 請在聊天室輸入一個現有的職業名稱"
     allowed-kits-removed: "&a成功移除可使用職業 '{0}' 到場地 {1}"
     allowed-kits-added: "&a成功新增可使用職業 '{0}' 到場地 {1}"

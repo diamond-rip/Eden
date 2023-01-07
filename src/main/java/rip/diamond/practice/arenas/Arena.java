@@ -29,6 +29,7 @@ public class Arena {
 
     private int yLimit = 0;
     private int buildMax = -1;
+    private int portalProtectionRadius = 3;
     private List<String> allowedKits = new ArrayList<>();
     private boolean enabled = false;
     private boolean edited = false;
@@ -144,6 +145,7 @@ public class Arena {
             ItemStack icon = BukkitSerialization.itemStackFromBase64(arenaSection.getString(name + ".icon"));
             int yLimit = arenaSection.getInt(name + ".y-limit");
             int buildMax = arenaSection.getInt(name + ".build-max");
+            int portalProtectionRadius = arenaSection.getInt(name + ".portal-protection-radius");
             List<String> allowedKits = arenaSection.getStringList(name + ".kits");
             boolean enabled = arenaSection.getBoolean(name + ".enabled", false);
 
@@ -151,6 +153,7 @@ public class Arena {
             arena.setIcon(icon);
             arena.setYLimit(yLimit);
             arena.setBuildMax(buildMax);
+            arena.setPortalProtectionRadius(portalProtectionRadius);
             arena.setAllowedKits(allowedKits);
             arena.setEnabled(enabled);
 
@@ -181,6 +184,7 @@ public class Arena {
         fileConfig.set(arenaRoot + ".icon", BukkitSerialization.itemStackToBase64(icon));
         fileConfig.set(arenaRoot + ".y-limit", yLimit);
         fileConfig.set(arenaRoot + ".build-max", buildMax);
+        fileConfig.set(arenaRoot + ".portal-protection-radius", portalProtectionRadius);
         fileConfig.set(arenaRoot + ".kits", allowedKits);
         fileConfig.set(arenaRoot + ".enabled", enabled);
 

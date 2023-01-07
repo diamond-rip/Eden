@@ -34,9 +34,10 @@ public class ArenaEditMenu extends Menu {
         buttons.put(19, new ArenaBPositionButton(arena));
         buttons.put(20, new ArenaMinPositionButton(arena));
         buttons.put(21, new ArenaMaxPositionButton(arena));
-        buttons.put(22, new ArenaYLimitButton(arena));
-        buttons.put(23, new ArenaBuildMaxButton(arena));
-        buttons.put(24, new ArenaAllowedKitsButton(arena));
+        buttons.put(22, new ArenaBuildMaxButton(arena));
+        buttons.put(23, new ArenaYLimitButton(arena));
+        buttons.put(24, new ArenaPortalProtectionRadiusButton(arena));
+        buttons.put(25, new ArenaAllowedKitsButton(arena));
 
         return buttons;
     }

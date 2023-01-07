@@ -155,6 +155,20 @@ public class ArenaCommand extends Command {
                             arena.autoSave();
                         });
                         return;
+                    case "portal-protection-radius":
+                        Procedure.buildProcedure(player, Language.ARENA_EDIT_PORTAL_PROTECTION_RADIUS.toString(arena.getName()), ProcedureType.CHAT, (s) -> {
+                            String message = (String) s;
+                            if (!Checker.isInteger(message)) {
+                                Language.INVALID_SYNTAX.sendMessage(player);
+                                return;
+                            }
+                            int i = Integer.parseInt(message);
+                            arena.setPortalProtectionRadius(i);
+                            Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "portal-protection-radius");
+                            arena.setEdited(true);
+                            arena.autoSave();
+                        });
+                        return;
                     case "allowed-kits":
                         Procedure.buildProcedure(player, Language.ARENA_EDIT_ALLOWED_KITS.toString(arena.getName()), ProcedureType.CHAT, (s) -> {
                             String message = (String) s;

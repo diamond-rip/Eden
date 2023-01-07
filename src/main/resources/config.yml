@@ -42,7 +42,6 @@ lobby:
   ## Should player allow to see other players?
   display-players: false
 match:
-  goal-portal-protect-radius: 3
   ## Right now boxing will count hit as 2 hits if player is spam clicking and jumping (critical hits)
   ## This option will change paperspigot's config 'disable-player-crits' to true. So crit hit will not be exists anymore.
   ## Warning: This option will disable crit damage, and will change and save paperspigot's 'disable-player-crits' settings

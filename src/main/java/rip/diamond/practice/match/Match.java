@@ -367,8 +367,7 @@ public abstract class Match {
             return false;
         }
         if (kit.getGameRules().isPortalGoal()) {
-            // TODO: 30/12/2022 Each arena should have a different protect radius according to issues #23
-            long count = Util.getBlocksAroundCenter(location, plugin.getConfigFile().getInt("match.goal-portal-protect-radius")).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
+            long count = Util.getBlocksAroundCenter(location, arenaDetail.getArena().getPortalProtectionRadius()).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
             if (count > 0) {
                 return true;
             }

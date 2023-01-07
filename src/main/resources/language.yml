@@ -319,16 +319,19 @@ arena:
       action-description: "Click to set position B to your current location"
     min:
       name: "Minimum Location"
-      description: "Current location: {0}"
+      description: "Current value: {0}"
     max:
       name: "Maximum Location"
-      description: "Current location: {0}"
-    build-max:
-      name: "Build Limit"
-      description: "Current location: {0}"
+      description: "Current value: {0}"
     y-limit:
       name: "Y Limit"
-      description: "Current location: {0}"
+      description: "Current value: {0}"
+    build-max:
+      name: "Build Limit"
+      description: "Current value: {0}"
+    portal-protection-radius:
+      name: "Portal Protection Radius"
+      description: "Current value: {0}"
     clone:
       name: "Arena Clone"
       description: "Warning: Arena's value cannot be edited after a clone of the arena has been made"
@@ -353,6 +356,7 @@ arena:
     max: "&e&lEditing the arena &b&l{0} &e&l's highest position... Please left click a block to set the position"
     y-limit: "&e&lEditing the arena &b&l{0} &e&l's y limit... Please type a new value in chat"
     build-max: "&e&lEditing the arena &b&l{0} &e&l's build height... Please type a new value in chat"
+    portal-protection-radius: "&e&lEditing the arena &b&l{0} &e&l's portal protection radius'... Please type a new value in chat"
     allowed-kits: "&e&lEditing the arena &b&l{0} &e&l's available kits... Please enter then name of an existing kit"
     allowed-kits-removed: "&aSuccessfully removed kit '{0}' to arena {1}"
     allowed-kits-added: "&aSuccessfully added kit '{0}' to arena {1}"
