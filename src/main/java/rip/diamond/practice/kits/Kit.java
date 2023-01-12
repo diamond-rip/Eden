@@ -19,9 +19,6 @@ import java.util.List;
 
 public class Kit {
 
-	// TODO: 7/1/2023 Knockback per kit
-	// TODO: 7/1/2023 Add reset position when round ends in game rules
-
 	@Getter private static final List<Kit> kits = new ArrayList<>();
 
 	@Getter @Setter private String name;

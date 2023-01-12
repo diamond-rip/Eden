@@ -774,6 +774,9 @@ kit:
     reset-arena-when-get-point:
       rules: "Reset Arena After Get A Point"
       description: "Settings for match to reset arena after player get a point"
+    reset-position-when-get-point:
+      rules: "Reset Position After Get A Point"
+      description: "Settings for match to reset player position after player get a point"
     build:
       rules: "Build"
       description: "Setting for match to allow block placement/destruction"
@@ -810,6 +813,9 @@ kit:
     new-round-time:
       rules: "New Round Time"
       description: "Settings for the new round countdown time (Only works if point system is on)"
+    knockback-name:
+      rules: "Knockback Profile"
+      description: "Settings for the knockback profile (Only works if using specific spigot forks)"
 leaderboard:
   reload: "&eReloading leaderboard..."
   top10-display:

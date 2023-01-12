@@ -25,6 +25,7 @@ public class KitGameRules {
 	private boolean point = false;
 	private boolean rankedPoint = false;
 	@Getter private boolean resetArenaWhenGetPoint = false;
+	@Getter private boolean resetPositionWhenGetPoint = true;
 	@Getter private boolean build = false;
 	@Getter private boolean startFreeze = false;
 	@Getter private boolean noDamage = false;
@@ -34,10 +35,10 @@ public class KitGameRules {
 	@Getter private boolean dropItemWhenDie = true;
 	@Getter private boolean noFallDamage = false;
 	@Getter private boolean giveBackArrow = false;
-
 	@Getter private int respawnTime = 5;
 	@Getter private int maximumPoints = 3;
 	@Getter private int newRoundTime = 5;
+	@Getter private String knockbackName = "default";
 
 	public boolean isPoint(Match match) {
 		switch (match.getMatchType()) {
@@ -72,6 +73,7 @@ public class KitGameRules {
 		point(Language.KIT_GAME_RULES_POINT_RULES.toString(), Language.KIT_GAME_RULES_POINT_DESCRIPTION.toString()),
 		rankedPoint(Language.KIT_GAME_RULES_RANKED_POINT_RULES.toString(), Language.KIT_GAME_RULES_RANKED_POINT_DESCRIPTION.toString()),
 		resetArenaWhenGetPoint(Language.KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_RULES.toString(), Language.KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_DESCRIPTION.toString()),
+		resetPositionWhenGetPoint(Language.KIT_GAME_RULES_RESET_POSITION_WHEN_GET_POINT_RULES.toString(), Language.KIT_GAME_RULES_RESET_POSITION_WHEN_GET_POINT_DESCRIPTION.toString()),
 		build(Language.KIT_GAME_RULES_BUILD_RULES.toString(), Language.KIT_GAME_RULES_BUILD_DESCRIPTION.toString()),
 		startFreeze(Language.KIT_GAME_RULES_START_FREEZE_RULES.toString(), Language.KIT_GAME_RULES_START_FREEZE_DESCRIPTION.toString()),
 		noDamage(Language.KIT_GAME_RULES_NO_DAMAGE_RULES.toString(), Language.KIT_GAME_RULES_NO_DAMAGE_DESCRIPTION.toString()),
@@ -85,6 +87,8 @@ public class KitGameRules {
 		respawnTime(Language.KIT_GAME_RULES_RESPAWN_TIME_RULES.toString(), Language.KIT_GAME_RULES_RESPAWN_TIME_DESCRIPTION.toString()),
 		maximumPoints(Language.KIT_GAME_RULES_MAXIMUM_POINTS_RULES.toString(), Language.KIT_GAME_RULES_MAXIMUM_POINTS_DESCRIPTION.toString()),
 		newRoundTime(Language.KIT_GAME_RULES_NEW_ROUND_TIME_RULES.toString(), Language.KIT_GAME_RULES_NEW_ROUND_TIME_DESCRIPTION.toString()),
+		//String
+		knockbackName(Language.KIT_GAME_RULES_KNOCKBACK_NAME_RULES.toString(), Language.KIT_GAME_RULES_KNOCKBACK_NAME_DESCRIPTION.toString()),
 		;
 
 		private final String rule;

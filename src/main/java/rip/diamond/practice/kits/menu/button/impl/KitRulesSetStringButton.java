@@ -12,14 +12,13 @@ import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.profile.procedure.Procedure;
 import rip.diamond.practice.profile.procedure.ProcedureType;
-import rip.diamond.practice.util.Checker;
 import rip.diamond.practice.util.ItemBuilder;
 import rip.diamond.practice.util.menu.Button;
 
 import java.lang.reflect.Field;
 
 @RequiredArgsConstructor
-public class KitRulesSetValueButton extends Button {
+public class KitRulesSetStringButton extends Button {
 
     private final KitDetailsMenu menu;
     private final Kit kit;
@@ -28,7 +27,7 @@ public class KitRulesSetValueButton extends Button {
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.DOUBLE_PLANT)
-                .durability(0)
+                .durability(1)
                 .name(Language.KIT_BUTTON_RULES_SET_VALUE_NAME.toString(getName()))
                 .lore(Language.KIT_BUTTON_RULES_SET_VALUE_LORE.toStringList(KitGameRules.Readable.valueOf(field.getName()).getDescription(), getValue(player)))
                 .build();
@@ -40,8 +39,8 @@ public class KitRulesSetValueButton extends Button {
     }
 
     @SneakyThrows
-    public int getValue(Player player) {
-        return field.getInt(kit.getGameRules());
+    public String getValue(Player player) {
+        return (String) field.get(kit.getGameRules());
     }
 
 
@@ -50,22 +49,15 @@ public class KitRulesSetValueButton extends Button {
         player.closeInventory();
         Procedure.buildProcedure(player, Language.KIT_BUTTON_RULES_SET_VALUE_PROCEDURE_MESSAGE.toString(getName()), ProcedureType.CHAT, (s) -> {
             String message = (String) s;
-            if (!Checker.isInteger(message)) {
-                Language.INVALID_SYNTAX.sendMessage(player);
-                return;
-            }
-            int i = Integer.parseInt(message);
 
             try {
-                field.setInt(kit.getGameRules(), i);
-                Language.KIT_BUTTON_RULES_SET_VALUE_PROCEDURE_SUCCESS.sendMessage(player, getName(), i);
+                field.set(kit.getGameRules(), message);
+                Language.KIT_BUTTON_RULES_SET_VALUE_PROCEDURE_SUCCESS.sendMessage(player, getName(), message);
                 kit.autoSave();
                 menu.openMenu(player);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         });
-
-        Language.KIT_BUTTON_RULES_SET_VALUE_PROCEDURE_ADDITIONAL_MESSAGE.sendMessage(player);
     }
 }

@@ -80,7 +80,9 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             match.setState(MatchState.STARTING);
 
             //Teleport players into their team spawn
-            match.getTeams().forEach(t -> t.teleport(t.getSpawnLocation()));
+            if (match.getKit().getGameRules().isResetPositionWhenGetPoint()) {
+                match.getTeams().forEach(t -> t.teleport(t.getSpawnLocation()));
+            }
             match.getTeamPlayers().forEach(teamPlayer -> {
                 if (teamPlayer.isRespawning()) {
                     //To prevent MatchRespawnTask gets cancelled because of a new round, we need to fully respawn the player instead of just giving the kit loadout. A fix for https://github.com/RealGoodestEnglish/Eden/issues/4

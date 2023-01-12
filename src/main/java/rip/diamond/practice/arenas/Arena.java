@@ -15,6 +15,7 @@ import rip.diamond.practice.util.serialization.BukkitSerialization;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -37,14 +38,14 @@ public class Arena {
     public static Arena getArena(String name) {
         return arenas.stream()
                 .filter(arena -> arena.getName().equals(name))
-                .findFirst().orElse(null);
+                .findAny().orElse(null);
     }
 
     public static Arena getEnabledArena(Kit kit) {
         return arenas.stream()
                 .filter(Arena::isEnabled)
                 .filter(a -> a.getAllowedKits().contains(kit.getName()))
-                .findFirst().orElse(null);
+                .findAny().orElse(null);
     }
 
     public static ArenaDetail getAvailableArenaDetail(String name, Kit kit) {
@@ -52,7 +53,7 @@ public class Arena {
                 .filter(a -> a.getName().equals(name))
                 .filter(Arena::isEnabled)
                 .filter(a -> a.getAllowedKits().contains(kit.getName()))
-                .findFirst().orElse(null);
+                .findAny().orElse(null);
         if (arena == null) {
             return null;
         }
@@ -60,10 +61,11 @@ public class Arena {
     }
 
     public static ArenaDetail getAvailableArenaDetail(Kit kit) {
+        Collections.shuffle(arenas);
         Arena arena = arenas.stream()
                 .filter(Arena::isEnabled)
                 .filter(a -> a.getAllowedKits().contains(kit.getName()))
-                .findFirst().orElse(null);
+                .findAny().orElse(null);
         if (arena == null) {
             return null;
         }
@@ -73,7 +75,7 @@ public class Arena {
     public static ArenaDetail getArenaDetail(Arena arena) {
         return arena.getArenaDetails().stream()
                 .filter(arenaDetail -> !arenaDetail.isUsing())
-                .findFirst().orElse(null);
+                .findAny().orElse(null);
     }
 
     public Arena(String name) {

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public abstract class PaginatedMenu extends Menu {
 
-	@Getter private int page = 1;
+	@Getter public int page = 1;
 
 	{
 		setUpdateAfterClick(false);

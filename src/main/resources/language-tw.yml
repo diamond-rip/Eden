@@ -828,6 +828,9 @@ kit:
     reset-arena-when-get-point:
       rules: "獲取分數後重置場地"
       description: "設置該職業是否在玩家獲取分數後重置場地"
+    reset-position-when-get-point:
+      rules: "獲取分數後重置玩家位置"
+      description: "設置該職業是否在玩家獲取分數後重置玩家位置"
     build:
       rules: "建築"
       description: "設置該職業應不應該允許放置/破壞方塊"
@@ -860,10 +863,13 @@ kit:
       description: "設置該職業在玩家死亡後的重生時間 (只有在 '進入目標' 或 '床' 開啟才會有效)"
     maximum-points:
       rules: "最大分數"
-      description: "設置該職業的最大分數 (只有在 '分數機制' 開啟會才有效)"
+      description: "設置該職業的最大分數 (只有在 '分數機制' 開啟才會有效)"
     new-round-time:
       rules: "新回合等待時間"
-      description: "設置該職業的新回合等待時間 (只有在 '分數機制' 開啟會才有效)"
+      description: "設置該職業的新回合等待時間 (只有在 '分數機制' 開啟才會有效)"
+    knockback-name:
+      rules: "擊退配置"
+      description: "設置該職業的擊退配置 (只有在使用特定的 Spigot Forks 才有效)"
 leaderboard:
   reload: "&e正在強制更新排行榜..."
   top10-display:

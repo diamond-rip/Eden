@@ -139,7 +139,7 @@ public abstract class Match {
             }
 
             //Set up the knockback
-            plugin.getSpigotAPI().getKnockback().applyKnockback(player, kit.getName());
+            plugin.getSpigotAPI().getKnockback().applyKnockback(player, kit.getGameRules().getKnockbackName());
         }
 
         //Teleport players into their team spawn

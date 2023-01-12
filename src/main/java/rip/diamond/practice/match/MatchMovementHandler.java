@@ -45,24 +45,24 @@ public class MatchMovementHandler {
                 //If two people go into the portal at the same time in bridge, it will count as +2 points
                 //If player go into the water and PlayerMoveEvent is too slow to perform teleportation, it will run MatchNewRoundTask multiple times
                 if (match.getMatchPlayers().stream().filter(Objects::nonNull).noneMatch(p -> PlayerProfile.get(p).getCooldowns().containsKey("score"))) {
-                    //檢查 KitGameRules 水上即死
-                    if (gameRules.isDeathOnWater() && match.getState() == MatchState.FIGHTING && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
-                        if (gameRules.isPoint(match)) {
-                            TeamPlayer lastHitDamager = match.getTeamPlayer(player).getLastHitDamager();
-                            //玩家有機會在不被敵方攻擊的情況下死亡, 例如岩漿, 如果是這樣, 就在敵方隊伍隨便抽一個玩家出來
-                            if (lastHitDamager == null) {
-                                lastHitDamager = match.getOpponentTeam(match.getTeam(player)).getAliveTeamPlayers().get(0);
+                    if (match.getState() == MatchState.FIGHTING && !match.getTeamPlayer(player).isRespawning()) {
+                        //檢查 KitGameRules 水上即死
+                        if (gameRules.isDeathOnWater() && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
+                            if (gameRules.isPoint(match)) {
+                                TeamPlayer lastHitDamager = match.getTeamPlayer(player).getLastHitDamager();
+                                //玩家有機會在不被敵方攻擊的情況下死亡, 例如岩漿, 如果是這樣, 就在敵方隊伍隨便抽一個玩家出來
+                                if (lastHitDamager == null) {
+                                    lastHitDamager = match.getOpponentTeam(match.getTeam(player)).getAliveTeamPlayers().get(0);
+                                }
+                                match.score(profile, lastHitDamager);
+                            } else {
+                                Util.damage(player, 99999);
                             }
-                            match.score(profile, lastHitDamager);
-                        } else {
-                            Util.damage(player, 99999);
+                            return;
                         }
-                        return;
-                    }
 
-                    //檢查 KitGameRules 進入目標
-                    if (match.getState() == MatchState.FIGHTING && underBlock.getType() == Material.ENDER_PORTAL) {
-                        if (gameRules.isPortalGoal()) {
+                        //檢查 KitGameRules 進入目標
+                        if (gameRules.isPortalGoal() && underBlock.getType() == Material.ENDER_PORTAL) {
                             Team playerTeam = match.getTeam(player);
                             Team portalBelongsTo = match.getTeams().stream().min(Comparator.comparing(team -> team.getSpawnLocation().distance(to))).orElse(null);
                             if (portalBelongsTo == null) {
@@ -75,8 +75,8 @@ public class MatchMovementHandler {
                                 //Prevent player scoring their own goal
                                 Util.damage(player, 99999);
                             }
+                            return;
                         }
-                        return;
                     }
                 }
             }
