@@ -23,7 +23,7 @@ public class ArenaDetailsMenu extends PaginatedMenu {
 
     @Override
     public String getPrePaginatedTitle(Player player) {
-        return "場地資訊一覽";
+        return Language.ARENA_DETAILS_MENU_TITLE.toString();
     }
 
     @Override

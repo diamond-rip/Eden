@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public abstract class ArenaButton extends Button {
 
-    private final Arena arena;
+    public final Arena arena;
 
     @Override
     public ItemStack getButtonItem(Player player) {

@@ -8,7 +8,6 @@ import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.arenas.menu.ArenaEditMenu;
 import rip.diamond.practice.arenas.menu.ArenasMenu;
-import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.profile.procedure.Procedure;
 import rip.diamond.practice.profile.procedure.ProcedureType;
 import rip.diamond.practice.util.CC;
@@ -165,25 +164,6 @@ public class ArenaCommand extends Command {
                             int i = Integer.parseInt(message);
                             arena.setPortalProtectionRadius(i);
                             Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "portal-protection-radius");
-                            arena.setEdited(true);
-                            arena.autoSave();
-                        });
-                        return;
-                    case "allowed-kits":
-                        Procedure.buildProcedure(player, Language.ARENA_EDIT_ALLOWED_KITS.toString(arena.getName()), ProcedureType.CHAT, (s) -> {
-                            String message = (String) s;
-                            Kit kit = Kit.getByName(message);
-                            if (kit == null) {
-                                Language.KIT_NOT_EXISTS.sendMessage(player, message);
-                                return;
-                            }
-                            if (arena.getAllowedKits().contains(kit.getName())) {
-                                arena.getAllowedKits().remove(kit.getName());
-                                Language.ARENA_EDIT_ALLOWED_KITS_REMOVED.sendMessage(player, kit.getName(), arena.getName());
-                            } else {
-                                arena.getAllowedKits().add(kit.getName());
-                                Language.ARENA_EDIT_ALLOWED_KITS_ADDED.sendMessage(player, kit.getName(), arena.getName());
-                            }
                             arena.setEdited(true);
                             arena.autoSave();
                         });

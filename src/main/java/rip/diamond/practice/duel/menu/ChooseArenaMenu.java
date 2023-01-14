@@ -2,6 +2,7 @@ package rip.diamond.practice.duel.menu;
 
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -52,6 +53,30 @@ public class ChooseArenaMenu extends PaginatedMenu {
                 });
             }
         }
+
+        return buttons;
+    }
+
+    @Override
+    public Map<Integer, Button> getGlobalButtons(Player player) {
+        final Map<Integer, Button> buttons = new HashMap<>();
+
+        buttons.put(4, new Button() {
+            @Override
+            public ItemStack getButtonItem(Player player) {
+                return new ItemBuilder(Material.MAP)
+                        .name(Language.DUEL_CHOOSE_ARENA_MENU_BUTTON_RANDOM.toString())
+                        .build();
+            }
+
+            @Override
+            public void clicked(Player player, ClickType clickType) {
+                Arena arena = Arena.getEnabledArena(kit);
+
+                player.closeInventory();
+                Eden.INSTANCE.getDuelRequestManager().sendDuelRequest(player, Bukkit.getPlayer(targetUUID), kit, arena);
+            }
+        });
 
         return buttons;
     }

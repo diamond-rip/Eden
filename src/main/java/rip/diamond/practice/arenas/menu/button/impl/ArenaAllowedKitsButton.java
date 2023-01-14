@@ -5,12 +5,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
+import rip.diamond.practice.arenas.menu.ArenaAllowedKitsMenu;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
-import rip.diamond.practice.util.Util;
+import rip.diamond.practice.util.menu.Menu;
 
 public class ArenaAllowedKitsButton extends ArenaButton {
-    public ArenaAllowedKitsButton(Arena arena) {
+
+    private final Menu backMenu;
+
+    public ArenaAllowedKitsButton(Arena arena, Menu backMenu) {
         super(arena);
+        this.backMenu = backMenu;
     }
 
     @Override
@@ -25,8 +30,7 @@ public class ArenaAllowedKitsButton extends ArenaButton {
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
-        player.closeInventory();
-        Util.performCommand(player, "arena setup " + getArena().getName() + " allowed-kits");
+        new ArenaAllowedKitsMenu(arena, backMenu).openMenu(player);
     }
 
     @Override

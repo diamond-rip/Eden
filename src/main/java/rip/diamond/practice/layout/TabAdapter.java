@@ -44,12 +44,18 @@ public class TabAdapter implements ImanityTabAdapter {
     }
 
     @Override
-    public String getFooter(Player player) {
-        return null;
+    public String getHeader(Player player) {
+        if (Language.TABLIST_HEADER.toString().equals(Language.TABLIST_HEADER.getPath())) {
+            return null;
+        }
+        return Language.TABLIST_HEADER.toString(player);
     }
 
     @Override
-    public String getHeader(Player player) {
-        return null;
+    public String getFooter(Player player) {
+        if (Language.TABLIST_FOOTER.toString().equals(Language.TABLIST_FOOTER.getPath())) {
+            return null;
+        }
+        return Language.TABLIST_FOOTER.toString(player);
     }
 }

@@ -281,6 +281,11 @@ arena:
       lore:
         - ""
         - "&e&nClick to edit arena settings!"
+  allowed-kits-menu:
+    title: "Arena Allowed Kits"
+    lore:
+      click-to-select: "&eClick to allow"
+      selected: "&aAllowed!"
   details-menu:
     title: "Arenas Info"
     detail:
@@ -374,14 +379,15 @@ duel:
     - "&c/duel <Player ID> - Duel a player/party"
     - "&c/duel accept <UUID> - Accept a duel"
   choose-arena-menu:
-    name: "Select arena"
+    name: "Select Arena"
     button:
       name: "&b{0}"
+      random: "&bRandom Map"
       lore:
         - ""
         - "&e&nClick to select the arena!"
   choose-kit-menu:
-    name: "Select kit"
+    name: "Select Kit"
     button:
       name: "&b{0}"
       lore:
@@ -813,6 +819,9 @@ kit:
     new-round-time:
       rules: "New Round Time"
       description: "Settings for the new round countdown time (Only works if point system is on)"
+    clear-block-time:
+      rules: "Clear Block Time"
+      description: "Settings for the clear block time (Only works if clear block is on)"
     knockback-name:
       rules: "Knockback Profile"
       description: "Settings for the knockback profile (Only works if using specific spigot forks)"
@@ -1136,6 +1145,7 @@ party:
     title: "Select Arena"
     button:
       name: "&b{0}"
+      random: "&bRandom Map"
       lore:
         - ""
         - "&e&nClick to select this arena!"
@@ -1319,3 +1329,8 @@ button:
 menu:
   view-all-pages:
     title: "&bView all pages"
+tablist:
+  ## If you want to disable header or footer, just simply put null
+  ## Note that you cannot only keep the header and disable the footer, you have to enable both or disable both
+  header: "&bPractice"
+  footer: "&bdiamond.rip"

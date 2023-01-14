@@ -19,7 +19,7 @@ public class ArenaPortalProtectionRadiusButton extends ArenaButton {
 
     @Override
     public String getDescription() {
-        return Language.ARENA_EDIT_MENU_PORTAL_PROTECTION_RADIUS_DESCRIPTION.toString(getArena().getYLimit());
+        return Language.ARENA_EDIT_MENU_PORTAL_PROTECTION_RADIUS_DESCRIPTION.toString(getArena().getPortalProtectionRadius());
     }
 
     @Override

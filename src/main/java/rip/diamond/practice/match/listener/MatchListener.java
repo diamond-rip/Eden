@@ -603,7 +603,7 @@ public class MatchListener implements Listener {
             if (match.getKit().getGameRules().isClearBlock()) {
                 TeamPlayer teamPlayer = match.getTeamPlayer(player);
 
-                new MatchClearBlockTask(match, 10, block.getWorld(), block.getLocation(), (itemStacks) -> {
+                new MatchClearBlockTask(match, match.getKit().getGameRules().getClearBlockTime(), block.getWorld(), block.getLocation(), (itemStacks) -> {
                     if (player.isOnline() && match == profile.getMatch() && !teamPlayer.isRespawning() && teamPlayer.isAlive()) {
                         itemStacks.forEach(i -> player.getInventory().addItem(i));
                     }

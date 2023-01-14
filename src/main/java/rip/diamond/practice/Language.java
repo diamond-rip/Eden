@@ -1,6 +1,7 @@
 package rip.diamond.practice;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -71,6 +72,9 @@ public enum Language {
     ARENA_MENU_TITLE("arena.menu.title"),
     ARENA_MENU_ARENA_EDIT_NAME("arena.menu.arena-edit.name"),
     ARENA_MENU_ARENA_EDIT_LORE("arena.menu.arena-edit.lore"),
+    ARENA_ALLOWED_KITS_MENU_TITLE("arena.allowed-kits-menu.title"),
+    ARENA_ALLOWED_KITS_MENU_LORE_CLICK_TO_SELECT("arena.allowed-kits-menu.lore.click-to-select"),
+    ARENA_ALLOWED_KITS_MENU_LORE_SELECTED("arena.allowed-kits-menu.lore.selected"),
     ARENA_DETAILS_MENU_TITLE("arena.details-menu.title"),
     ARENA_DETAILS_MENU_DETAIL_NAME("arena.details-menu.detail.name"),
     ARENA_DETAILS_MENU_DETAIL_LORE("arena.details-menu.detail.lore"),
@@ -134,6 +138,7 @@ public enum Language {
     DUEL_HELP_MESSAGE("duel.help-message"),
     DUEL_CHOOSE_ARENA_MENU_NAME("duel.choose-arena-menu.name"),
     DUEL_CHOOSE_ARENA_MENU_BUTTON_NAME("duel.choose-arena-menu.button.name"),
+    DUEL_CHOOSE_ARENA_MENU_BUTTON_RANDOM("duel.choose-arena-menu.button.random"),
     DUEL_CHOOSE_ARENA_MENU_BUTTON_LORE("duel.choose-arena-menu.button.lore"),
     DUEL_CHOOSE_KIT_MENU_NAME("duel.choose-kit-menu.name"),
     DUEL_CHOOSE_KIT_MENU_BUTTON_NAME("duel.choose-kit-menu.button.name"),
@@ -334,8 +339,8 @@ public enum Language {
     KIT_GAME_RULES_RANKED_POINT_DESCRIPTION("kit.game-rules.ranked-point.description"),
     KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_RULES("kit.game-rules.reset-arena-when-get-point.rules"),
     KIT_GAME_RULES_RESET_ARENA_WHEN_GET_POINT_DESCRIPTION("kit.game-rules.reset-arena-when-get-point.description"),
-    KIT_GAME_RULES_RESET_POSITION_WHEN_GET_POINT_RULES("kit.game-rules.reset-position-when-get-point.rules"),
-    KIT_GAME_RULES_RESET_POSITION_WHEN_GET_POINT_DESCRIPTION("kit.game-rules.reset-position-when-get-point.description"),
+    KIT_GAME_RULES_ONLY_LOSER_RESET_POSITION_WHEN_GET_POINT_RULES("kit.game-rules.only-loser-reset-position-when-get-point.rules"),
+    KIT_GAME_RULES_ONLY_LOSER_RESET_POSITION_WHEN_GET_POINT_DESCRIPTION("kit.game-rules.only-loser-reset-position-when-get-point.description"),
     KIT_GAME_RULES_BUILD_RULES("kit.game-rules.build.rules"),
     KIT_GAME_RULES_BUILD_DESCRIPTION("kit.game-rules.build.description"),
     KIT_GAME_RULES_START_FREEZE_RULES("kit.game-rules.start-freeze.rules"),
@@ -360,6 +365,8 @@ public enum Language {
     KIT_GAME_RULES_MAXIMUM_POINTS_DESCRIPTION("kit.game-rules.maximum-points.description"),
     KIT_GAME_RULES_NEW_ROUND_TIME_RULES("kit.game-rules.new-round-time.rules"),
     KIT_GAME_RULES_NEW_ROUND_TIME_DESCRIPTION("kit.game-rules.new-round-time.description"),
+    KIT_GAME_RULES_CLEAR_BLOCK_TIME_RULES("kit.game-rules.clear-block-time.rules"),
+    KIT_GAME_RULES_CLEAR_BLOCK_TIME_DESCRIPTION("kit.game-rules.clear-block-time.description"),
     KIT_GAME_RULES_KNOCKBACK_NAME_RULES("kit.game-rules.knockback-name.rules"),
     KIT_GAME_RULES_KNOCKBACK_NAME_DESCRIPTION("kit.game-rules.knockback-name.description"),
     LEADERBOARD_RELOAD("leaderboard.reload"),
@@ -515,6 +522,7 @@ public enum Language {
     PARTY_HELP_MESSAGE("party.help-message"),
     PARTY_CHOOSE_ARENA_MENU_TITLE("party.choose-arena-menu.title"),
     PARTY_CHOOSE_ARENA_MENU_BUTTON_NAME("party.choose-arena-menu.button.name"),
+    PARTY_CHOOSE_ARENA_MENU_BUTTON_RANDOM("party.choose-arena-menu.button.random"),
     PARTY_CHOOSE_ARENA_MENU_BUTTON_LORE("party.choose-arena-menu.button.lore"),
     PARTY_CHOOSE_KIT_MENU_TITLE("party.choose-kit-menu.title"),
     PARTY_CHOOSE_KIT_MENU_BUTTON_NAME("party.choose-kit-menu.button.name"),
@@ -595,9 +603,11 @@ public enum Language {
     BUTTON_PAGE_FILTER_LORE("button.page-filter.lore"),
     BUTTON_PAGE_FILTER_NO_FILTERS("button.page-filter.no-filters"),
     MENU_VIEW_ALL_PAGES_TITLE("menu.view-all-pages.title"),
+    TABLIST_HEADER("tablist.header"),
+    TABLIST_FOOTER("tablist.footer"),
     ;
 
-    private final String path;
+    @Getter private final String path;
 
     @Override
     public String toString() {

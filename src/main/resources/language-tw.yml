@@ -335,6 +335,11 @@ arena:
       lore:
         - ""
         - "&e&n點擊進行場地設置!"
+  allowed-kits-menu:
+    title: "設置場地允許職業"
+    lore:
+      click-to-select: "&e點擊允許該職業"
+      selected: "&a已允許該職業"
   details-menu:
     title: "場地資訊一覽"
     detail:
@@ -431,6 +436,7 @@ duel:
     name: "選擇場地"
     button:
       name: "&b{0}"
+      random: "&b隨機地圖"
       lore:
         - ""
         - "&e&n點我選擇此場地!"
@@ -867,6 +873,9 @@ kit:
     new-round-time:
       rules: "新回合等待時間"
       description: "設置該職業的新回合等待時間 (只有在 '分數機制' 開啟才會有效)"
+    clear-block-time:
+      rules: "清除方塊時間"
+      description: "設置該職業的清除方塊時間 (只有在 '方塊清除' 開啟才會有效)"
     knockback-name:
       rules: "擊退配置"
       description: "設置該職業的擊退配置 (只有在使用特定的 Spigot Forks 才有效)"
@@ -1188,6 +1197,7 @@ party:
     title: "選擇場地"
     button:
       name: "&b{0}"
+      random: "&b隨機地圖"
       lore:
         - ""
         - "&e&n點我選擇此場地!"
@@ -1371,3 +1381,8 @@ button:
 menu:
   view-all-pages:
     title: "&b頁面跳轉"
+tablist:
+  ## If you don't want header or footer, just simply put null
+  ## Note that you cannot only keep the header and disable the footer, you have to enable both or disable both
+  header: "&b戰鬥練習"
+  footer: "&bdiamond.rip"

@@ -42,6 +42,7 @@ public class Arena {
     }
 
     public static Arena getEnabledArena(Kit kit) {
+        Collections.shuffle(arenas);
         return arenas.stream()
                 .filter(Arena::isEnabled)
                 .filter(a -> a.getAllowedKits().contains(kit.getName()))
@@ -49,6 +50,7 @@ public class Arena {
     }
 
     public static ArenaDetail getAvailableArenaDetail(String name, Kit kit) {
+        Collections.shuffle(arenas);
         Arena arena = arenas.stream()
                 .filter(a -> a.getName().equals(name))
                 .filter(Arena::isEnabled)
