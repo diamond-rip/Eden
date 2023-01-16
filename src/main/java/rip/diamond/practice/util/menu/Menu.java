@@ -9,6 +9,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.event.MenuOpenEvent;
+import rip.diamond.practice.event.MenuUpdateEvent;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.menu.task.MenuUpdateTask;
 
@@ -58,6 +60,12 @@ public abstract class Menu {
 				previousMenu.onClose(player);
 				previousMenu.setClosedByMenu(true);
 				Menu.currentlyOpenedMenus.remove(player.getUniqueId());
+
+				MenuUpdateEvent event = new MenuUpdateEvent(this);
+				event.call();
+			} else {
+				MenuOpenEvent event = new MenuOpenEvent(this);
+				event.call();
 			}
 
 			this.buttons = this.getButtons(player);
@@ -114,6 +122,10 @@ public abstract class Menu {
 	}
 
 	public abstract String getTitle(Player player);
+
+	public String getID() {
+		return getClass().getSimpleName();
+	}
 
 	public abstract Map<Integer, Button> getButtons(Player player);
 

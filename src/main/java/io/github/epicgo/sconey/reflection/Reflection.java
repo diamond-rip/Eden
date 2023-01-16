@@ -113,11 +113,15 @@ public class Reflection {
      * @param fieldName the name of the field
      * @param objectValue the value to set
      */
-    @SneakyThrows
     public void setDeclaredField(final Object target, final String fieldName, final Object objectValue) {
-        final Field field = target.getClass().getDeclaredField(fieldName);
-        field.setAccessible(true);
-        field.set(target, objectValue);
+        try {
+            final Field field = target.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(target, objectValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

@@ -1,20 +1,22 @@
 package rip.diamond.practice.arenas.chunk;
 
 import io.github.epicgo.sconey.reflection.Reflection;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.server.v1_8_R3.ChunkSection;
 import net.minecraft.server.v1_8_R3.NibbleArray;
 
+@Getter
 @RequiredArgsConstructor
 public class ArenaChunkSection extends Reflection {
 
-    public final int yPos;
-    public final int nonEmptyBlockCount;
-    public final int tickingBlockCount;
-    public final char[] blockIds;
-    public final NibbleArray emittedLight;
-    public final NibbleArray skyLight;
-    public final boolean isDirty; // PaperSpigot
+    private final int yPos;
+    private final int nonEmptyBlockCount;
+    private final int tickingBlockCount;
+    private final char[] blockIds;
+    private final NibbleArray emittedLight;
+    private final NibbleArray skyLight;
+    private final boolean isDirty; // PaperSpigot
 
     public ArenaChunkSection(ChunkSection section) {
         this.yPos = section.getYPosition();
@@ -24,6 +26,18 @@ public class ArenaChunkSection extends Reflection {
         this.emittedLight = clone(section.getEmittedLightArray());
         this.skyLight = clone(section.getSkyLightArray());
         this.isDirty = (boolean) getDeclaredField(section, "isDirty");
+    }
+
+    public char[] getBlockIds() {
+        return blockIds.clone();
+    }
+
+    public NibbleArray getEmittedLight() {
+        return clone(emittedLight);
+    }
+
+    public NibbleArray getSkyLight() {
+        return clone(skyLight);
     }
 
     private NibbleArray clone(NibbleArray array) {

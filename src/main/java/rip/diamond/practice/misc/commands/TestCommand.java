@@ -1,12 +1,8 @@
 package rip.diamond.practice.misc.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
+import rip.diamond.practice.match.Match;
 import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
@@ -19,13 +15,7 @@ public class TestCommand extends Command {
         CommandSender sender = command.getSender();
         String[] args = command.getArgs();
 
-        if (args[0].equalsIgnoreCase("1")) {
-            ((Player) sender).setVelocity(new Vector(Double.parseDouble(args[1]),Double.parseDouble(args[2]),Double.parseDouble(args[3])));
-            return;
-        }
-
-        ((Player) sender).teleport(Bukkit.getPlayer(args[0]));
-        ((Player) sender).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 100));
+        Match.getMatches().forEach((uuid, match) -> match.getArenaDetail().restoreChunk());
     }
 
     private String buildMessage(String[] args, int start) {

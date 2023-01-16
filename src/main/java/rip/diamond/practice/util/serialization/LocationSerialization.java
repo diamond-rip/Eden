@@ -3,6 +3,7 @@ package rip.diamond.practice.util.serialization;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.util.CC;
@@ -26,7 +27,11 @@ public class LocationSerialization {
             String[] split = attribute.split(";");
 
             if (split[0].equalsIgnoreCase("#w")) {
-                world = Bukkit.getWorld(split[1]);
+                if (Bukkit.getWorld(split[1]) == null) {
+                    world = Bukkit.createWorld(new WorldCreator(split[1]));
+                } else {
+                    world = Bukkit.getWorld(split[1]);
+                }
                 continue;
             }
 

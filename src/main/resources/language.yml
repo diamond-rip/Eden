@@ -780,7 +780,7 @@ kit:
     reset-arena-when-get-point:
       rules: "Reset Arena After Get A Point"
       description: "Settings for match to reset arena after player get a point"
-    reset-position-when-get-point:
+    only-loser-reset-position-when-get-point:
       rules: "Reset Position After Get A Point"
       description: "Settings for match to reset player position after player get a point"
     build:

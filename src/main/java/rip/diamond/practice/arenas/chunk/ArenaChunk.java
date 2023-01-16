@@ -1,6 +1,7 @@
 package rip.diamond.practice.arenas.chunk;
 
 import io.github.epicgo.sconey.reflection.Reflection;
+import lombok.Getter;
 import net.minecraft.server.v1_8_R3.ChunkSection;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class ArenaChunk extends Reflection {
 
     private final World world;
-    private final int x, z;
+    @Getter private final int x, z;
     private final Map<ChunkSection, ArenaChunkSection> data;
 
     public ArenaChunk(Chunk chunk) {
@@ -35,13 +36,13 @@ public class ArenaChunk extends Reflection {
         data.forEach((chunkSection, arenaChunkSection) -> {
             ArenaChunkSection section = arenaChunkSection.clone();
 
-            setDeclaredField(chunkSection, "yPos", section.yPos);
-            setDeclaredField(chunkSection, "nonEmptyBlockCount", section.nonEmptyBlockCount);
-            setDeclaredField(chunkSection, "tickingBlockCount", section.tickingBlockCount);
-            setDeclaredField(chunkSection, "blockIds", section.blockIds);
-            setDeclaredField(chunkSection, "emittedLight", section.emittedLight);
-            setDeclaredField(chunkSection, "skyLight", section.skyLight);
-            setDeclaredField(chunkSection, "isDirty", section.isDirty);
+            setDeclaredField(chunkSection, "yPos", section.getYPos());
+            setDeclaredField(chunkSection, "nonEmptyBlockCount", section.getNonEmptyBlockCount());
+            setDeclaredField(chunkSection, "tickingBlockCount", section.getTickingBlockCount());
+            setDeclaredField(chunkSection, "blockIds", section.getBlockIds());
+            setDeclaredField(chunkSection, "emittedLight", section.getEmittedLight());
+            setDeclaredField(chunkSection, "skyLight", section.getSkyLight());
+            setDeclaredField(chunkSection, "isDirty", section.isDirty());
         });
 
         world.refreshChunk(x, z);

@@ -834,7 +834,7 @@ kit:
     reset-arena-when-get-point:
       rules: "獲取分數後重置場地"
       description: "設置該職業是否在玩家獲取分數後重置場地"
-    reset-position-when-get-point:
+    only-loser-reset-position-when-get-point:
       rules: "獲取分數後重置玩家位置"
       description: "設置該職業是否在玩家獲取分數後重置玩家位置"
     build:
