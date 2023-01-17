@@ -7,44 +7,33 @@ import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftChunk;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ArenaChunk extends Reflection {
 
     private final World world;
     @Getter private final int x, z;
-    private final Map<ChunkSection, ArenaChunkSection> data;
+    private final ArenaChunkSection[] data;
 
     public ArenaChunk(Chunk chunk) {
         chunk.load();
 
+        ChunkSection[] sections = ((CraftChunk) chunk).getHandle().getSections();
+
         this.world = chunk.getWorld();
         this.x = chunk.getX();
         this.z = chunk.getZ();
-        this.data = new HashMap<>();
+        this.data = new ArenaChunkSection[sections.length];
 
-        for (ChunkSection section : ((CraftChunk) chunk).getHandle().getSections()) {
-            if (section == null) {
-                continue;
-            }
-            data.put(section, new ArenaChunkSection(section));
+        for (int i = 0; i < sections.length; i++) {
+            data[i] = new ArenaChunkSection(sections[i]);
         }
     }
 
     public void restore() {
-        data.forEach((chunkSection, arenaChunkSection) -> {
-            ArenaChunkSection section = arenaChunkSection.clone();
-
-            setDeclaredField(chunkSection, "yPos", section.getYPos());
-            setDeclaredField(chunkSection, "nonEmptyBlockCount", section.getNonEmptyBlockCount());
-            setDeclaredField(chunkSection, "tickingBlockCount", section.getTickingBlockCount());
-            setDeclaredField(chunkSection, "blockIds", section.getBlockIds());
-            setDeclaredField(chunkSection, "emittedLight", section.getEmittedLight());
-            setDeclaredField(chunkSection, "skyLight", section.getSkyLight());
-            setDeclaredField(chunkSection, "isDirty", section.isDirty());
-        });
-
+        ChunkSection[] sections = new ChunkSection[data.length];
+        for (int i = 0; i < data.length; i++) {
+            sections[i] = data[i].toChunkSection();
+        }
+        setDeclaredField(((CraftChunk) world.getChunkAt(x,z)).getHandle(), "sections", sections);
         world.refreshChunk(x, z);
     }
 

@@ -10,15 +10,21 @@ import net.minecraft.server.v1_8_R3.NibbleArray;
 @RequiredArgsConstructor
 public class ArenaChunkSection extends Reflection {
 
-    private final int yPos;
-    private final int nonEmptyBlockCount;
-    private final int tickingBlockCount;
-    private final char[] blockIds;
-    private final NibbleArray emittedLight;
-    private final NibbleArray skyLight;
-    private final boolean isDirty; // PaperSpigot
+    private final boolean setup;
+
+    private int yPos;
+    private int nonEmptyBlockCount;
+    private int tickingBlockCount;
+    private char[] blockIds;
+    private NibbleArray emittedLight;
+    private NibbleArray skyLight;
+    private boolean isDirty; // PaperSpigot
 
     public ArenaChunkSection(ChunkSection section) {
+        if (section == null) {
+            this.setup = false;
+            return;
+        }
         this.yPos = section.getYPosition();
         this.nonEmptyBlockCount = (int) getDeclaredField(section, "nonEmptyBlockCount");
         this.tickingBlockCount = (int) getDeclaredField(section, "tickingBlockCount");
@@ -26,6 +32,8 @@ public class ArenaChunkSection extends Reflection {
         this.emittedLight = clone(section.getEmittedLightArray());
         this.skyLight = clone(section.getSkyLightArray());
         this.isDirty = (boolean) getDeclaredField(section, "isDirty");
+
+        this.setup = true;
     }
 
     public char[] getBlockIds() {
@@ -44,7 +52,20 @@ public class ArenaChunkSection extends Reflection {
         return new NibbleArray(array.a().clone());
     }
 
-    public ArenaChunkSection clone() {
-        return new ArenaChunkSection(yPos, nonEmptyBlockCount, tickingBlockCount, blockIds.clone(), clone(emittedLight), clone(skyLight), isDirty);
+    public ChunkSection toChunkSection() {
+        if (setup) {
+            ChunkSection section = new ChunkSection(yPos, getSkyLight() != null);
+
+            setDeclaredField(section, "yPos", yPos);
+            setDeclaredField(section, "nonEmptyBlockCount", nonEmptyBlockCount);
+            setDeclaredField(section, "tickingBlockCount", tickingBlockCount);
+            setDeclaredField(section, "blockIds", getBlockIds());
+            setDeclaredField(section, "emittedLight", getEmittedLight());
+            setDeclaredField(section, "skyLight", getSkyLight());
+            setDeclaredField(section, "isDirty", isDirty);
+
+            return section;
+        }
+        return null;
     }
 }
