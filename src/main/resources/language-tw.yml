@@ -368,7 +368,7 @@ arena:
     display-name:
       name: "場地顯示名稱"
       description: "現時顯示名稱: {0}"
-      action-description: "點擊修改修改場地顯示名稱"
+      action-description: "點擊修改場地顯示名稱"
       procedure:
         message: "&e&l正在更改&b&l場地顯示名稱&e&l... 請在聊天室輸入一個新的數值"
         success: "&f設置場地 &b{0} &f的顯示名稱到 &b{1}"
