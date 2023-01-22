@@ -35,6 +35,7 @@ public class KitGameRules {
 	@Getter private boolean dropItemWhenDie = true;
 	@Getter private boolean noFallDamage = false;
 	@Getter private boolean giveBackArrow = false;
+	@Getter private boolean dropItems = true;
 	@Getter private int respawnTime = 5;
 	@Getter private int maximumPoints = 3;
 	@Getter private int newRoundTime = 5;
@@ -84,6 +85,7 @@ public class KitGameRules {
 		dropItemWhenDie(Language.KIT_GAME_RULES_DROP_ITEM_WHEN_DIE_RULES.toString(), Language.KIT_GAME_RULES_DROP_ITEM_WHEN_DIE_DESCRIPTION.toString()),
 		noFallDamage(Language.KIT_GAME_RULES_NO_FALL_DAMAGE_RULES.toString(), Language.KIT_GAME_RULES_NO_FALL_DAMAGE_DESCRIPTION.toString()),
 		giveBackArrow(Language.KIT_GAME_RULES_GIVE_BACK_ARROW_RULES.toString(), Language.KIT_GAME_RULES_GIVE_BACK_ARROW_DESCRIPTION.toString()),
+		dropItems(Language.KIT_GAME_RULES_DROP_ITEMS_RULES.toString(), Language.KIT_GAME_RULES_DROP_ITEMS_DESCRIPTION.toString()),
 		//integer
 		respawnTime(Language.KIT_GAME_RULES_RESPAWN_TIME_RULES.toString(), Language.KIT_GAME_RULES_RESPAWN_TIME_DESCRIPTION.toString()),
 		maximumPoints(Language.KIT_GAME_RULES_MAXIMUM_POINTS_RULES.toString(), Language.KIT_GAME_RULES_MAXIMUM_POINTS_DESCRIPTION.toString()),

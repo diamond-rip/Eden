@@ -9,11 +9,9 @@ import rip.diamond.practice.arenas.menu.ArenaDetailsMenu;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
 
 public class ArenaCloneButton extends ArenaButton {
-    private final Arena arena;
 
     public ArenaCloneButton(Arena arena) {
         super(arena);
-        this.arena = arena;
     }
 
     @Override

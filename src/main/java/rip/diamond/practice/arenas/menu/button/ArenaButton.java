@@ -24,6 +24,7 @@ public abstract class ArenaButton extends Button {
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(getIcon())
+                .durability(getDurability())
                 .name(CC.AQUA + getName())
                 .lore("", getDescription() == null ? null : CC.GRAY + getDescription(), getDescription() == null ? null : "", getActionDescription() == null ? null : CC.YELLOW + CC.UNDER_LINE + getActionDescription())
                 .lore(getActionDescriptions())
@@ -33,6 +34,11 @@ public abstract class ArenaButton extends Button {
     public Material getIcon() {
         return Material.LEVER;
     }
+
+    public int getDurability() {
+        return 0;
+    }
+
     public abstract String getName();
     public abstract String getDescription();
 

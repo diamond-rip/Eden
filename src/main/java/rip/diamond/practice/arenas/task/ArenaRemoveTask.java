@@ -42,6 +42,7 @@ public class ArenaRemoveTask extends TaskTicker {
         if (arena.getArenaDetails().isEmpty()) {
             Arena.getArenas().remove(arena);
             Language.ARENA_REMOVE_SUCCESS_MAIN.sendMessage(player);
+            arena.autoSave();
         } else {
             Language.ARENA_REMOVE_SUCCESS_DUPLICATE.sendMessage(player, arena.getName());
         }

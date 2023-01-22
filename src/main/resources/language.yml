@@ -356,6 +356,11 @@ arena:
       action-description: "Click here to change arena status"
       action-description-not-finished-setup: "&cYou need to complete arena setup to edit this setting"
       action-description-need-restart: "&cRestart is required to change this setting"
+    icon:
+      name: "Arena Icon"
+      description: "Current icon: {0}"
+      action-description: "Click to use your hand item to become arena icon"
+      cannot-be-air: "&cCannot set arena icon as air"
   edit:
     min: "&e&lEditing the arena &b&l{0} &e&l's lowest position... Please left click a block to set the position"
     max: "&e&lEditing the arena &b&l{0} &e&l's highest position... Please left click a block to set the position"
@@ -810,6 +815,9 @@ kit:
     give-back-arrow:
       rules: "Give Back Arrow"
       description: "Settings for player who uses arrow will give back after 3.5 seconds"
+    drop-items:
+      rules: "Drop Items"
+      description: "Settings for player to drop item using 'Q' button"
     respawn-time:
       rules: "Respawn Time"
       description: "Settings for the respawn timer (Only works if bed or goal is on)"
