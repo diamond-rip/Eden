@@ -82,12 +82,12 @@ public class MatchListener implements Listener {
             }
 
             if (match.getQueueType() == QueueType.UNRANKED) {
-                Language.MATCH_START_UNRANKED.toStringList(match.getMatchType().getReadable(), kit.getDisplayName(), match.getArenaDetail().getArena().getName(), opponents).forEach(s -> {
+                Language.MATCH_START_UNRANKED.toStringList(match.getMatchType().getReadable(), kit.getDisplayName(), match.getArenaDetail().getArena().getDisplayName(), opponents).forEach(s -> {
                     Common.sendMessage(p, s);
                 });
             } else if (match.getQueueType() == QueueType.RANKED && match.getMatchType() == MatchType.SOLO) {
                 int elo = PlayerProfile.get(match.getOpponent(match.getTeamPlayer(p)).getUuid()).getKitData().get(kit.getName()).getElo();
-                Language.MATCH_START_RANKED.toStringList(match.getMatchType().getReadable(), kit.getDisplayName(), match.getArenaDetail().getArena().getName(), opponents, elo).forEach(s -> {
+                Language.MATCH_START_RANKED.toStringList(match.getMatchType().getReadable(), kit.getDisplayName(), match.getArenaDetail().getArena().getDisplayName(), opponents, elo).forEach(s -> {
                     Common.sendMessage(p, s);
                 });
             }

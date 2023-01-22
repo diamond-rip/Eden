@@ -311,6 +311,13 @@ arena:
   edit-menu:
     title: "Editing Arena {0}..."
     click-to-edit: "Click to edit {0}'s value"
+    display-name:
+      name: "Arena Display Name"
+      description: "Current Display Name: {0}"
+      action-description: "Click to change arena display name"
+      procedure:
+        message: "&e&lChanging &b&larena display name&e&l... Please enter a new value in chat"
+        success: "&fChanged arena &b{0} &fdisplay name to &b{1}"
     allowed-kits:
       name: "Allowed Kits"
       description: "Current value: {0}"

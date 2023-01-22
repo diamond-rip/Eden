@@ -25,6 +25,7 @@ public class Arena {
     @Getter private static final List<Arena> arenas = new ArrayList<>();
 
     private final String name;
+    private String displayName;
     private ItemStack icon = new ItemBuilder(Material.GRASS).build();
     private List<ArenaDetail> arenaDetails = new ArrayList<>();
 
@@ -82,6 +83,7 @@ public class Arena {
 
     public Arena(String name) {
         this.name = name;
+        this.displayName = name;
     }
 
     public ItemStack getIcon() {
@@ -146,6 +148,7 @@ public class Arena {
         }
 
         arenaSection.getKeys(false).forEach(name -> {
+            String displayName = arenaSection.getString(name + ".display-name", name); // Add default value if display-name not found for backwards compatibility
             ItemStack icon = BukkitSerialization.itemStackFromBase64(arenaSection.getString(name + ".icon"));
             int yLimit = arenaSection.getInt(name + ".y-limit");
             int buildMax = arenaSection.getInt(name + ".build-max");
@@ -154,6 +157,7 @@ public class Arena {
             boolean enabled = arenaSection.getBoolean(name + ".enabled", false);
 
             Arena arena = new Arena(name);
+            arena.setDisplayName(displayName);
             arena.setIcon(icon);
             arena.setYLimit(yLimit);
             arena.setBuildMax(buildMax);
@@ -185,6 +189,7 @@ public class Arena {
         FileConfiguration fileConfig = Eden.INSTANCE.getArenaFile().getConfiguration();
         String arenaRoot = "arenas." + name;
         fileConfig.set(arenaRoot, null); //Remove everything related to that arena first, then add the details one by one
+        fileConfig.set(arenaRoot + ".display-name", displayName);
         fileConfig.set(arenaRoot + ".icon", BukkitSerialization.itemStackToBase64(icon));
         fileConfig.set(arenaRoot + ".y-limit", yLimit);
         fileConfig.set(arenaRoot + ".build-max", buildMax);
