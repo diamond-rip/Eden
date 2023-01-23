@@ -335,7 +335,7 @@ arena:
   menu:
     title: "場地一覽"
     arena-edit:
-      name: "&b&l{0}"
+      name: "&b&l{0} &7({1})"
       lore:
         - ""
         - "&e&n點擊進行場地設置!"
