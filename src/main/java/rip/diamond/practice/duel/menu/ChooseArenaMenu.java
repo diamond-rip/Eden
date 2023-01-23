@@ -40,7 +40,7 @@ public class ChooseArenaMenu extends PaginatedMenu {
                     @Override
                     public ItemStack getButtonItem(Player player) {
                         return new ItemBuilder(arena.getIcon().clone())
-                                .name(Language.DUEL_CHOOSE_ARENA_MENU_BUTTON_NAME.toString(arena.getName()))
+                                .name(Language.DUEL_CHOOSE_ARENA_MENU_BUTTON_NAME.toString(arena.getDisplayName()))
                                 .lore(Language.DUEL_CHOOSE_ARENA_MENU_BUTTON_LORE.toStringList())
                                 .build();
                     }
