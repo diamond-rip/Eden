@@ -55,7 +55,7 @@ public class SpectateMenu extends PaginatedMenu {
                                 .lore(Language.MATCH_SPECTATE_MENU_BUTTON_LORE.toStringList(
                                         TimeUtil.millisToTimer(match.getElapsedDuration()),
                                         match.getKit().getDisplayName(),
-                                        match.getArenaDetail().getArena().getName(),
+                                        match.getArenaDetail().getArena().getDisplayName(),
                                         match.getQueueType().getName(),
                                         match.getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(CC.GRAY + ", " + CC.AQUA)),
                                         match.getSpectators().size()

@@ -26,10 +26,11 @@ public class ArenaEditMenu extends Menu {
         final Map<Integer, Button> buttons = new HashMap<>();
 
         buttons.put(0, new ArenaCloneButton(arena));
-        buttons.put(2, new ArenaToggleButton(arena));
-        buttons.put(4, new ArenaSaveButton(arena));
-        buttons.put(6, new ArenaDeleteButton(arena));
-        buttons.put(8, new ArenaSetIconButton(arena));
+        buttons.put(1, new ArenaToggleButton(arena));
+        buttons.put(3, new ArenaDisplayNameButton(arena));
+        buttons.put(5, new ArenaSetIconButton(arena));
+        buttons.put(7, new ArenaSaveButton(arena));
+        buttons.put(8, new ArenaDeleteButton(arena));
 
         buttons.put(18, new ArenaAPositionButton(arena));
         buttons.put(19, new ArenaBPositionButton(arena));
