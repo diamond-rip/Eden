@@ -277,7 +277,7 @@ arena:
   menu:
     title: "Arenas Preview"
     arena-edit:
-      name: "&b&l{0}"
+      name: "&b&l{0} &7({1})"
       lore:
         - ""
         - "&e&nClick to edit arena settings!"
