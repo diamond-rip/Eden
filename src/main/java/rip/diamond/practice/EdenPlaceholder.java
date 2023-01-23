@@ -14,6 +14,7 @@ import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.queue.Queue;
 import rip.diamond.practice.queue.QueueProfile;
 import rip.diamond.practice.util.CC;
@@ -68,7 +69,8 @@ public class EdenPlaceholder {
                         .replace("{queue-kit}", qProfile.getKit().getDisplayName())
                         .replace("{queue-time}", TimeUtil.millisToTimer(qProfile.getPassed()))
                         .replace("{queue-ranked-min}", qProfile.getMinRange() + "")
-                        .replace("{queue-ranked-max}", qProfile.getMaxRange() + "");
+                        .replace("{queue-ranked-max}", qProfile.getMaxRange() + "")
+                        .replace("{ping-range}", profile.getSettings().get(ProfileSettings.PING_RANGE).toString());
             } else if (profile.getPlayerState() == PlayerState.IN_MATCH && match != null) {
                 str = str
                         .replace("{match-kit}", match.getKit().getDisplayName())
@@ -100,6 +102,7 @@ public class EdenPlaceholder {
                                 .replace("{match-solo-boxing-difference}", (solo_x > solo_y ? CC.GREEN : solo_x == solo_y ? CC.YELLOW : CC.RED) + "(" + (soloDifference > 0 ? "+" : "") + soloDifference + ")")
                                 .replace("{match-solo-boxing-self-hit}", solo_x + "")
                                 .replace("{match-solo-boxing-opponent-hit}", solo_y + "")
+                                .replace("{match-solo-boxing-combo}", self.getCombo() + "")
                                 .replace("{match-solo-self-ping}", self.getPing() + "")
                                 .replace("{match-solo-opponent-ping}", opponent.getPing() + "")
                         ;
@@ -120,6 +123,7 @@ public class EdenPlaceholder {
                                 .replace("{match-team-boxing-difference}", (teams_x > teams_y ? CC.GREEN : teams_x == teams_y ? CC.YELLOW : CC.RED) + "(" + (teamsDifference > 0 ? "+" : "") + teamsDifference + ")")
                                 .replace("{match-team-boxing-self-hit}", teams_x + "")
                                 .replace("{match-team-boxing-opponent-hit}", teams_y + "")
+                                .replace("{match-team-boxing-combo}", team.getCombo() + "")
                         ;
                         break;
                     case FFA:
@@ -163,6 +167,8 @@ public class EdenPlaceholder {
                                 .replace("{spectate-solo-winner}", match.getState() == MatchState.ENDING ? match.getWinningPlayers().get(0).getUsername() : "")
                                 .replace("{spectate-solo-boxing-player1-hit}", playerA.getHits() + "")
                                 .replace("{spectate-solo-boxing-player2-hit}", playerB.getHits() + "")
+                                .replace("{spectate-solo-boxing-player1-combo}", playerA.getCombo() + "")
+                                .replace("{spectate-solo-boxing-player2-combo}", playerB.getCombo() + "")
                                 .replace("{spectate-solo-player1-ping}", playerA.getPing() + "")
                                 .replace("{spectate-solo-player2-ping}", playerB.getPing() + "")
                         ;
@@ -181,6 +187,8 @@ public class EdenPlaceholder {
                                 .replace("{spectate-team-winner}", match.getState() == MatchState.ENDING ? ((TeamMatch) match).getWinningTeam().getLeader().getUsername() : "")
                                 .replace("{spectate-team1-boxing-hit}", teamA.getHits() + "")
                                 .replace("{spectate-team2-boxing-hit}", teamB.getHits() + "")
+                                .replace("{spectate-team1-boxing-combo}", teamA.getCombo() + "")
+                                .replace("{spectate-team2-boxing-combo}", teamB.getCombo() + "")
                         ;
                         break;
                     case FFA:

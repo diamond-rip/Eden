@@ -137,6 +137,11 @@ public enum ProfileSettings {
                         public String getValue() {
                             return Integer.MAX_VALUE + "";
                         }
+
+                        @Override
+                        public String toString() {
+                            return "∞";
+                        }
                     },
                     new Option(false, "300") {
                         @Override

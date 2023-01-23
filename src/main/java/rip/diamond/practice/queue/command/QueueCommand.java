@@ -2,6 +2,7 @@ package rip.diamond.practice.queue.command;
 
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
@@ -25,38 +26,53 @@ public class QueueCommand extends Command {
         PlayerProfile profile = PlayerProfile.get(player);
         String[] args = command.getArgs();
 
-        if (args.length != 1) {
-            Language.QUEUE_USAGE.sendMessage(player);
-            return;
-        }
-
-        if (profile.getPlayerState() == PlayerState.IN_QUEUE && args[0].equalsIgnoreCase("leave")) {
-            QueueProfile qProfile = Queue.getPlayers().get(player.getUniqueId());
-            if (qProfile == null) {
-                Language.QUEUE_CANNOT_QUIT_QUEUE.sendMessage(player);
+        if (args.length == 1) {
+            if (profile.getPlayerState() == PlayerState.IN_QUEUE && args[0].equalsIgnoreCase("leave")) {
+                QueueProfile qProfile = Queue.getPlayers().get(player.getUniqueId());
+                if (qProfile == null) {
+                    Language.QUEUE_CANNOT_QUIT_QUEUE.sendMessage(player);
+                    return;
+                }
+                Queue.leaveQueue(player);
                 return;
             }
-            Queue.leaveQueue(player);
+
+            if (profile.getPlayerState() != PlayerState.IN_LOBBY) {
+                Language.QUEUE_CANNOT_QUEUE.sendMessage(player);
+                return;
+            }
+
+            if (Party.getByPlayer(player) != null) {
+                Language.PARTY_IN_A_PARTY.sendMessage(player);
+                return;
+            }
+
+            if (!Checker.isQueueType(args[0])) {
+                Language.INVALID_SYNTAX.sendMessage(player);
+                return;
+            }
+
+            QueueType queueType = QueueType.valueOf(args[0].toUpperCase());
+            new QueueMenu(queueType).openMenu(player);
+            return;
+        } else if (args.length == 2) {
+            if (!Checker.isQueueType(args[0])) {
+                Language.INVALID_SYNTAX.sendMessage(player);
+                return;
+            }
+            QueueType queueType = QueueType.valueOf(args[0].toUpperCase());
+
+            Kit kit = Kit.getByName(args[1]);
+            if (kit == null) {
+                Language.INVALID_SYNTAX.sendMessage(player);
+                return;
+            }
+
+            Queue.joinQueue(player, kit, queueType);
             return;
         }
 
-        if (profile.getPlayerState() != PlayerState.IN_LOBBY) {
-            Language.QUEUE_CANNOT_QUEUE.sendMessage(player);
-            return;
-        }
-
-        if (Party.getByPlayer(player) != null) {
-            Language.PARTY_IN_A_PARTY.sendMessage(player);
-            return;
-        }
-
-        if (!Checker.isQueueType(args[0])) {
-            Language.INVALID_SYNTAX.sendMessage(player);
-            return;
-        }
-
-        QueueType queueType = QueueType.valueOf(args[0].toUpperCase());
-        new QueueMenu(queueType).openMenu(player);
+        Language.QUEUE_USAGE.sendMessage(player);
     }
 
     @Override

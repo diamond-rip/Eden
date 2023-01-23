@@ -4,19 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaAPositionButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaAllowedKitsButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaBPositionButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaBuildMaxButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaCloneButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaDeleteButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaDisplayNameButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaMaxPositionButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaMinPositionButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaPortalProtectionRadiusButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaSaveButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaToggleButton;
-import rip.diamond.practice.arenas.menu.button.impl.ArenaYLimitButton;
+import rip.diamond.practice.arenas.menu.button.impl.*;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.Menu;
 
@@ -38,9 +26,10 @@ public class ArenaEditMenu extends Menu {
         final Map<Integer, Button> buttons = new HashMap<>();
 
         buttons.put(0, new ArenaCloneButton(arena));
-        buttons.put(2, new ArenaToggleButton(arena));
-        buttons.put(4, new ArenaDisplayNameButton(arena));
-        buttons.put(6, new ArenaSaveButton(arena));
+        buttons.put(1, new ArenaToggleButton(arena));
+        buttons.put(3, new ArenaDisplayNameButton(arena));
+        buttons.put(5, new ArenaSetIconButton(arena));
+        buttons.put(7, new ArenaSaveButton(arena));
         buttons.put(8, new ArenaDeleteButton(arena));
 
         buttons.put(18, new ArenaAPositionButton(arena));

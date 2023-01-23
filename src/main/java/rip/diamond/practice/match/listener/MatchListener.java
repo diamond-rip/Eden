@@ -281,6 +281,13 @@ public class MatchListener implements Listener {
         Item item = event.getItemDrop();
 
         if (Checker.canDamage(player)) {
+            Match match = profile.getMatch();
+
+            if (!match.getKit().getGameRules().isDropItems()) {
+                event.setCancelled(true);
+                return;
+            }
+
             if (item.getItemStack().getType().name().contains("_SWORD") && player.getInventory().getHeldItemSlot() == 0) {
                 Language.MATCH_CANNOT_DROP_WEAPON.sendMessage(player);
                 event.setCancelled(true);
@@ -292,7 +299,6 @@ public class MatchListener implements Listener {
                 return;
             }
 
-            Match match = profile.getMatch();
             match.addDroppedItem(item, player.getName());
         }
     }

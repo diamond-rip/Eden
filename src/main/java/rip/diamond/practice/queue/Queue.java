@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.queue.task.QueueTask;
@@ -32,6 +33,11 @@ public class Queue {
             Language.QUEUE_ERROR_FOUND_QUEUE_PROFILE.sendMessage(player);
             return;
         }
+        if (Party.getByPlayer(player) != null) {
+            Language.PARTY_IN_A_PARTY.sendMessage(player);
+            return;
+        }
+
         PlayerProfile profile = PlayerProfile.get(player);
         if (profile.getPlayerState() != PlayerState.IN_LOBBY) {
             Language.QUEUE_WRONG_STATE.sendMessage(player);

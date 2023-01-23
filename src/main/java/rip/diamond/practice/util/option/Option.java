@@ -24,4 +24,9 @@ public abstract class Option {
     }
 
     public abstract String getValue();
+
+    @Override
+    public String toString() {
+        return getValue();
+    }
 }

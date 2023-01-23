@@ -45,6 +45,7 @@ scoreboard:
     - ""
     - "&b&l┃ &f正在匹配: &b{queue-kit}"
     - "&b&l┃ &f等待時間: &b{queue-time}"
+    - "&b&l┃ &f匹配延遲: &b{ping-range}"
     - ""
     - "{event-information}"
     - "&bdiamond.rip"
@@ -57,6 +58,7 @@ scoreboard:
     - ""
     - "&b&l┃ &f正在匹配: &b{queue-kit}"
     - "&b&l┃ &f等待時間: &b{queue-time}"
+    - "&b&l┃ &f匹配延遲: &b{ping-range}"
     - "&b&l┃ &f匹配範圍: &7[&b{queue-ranked-min} &9-> &b{queue-ranked-max}&7]"
     - ""
     - "{event-information}"
@@ -79,6 +81,7 @@ scoreboard:
       - "&b&l┃ &b擊中次數: {match-solo-boxing-difference}"
       - "&b&l┃ &a 我方: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-solo-boxing-opponent-hit}"
+      - "&b&l┃ &f 連擊次數: &f{match-solo-boxing-combo}"
       - ""
       - "&b&l┃ &f我方延遲: &b{match-solo-self-ping}ms"
       - "&b&l┃ &f對手延遲: &b{match-solo-opponent-ping}ms"
@@ -131,6 +134,7 @@ scoreboard:
       - "&b&l┃ &b擊中次數: {match-team-boxing-difference}"
       - "&b&l┃ &a 我方: &f{match-team-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-team-boxing-opponent-hit}"
+      - "&b&l┃ &f 連擊次數: &f{match-team-boxing-combo}"
       - ""
       - "&b&l┃ &a我方隊伍: &7(&b{match-team-self-alive}&7/&b{match-team-self-size}&7)"
       - "&b&l┃ &c敵方隊伍: &7(&b{match-team-opponent-alive}&7/&b{match-team-opponent-size}&7)"
@@ -417,6 +421,11 @@ arena:
       action-description: "點擊切換場地狀態"
       action-description-not-finished-setup: "&c你需要完成設置場地才能更改本設定"
       action-description-need-restart: "&c你需要重啟伺服器才能更改本設定"
+    icon:
+      name: "設置場地圖標"
+      description: "現時為: {0}"
+      action-description: "點擊使用你現時拿著的物品作為場地圖標"
+      cannot-be-air: "&c你手上拿著的物品不能為空"
   edit:
     min: "&e&l正在更改場地 &b&l{0} &e&l的低點位置... 請左鍵點擊方塊去設置位置"
     max: "&e&l正在更改場地 &b&l{0} &e&l的高點位置... 請左鍵點擊方塊去設置位置"
@@ -871,6 +880,9 @@ kit:
     give-back-arrow:
       rules: "給回箭矢"
       description: "設置該職業在玩家使用箭矢後會在3.5秒後給回箭矢"
+    drop-items:
+      rules: "掉落物品"
+      description: "設置該職業是否允許玩家掉落物品"
     respawn-time:
       rules: "重生時間"
       description: "設置該職業在玩家死亡後的重生時間 (只有在 '進入目標' 或 '床' 開啟才會有效)"

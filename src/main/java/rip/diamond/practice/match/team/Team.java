@@ -129,6 +129,10 @@ public class Team {
 		return teamPlayers.stream().mapToInt(TeamPlayer::getGotHits).sum();
 	}
 
+	public int getCombo() {
+		return teamPlayers.stream().mapToInt(TeamPlayer::getCombo).sum();
+	}
+
 	/**
 	 * Returns a list of objects that extend {@link TeamPlayer} whose {@link TeamPlayer#isAlive()} returns false.
 	 *

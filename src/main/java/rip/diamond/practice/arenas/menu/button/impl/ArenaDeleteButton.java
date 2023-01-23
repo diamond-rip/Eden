@@ -10,11 +10,9 @@ import rip.diamond.practice.arenas.task.ArenaRemoveTask;
 import rip.diamond.practice.util.menu.menus.ConfirmMenu;
 
 public class ArenaDeleteButton extends ArenaButton {
-    private final Arena arena;
 
     public ArenaDeleteButton(Arena arena) {
         super(arena);
-        this.arena = arena;
     }
 
     @Override
