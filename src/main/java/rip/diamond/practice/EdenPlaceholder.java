@@ -106,7 +106,7 @@ public class EdenPlaceholder {
                                 .replace("{match-solo-boxing-difference-colorless}", ("(" + (soloDifference > 0 ? "+" : "") + soloDifference + ")")
                                 .replace("{match-solo-boxing-difference-simple}", (soloDifference > 0 ? "+" : "") + soloDifference))
                                 .replace("{match-solo-boxing-self-hit}", solo_x + "")
-                                .replace("{match-solo-boxing-self-hit-colored}", ((solo_x > solo_y ? CC.GREEN : solo_x == solo_y ? CC.YELLOW : CC.RED) + solo_x)
+                                .replace("{match-solo-boxing-self-hit-colored}", (solo_x > solo_y ? CC.GREEN : solo_x == solo_y ? CC.YELLOW : CC.RED) + solo_x)
                                 .replace("{match-solo-boxing-opponent-hit}", solo_y + "")                                
                                 .replace("{match-solo-boxing-opponent-hit-colored}", (solo_x > solo_y ? CC.GREEN : solo_x == solo_y ? CC.YELLOW : CC.RED) + solo_y)
                                 .replace("{match-solo-boxing-combo}", self.getCombo() + "")
@@ -132,9 +132,11 @@ public class EdenPlaceholder {
                                 .replace("{match-team-boxing-difference-plusless-bracketless}", (teams_x > teams_y ? CC.GREEN : teams_x == teams_y ? CC.YELLOW : CC.RED) + "(" + teamsDifference + ")")
                                 .replace("{match-team-boxing-difference-bracketless}", (teams_x > teams_y ? CC.GREEN : teams_x == teams_y ? CC.YELLOW : CC.RED) + (teamsDifference > 0 ? "+" : "") + teamsDifference)
                                 .replace("{match-team-boxing-difference-colorless}", ("(" + (teamsDifference > 0 ? "+" : "") + teamsDifference + ")")
-                                .replace("{match-team-boxing-difference-simple}", ((teamsDifference > 0 ? "+" : "") + teamsDifference)
+                                .replace("{match-team-boxing-difference-simple}", (teamsDifference > 0 ? "+" : "") + teamsDifference)
                                 .replace("{match-team-boxing-self-hit}", teams_x + "")
+                                .replace("{match-team-boxing-self-hit-colored}", (teams_x > teams_y ? CC.GREEN : solo_x == solo_y ? CC.YELLOW : CC.RED) + teams_x)
                                 .replace("{match-team-boxing-opponent-hit}", teams_y + "")
+                                .replace("{match-team-boxing-opponent-hit-colored}", (teams_x > teams_y ? CC.GREEN : solo_x == solo_y ? CC.YELLOW : CC.RED) + teams_y)
                                 .replace("{match-team-boxing-combo}", team.getCombo() + "")
                         ;
                         break;
