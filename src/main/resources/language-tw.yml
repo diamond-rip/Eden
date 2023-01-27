@@ -1010,6 +1010,10 @@ match:
     have-party: "&c你不能在擁有隊伍的情況下觀察戰鬥"
     not-online: "&c玩家不在線上"
     profile-not-found: "&c無法找到該玩家的資料"
+  no-speed:
+    not-in-match: "&c玩家不在戰鬥中"
+    not-boxing: "&c正在遊玩的職業並不是 Boxing"
+    success: "&a成功移除速度藥水效果"
   view-inventory:
     wrong-state: "&c你只能在大廳狀態下使用這個指令"
     usage: "&c指令用法: /viewinventory <UUID>"

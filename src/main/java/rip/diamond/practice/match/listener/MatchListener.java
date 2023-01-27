@@ -424,6 +424,16 @@ public class MatchListener implements Listener {
                             });
                         }
                     }
+                    return;
+                } else if (itemStack.getType() == Material.MUSHROOM_SOUP && player.getHealth() < 19.0) {
+                    final double newHealth = Math.min(player.getHealth() + 7.0, 20.0);
+                    player.setHealth(newHealth);
+                    player.setFoodLevel(20);
+                    player.getItemInHand().setType(Material.BOWL);
+                    player.updateInventory();
+
+                    event.setCancelled(true);
+                    return;
                 } else if (itemStack.getType() == Material.BOOK || itemStack.getType() == Material.ENCHANTED_BOOK) {
                     net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(itemStack);
                     if (nmsItem.hasTag()) {

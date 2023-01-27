@@ -952,6 +952,10 @@ match:
     have-party: "&cYou cannot spectate match while in a party!"
     not-online: "&cPlayer is not online!"
     profile-not-found: "&cError: Player profile not found"
+  no-speed:
+    not-in-match: "&cPlayer is not in a match!"
+    not-boxing: "&cThe current kit you are using is not boxing!"
+    success: "&aSuccessfully removed speed potion effect"
   view-inventory:
     wrong-state: "&cYou can only view inventories in lobby"
     usage: "&cUsage: /viewinventory <UUID>"

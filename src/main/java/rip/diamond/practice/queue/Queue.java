@@ -72,7 +72,7 @@ public class Queue {
 
         players.remove(player.getUniqueId());
 
-        Eden.INSTANCE.getLobbyManager().sendToSpawnAndReset(player);
+        Eden.INSTANCE.getLobbyManager().reset(player);
 
         Language.QUEUE_SUCCESS_QUIT.sendMessage(player, qProfile.getKit().getDisplayName());
     }

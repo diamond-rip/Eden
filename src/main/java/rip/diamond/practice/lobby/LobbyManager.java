@@ -43,7 +43,7 @@ public class LobbyManager {
         Util.teleport(player, spawnLocation);
     }
 
-    public void sendToSpawnAndReset(Player player) {
+    public void reset(Player player) {
         Tasks.run(()-> {
             PlayerProfile profile = PlayerProfile.get(player);
 
@@ -59,9 +59,12 @@ public class LobbyManager {
             profile.getCooldowns().forEach((name, cooldown) -> {
                 cooldown.cancelCountdown();
             });
-
-            teleport(player);
         });
+    }
+
+    public void sendToSpawnAndReset(Player player) {
+        reset(player);
+        Tasks.run(()-> teleport(player));
     }
 
 }
