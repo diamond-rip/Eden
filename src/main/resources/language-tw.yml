@@ -1013,7 +1013,8 @@ match:
   no-speed:
     not-in-match: "&c玩家不在戰鬥中"
     not-boxing: "&c正在遊玩的職業並不是 Boxing"
-    success: "&a成功移除速度藥水效果"
+    success-removed: "&a成功移除速度藥水效果"
+    success-added: "&a成功新增速度藥水效果"
   view-inventory:
     wrong-state: "&c你只能在大廳狀態下使用這個指令"
     usage: "&c指令用法: /viewinventory <UUID>"

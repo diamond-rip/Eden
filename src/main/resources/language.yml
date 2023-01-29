@@ -955,7 +955,8 @@ match:
   no-speed:
     not-in-match: "&cPlayer is not in a match!"
     not-boxing: "&cThe current kit you are using is not boxing!"
-    success: "&aSuccessfully removed speed potion effect"
+    success-removed: "&aSuccessfully removed speed potion effect"
+    success-added: "&aSuccessfully added speed potion effect"
   view-inventory:
     wrong-state: "&cYou can only view inventories in lobby"
     usage: "&cUsage: /viewinventory <UUID>"

@@ -44,7 +44,7 @@ public class QueueMenu extends Menu {
                                 .lore(kit.getDescription())
                                 .lore(Language.QUEUE_MENU_BUTTON_LORE.toStringList(
                                         Queue.getPlayers().values().stream().filter(profile -> profile.getKit() == kit && profile.getQueueType() == queueType).count(),
-                                        Match.getMatches().values().stream().filter(match -> match.getKit() == kit).mapToInt(match -> match.getMatchPlayers().size()).sum(),
+                                        Match.getMatches().values().stream().filter(match -> match.getKit() == kit && match.getQueueType() == queueType).mapToInt(match -> match.getMatchPlayers().size()).sum(),
                                         kit.getDisplayName()
                                 ))
                                 .build();

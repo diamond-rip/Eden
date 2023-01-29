@@ -35,20 +35,13 @@ public class KitStatsMenu extends LeaderboardMenu {
 
     @Override
     public Map<Integer, Button> getAllPagesButtons(Player player) {
-        /*List<Button> buttons = new ArrayList<>();
-        for (String kitName : profile.getKitData().keySet()) {
-            buttons.add(new KitStatsButton(kitName));
-        }
-        buttons.sort(Comparator.comparing(slot -> {
-            Kit kit = Kit.getByName(((KitStatsButton) slot).getKitName());
-            if (kit != null) {
-                return kit.getPriority();
-            }
-            return 0;
-        }));*/
         final Map<Integer, Button> buttons = new HashMap<>();
 
-        profile.getKitData().keySet().stream().map(Kit::getByName).filter(Objects::nonNull).sorted(Comparator.comparing(Kit::getPriority)).forEach(kit -> buttons.put(buttons.size(), new KitStatsButton(kit.getName())));
+        profile.getKitData().keySet().stream()
+                .map(Kit::getByName)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparing(Kit::getPriority))
+                .forEach(kit -> buttons.put(buttons.size(), new KitStatsButton(kit.getName())));
 
         return buttons;
     }

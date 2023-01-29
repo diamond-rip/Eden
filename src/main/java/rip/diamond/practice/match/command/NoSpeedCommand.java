@@ -24,8 +24,12 @@ public class NoSpeedCommand extends Command {
             Language.MATCH_NO_SPEED_NOT_BOXING.sendMessage(player);
             return;
         }
-
-        player.removePotionEffect(PotionEffectType.SPEED);
-        Language.MATCH_FORCE_END_SUCCESS.sendMessage(player);
+        if (player.hasPotionEffect(PotionEffectType.SPEED)) {
+            player.removePotionEffect(PotionEffectType.SPEED);
+            Language.MATCH_NO_SPEED_SUCCESS_REMOVED.sendMessage(player);
+        } else {
+            match.getKit().getEffects().forEach(player::addPotionEffect);
+            Language.MATCH_NO_SPEED_SUCCESS_ADDED.sendMessage(player);
+        }
     }
 }

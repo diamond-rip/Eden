@@ -106,43 +106,43 @@ public class ProfileListener implements Listener {
 
             //Lobby items
             if (item.equals(EdenItems.LOBBY_UNRANKED_QUEUE.getItemStack())) {
-                Util.performCommand(player, "queue unranked");
+                Util.performCommand(player, "eden:queue unranked");
             } else if (item.equals(EdenItems.LOBBY_RANKED_QUEUE.getItemStack())) {
-                Util.performCommand(player, "queue ranked");
+                Util.performCommand(player, "eden:queue ranked");
             } else if (item.equals(EdenItems.LOBBY_CREATE_EVENT.getItemStack())) {
-                Util.performCommand(player, "event create");
+                Util.performCommand(player, "eden:event create");
             } else if (item.equals(EdenItems.LOBBY_JOIN_EVENT.getItemStack())) {
-                Util.performCommand(player, "joinevent");
+                Util.performCommand(player, "eden:joinevent");
             } else if (item.equals(EdenItems.LOBBY_PARTY_OPEN.getItemStack())) {
-                Util.performCommand(player, "party create");
+                Util.performCommand(player, "eden:party create");
             } else if (item.equals(EdenItems.LOBBY_LEADERBOARD.getItemStack())) {
-                Util.performCommand(player, "stats");
+                Util.performCommand(player, "eden:stats");
             } else if (item.equals(EdenItems.LOBBY_SETTINGS.getItemStack())) {
-                Util.performCommand(player, "settings");
+                Util.performCommand(player, "eden:settings");
             } else if (item.equals(EdenItems.LOBBY_EDITOR.getItemStack())) {
-                Util.performCommand(player, "editkits");
+                Util.performCommand(player, "eden:editkits");
             }
             //Party items
             else if (item.equals(EdenItems.PARTY_PARTY_LIST.getItemStack())) {
-                Util.performCommand(player, "party list");
+                Util.performCommand(player, "eden:party list");
             } else if (item.equals(EdenItems.PARTY_PARTY_FIGHT.getItemStack())) {
-                Util.performCommand(player, "choosematchtype");
+                Util.performCommand(player, "eden:choosematchtype");
             } else if (item.equals(EdenItems.PARTY_OTHER_PARTIES.getItemStack())) {
-                Util.performCommand(player, "otherparties");
+                Util.performCommand(player, "eden:otherparties");
             } else if (item.equals(EdenItems.PARTY_EDITOR.getItemStack())) {
-                Util.performCommand(player, "editkits");
+                Util.performCommand(player, "eden:editkits");
             } else if (item.equals(EdenItems.PARTY_PARTY_LEAVE.getItemStack())) {
-                Util.performCommand(player, "party leave");
+                Util.performCommand(player, "eden:party leave");
             }
             //Queue items
             else if (item.equals(EdenItems.QUEUE_LEAVE_QUEUE.getItemStack())) {
-                Util.performCommand(player, "queue leave");
+                Util.performCommand(player, "eden:queue leave");
             }
             //Spectate items
             else if (item.equals(EdenItems.SPECTATE_TELEPORTER.getItemStack())) {
                 new SpectateTeleportMenu(profile.getMatch()).openMenu(player);
             } else if (item.equals(EdenItems.SPECTATE_LEAVE_SPECTATE.getItemStack())) {
-                Util.performCommand(player, "leavespectate");
+                Util.performCommand(player, "eden:leavespectate");
             } else if (item.equals(EdenItems.SPECTATE_TOGGLE_VISIBILITY_OFF.getItemStack()) || item.equals(EdenItems.SPECTATE_TOGGLE_VISIBILITY_ON.getItemStack())) {
                 ProfileSettings settings = ProfileSettings.SPECTATOR_VISIBILITY;
                 Option currentOption = profile.getSettings().get(settings);
