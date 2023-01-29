@@ -93,8 +93,54 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             }
             return Match.getMatches().values().stream().filter(match -> match.getKit() == kit && match.getQueueType() == QueueType.UNRANKED).mapToInt(match -> match.getMatchPlayers().size()).sum() + "";
         }
-
-        // TODO: 28/1/2023 Add leaderboard
+        if (param.startsWith("best_winstreak_player_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+        }
+        if (param.startsWith("best_winstreak_winstreak_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+        }
+        if (param.startsWith("elo_player_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+        }
+        if (param.startsWith("elo_elo_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+        }
+        if (param.startsWith("wins_player_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+        }
+        if (param.startsWith("wins_win_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+        }
+        if (param.startsWith("winstreak_player_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+        }
+        if (param.startsWith("winstreak_winstreak_")) {
+            String kitName = param.split("_")[2];
+            Kit kit = Kit.getByName(kitName);
+            int position = Integer.parseInt(param.split("_")[3]);
+            return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+        }
 
         return null; // Placeholder is unknown by the Expansion
     }

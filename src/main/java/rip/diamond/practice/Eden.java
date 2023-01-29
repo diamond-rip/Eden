@@ -37,6 +37,7 @@ import rip.diamond.practice.match.listener.SpectateListener;
 import rip.diamond.practice.misc.commands.EdenCommand;
 import rip.diamond.practice.misc.commands.LocationCommand;
 import rip.diamond.practice.misc.commands.TestCommand;
+import rip.diamond.practice.misc.commands.ToggleItemFlagCommand;
 import rip.diamond.practice.misc.listeners.ChatListener;
 import rip.diamond.practice.misc.listeners.GeneralListener;
 import rip.diamond.practice.party.PartyListener;
@@ -171,6 +172,7 @@ public class Eden extends JavaPlugin {
         new EdenCommand();
         new LocationCommand();
         new TestCommand();
+        new ToggleItemFlagCommand();
         new QueueCommand();
         new EditKitsCommand();
         new ChooseMatchTypeCommand();

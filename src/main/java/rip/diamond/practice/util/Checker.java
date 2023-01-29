@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.potion.PotionEffectType;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -79,6 +80,15 @@ public class Checker {
     public static boolean isPotionEffect(String index) {
         try {
             PotionEffectType.getByName(index);
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    public static boolean isItemFlag(String index) {
+        try {
+            ItemFlag.valueOf(index.toUpperCase());
             return true;
         } catch (Exception ignored) {
             return false;
