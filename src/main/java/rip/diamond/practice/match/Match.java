@@ -162,16 +162,20 @@ public abstract class Match {
 
     /**
      * @param profile A random profile from match players which is alive. This is used to create a score cooldown
-     * @param teamPlayer The TeamPlayer who scored the point
+     * @param scorer The TeamPlayer who scored the point
      */
-    public void score(PlayerProfile profile, TeamPlayer teamPlayer) {
+    public void score(PlayerProfile profile, TeamPlayer entity, TeamPlayer scorer) {
         profile.getCooldowns().put("score", new Cooldown(3));
 
-        Team team = getTeam(teamPlayer);
+        Team team = getTeam(scorer);
         team.handlePoint();
         if (state == MatchState.FIGHTING && team.getPoints() < kit.getGameRules().getMaximumPoints()) {
+            if (kit.getGameRules().isOnlyLoserResetPositionWhenGetPoint()) {
+                new MatchRespawnTask(this, entity);
+                return;
+            }
             new MatchFireworkTask(team.getTeamColor().getDyeColor().getColor(), this);
-            new MatchNewRoundTask(this, teamPlayer, true);
+            new MatchNewRoundTask(this, scorer, true);
             return;
         }
 

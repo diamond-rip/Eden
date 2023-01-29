@@ -119,17 +119,18 @@ public class MatchListener implements Listener {
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
+            TeamPlayer teamPlayer = match.getTeamPlayer(player);
             KitGameRules gameRules = match.getKit().getGameRules();
 
             if ((gameRules.isBed() && !match.getTeam(player).isBedDestroyed()) || gameRules.isBreakGoal() || gameRules.isPortalGoal()) {
-                new MatchRespawnTask(match, match.getTeamPlayer(player));
+                new MatchRespawnTask(match, teamPlayer);
             } else if (gameRules.isPoint(match)) {
-                TeamPlayer lastHitDamager = match.getTeamPlayer(player).getLastHitDamager();
+                TeamPlayer lastHitDamager = teamPlayer.getLastHitDamager();
                 //玩家有機會在不被敵方攻擊的情況下死亡, 例如岩漿, 如果是這樣, 就在敵方隊伍隨便抽一個玩家出來
                 if (lastHitDamager == null) {
                     lastHitDamager = match.getOpponentTeam(match.getTeam(player)).getAliveTeamPlayers().get(0);
                 }
-                match.score(profile, lastHitDamager);
+                match.score(profile, teamPlayer, lastHitDamager);
             } else {
                 match.die(player, false);
             }
@@ -697,7 +698,7 @@ public class MatchListener implements Listener {
                     Language.MATCH_CANNOT_BREAK_OWN_BED.sendMessage(player);
                     return;
                 }
-                match.score(profile, match.getTeamPlayer(player));
+                match.score(profile, null, match.getTeamPlayer(player));
                 return;
             }
             if (kit.getGameRules().isSpleef()) {

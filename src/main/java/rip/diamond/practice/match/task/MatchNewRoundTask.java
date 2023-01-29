@@ -80,16 +80,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             match.setState(MatchState.STARTING);
 
             //Teleport players into their team spawn
-            // TODO: 17/1/2023 Fix this with #89
-            //Fix #76 issue: this option should only reset the spawn of player who lost the round but keep the position of player who won the round and this also should trigger respawn system instead of new round time
-            if (match.getKit().getGameRules().isOnlyLoserResetPositionWhenGetPoint() && scoredPlayer != null) {
-                Team team = match.getTeam(scoredPlayer);
-                Team opponentTeam = match.getOpponentTeam(team);
-
-                opponentTeam.teleport(opponentTeam.getSpawnLocation());
-            } else {
-                match.getTeams().forEach(t -> t.teleport(t.getSpawnLocation()));
-            }
+            match.getTeams().forEach(t -> t.teleport(t.getSpawnLocation()));
             match.getTeamPlayers().forEach(teamPlayer -> {
                 if (teamPlayer.isRespawning()) {
                     //To prevent MatchRespawnTask gets cancelled because of a new round, we need to fully respawn the player instead of just giving the kit loadout. A fix for https://github.com/RealGoodestEnglish/Eden/issues/4

@@ -54,7 +54,7 @@ public class MatchMovementHandler {
                                 if (lastHitDamager == null) {
                                     lastHitDamager = match.getOpponentTeam(match.getTeam(player)).getAliveTeamPlayers().get(0);
                                 }
-                                match.score(profile, lastHitDamager);
+                                match.score(profile, null, lastHitDamager);
                             } else {
                                 Util.damage(player, 99999);
                             }
@@ -70,7 +70,7 @@ public class MatchMovementHandler {
                                 return;
                             }
                             if (portalBelongsTo != playerTeam) {
-                                match.score(profile, match.getTeamPlayer(player));
+                                match.score(profile, null, match.getTeamPlayer(player));
                             } else {
                                 //Prevent player scoring their own goal
                                 Util.damage(player, 99999);
