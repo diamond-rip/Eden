@@ -46,7 +46,10 @@ public class Cooldown {
         return (int) getRemaining() / 1000;
     }
 
-    public String getMilliSecondsLeft() {
+    public String getMilliSecondsLeft(boolean allowNegative) {
+        if (!allowNegative && getRemaining() < 0) {
+            return "0.0";
+        }
         return formatSeconds(this.getRemaining());
     }
 

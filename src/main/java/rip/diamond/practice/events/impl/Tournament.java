@@ -36,8 +36,6 @@ import java.util.stream.Collectors;
 @Getter
 public class Tournament extends EdenEvent {
 
-    // TODO: 25/9/2022 Add match duration
-
     private final Kit kit;
     private final List<Match> matches = new ArrayList<>();
     private TournamentState tournamentState = TournamentState.NONE;

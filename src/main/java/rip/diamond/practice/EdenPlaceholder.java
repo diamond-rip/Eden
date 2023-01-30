@@ -61,7 +61,7 @@ public class EdenPlaceholder {
                         .replace("{event-uncolored-name}", event.getUncoloredEventName())
                         .replace("{event-total-players}", event.getTotalPlayers().size() + "")
                         .replace("{event-max-players}", event.getMaxPlayers() + "")
-                        .replace("{event-countdown}", event.getCountdown() == null ? "-1" : event.getCountdown().getSecondsLeft() + "");
+                        .replace("{event-countdown}", event.getCountdown() == null ? "0.0" : event.getCountdown().getMilliSecondsLeft(false) + "");
             }
 
             if (profile.getPlayerState() == PlayerState.IN_QUEUE && qProfile != null) {

@@ -298,7 +298,7 @@ public class EntityHider {
                         int y = event.getPacket().getIntegers().read(1);
                         int z = event.getPacket().getIntegers().read(2);
 
-                        // TODO: 14/9/2022 Taken from Array old src, make it look better and possibly recode? (Just need to do more testing to test if this code actually works or not)
+                        //Credit: Array Practice
                         boolean hasAnyPlayable = false;
                         boolean hasAtleastOneMatch = false;
 

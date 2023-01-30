@@ -20,6 +20,8 @@ mongo:
   uri:
     database: Practice
     connection-string: mongodb://127.0.0.1:27017/Eden
+## Built-in tablist editor
+## Note that some user might experience tablist column incorrectly format. If that happens, please do not use this tablist function
 fancy-tablist:
   ## Toggle if the fancy tablist should be enabled or not
   enabled: true

@@ -8,14 +8,13 @@ import rip.diamond.practice.util.Tasks;
 
 import java.util.Arrays;
 
-public class EventCountdown extends Cooldown {
+public abstract class EventCountdown extends Cooldown {
 
     private final BukkitTask task;
 
     public EventCountdown(int seconds, int... tick) {
         super(seconds);
 
-        // TODO: 23/9/2022 Tick count is not match scoreboard
         task = new BukkitRunnable() {
             @Override
             public void run() {
@@ -32,9 +31,7 @@ public class EventCountdown extends Cooldown {
         }.runTaskTimerAsynchronously(Eden.INSTANCE, 20L, 20L);
     }
 
-    public void runTick(int tick) {
-
-    }
+    public abstract void runTick(int tick);
 
     @Override
     public void cancelCountdown() {

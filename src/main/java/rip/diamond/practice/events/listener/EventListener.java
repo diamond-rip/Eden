@@ -45,7 +45,8 @@ public class EventListener implements Listener {
                 "/event"
         );
         for (String cmd : bypassCommand) {
-            if (event.getMessage().toLowerCase().startsWith(cmd)) {
+            String message = event.getMessage().toLowerCase().replace("eden:", "");
+            if (message.startsWith(cmd)) {
                 return;
             }
         }
