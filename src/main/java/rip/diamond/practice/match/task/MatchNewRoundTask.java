@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.event.MatchRoundEndEvent;
+import rip.diamond.practice.event.MatchRoundStartEvent;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchTaskTicker;
@@ -42,6 +44,10 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             match.broadcastSubTitle("");
             match.setState(MatchState.FIGHTING);
             match.broadcastSound(Sound.FIREWORK_BLAST);
+
+            MatchRoundStartEvent event = new MatchRoundStartEvent(match);
+            event.call();
+
             cancel();
             return;
         }
@@ -96,6 +102,9 @@ public class MatchNewRoundTask extends MatchTaskTicker {
                 //Cancel any runnable which affects the gameplay
                 match.getTasks().stream().filter(taskTicker -> taskTicker instanceof MatchClearBlockTask).forEach(BukkitRunnable::cancel);
             }
+
+            MatchRoundEndEvent event = new MatchRoundEndEvent(match);
+            event.call();
         }
     }
 
