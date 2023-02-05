@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.github.paperspigot.Title;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.serialization.LocationSerialization;
@@ -169,6 +170,14 @@ public class Team {
 
 	public void broadcast(String messages) {
 		this.getPlayers().forEach(player -> player.sendMessage(messages));
+	}
+
+	public void broadcastTitle(String title, String subtitle) {
+		this.getPlayers().forEach(player -> player.sendTitle(new Title(title, subtitle)));
+	}
+
+	public void broadcastTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+		this.getPlayers().forEach(player -> player.sendTitle(new Title(title, subtitle, fadeIn, stay, fadeOut)));
 	}
 
 	public void broadcast(List<String> messages) {

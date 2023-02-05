@@ -13,7 +13,10 @@ import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.queue.QueueType;
-import rip.diamond.practice.util.*;
+import rip.diamond.practice.util.CC;
+import rip.diamond.practice.util.Clickable;
+import rip.diamond.practice.util.Common;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
 import java.util.ArrayList;
@@ -69,13 +72,27 @@ public class SoloMatch extends Match {
     }
 
     @Override
+    public void displayMatchEndTitle() {
+        TeamPlayer tWinner = getWinningPlayers().get(0);
+        TeamPlayer tLoser = getOpponent(getWinningPlayers().get(0));
+
+        tWinner.broadcastTitle(Language.MATCH_END_TITLE_WIN_TITLE.toString(), Language.MATCH_END_TITLE_WIN_SUBTITLE.toString(tWinner.getUsername()));
+        tLoser.broadcastTitle(Language.MATCH_END_TITLE_LOSE_TITLE.toString(), Language.MATCH_END_TITLE_LOSE_SUBTITLE.toString(tWinner.getUsername()));
+    }
+
+    @Override
     public void calculateMatchStats() {
+        TeamPlayer tWinner = getWinningPlayers().get(0);
+        TeamPlayer tLoser = getOpponent(getWinningPlayers().get(0));
+
+        //Set Post-Match Inventories swtichTo
+        getPostMatchInventories().get(tWinner.getUuid()).setSwitchTo(tLoser.getUsername(), tLoser.getUuid());
+        getPostMatchInventories().get(tLoser.getUuid()).setSwitchTo(tWinner.getUsername(), tWinner.getUuid());
+
+        //Because this is a duel match, we don't increase win/lose in player statistics and don't calculate the elo afterwards
         if (isDuel()) {
             return;
         }
-
-        TeamPlayer tWinner = getWinningPlayers().get(0);
-        TeamPlayer tLoser = getOpponent(getWinningPlayers().get(0));
 
         PlayerProfile pWinner = PlayerProfile.get(tWinner.getUuid());
         PlayerProfile pLoser = PlayerProfile.get(tLoser.getUuid());
@@ -104,10 +121,6 @@ public class SoloMatch extends Match {
 
         kWinner.calculateWinstreak(true);
         kLoser.calculateWinstreak(false);
-
-        //Set Post-Match Inventories swtichTo
-        getPostMatchInventories().get(tWinner.getUuid()).setSwitchTo(tLoser.getUsername(), tLoser.getUuid());
-        getPostMatchInventories().get(tLoser.getUuid()).setSwitchTo(tWinner.getUsername(), tWinner.getUuid());
     }
 
     @Override

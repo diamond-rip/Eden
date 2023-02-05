@@ -10,6 +10,8 @@ import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
 
+import java.util.concurrent.CompletableFuture;
+
 public class StatsCommand extends Command {
     @CommandArgs(name = "stats", async = true)
     public void execute(CommandArguments command) {
@@ -23,7 +25,7 @@ public class StatsCommand extends Command {
             username = args[0];
         }
 
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(username);
+        OfflinePlayer offlinePlayer = CompletableFuture.supplyAsync(() -> Bukkit.getOfflinePlayer(username)).join();
         if (offlinePlayer == null || !offlinePlayer.hasPlayedBefore()) {
             Language.PROFILE_CANNOT_FIND_PLAYER.sendMessage(player);
             return;

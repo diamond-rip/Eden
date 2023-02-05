@@ -35,6 +35,7 @@ public class ForceEndCommand extends Command {
             }
             match.end(true, Language.MATCH_FORCE_END_REASON.toString());
             Language.MATCH_FORCE_END_SUCCESS.sendMessage(player, target.getName());
+            return;
         }
 
         Common.sendMessage(player, CC.RED + "/forceend <player>");

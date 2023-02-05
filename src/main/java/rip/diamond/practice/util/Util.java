@@ -5,7 +5,6 @@ import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
@@ -66,7 +65,7 @@ public class Util {
     public static void setBlockFast(final Location location, final Material material, final boolean applyPhysics) {
         setBlockFast(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), material.getId(), (byte) 0, applyPhysics);
     }
-    public static void setBlockFast(final World world, final int x, final int y, final int z, final int blockId, final byte data, final boolean applyPhysics) {
+    public static void setBlockFast(final org.bukkit.World world, final int x, final int y, final int z, final int blockId, final byte data, final boolean applyPhysics) {
         try {
             final net.minecraft.server.v1_8_R3.World w = ((CraftWorld) world).getHandle();
             final net.minecraft.server.v1_8_R3.Chunk chunk = w.getChunkAt(x >> 4, z >> 4);

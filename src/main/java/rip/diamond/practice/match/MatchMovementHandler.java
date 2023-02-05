@@ -32,7 +32,7 @@ public class MatchMovementHandler {
                 KitGameRules gameRules = kit.getGameRules();
 
                 if (gameRules.isStartFreeze() && match.getState() == MatchState.STARTING && (from.getX() != to.getX() || from.getZ() != to.getZ())) {
-                    Util.teleport(player, from);
+                    Util.teleport(player, match.getTeam(player).getSpawnLocation());
                     return;
                 }
 

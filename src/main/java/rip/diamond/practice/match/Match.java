@@ -288,6 +288,9 @@ public abstract class Match {
                 plugin.getScoreboardHandler().getScoreboard(player).unregisterHealthObjective();
             }
 
+            if (Eden.INSTANCE.getConfigFile().getBoolean("match.title.end")) {
+                displayMatchEndTitle();
+            }
             displayMatchEndMessages();
             calculateMatchStats();
         }
@@ -518,6 +521,8 @@ public abstract class Match {
     public abstract void setupTeamSpawnLocation();
 
     public abstract void displayMatchEndMessages();
+
+    public abstract void displayMatchEndTitle();
 
     public abstract void calculateMatchStats();
 

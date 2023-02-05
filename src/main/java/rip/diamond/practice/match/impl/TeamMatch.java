@@ -86,6 +86,17 @@ public class TeamMatch extends Match {
     }
 
     @Override
+    public void displayMatchEndTitle() {
+        Team winnerTeam = getWinningTeam();
+        Team loserTeam = getOpponentTeam(getWinningTeam());
+
+        String winnerTeamPlayers = winnerTeam.getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
+
+        winnerTeam.broadcastTitle(Language.MATCH_END_TITLE_WIN_TITLE.toString(), Language.MATCH_END_TITLE_WIN_SUBTITLE.toString(winnerTeamPlayers));
+        loserTeam.broadcastTitle(Language.MATCH_END_TITLE_LOSE_TITLE.toString(), Language.MATCH_END_TITLE_LOSE_SUBTITLE.toString(winnerTeamPlayers));
+    }
+
+    @Override
     public void calculateMatchStats() {
 
     }

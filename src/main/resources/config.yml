@@ -54,6 +54,16 @@ match:
   ## When player consume a golden apple, should the system gives normal effects to the player (which contains instantly regenerate to full health, saturation and absorption hearts), or just regenerate to full health?
   ## Default is false which only set the player health to full, no effects are given
   instant-gapple-effects: false
+  ## Titles - Which type of title should be shown?
+  title:
+    ## Shows title when someone scores a point?
+    score: true
+    ## Shows title when the match has a result?
+    end: true
+  ## The ticks which represents between from match ends to send the player to lobby and reset the arena
+  ## 20 ticks is 1 second, so if 100 ticks then it will be 5 seconds
+  ## Default is 100, and is recommended. Change this value with caution
+  end-duration: 100
 ## Simple chat format
 chat-format:
   ## Set this to true if you want to enable chat format

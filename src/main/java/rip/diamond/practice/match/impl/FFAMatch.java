@@ -91,6 +91,18 @@ public class FFAMatch extends Match {
     }
 
     @Override
+    public void displayMatchEndTitle() {
+        Team winnerTeam = getWinningTeam();
+        List<Team> loserTeams = new ArrayList<>(getTeams());
+        loserTeams.removeIf(team -> team == winnerTeam);
+
+        String winnerTeamPlayers = winnerTeam.getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
+
+        winnerTeam.broadcastTitle(Language.MATCH_END_TITLE_WIN_TITLE.toString(), Language.MATCH_END_TITLE_WIN_SUBTITLE.toString(winnerTeamPlayers));
+        loserTeams.forEach(team -> team.broadcastTitle(Language.MATCH_END_TITLE_LOSE_TITLE.toString(), Language.MATCH_END_TITLE_LOSE_SUBTITLE.toString(winnerTeamPlayers)));
+    }
+
+    @Override
     public void calculateMatchStats() {
 
     }

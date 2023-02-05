@@ -42,8 +42,8 @@ public class PostMatchInventory {
         this.health = player.getHealth() == 0 ? 0 : (int) Math.round(player.getHealth());
         this.maxHealth = (int) Math.round(player.getMaxHealth());
         this.hunger = player.getFoodLevel();
-        this.armor = player.getInventory().getArmorContents();
-        this.contents = player.getInventory().getContents();
+        this.armor = player.getInventory().getArmorContents().clone();
+        this.contents = player.getInventory().getContents().clone();
         this.effects = player.getActivePotionEffects();
         this.hits = teamPlayer.getHits();
         this.longestCombo = teamPlayer.getLongestCombo();

@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.github.paperspigot.Title;
 import rip.diamond.practice.kits.KitLoadout;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -52,6 +53,10 @@ public class TeamPlayer {
 	public int getPing() {
 		Player player = getPlayer();
 		return player == null ? 0 : player.spigot().getPing();
+	}
+
+	public void broadcastTitle(String title, String subtitle) {
+		getPlayer().sendTitle(new Title(title, subtitle));
 	}
 
 	public void teleport(Location location) {

@@ -1,5 +1,8 @@
 scoreboard:
   title: "&b戰鬥練習"
+  boxing-counter:
+    no-combo: "沒有連擊"
+    text: "{match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference})"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -78,7 +81,7 @@ scoreboard:
       - "&7&m----------------------"
       - "&b&l┃ &f對手: &b{match-solo-opponent}"
       - ""
-      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference}"
+      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-text}"
       - "&b&l┃ &a 我方: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-solo-boxing-opponent-hit}"
       - "&b&l┃ &f 連擊次數: &f{match-solo-boxing-combo}"
@@ -131,7 +134,7 @@ scoreboard:
       - "&7&m----------------------"
     boxing:
       - "&7&m----------------------"
-      - "&b&l┃ &b擊中次數: {match-team-boxing-difference}"
+      - "&b&l┃ &b擊中次數: {match-team-boxing-difference-text}"
       - "&b&l┃ &a 我方: &f{match-team-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-team-boxing-opponent-hit}"
       - "&b&l┃ &f 連擊次數: &f{match-team-boxing-combo}"
@@ -1142,6 +1145,13 @@ match:
     solo: "單人對決"
     ffa: "隊伍對決"
     split: "隊伍大亂鬥"
+  end-title:
+    win:
+      title: "&a勝利!"
+      subtitle: "&a{winner} &f獲得本場戰鬥的勝利!"
+    lose:
+      title: "&c失敗!"
+      subtitle: "&c{winner} &f獲得本場戰鬥的勝利!"
 party:
   created: "&f你已創立一個新的&b隊伍"
   successfully-set-max-size: "&f成功設置隊伍最大人數上限為 &b{0} &f人"

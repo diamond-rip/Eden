@@ -12,7 +12,7 @@ public class MatchResetTask extends MatchTaskTicker {
     private final Match match;
 
     public MatchResetTask(Match match) {
-        super(1, 100, false, match);
+        super(1, Eden.INSTANCE.getConfigFile().getInt("match.end-duration"), false, match);
         this.match = match;
     }
 

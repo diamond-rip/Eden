@@ -1,5 +1,8 @@
 scoreboard:
   title: "&bPractice"
+  boxing-counter:
+    no-combo: "No Combo"
+    text: "{match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference})"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -70,7 +73,7 @@ scoreboard:
       - "&7&m----------------------"
       - "&b&l┃ &fFighting: &b{match-solo-opponent}"
       - ""
-      - "&b&l┃ &bHits: {match-solo-boxing-difference}"
+      - "&b&l┃ &bHits: {match-solo-boxing-difference-text}"
       - "&b&l┃ &a You: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c Them: &f{match-solo-boxing-opponent-hit}"
       - ""
@@ -112,7 +115,7 @@ scoreboard:
       - "&7&m----------------------"
     boxing:
       - "&7&m----------------------"
-      - "&b&l┃ &bHits: {match-team-boxing-difference}"
+      - "&b&l┃ &bHits: {match-team-boxing-difference-text}"
       - "&b&l┃ &a You: &f{match-team-boxing-self-hit}"
       - "&b&l┃ &c Them: &f{match-team-boxing-opponent-hit}"
       - ""
@@ -793,7 +796,7 @@ kit:
       rules: "Reset Arena After Get A Point"
       description: "Settings for match to reset arena after player get a point"
     only-loser-reset-position-when-get-point:
-      rules: "Reset Position After Get A Point"
+      rules: "Only Loser Reset Position After Get A Point"
       description: "Settings for match to reset player position after player get a point"
     build:
       rules: "Build"
@@ -1044,7 +1047,8 @@ match:
     god-apple: "Golden Apple"
   new-round-start:
     message: "&aMatch started!"
-    title: "&aMatch started!"
+    scored-title: "{0}{1} &escored!"
+    scored-subtitle: "{0}{1} &7- {2}{3}"
     score:
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
       - ""
@@ -1086,6 +1090,13 @@ match:
     solo: "Solo"
     ffa: "FFA"
     split: "Teams"
+  end-title:
+    win:
+      title: "&aVICTORY!"
+      subtitle: "&a{0} &fwin the match!"
+    lose:
+      title: "&cDEFEAT!"
+      subtitle: "&c{0} win the match!"
 party:
   created: "&fYou have created a new &bparty"
   successfully-set-max-size: "&fSuccessfully changed max party size to &b{0} "

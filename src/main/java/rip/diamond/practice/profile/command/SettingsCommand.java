@@ -7,7 +7,7 @@ import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
 
 public class SettingsCommand extends Command {
-    @CommandArgs(name = "settings")
+    @CommandArgs(name = "settings", aliases = {"practicesettings", "psettings", "pracsettings"})
     public void execute(CommandArguments command) {
         Player player = command.getPlayer();
 
