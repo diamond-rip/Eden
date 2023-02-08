@@ -137,7 +137,7 @@ public class ViewInventoryMenu extends Menu {
 		public ItemStack getButtonItem(Player player) {
 			return new ItemBuilder(Material.PAPER)
 					.name(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_NAME.toString())
-					.lore(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_LORE.toStringList(info.getHits(), info.getLongestCombo(), info.getPotionsThrown(), info.getPotionsMissed(), info.getPotionAccuracy()))
+					.lore(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_LORE.toStringList(info.getHits(), info.getBlockedHits(), info.getLongestCombo(), info.getPotionsThrown(), info.getPotionsMissed(), info.getPotionAccuracy()))
 					.build();
 		}
 	}

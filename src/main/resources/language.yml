@@ -1035,10 +1035,11 @@ match:
       lore:
         - ""
         - "&fHits: &b{0}"
-        - "&fLongest Combo: &b{1}"
-        - "&fPotion Thrown: &b{2}"
-        - "&fPotion Missed: &b{3}"
-        - "&fPotion Accuracy: &b{4}%"
+        - "&fBlocked Hits: &b{1}"
+        - "&fLongest Combo: &b{2}"
+        - "&fPotion Thrown: &b{3}"
+        - "&fPotion Missed: &b{4}"
+        - "&fPotion Accuracy: &b{5}%"
         - ""
   healing-method:
     potion: "Health Potions"
@@ -1276,6 +1277,12 @@ profile:
       lore:
         - ""
         - "&7See other spectators when spectating"
+        - ""
+    spectator-join-leave-message:
+      name: "Spectator Join/Leave Message"
+      lore:
+        - ""
+        - "&7See spectator join/leave message"
         - ""
     event-announcement:
       name: "Event Announcement"

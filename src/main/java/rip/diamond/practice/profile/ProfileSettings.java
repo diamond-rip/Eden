@@ -114,6 +114,13 @@ public enum ProfileSettings {
             "eden.settings.spectator-visibility",
             getBooleanDefaultOptions(true)
     ),
+    SPECTATOR_JOIN_LEAVE_MESSAGE(
+            Material.FEATHER,
+            Language.PROFILE_SETTINGS_SPECTATOR_JOIN_LEAVE_MESSAGE_NAME.toString(),
+            Language.PROFILE_SETTINGS_SPECTATOR_JOIN_LEAVE_MESSAGE_LORE.toStringList(),
+            "eden.settings.spectator-join-leave-message",
+            getBooleanDefaultOptions(true)
+    ),
     EVENT_ANNOUNCEMENT(
             Material.EMERALD,
             Language.PROFILE_SETTINGS_EVENT_ANNOUNCEMENT_NAME.toString(),

@@ -24,6 +24,7 @@ public class TeamPlayer {
 	@Getter @Setter private int potionsThrown;
 	@Getter @Setter private int potionsMissed;
 	@Getter @Setter private int hits;
+	@Getter @Setter private int blockedHits;
 	@Getter @Setter private int gotHits;
 	@Getter @Setter private TeamPlayer lastHitDamager;
 	@Getter @Setter private int combo;
@@ -84,10 +85,13 @@ public class TeamPlayer {
 		protectionUntil = -1;
 	}
 
-	public void handleGotHit(TeamPlayer damager) {
+	public void handleGotHit(TeamPlayer damager, boolean blockedHit) {
 		gotHits++;
 		combo = 0;
 		lastHitDamager = damager;
+		if (blockedHit) {
+			blockedHits++;
+		}
 	}
 
 	public void respawn(Match match) {

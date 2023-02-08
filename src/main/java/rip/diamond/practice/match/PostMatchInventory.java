@@ -26,6 +26,7 @@ public class PostMatchInventory {
     private final ItemStack[] contents;
     private final Collection<PotionEffect> effects;
     private final int hits;
+    private final int blockedHits;
     private final int longestCombo;
     private final HealingMethod healingMethod;
     private final int potionsThrown;
@@ -46,6 +47,7 @@ public class PostMatchInventory {
         this.contents = player.getInventory().getContents().clone();
         this.effects = player.getActivePotionEffects();
         this.hits = teamPlayer.getHits();
+        this.blockedHits = teamPlayer.getBlockedHits();
         this.longestCombo = teamPlayer.getLongestCombo();
         this.healingMethod = HealingMethod.getHealingMethod(contents);
         this.potionsThrown = teamPlayer.getPotionsThrown();

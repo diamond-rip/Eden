@@ -588,6 +588,8 @@ public enum Language {
     PROFILE_SETTINGS_ALLOW_PARTY_INVITE_LORE("profile.settings.allow-party-invite.lore"),
     PROFILE_SETTINGS_SPECTATOR_VISIBILITY_NAME("profile.settings.spectator-visibility.name"),
     PROFILE_SETTINGS_SPECTATOR_VISIBILITY_LORE("profile.settings.spectator-visibility.lore"),
+    PROFILE_SETTINGS_SPECTATOR_JOIN_LEAVE_MESSAGE_NAME("profile.settings.spectator-join-leave-message.name"),
+    PROFILE_SETTINGS_SPECTATOR_JOIN_LEAVE_MESSAGE_LORE("profile.settings.spectator-join-leave-message.lore"),
     PROFILE_SETTINGS_EVENT_ANNOUNCEMENT_NAME("profile.settings.event-announcement.name"),
     PROFILE_SETTINGS_EVENT_ANNOUNCEMENT_LORE("profile.settings.event-announcement.lore"),
     PROFILE_SETTINGS_PING_RANGE_NAME("profile.settings.ping-range.name"),

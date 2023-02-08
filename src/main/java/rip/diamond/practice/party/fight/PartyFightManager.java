@@ -31,7 +31,7 @@ public class PartyFightManager {
             return;
         }
         if (!party.getLeader().getUniqueID().equals(leader.getUniqueId())) {
-            Language.PARTY_START_PARTY_FIGHT_ONLY_LEADER.toString(leader);
+            Language.PARTY_START_PARTY_FIGHT_ONLY_LEADER.sendMessage(leader);
             return;
         }
 

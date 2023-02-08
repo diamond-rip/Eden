@@ -26,6 +26,7 @@ import rip.diamond.practice.match.team.TeamColor;
 import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.profile.task.ProfileCooldownTask;
 import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.*;
@@ -303,7 +304,12 @@ public abstract class Match {
 
         spectators.add(player.getUniqueId());
 
-        broadcastMessage(Language.MATCH_JOIN_SPECTATE.toString(player.getName()));
+        getPlayersAndSpectators().forEach(other -> {
+            PlayerProfile otherProfile = PlayerProfile.get(other);
+            if (otherProfile.getSettings().get(ProfileSettings.SPECTATOR_JOIN_LEAVE_MESSAGE).isEnabled()) {
+                Common.sendMessage(other, Language.MATCH_JOIN_SPECTATE.toString(player.getName()));
+            }
+        });
 
         Util.teleport(player, target.getLocation());
         PlayerUtil.spectator(player);
@@ -316,7 +322,12 @@ public abstract class Match {
     public void leaveSpectate(Player player) {
         spectators.remove(player.getUniqueId());
 
-        broadcastMessage(Language.MATCH_LEAVE_SPECTATE.toString(player.getName()));
+        getPlayersAndSpectators().forEach(other -> {
+            PlayerProfile otherProfile = PlayerProfile.get(other);
+            if (otherProfile.getSettings().get(ProfileSettings.SPECTATOR_JOIN_LEAVE_MESSAGE).isEnabled()) {
+                Common.sendMessage(other, Language.MATCH_LEAVE_SPECTATE.toString(player.getName()));
+            }
+        });
 
         plugin.getLobbyManager().sendToSpawnAndReset(player);
     }
