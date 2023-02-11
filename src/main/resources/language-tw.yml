@@ -1149,10 +1149,10 @@ match:
   end-title:
     win:
       title: "&a勝利!"
-      subtitle: "&a{winner} &f獲得本場戰鬥的勝利!"
+      subtitle: "&a{0} &f獲得本場戰鬥的勝利!"
     lose:
       title: "&c失敗!"
-      subtitle: "&c{winner} &f獲得本場戰鬥的勝利!"
+      subtitle: "&c{0} &f獲得本場戰鬥的勝利!"
 party:
   created: "&f你已創立一個新的&b隊伍"
   successfully-set-max-size: "&f成功設置隊伍最大人數上限為 &b{0} &f人"

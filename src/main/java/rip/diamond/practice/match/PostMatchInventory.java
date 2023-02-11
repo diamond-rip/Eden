@@ -8,7 +8,9 @@ import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.util.HeadUtil;
 import rip.diamond.practice.util.HealingMethod;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -43,8 +45,8 @@ public class PostMatchInventory {
         this.health = player.getHealth() == 0 ? 0 : (int) Math.round(player.getHealth());
         this.maxHealth = (int) Math.round(player.getMaxHealth());
         this.hunger = player.getFoodLevel();
-        this.armor = player.getInventory().getArmorContents().clone();
-        this.contents = player.getInventory().getContents().clone();
+        this.armor = Arrays.stream(player.getInventory().getArmorContents()).filter(Objects::nonNull).map(ItemStack::clone).toArray(ItemStack[]::new);
+        this.contents = Arrays.stream(player.getInventory().getContents()).filter(Objects::nonNull).map(ItemStack::clone).toArray(ItemStack[]::new);
         this.effects = player.getActivePotionEffects();
         this.hits = teamPlayer.getHits();
         this.blockedHits = teamPlayer.getBlockedHits();
