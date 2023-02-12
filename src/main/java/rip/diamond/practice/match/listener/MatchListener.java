@@ -377,7 +377,7 @@ public class MatchListener implements Listener {
             ItemStack itemStack = event.getItem();
             if (itemStack != null) {
                 if (itemStack.getType() == Material.SKULL_ITEM && match.getKit().getGameRules().isHypixelUHC() && itemStack.hasItemMeta() && ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()).toLowerCase().contains("golden head")) {
-                    if (profile.getCooldowns().containsKey("goldenhead")) {
+                    if (profile.getCooldowns().containsKey("goldenhead") && !profile.getCooldowns().get("goldenhead").isExpired()) {
                         String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("goldenhead").getRemaining());
                         Language.MATCH_USE_AGAIN_GOLDEN_HEAD.sendMessage(player, time);
                     } else {
@@ -403,7 +403,7 @@ public class MatchListener implements Listener {
                         return;
                     }
                     if (kit.getGameRules().isEnderPearlCooldown()) {
-                        if (profile.getCooldowns().containsKey("enderpearl")) {
+                        if (profile.getCooldowns().containsKey("enderpearl") && !profile.getCooldowns().get("enderpearl").isExpired()) {
                             String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("enderpearl").getRemaining());
                             Language.MATCH_USE_AGAIN_ENDER_PEARL.sendMessage(player, time);
                             event.setCancelled(true);
@@ -424,6 +424,7 @@ public class MatchListener implements Listener {
                                 }
                             });
                         }
+                        return;
                     }
                     return;
                 } else if (itemStack.getType() == Material.MUSHROOM_SOUP && player.getHealth() < 19.0) {

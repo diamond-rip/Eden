@@ -56,9 +56,7 @@ public class LobbyManager {
             profile.setMatch(null);
             profile.setPlayerState(PlayerState.IN_LOBBY);
             profile.setupItems();
-            profile.getCooldowns().forEach((name, cooldown) -> {
-                cooldown.cancelCountdown();
-            });
+            profile.getCooldowns().forEach((name, cooldown) -> cooldown.cancelCountdown());
         });
     }
 
