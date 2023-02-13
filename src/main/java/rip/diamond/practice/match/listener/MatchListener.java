@@ -65,6 +65,8 @@ public class MatchListener implements Listener {
                 plugin.getKitEditorManager().leaveKitEditor(p, false);
             }
 
+            PlayerProfile.get(p).getCooldowns().forEach((s, cooldown) -> cooldown.cancelCountdown());
+
             String opponents;
             switch (match.getMatchType()) {
                 case SOLO:
@@ -407,6 +409,7 @@ public class MatchListener implements Listener {
                             String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("enderpearl").getRemaining());
                             Language.MATCH_USE_AGAIN_ENDER_PEARL.sendMessage(player, time);
                             event.setCancelled(true);
+                            return;
                         } else {
                             profile.getCooldowns().put("enderpearl", new Cooldown(16) {
                                 @Override
@@ -423,8 +426,8 @@ public class MatchListener implements Listener {
                                     }
                                 }
                             });
+                            return;
                         }
-                        return;
                     }
                     return;
                 } else if (itemStack.getType() == Material.MUSHROOM_SOUP && player.getHealth() < 19.0) {
@@ -691,7 +694,7 @@ public class MatchListener implements Listener {
                 Team playerTeam = match.getTeam(player);
                 Team bedBelongsTo = match.getTeams().stream().min(Comparator.comparing(team -> team.getSpawnLocation().distance(block.getLocation()))).orElse(null);
                 if (bedBelongsTo == null) {
-                    Common.log("An error occurred while finding portalBelongsTo, please contact GoodestEnglish to fix");
+                    Common.log("An error occurred while finding bedBelongsTo, please contact GoodestEnglish to fix");
                     return;
                 }
                 event.setCancelled(true);
