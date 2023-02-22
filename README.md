@@ -1,32 +1,33 @@
 # Eden
-Eden is a Minecraft 1.8 version based plugin that offers the best practice core experience.
+Eden is a Minecraft 1.8 version-based plugin that offers the best practice core experience.
 
-_**Note: This is a freshly created project and is still in a beta phase. Bugs might appear. If you found a bug, please report them at [issues](https://github.com/RealGoodestEnglish/Eden/issues).**_
+_**Note: This is a freshly created project and is still in the beta phase. Bugs might appear. If you find a bug, please report it at issues [(Click here)](https://github.com/RealGoodestEnglish/Eden/issues).**_
 
-## How To Setup?
-Please check out our [Wiki Page](https://github.com/RealGoodestEnglish/Eden/wiki). Most of the information is in there.
-
-Please note that Eden doesn't support normal Spigot. We only support specific Spigot forks. For more information, please take a look at [Supported Spigot Forks](https://github.com/RealGoodestEnglish/Eden/wiki/Getting-Started#supported-spigot-forks).
+## How to Install?
+Please check out our wiki page. Most of the information is there.
+Please note that Eden doesn't support vanilla Spigot. We only support specific Spigot forks. For more information, please take a look at the list of the Supported Spigot Forks [(Click here)](https://github.com/RealGoodestEnglish/Eden/wiki/Getting-Started#supported-spigot-forks).
 
 ## Supported Spigot Forks
-Eden supports  Spigot Forks! Check out what other Spigot forks are supported in [here](https://github.com/RealGoodestEnglish/Eden/wiki/Getting-Started#supported-spigot-forks)
 
-## Supported Language
-Eden currently offers 3 support languages - English and Chinese Traditional (Chinese Simplified only works in support, not configuration)! If you wish to download other language translation files, click [here](https://github.com/RealGoodestEnglish/Eden/wiki/Configurations)
+Eden supports spigot forks! Check out what other Spigot forks are supported at the Wiki Page [(Click here)](https://github.com/RealGoodestEnglish/Eden/wiki).
+
+## Supported Languages
+Eden currently offers support for two languages: English and Traditional Chinese (Simplified Chinese only works in support, not configuration!). If you wish to download any other language translation files, [click here](https://github.com/RealGoodestEnglish/Eden/wiki/Configurations.
 
 ## Bug Report
-Found a bug? Please report it at [issues](https://github.com/RealGoodestEnglish/Eden/issues)!
+Found a bug? Please file a bug report at issues [(Click here)](https://github.com/RealGoodestEnglish/Eden/issues/create)!
 
 ## Contributions
-As an open-source project, we'd love to see any improvement that happens in the project. We welcome for anyone to contribute to this project and make the plugin better and better. 
+As an open-source project, we'd love to see any improvements that happen to the project. We welcome anyone to contribute to this project and help us improve the plugin.
 
-Head over [pulls](https://github.com/RealGoodestEnglish/Eden/pulls) to create a PR! Please note that if you want to improve / add a feature, you will have to follow the current code base to prevent confusion.
+Head over to the pull requests to create a PR! Please note that if you want to improve or add a feature, you will have to follow the current code base to prevent confusion.
 
-## To-Do List
-Please note that things marked here aren't fully supported and may cause major bug. Features listed in here may also only support Traditional Chinese as of right now. Use these features at your own risk.
-* Event implementation - Need more testing
-* Tablist API - Need more testing
-* Fix/Recode all To-Do which marked in the code
+## To-do List
+Please note that things marked here aren't fully supported and may cause major bugs. Features listed here may also only support Traditional Chinese as of right now. Use these features at your own risk.
+
+Event Implementation - This feature needs more testing
+Tablist API - Needs more testing
+All tasks that are marked in this list should be fixed or recoded.
 
 ## Credit
 * [Array](https://github.com/RefineDevelopment/Array) - EntityHider
@@ -35,4 +36,4 @@ Please note that things marked here aren't fully supported and may cause major b
 * [DatouNms](https://github.com/lulu2002/DatouNms) - Player death animation
 
 ## Support
-If this plugin helped you, please give me a ⭐ to show your support 😊
+If you found this plugin useful, please give me a ⭐ to show your appreciation! 😊
