@@ -28,7 +28,7 @@ public class SpectateMenu extends PaginatedMenu {
 
     @Override
     public String getPrePaginatedTitle(Player player) {
-        return "觀察戰鬥";
+        return Language.MATCH_SPECTATE_MENU_TITLE.toString();
     }
 
     @Override

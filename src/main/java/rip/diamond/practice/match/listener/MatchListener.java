@@ -257,7 +257,7 @@ public class MatchListener implements Listener {
                 teamPlayerEntity.handleGotHit(match.getTeamPlayer(damager), entity.isBlocking());
 
                 //顯示造成的傷害
-                if (event.getDamager() instanceof Arrow) {
+                if (event.getDamager() instanceof Arrow && entity != damager) {
                     Util.sendArrowHitMessage(event);
                 }
 

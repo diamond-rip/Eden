@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.util.option.FalseOption;
 import rip.diamond.practice.util.option.Option;
@@ -22,7 +23,7 @@ public enum ProfileSettings {
             Language.PROFILE_SETTINGS_TIME_CHANGER_LORE.toStringList(),
             "eden.settings.time-changer",
             ImmutableList.of(
-                    new Option(true, Language.PROFILE_SETTINGS_TIME_CHANGER_NORMAL_SERVER_TIME.toString()) {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.time-changer").equals("normal"), Language.PROFILE_SETTINGS_TIME_CHANGER_NORMAL_SERVER_TIME.toString()) {
                         @Override
                         public void run(Player player) {
                             player.resetPlayerTime();
@@ -33,7 +34,7 @@ public enum ProfileSettings {
                             return "normal";
                         }
                     },
-                    new Option(false, Language.PROFILE_SETTINGS_TIME_CHANGER_DAY.toString()) {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.time-changer").equals("day"), Language.PROFILE_SETTINGS_TIME_CHANGER_DAY.toString()) {
                         @Override
                         public void run(Player player) {
                             player.setPlayerTime(1000, false);
@@ -44,7 +45,7 @@ public enum ProfileSettings {
                             return "day";
                         }
                     },
-                    new Option(false, Language.PROFILE_SETTINGS_TIME_CHANGER_AFTERNOON.toString()) {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.time-changer").equals("afternoon"), Language.PROFILE_SETTINGS_TIME_CHANGER_AFTERNOON.toString()) {
                         @Override
                         public void run(Player player) {
                             player.setPlayerTime(6000, false);
@@ -55,7 +56,7 @@ public enum ProfileSettings {
                             return "afternoon";
                         }
                     },
-                    new Option(false, Language.PROFILE_SETTINGS_TIME_CHANGER_NIGHT.toString()) {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.time-changer").equals("night"), Language.PROFILE_SETTINGS_TIME_CHANGER_NIGHT.toString()) {
                         @Override
                         public void run(Player player) {
                             player.setPlayerTime(13000, false);
@@ -66,7 +67,7 @@ public enum ProfileSettings {
                             return "night";
                         }
                     },
-                    new Option(false, Language.PROFILE_SETTINGS_TIME_CHANGER_MIDNIGHT.toString()) {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.time-changer").equals("midnight"), Language.PROFILE_SETTINGS_TIME_CHANGER_MIDNIGHT.toString()) {
                         @Override
                         public void run(Player player) {
                             player.setPlayerTime(18000, false);
@@ -84,49 +85,49 @@ public enum ProfileSettings {
             Language.PROFILE_SETTINGS_ARENA_SELECTION_NAME.toString(),
             Language.PROFILE_SETTINGS_ARENA_SELECTION_LORE.toStringList(),
             "eden.settings.arena-selection",
-            getBooleanDefaultOptions(false)
+            getBooleanDefaultOptions(Eden.INSTANCE.getConfigFile().getBoolean("profile.default-settings.arena-selection"))
     ),
     MATCH_SCOREBOARD(
             Material.ITEM_FRAME,
             Language.PROFILE_SETTINGS_MATCH_SCOREBOARD_NAME.toString(),
             Language.PROFILE_SETTINGS_MATCH_SCOREBOARD_LORE.toStringList(),
             "eden.settings.match-scoreboard",
-            getBooleanDefaultOptions(true)
+            getBooleanDefaultOptions(Eden.INSTANCE.getConfigFile().getBoolean("profile.default-settings.match-scoreboard"))
     ),
     ALLOW_DUEL_REQUEST(
             Material.DIAMOND_SWORD,
             Language.PROFILE_SETTINGS_ALLOW_DUEL_REQUEST_NAME.toString(),
             Language.PROFILE_SETTINGS_ALLOW_DUEL_REQUEST_LORE.toStringList(),
             "eden.settings.allow-duel-request",
-            getBooleanDefaultOptions(true)
+            getBooleanDefaultOptions(Eden.INSTANCE.getConfigFile().getBoolean("profile.default-settings.allow-duel-request"))
     ),
     ALLOW_PARTY_INVITE(
             Material.NETHER_STAR,
             Language.PROFILE_SETTINGS_ALLOW_PARTY_INVITE_NAME.toString(),
             Language.PROFILE_SETTINGS_ALLOW_PARTY_INVITE_LORE.toStringList(),
             "eden.settings.allow-party-invite",
-            getBooleanDefaultOptions(true)
+            getBooleanDefaultOptions(Eden.INSTANCE.getConfigFile().getBoolean("profile.default-settings.allow-party-invite"))
     ),
     SPECTATOR_VISIBILITY(
             Material.SKULL_ITEM,
             Language.PROFILE_SETTINGS_SPECTATOR_VISIBILITY_NAME.toString(),
             Language.PROFILE_SETTINGS_SPECTATOR_VISIBILITY_LORE.toStringList(),
             "eden.settings.spectator-visibility",
-            getBooleanDefaultOptions(true)
+            getBooleanDefaultOptions(Eden.INSTANCE.getConfigFile().getBoolean("profile.default-settings.spectator-visibility"))
     ),
     SPECTATOR_JOIN_LEAVE_MESSAGE(
             Material.FEATHER,
             Language.PROFILE_SETTINGS_SPECTATOR_JOIN_LEAVE_MESSAGE_NAME.toString(),
             Language.PROFILE_SETTINGS_SPECTATOR_JOIN_LEAVE_MESSAGE_LORE.toStringList(),
             "eden.settings.spectator-join-leave-message",
-            getBooleanDefaultOptions(true)
+            getBooleanDefaultOptions(Eden.INSTANCE.getConfigFile().getBoolean("profile.default-settings.spectator-join-leave-message"))
     ),
     EVENT_ANNOUNCEMENT(
             Material.EMERALD,
             Language.PROFILE_SETTINGS_EVENT_ANNOUNCEMENT_NAME.toString(),
             Language.PROFILE_SETTINGS_EVENT_ANNOUNCEMENT_LORE.toStringList(),
             "eden.settings.event-announcement",
-            getBooleanDefaultOptions(true)
+            getBooleanDefaultOptions(Eden.INSTANCE.getConfigFile().getBoolean("profile.default-settings.event-announcement"))
     ),
     PING_RANGE(
             Material.STICK,
@@ -134,7 +135,7 @@ public enum ProfileSettings {
             Language.PROFILE_SETTINGS_PING_RANGE_LORE.toStringList(),
             "eden.settings.ping-range",
             ImmutableList.of(
-                    new Option(true, Language.PROFILE_SETTINGS_PING_RANGE_UNLIMITED.toString()) {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.ping-range").equals("infinite"), Language.PROFILE_SETTINGS_PING_RANGE_UNLIMITED.toString()) {
                         @Override
                         public void run(Player player) {
 
@@ -150,7 +151,7 @@ public enum ProfileSettings {
                             return "∞";
                         }
                     },
-                    new Option(false, "300") {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.ping-range").equals("300"), "300") {
                         @Override
                         public void run(Player player) {
 
@@ -161,7 +162,7 @@ public enum ProfileSettings {
                             return "300";
                         }
                     },
-                    new Option(false, "200") {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.ping-range").equals("200"), "200") {
                         @Override
                         public void run(Player player) {
 
@@ -172,7 +173,7 @@ public enum ProfileSettings {
                             return "200";
                         }
                     },
-                    new Option(false, "150") {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.ping-range").equals("150"), "150") {
                         @Override
                         public void run(Player player) {
 
@@ -183,7 +184,7 @@ public enum ProfileSettings {
                             return "150";
                         }
                     },
-                    new Option(false, "100") {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.ping-range").equals("100"), "100") {
                         @Override
                         public void run(Player player) {
 
@@ -194,7 +195,7 @@ public enum ProfileSettings {
                             return "100";
                         }
                     },
-                    new Option(false, "50") {
+                    new Option(Eden.INSTANCE.getConfigFile().getString("profile.default-settings.ping-range").equals("50"), "50") {
                         @Override
                         public void run(Player player) {
 

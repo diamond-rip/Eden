@@ -1252,7 +1252,7 @@ profile:
       name: "Arena Selection"
       lore:
         - ""
-        - "&7Select your arena"
+        - "&7Display and allow to choose arena"
         - ""
     match-scoreboard:
       name: "Match Scoreboard"

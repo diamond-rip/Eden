@@ -71,6 +71,31 @@ chat-format:
   ## What is the format should be? (This supports PlaceholderAPI)
   ## Use %1$s for player's name and %2$s for player's message
   format: "&a%1$s&f: %2$s"
+## Player profile options
+profile:
+  ## The default settings for a player
+  ## Player can customize their settings via '/settings' menu, however, permissions are required to change the settings.
+  ## Check https://github.com/diamond-rip/Eden/wiki/Permissions#Settings for more information about permissions
+  default-settings:
+    ## Available options: normal, day, afternoon, night, midnight
+    ## 'normal' means the player will have server-sided time displayed
+    time-changer: "normal"
+    ## Available options: true, false
+    arena-selection: false
+    ## Available options: true, false
+    match-scoreboard: true
+    ## Available options: true, false
+    allow-duel-request: true
+    ## Available options: true, false
+    allow-party-invite: true
+    ## Available options: true, false
+    spectator-visibility: true
+    ## Available options: true, false
+    spectator-join-leave-message: true
+    ## Available options: true, false
+    event-announcement: true
+    ## Available options: infinite, 300, 200, 150, 100, 50
+    ping-range: "infinite"
 ## These options will only works if you are using ImanitySpigot
 ## If you are not using, then turn every imanity related settings off
 imanity:
