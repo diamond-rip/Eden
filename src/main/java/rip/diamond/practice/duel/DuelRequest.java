@@ -62,7 +62,7 @@ public class DuelRequest {
 
 		String ping = isParty() ? Party.getByPlayer(sender).getAllPartyMembers().stream().map(partyMember -> formatPing(partyMember.getPlayer())).collect(Collectors.joining("\n")) : formatPing(sender);
 
-		Clickable clickable = new Clickable(party ? Language.DUEL_DUEL_REQUEST_DISPLAY_PARTY.toString(sender.getName(), kit.getDisplayName(), arena.getName(), Party.getByPlayer(sender).getAllPartyMembers().size()) : Language.DUEL_DUEL_REQUEST_DISPLAY_1V1.toString(sender.getName(), kit.getDisplayName(), arena.getName()));
+		Clickable clickable = new Clickable(party ? Language.DUEL_DUEL_REQUEST_DISPLAY_PARTY.toString(sender.getName(), kit.getDisplayName(), arena.getDisplayName(), Party.getByPlayer(sender).getAllPartyMembers().size()) : Language.DUEL_DUEL_REQUEST_DISPLAY_1V1.toString(sender.getName(), kit.getDisplayName(), arena.getDisplayName()));
 		clickable.add(Language.DUEL_DUEL_REQUEST_CLICK_TO_ACCEPT.toString(), Language.DUEL_DUEL_REQUEST_CLICK_TO_ACCEPT_HOVER.toString(), "/duel accept " + senderUUID);
 		clickable.add(" ");
 		clickable.add(Language.DUEL_DUEL_REQUEST_CLICK_TO_VIEW_PING.toString(), ping, null);
@@ -70,9 +70,9 @@ public class DuelRequest {
 		Common.playSound(target, Sound.CHICKEN_EGG_POP);
 
 		if (party) {
-			Language.DUEL_DUEL_REQUEST_SUCCESS_PARTY.sendMessage(sender, kit.getDisplayName(), arena.getName(), target.getName());
+			Language.DUEL_DUEL_REQUEST_SUCCESS_PARTY.sendMessage(sender, kit.getDisplayName(), arena.getDisplayName(), target.getName());
 		} else {
-			Language.DUEL_DUEL_REQUEST_SUCCESS_1V1.sendMessage(sender, kit.getDisplayName(), arena.getName(), target.getName());
+			Language.DUEL_DUEL_REQUEST_SUCCESS_1V1.sendMessage(sender, kit.getDisplayName(), arena.getDisplayName(), target.getName());
 		}
 		return this;
 	}
