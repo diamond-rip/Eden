@@ -2,8 +2,10 @@ package rip.diamond.practice.match.task;
 
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchTaskTicker;
+import rip.diamond.practice.profile.PlayerProfile;
 
 import java.util.Objects;
 
@@ -22,7 +24,9 @@ public class MatchResetTask extends MatchTaskTicker {
             cancel();
 
             match.clearEntities(true);
-            match.getMatchPlayers().stream().filter(player -> Objects.nonNull(player) && player.isOnline()).forEach(player -> plugin.getLobbyManager().sendToSpawnAndReset(player));
+            match.getMatchPlayers().stream().filter(player -> Objects.nonNull(player) && player.isOnline())
+                    .filter(player -> PlayerProfile.get(player).getMatch() == match) //This is to prevent player is in another match because of the requeue item
+                    .forEach(player -> plugin.getLobbyManager().sendToSpawnAndReset(player));
             match.getSpectators().forEach(match::leaveSpectate);
             match.getTasks().forEach(BukkitRunnable::cancel);
             match.getArenaDetail().restoreChunk();
@@ -35,6 +39,11 @@ public class MatchResetTask extends MatchTaskTicker {
     public void preRun() {
         //Cancel MatchClearBlockTask first, to save performance
         match.getTasks().stream().filter(taskTicker -> taskTicker instanceof MatchClearBlockTask).forEach(BukkitRunnable::cancel);
+
+        //Give 'Play Again' item like Minemen Club
+        if (plugin.getConfigFile().getBoolean("match.allow-requeue")) {
+            match.getMatchPlayers().forEach(player ->  EdenItems.giveItem(player, EdenItems.MATCH_REQUEUE));
+        }
     }
 
     @Override

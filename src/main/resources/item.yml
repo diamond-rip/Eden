@@ -100,6 +100,14 @@ items:
       material: INK_SACK
       durability: 1
       slot: 8
+  match:
+    requeue:
+      name: "&bPlay Again &7(Right-Click)"
+      lore:
+        - ""
+      material: PAPER
+      durability: 0
+      slot: -1
   spectate:
     teleporter:
       name: "&bTeleportation Tool &7(Right-Click)"

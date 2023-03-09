@@ -53,6 +53,7 @@ public class EdenCommand extends Command {
                 plugin.getItemFile().load();
                 plugin.getLanguageFile().load();
                 plugin.getLocationFile().load();
+                plugin.getKitFile().load();
                 Common.sendMessage(sender, CC.GREEN + "Files reloaded!", CC.YELLOW + "Remember: some part of the files might require restart the server to work. And we strongly recommend");
                 return;
             case DEBUG:

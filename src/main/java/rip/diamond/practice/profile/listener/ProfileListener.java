@@ -19,10 +19,12 @@ import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.PlayerProfileLoadedEvent;
 import rip.diamond.practice.event.SettingsChangeEvent;
+import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.menu.SpectateTeleportMenu;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
+import rip.diamond.practice.queue.Queue;
 import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.option.Option;
 
@@ -137,6 +139,16 @@ public class ProfileListener implements Listener {
             //Queue items
             else if (item.equals(EdenItems.QUEUE_LEAVE_QUEUE.getItemStack())) {
                 Util.performCommand(player, "eden:queue leave");
+            }
+            //Match items
+            else if (item.equals(EdenItems.MATCH_REQUEUE.getItemStack())) {
+                Match match = profile.getMatch();
+                if (match == null) {
+                    Language.MATCH_REQUEUE_NOT_IN_MATCH.sendMessage(player);
+                    return;
+                }
+                plugin.getLobbyManager().sendToSpawnAndReset(player);
+                Tasks.runLater(() -> Queue.joinQueue(player, match.getKit(), match.getQueueType()), 1L);
             }
             //Spectate items
             else if (item.equals(EdenItems.SPECTATE_TELEPORTER.getItemStack())) {

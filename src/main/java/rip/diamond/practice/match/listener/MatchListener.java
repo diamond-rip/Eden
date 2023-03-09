@@ -41,10 +41,13 @@ import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.profile.cooldown.Cooldown;
+import rip.diamond.practice.profile.cooldown.CooldownType;
 import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.cuboid.Cuboid;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
+import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.Comparator;
 import java.util.List;
@@ -274,6 +277,26 @@ public class MatchListener implements Listener {
                     }
                 }
             }
+        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof Fireball && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {
+            Player player = (Player) event.getEntity();
+
+            if (plugin.getConfigFile().getBoolean("match.fireball.knockback.enabled")) {
+                event.setCancelled(true);
+                player.damage(event.getDamage() / plugin.getConfigFile().getDouble("match.fireball.divide-damage"));
+                Util.pushAway(player, event.getDamager().getLocation(), plugin.getConfigFile().getDouble("match.fireball.knockback.vertical"), plugin.getConfigFile().getDouble("match.fireball.knockback.horizontal"));
+            } else {
+                event.setDamage(event.getDamage() / plugin.getConfigFile().getDouble("match.fireball.divide-damage"));
+            }
+        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof TNTPrimed && plugin.getConfigFile().getBoolean("match.tnt.enabled")) {
+            Player player = (Player) event.getEntity();
+
+            if (plugin.getConfigFile().getBoolean("match.fireball.tnt.enabled")) {
+                event.setCancelled(true);
+                player.damage(event.getDamage() / plugin.getConfigFile().getDouble("match.tnt.divide-damage"));
+                Util.pushAway(player, event.getDamager().getLocation(), plugin.getConfigFile().getDouble("match.tnt.knockback.vertical"), plugin.getConfigFile().getDouble("match.tnt.knockback.horizontal"));
+            } else {
+                event.setDamage(event.getDamage() / plugin.getConfigFile().getDouble("match.tnt.divide-damage"));
+            }
         }
     }
 
@@ -378,12 +401,14 @@ public class MatchListener implements Listener {
 
             ItemStack itemStack = event.getItem();
             if (itemStack != null) {
+                //Golden Head
                 if (itemStack.getType() == Material.SKULL_ITEM && match.getKit().getGameRules().isHypixelUHC() && itemStack.hasItemMeta() && ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()).toLowerCase().contains("golden head")) {
-                    if (profile.getCooldowns().containsKey("goldenhead") && !profile.getCooldowns().get("goldenhead").isExpired()) {
-                        String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("goldenhead").getRemaining());
+                    if (!profile.getCooldowns().get(CooldownType.GOLDEN_HEAD).isExpired()) {
+                        String time = TimeUtil.millisToSeconds(profile.getCooldowns().get(CooldownType.GOLDEN_HEAD).getRemaining());
                         Language.MATCH_USE_AGAIN_GOLDEN_HEAD.sendMessage(player, time);
                     } else {
-                        profile.getCooldowns().put("goldenhead", new Cooldown(1));
+                        profile.getCooldowns().put(CooldownType.GOLDEN_HEAD, new Cooldown(1));
+
                         Common.playSound(player, Sound.EAT);
                         player.removePotionEffect(PotionEffectType.REGENERATION);
                         player.removePotionEffect(PotionEffectType.ABSORPTION);
@@ -398,39 +423,77 @@ public class MatchListener implements Listener {
                     //無論金頭顱食用結果如何, 都必須要 cancel event, 不然玩家就可以放置金頭顱在地上
                     event.setCancelled(true);
                     return;
-                } else if (itemStack.getType() == Material.ENDER_PEARL && action.name().startsWith("RIGHT_")) {
+                }
+                //Ender Pearl
+                else if (itemStack.getType() == Material.ENDER_PEARL && action.name().startsWith("RIGHT_")) {
                     Kit kit = match.getKit();
                     if (match.getState() == MatchState.STARTING && kit.getGameRules().isStartFreeze()) {
                         event.setCancelled(true);
                         return;
                     }
                     if (kit.getGameRules().isEnderPearlCooldown()) {
-                        if (profile.getCooldowns().containsKey("enderpearl") && !profile.getCooldowns().get("enderpearl").isExpired()) {
-                            String time = TimeUtil.millisToSeconds(profile.getCooldowns().get("enderpearl").getRemaining());
+                        if (!profile.getCooldowns().get(CooldownType.ENDER_PEARL).isExpired()) {
+                            String time = TimeUtil.millisToSeconds(profile.getCooldowns().get(CooldownType.ENDER_PEARL).getRemaining());
                             Language.MATCH_USE_AGAIN_ENDER_PEARL.sendMessage(player, time);
                             event.setCancelled(true);
                             return;
                         } else {
-                            profile.getCooldowns().put("enderpearl", new Cooldown(16) {
+                            profile.getCooldowns().put(CooldownType.ENDER_PEARL, new Cooldown(16) {
                                 @Override
-                                public void run() {
-                                    if (isExpired()) {
-                                        Language.MATCH_CAN_USE_ENDERPEARL.sendMessage(player);
-                                        if (player.getLevel() > 0) player.setLevel(0);
-                                        if (player.getExp() > 0.0F) player.setExp(0.0F);
-                                    } else {
-                                        int seconds = Math.round(profile.getCooldowns().get("enderpearl").getRemaining()) / 1000;
+                                public void cancelCountdown() {
+                                    super.cancelCountdown();
 
-                                        player.setLevel(seconds);
-                                        player.setExp(profile.getCooldowns().get("enderpearl").getRemaining() / 16000F);
-                                    }
+                                    player.setLevel(0);
+                                    player.setExp(0);
+                                }
+
+                                @Override
+                                public void runUnexpired() {
+                                    int seconds = Math.round(profile.getCooldowns().get(CooldownType.ENDER_PEARL).getRemaining()) / 1000;
+
+                                    player.setLevel(seconds);
+                                    player.setExp(profile.getCooldowns().get(CooldownType.ENDER_PEARL).getRemaining() / 16000F);
+                                }
+
+                                @Override
+                                public void runExpired() {
+                                    Language.MATCH_CAN_USE_ENDERPEARL.sendMessage(player);
+                                    if (player.getLevel() > 0) player.setLevel(0);
+                                    if (player.getExp() > 0.0F) player.setExp(0.0F);
                                 }
                             });
                             return;
                         }
                     }
                     return;
-                } else if (itemStack.getType() == Material.MUSHROOM_SOUP && player.getHealth() < 19.0) {
+                }
+                //Fireball
+                else if (itemStack.getType() == Material.FIREBALL && action.name().startsWith("RIGHT_") && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {
+                    Kit kit = match.getKit();
+                    if (match.getState() == MatchState.STARTING && kit.getGameRules().isStartFreeze()) {
+                        event.setCancelled(true);
+                        return;
+                    }
+                    if (!profile.getCooldowns().get(CooldownType.FIREBALL).isExpired()) {
+                        String time = TimeUtil.millisToSeconds(profile.getCooldowns().get(CooldownType.FIREBALL).getRemaining());
+                        Language.MATCH_USE_AGAIN_FIREBALL.sendMessage(player, time);
+                    } else {
+                        profile.getCooldowns().put(CooldownType.FIREBALL, new Cooldown(300L));
+
+                        final Vector direction = player.getEyeLocation().getDirection();
+                        final Fireball f = player.launchProjectile(Fireball.class);
+                        FireballUtil.setDirection(f, direction);
+                        f.setYield((float) plugin.getConfigFile().getDouble("match.fireball.yield"));
+                        f.setIsIncendiary(false);
+
+                        itemStack.setAmount(itemStack.getAmount() - 1);
+                        player.setItemInHand(itemStack);
+                    }
+                    event.setCancelled(true);
+                    return;
+                }
+                //Soup
+                else if (itemStack.getType() == Material.MUSHROOM_SOUP && player.getHealth() < 19.0) {
                     final double newHealth = Math.min(player.getHealth() + 7.0, 20.0);
                     player.setHealth(newHealth);
                     player.setFoodLevel(20);
@@ -439,7 +502,9 @@ public class MatchListener implements Listener {
 
                     event.setCancelled(true);
                     return;
-                } else if (itemStack.getType() == Material.BOOK || itemStack.getType() == Material.ENCHANTED_BOOK) {
+                }
+                //Kit Loadout Book
+                else if (itemStack.getType() == Material.BOOK || itemStack.getType() == Material.ENCHANTED_BOOK) {
                     net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(itemStack);
                     if (nmsItem.hasTag()) {
                         NBTTagCompound compound = nmsItem.getTag();
@@ -619,6 +684,20 @@ public class MatchListener implements Listener {
                 return;
             }
 
+            if (block.getType() == Material.TNT && plugin.getConfigFile().getBoolean("match.tnt.enabled")) {
+                ItemStack itemStack = player.getItemInHand();
+                itemStack.setAmount(itemStack.getAmount() - 1);
+                player.setItemInHand(itemStack);
+
+                final TNTPrimed tntPrimed = event.getBlock().getLocation().getWorld().spawn(event.getBlock().getLocation().clone().add(0.5, 0.0, 0.5), TNTPrimed.class);
+                tntPrimed.setYield(plugin.getConfigFile().getInt("match.tnt.yield"));
+                tntPrimed.setFuseTicks(plugin.getConfigFile().getInt("match.tnt.fuse-ticks"));
+                Util.setSource(tntPrimed, player);
+
+                event.setCancelled(true);
+                return;
+            }
+
             match.getPlacedBlocks().add(block.getLocation());
 
             if (match.getKit().getGameRules().isClearBlock()) {
@@ -765,33 +844,33 @@ public class MatchListener implements Listener {
                 if (projectile instanceof ThrownPotion) {
                     match.getTeamPlayer(player).addPotionsThrown();
                 } else if (projectile instanceof Arrow && match.getKit().getGameRules().isGiveBackArrow()) {
-                    profile.getCooldowns().put("arrow", new Cooldown(3500L) {
+                    profile.getCooldowns().put(CooldownType.ARROW, new Cooldown(3500L) {
                         @Override
-                        public void run() {
-                            if (isExpired()) {
-                                if (!player.getInventory().contains(Material.ARROW)) {
-                                    int slot = -1;
-                                    //No KitLoadout is received. This will be null when a player didn't select a kit
-                                    //Should not happen anymore because kitLoadout is now automatically applied, but just in-case
-                                    if (match.getTeamPlayer(player).getKitLoadout() != null) {
-                                        for (int i = 0; i < 36; i++) {
-                                            if (match.getTeamPlayer(player).getKitLoadout().getContents()[i] != null && match.getTeamPlayer(player).getKitLoadout().getContents()[i].getType() == Material.ARROW) slot = i;
-                                        }
-                                    }
-                                    if (slot == -1 || player.getInventory().getItem(slot) != null) {
-                                        player.getInventory().addItem(new ItemStack(Material.ARROW));
-                                    } else {
-                                        player.getInventory().setItem(slot, new ItemStack(Material.ARROW));
+                        public void runUnexpired() {
+                            int seconds = Math.round(profile.getCooldowns().get(CooldownType.ARROW).getRemaining()) / 1000;
+
+                            player.setLevel(seconds);
+                            player.setExp(profile.getCooldowns().get(CooldownType.ARROW).getRemaining() / 3500F);
+                        }
+                        @Override
+                        public void runExpired() {
+                            if (!player.getInventory().contains(Material.ARROW)) {
+                                int slot = -1;
+                                //No KitLoadout is received. This will be null when a player didn't select a kit
+                                //Should not happen anymore because kitLoadout is now automatically applied, but just in-case
+                                if (match.getTeamPlayer(player).getKitLoadout() != null) {
+                                    for (int i = 0; i < 36; i++) {
+                                        if (match.getTeamPlayer(player).getKitLoadout().getContents()[i] != null && match.getTeamPlayer(player).getKitLoadout().getContents()[i].getType() == Material.ARROW) slot = i;
                                     }
                                 }
-                                if (player.getLevel() > 0) player.setLevel(0);
-                                if (player.getExp() > 0.0F) player.setExp(0.0F);
-                            } else {
-                                int seconds = Math.round(profile.getCooldowns().get("arrow").getRemaining()) / 1000;
-
-                                player.setLevel(seconds);
-                                player.setExp(profile.getCooldowns().get("arrow").getRemaining() / 3500F);
+                                if (slot == -1 || player.getInventory().getItem(slot) != null) {
+                                    player.getInventory().addItem(new ItemStack(Material.ARROW));
+                                } else {
+                                    player.getInventory().setItem(slot, new ItemStack(Material.ARROW));
+                                }
                             }
+                            if (player.getLevel() > 0) player.setLevel(0);
+                            if (player.getExp() > 0.0F) player.setExp(0.0F);
                         }
                     });
                 }
@@ -845,6 +924,23 @@ public class MatchListener implements Listener {
                     event.setCancelled(true);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onExplode(EntityExplodeEvent event) {
+        EntityType type = event.getEntityType();
+        Location location = event.getLocation();
+        Match match = Match.getMatches().values().stream().filter(m -> m.getArenaDetail().getCuboid().contains(location)).findFirst().orElse(null);
+        if (match == null) {
+            Common.log("ERROR: Cannot find match when explosion happens (" + LocationSerialization.toReadable(location) + ")");
+            return;
+        }
+
+        if (type == EntityType.FIREBALL && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {
+            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.fireball.allowed-breaking-blocks").contains(block.getType().name()) && match.isProtected(block.getLocation(), false));
+        } else if (type == EntityType.PRIMED_TNT && plugin.getConfigFile().getBoolean("match.tnt.enabled")) {
+            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.tnt.allowed-breaking-blocks").contains(block.getType().name()) && match.isProtected(block.getLocation(), false));
         }
     }
 

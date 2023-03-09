@@ -892,6 +892,9 @@ kit:
     maximum-points:
       rules: "最大分數"
       description: "設置該職業的最大分數 (只有在 '分數機制' 開啟才會有效)"
+    match-countdown-duration:
+      rules: "戰鬥開始倒數時間"
+      description: "設置該職業的戰鬥開始倒數時間"
     new-round-time:
       rules: "新回合等待時間"
       description: "設置該職業的新回合等待時間 (只有在 '分數機制' 開啟才會有效)"
@@ -974,12 +977,14 @@ match:
   cannot-drop-weapon: "&c你不能在戰鬥的時候把你的武器丟掉"
   use-again-golden-head: "&c你可以在 &c&l{0} &c秒後再使用金頭顱"
   use-again-ender-pearl: "&c你可以在 &c&l{0} &c秒後再使用終界珍珠"
+  use-again-fireball: "&c你可以在 &c&l{0} &c秒後再使用火球"
   received-kit-loadout: "&f成功獲取 &b{0} &f的排版設置"
   received-kit-loadout-because-timeout: "遊戲開始時沒有選擇排版設置, 已自動裝備&b預設排版"
   cannot-build-outside: "&c無法在場地外建設"
   cannot-break-own-bed: "&c你不能破壞自己的床!"
   can-use-enderpearl: "&a你現在可以使用終界珍珠"
   arrow-damage: "&c{0} &7現在的血量是 &c{1}❤ &e{2}❤"
+  requeue-not-in-match: "&c錯誤: 不在一個戰鬥中"
   bed-break:
     title: "&c床遭到破壞了！"
     subtitle: "&f死後您將無法重生！"
@@ -1292,6 +1297,7 @@ profile:
     enter-cancel-to-cancel: "&e&l輸入 &c&lcancel &e&l去強制終止過程"
     success-cancel: "&a成功取消程序"
   settings:
+    successfully-changed: "&a{0}成功更改為: {1}"
     time-changer:
       name: "時間"
       lore:

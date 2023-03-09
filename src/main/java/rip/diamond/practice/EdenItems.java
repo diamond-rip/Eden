@@ -25,6 +25,7 @@ public class EdenItems {
     public static EdenItem PARTY_EDITOR = loadItem("items.party.editor");
     public static EdenItem PARTY_PARTY_LEAVE = loadItem("items.party.party-leave");
     public static EdenItem QUEUE_LEAVE_QUEUE = loadItem("items.queue.leave-queue");
+    public static EdenItem MATCH_REQUEUE = loadItem("items.match.requeue");
     public static EdenItem SPECTATE_LEAVE_SPECTATE = loadItem("items.spectate.leave-spectate");
     public static EdenItem SPECTATE_TELEPORTER = loadItem("items.spectate.teleporter");
     public static EdenItem SPECTATE_TOGGLE_VISIBILITY_OFF = loadItem("items.spectate.toggle-visibility-off");

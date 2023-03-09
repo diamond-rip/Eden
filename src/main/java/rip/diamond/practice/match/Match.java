@@ -27,6 +27,8 @@ import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
+import rip.diamond.practice.profile.cooldown.Cooldown;
+import rip.diamond.practice.profile.cooldown.CooldownType;
 import rip.diamond.practice.profile.task.ProfileCooldownTask;
 import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.*;
@@ -166,7 +168,7 @@ public abstract class Match {
      * @param scorer The TeamPlayer who scored the point
      */
     public void score(PlayerProfile profile, TeamPlayer entity, TeamPlayer scorer) {
-        profile.getCooldowns().put("score", new Cooldown(3));
+        profile.getCooldowns().put(CooldownType.SCORE, new Cooldown(3));
 
         Team team = getTeam(scorer);
         team.handlePoint();
@@ -239,9 +241,7 @@ public abstract class Match {
 
         PlayerProfile profile = PlayerProfile.get(player);
         //So arrow will not be duplicated if GiveBackArrow is on
-        if (profile.getCooldowns().get("arrow") != null) {
-            profile.getCooldowns().get("arrow").cancelCountdown();
-        }
+        profile.getCooldowns().get(CooldownType.ARROW).cancelCountdown();
 
         player.setExp(0);
         player.setLevel(0);

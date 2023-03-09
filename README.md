@@ -34,6 +34,7 @@ All tasks that are marked in this list should be fixed or recoded.
 * [Sconey](https://github.com/Saturn-Operations/Sconey) - Scoreboard API
 * [ImanityFramework](https://github.com/FairyProject/ImanityFramework) - Tablist API
 * [DatouNms](https://github.com/lulu2002/DatouNms) - Player death animation
+* [FireballUtil](https://gist.github.com/aaron1998ish/1dd3f183d8d55902f65ea187019058ac) - Fireball direction utilities
 
 ## Support
 If you found this plugin useful, please give me a ⭐ to show your appreciation! 😊

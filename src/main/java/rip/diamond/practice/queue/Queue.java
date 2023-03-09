@@ -29,6 +29,9 @@ public class Queue {
     }
 
     public static void joinQueue(Player player, Kit kit, QueueType queueType) {
+        if (player == null || !player.isOnline()) {
+            return;
+        }
         if (players.get(player.getUniqueId()) != null) {
             Language.QUEUE_ERROR_FOUND_QUEUE_PROFILE.sendMessage(player);
             return;

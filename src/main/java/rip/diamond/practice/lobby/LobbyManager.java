@@ -44,25 +44,25 @@ public class LobbyManager {
     }
 
     public void reset(Player player) {
-        Tasks.run(()-> {
-            PlayerProfile profile = PlayerProfile.get(player);
+        PlayerProfile profile = PlayerProfile.get(player);
 
-            if (profile == null) {
-                return;
-            }
+        if (profile == null) {
+            return;
+        }
 
-            PlayerUtil.reset(player);
+        PlayerUtil.reset(player);
 
-            profile.setMatch(null);
-            profile.setPlayerState(PlayerState.IN_LOBBY);
-            profile.setupItems();
-            profile.getCooldowns().forEach((name, cooldown) -> cooldown.cancelCountdown());
-        });
+        profile.setMatch(null);
+        profile.setPlayerState(PlayerState.IN_LOBBY);
+        profile.setupItems();
+        profile.getCooldowns().forEach((name, cooldown) -> cooldown.cancelCountdown());
     }
 
     public void sendToSpawnAndReset(Player player) {
-        reset(player);
-        Tasks.run(()-> teleport(player));
+        Tasks.run(()-> {
+            reset(player);
+            teleport(player);
+        });
     }
 
 }

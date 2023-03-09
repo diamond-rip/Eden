@@ -3,7 +3,7 @@ package rip.diamond.practice.events;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.util.Cooldown;
+import rip.diamond.practice.profile.cooldown.Cooldown;
 import rip.diamond.practice.util.Tasks;
 
 import java.util.Arrays;

@@ -834,6 +834,9 @@ kit:
     maximum-points:
       rules: "Maximum Points"
       description: "Settings for the maximum points (Only works if point system is on)"
+    match-countdown-duration:
+      rules: "Match Countdown Duration"
+      description: "Settings for the match countdown duration"
     new-round-time:
       rules: "New Round Time"
       description: "Settings for the new round countdown time (Only works if point system is on)"
@@ -915,13 +918,15 @@ match:
   leave-spectate: "&b{0} &eis no longer spectating"
   cannot-drop-weapon: "&cYou cannot drop your weapon"
   use-again-golden-head: "&cYou need to wait &c&l{0} &cseconds before using Golden Head again"
-  use-again-ender-pearl: "&cYou need to wait &c&l{0} &cseconds before using endpr pearl again"
+  use-again-ender-pearl: "&cYou need to wait &c&l{0} &cseconds before using ender pearl again"
+  use-again-fireball: "&cYou need to wait &c&l{0} &cseconds before using fireball again"
   received-kit-loadout: "&fYou have received &b{0} &fkit loadout"
   received-kit-loadout-because-timeout: "No selected kit loadout. You have been automatically equipped &bdefault &fkit loadout"
   cannot-build-outside: "&cCannot build outside of the arena"
   cannot-break-own-bed: "&cYou cannot break your own bed!"
   can-use-enderpearl: "&aYou can now use Ender Pearl again."
   arrow-damage: "&c{0}&e's health: &c{1}❤ &e{2}❤"
+  requeue-not-in-match: "&cError: You are not in a match"
   bed-break:
     title: "&cBed Destroyed！"
     subtitle: "&fYou will not respawn after die！"
@@ -1248,6 +1253,7 @@ profile:
       afternoon: "Afternoon"
       night: "Evening"
       midnight: "Midnight"
+      successfully-changed: "&aSuccessfully changed your client time to: {0}"
     arena-selection:
       name: "Arena Selection"
       lore:

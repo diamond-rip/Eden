@@ -1,4 +1,4 @@
-package rip.diamond.practice.util;
+package rip.diamond.practice.profile.cooldown;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -39,7 +39,7 @@ public class Cooldown {
     }
 
     public boolean isExpired() {
-        return System.currentTimeMillis() > this.expire;
+        return System.currentTimeMillis() >= this.expire;
     }
 
     public int getSecondsLeft() {
@@ -58,6 +58,19 @@ public class Cooldown {
     }
 
     public void run() {
+        if (isExpired()) {
+            cancelCountdown();
+            runExpired();
+        } else {
+            runUnexpired();
+        }
+    }
+
+    public void runUnexpired() {
+
+    }
+
+    public void runExpired() {
 
     }
 }

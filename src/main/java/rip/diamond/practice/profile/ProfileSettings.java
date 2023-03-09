@@ -220,6 +220,10 @@ public enum ProfileSettings {
         return options.stream().filter(Option::isDefault_).findFirst().orElse(null);
     }
 
+    public Option getOption(String name) {
+        return getOptions().stream().filter(option -> option.getName().equals(name)).findFirst().orElse(null);
+    }
+
     public Option getNextOption(Option option) {
         int index = findIndex(option);
         int nextIndex = index + 1 >= getOptions().size() ? 0 : index + 1;

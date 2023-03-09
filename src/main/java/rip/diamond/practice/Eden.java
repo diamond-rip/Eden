@@ -48,6 +48,7 @@ import rip.diamond.practice.party.fight.PartyFightManager;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.command.SettingsCommand;
 import rip.diamond.practice.profile.command.StatsCommand;
+import rip.diamond.practice.profile.command.settings.*;
 import rip.diamond.practice.profile.listener.ProfileListener;
 import rip.diamond.practice.profile.procedure.ProcedureListener;
 import rip.diamond.practice.queue.Queue;
@@ -189,6 +190,18 @@ public class Eden extends JavaPlugin {
         new ViewInventoryCommand();
         new ReloadLeaderboardCommand();
         new SettingsCommand();
+        new AfternoonCommand();
+        new DayCommand();
+        new MidnightCommand();
+        new NightCommand();
+        new PingRangeCommand();
+        new ToggleArenaSelectionCommand();
+        new ToggleDuelRequestCommand();
+        new ToggleEventAnnouncementCommand();
+        new ToggleMatchScoreboardCommand();
+        new TogglePartyInviteCommand();
+        new ToggleSpectatorJoinLeaveMessageCommand();
+        new ToggleSpectatorVisibilityCommand();
     }
 
     private void loadGeneral() {

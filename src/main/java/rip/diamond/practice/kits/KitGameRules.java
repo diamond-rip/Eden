@@ -38,6 +38,7 @@ public class KitGameRules {
 	@Getter private boolean dropItems = true;
 	@Getter private int respawnTime = 5;
 	@Getter private int maximumPoints = 3;
+	@Getter private int matchCountdownDuration = 5;
 	@Getter private int newRoundTime = 5;
 	@Getter private int clearBlockTime = 10;
 	@Getter private String knockbackName = "default";
@@ -89,6 +90,7 @@ public class KitGameRules {
 		//integer
 		respawnTime(Language.KIT_GAME_RULES_RESPAWN_TIME_RULES.toString(), Language.KIT_GAME_RULES_RESPAWN_TIME_DESCRIPTION.toString()),
 		maximumPoints(Language.KIT_GAME_RULES_MAXIMUM_POINTS_RULES.toString(), Language.KIT_GAME_RULES_MAXIMUM_POINTS_DESCRIPTION.toString()),
+		matchCountdownDuration(Language.KIT_GAME_RULES_MATCH_COUNTDOWN_DURATION_RULES.toString(), Language.KIT_GAME_RULES_MATCH_COUNTDOWN_DURATION_DESCRIPTION.toString()),
 		newRoundTime(Language.KIT_GAME_RULES_NEW_ROUND_TIME_RULES.toString(), Language.KIT_GAME_RULES_NEW_ROUND_TIME_DESCRIPTION.toString()),
 		clearBlockTime(Language.KIT_GAME_RULES_CLEAR_BLOCK_TIME_RULES.toString(), Language.KIT_GAME_RULES_CLEAR_BLOCK_TIME_DESCRIPTION.toString()),
 		//String

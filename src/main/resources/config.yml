@@ -44,6 +44,8 @@ lobby:
   ## Should player allow to see other players?
   display-players: false
 match:
+  ## This option will give a 'Play Again' item to match players when a match is ended, like Minemen Club
+  allow-requeue: true
   ## Right now boxing will count hit as 2 hits if player is spam clicking and jumping (critical hits)
   ## This option will change paperspigot's config 'disable-player-crits' to true. So crit hit will not be exists anymore.
   ## Warning: This option will disable crit damage, and will change and save paperspigot's 'disable-player-crits' settings
@@ -64,6 +66,61 @@ match:
   ## 20 ticks is 1 second, so if 100 ticks then it will be 5 seconds
   ## Default is 100, and is recommended. Change this value with caution
   end-duration: 100
+  ## Fireball - Settings related to fireball
+  fireball:
+    ## Should Eden handle how fireball works? (Including modify the value of fireball, explosion, speed, etc.)
+    enabled: true
+    ## Should Eden modify the fireball damage?
+    ## The damage will be original damage divide by 'divide-damage'
+    ## For example, if original damage is 10, 'divide-damage' is 5, then player will take 2 damage (10 / 5 = 2)
+    divide-damage: 5.0
+    ## How fast should the fireball speed goes?
+    ## This value is a double, meaning it can include decimal points
+    speed: 2.0
+    ## The power of the fireball's explosion
+    ## This value is a float, meaning it can include decimal points
+    yield: 2.0
+    ## The block which allow to break by the explosion
+    ## Blocks which is placed by match players will ALWAYS allow breaking
+    allowed-breaking-blocks:
+      - BED_BLOCK
+      - ENDER_STONE
+    ## The knockback when player takes damage by fireball
+    knockback:
+      ## Should Eden use our own knockback mechanism?
+      enabled: true
+      ## The knockback vertical multiplier
+      vertical: 1.1
+      ## The knockback horizontal multiplier
+      horizontal: 1.2
+  ## TNT - Settings related to TNT
+  tnt:
+    ## Should Eden handle how TNT works?
+    enabled: true
+    ## Should Eden modify the TNT damage?
+    ## The damage will be original damage divide by 'divide-damage'
+    ## For example, if original damage is 10, 'divide-damage' is 5, then player will take 2 damage (10 / 5 = 2)
+    divide-damage: 5.0
+    ## The power of the TNT explosion
+    ## This value is a float, meaning it can include decimal points
+    ## Default value of Minecraft's TNT yield is 4.0
+    yield: 4.0
+    ## The ticks of the tnt explosion
+    ## Remember: 20 ticks is equals to 1 second. Meaning 50 ticks is 2.5 seconds
+    fuse-ticks: 50
+    ## The block which allow to break by the explosion
+    ## Blocks which is placed by match players will ALWAYS allow breaking
+    allowed-breaking-blocks:
+      - BED_BLOCK
+      - ENDER_STONE
+    ## The knockback when player takes damage by TNT
+    knockback:
+      ## Should Eden use our own knockback mechanism?
+      enabled: true
+      ## The knockback vertical multiplier
+      vertical: 1.1
+      ## The knockback horizontal multiplier
+      horizontal: 1.2
 ## Simple chat format
 chat-format:
   ## Set this to true if you want to enable chat format

@@ -9,11 +9,14 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftItem;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftTNTPrimed;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -25,6 +28,7 @@ import rip.diamond.practice.match.team.Team;
 import rip.diamond.spigotapi.SpigotType;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
@@ -261,6 +265,28 @@ public class Util {
         if (loc.getZ() >= Math.ceil(prevZ)) {
             loc.setZ(Math.ceil(prevZ - 0.01));
         }
+    }
+
+    public static void setSource(final TNTPrimed tntPrimed, final Player player) {
+        EntityLiving handle = ((CraftLivingEntity)player).getHandle();
+        EntityTNTPrimed handle2 = ((CraftTNTPrimed)tntPrimed).getHandle();
+        try {
+            Field declaredField = EntityTNTPrimed.class.getDeclaredField("source");
+            declaredField.setAccessible(true);
+            declaredField.set(handle2, handle);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void pushAway(Player player, Location l, double hf, double rf) {
+        final Location loc = player.getLocation();
+
+        double hf1 = Math.max(-4, Math.min(4, hf));
+        double rf1 = Math.max(-4, Math.min(4, -1 * rf));
+
+        player.setVelocity(l.toVector().subtract(loc.toVector()).normalize().multiply(rf1).setY(hf1));
     }
 
     public static List<Block> getBlocksAroundCenter(Location loc, int radius) {

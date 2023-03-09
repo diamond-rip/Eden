@@ -10,6 +10,7 @@ import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.profile.cooldown.CooldownType;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
 
@@ -44,7 +45,7 @@ public class MatchMovementHandler {
                 //Prevent any duplicate scoring
                 //If two people go into the portal at the same time in bridge, it will count as +2 points
                 //If player go into the water and PlayerMoveEvent is too slow to perform teleportation, it will run MatchNewRoundTask multiple times
-                if (match.getMatchPlayers().stream().filter(Objects::nonNull).noneMatch(p -> PlayerProfile.get(p).getCooldowns().containsKey("score"))) {
+                if (match.getMatchPlayers().stream().filter(Objects::nonNull).allMatch(p -> PlayerProfile.get(p).getCooldowns().get(CooldownType.SCORE).isExpired())) {
                     if (match.getState() == MatchState.FIGHTING && !match.getTeamPlayer(player).isRespawning()) {
                         //檢查 KitGameRules 水上即死
                         if (gameRules.isDeathOnWater() && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {

@@ -14,12 +14,15 @@ import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
+import rip.diamond.practice.profile.cooldown.Cooldown;
+import rip.diamond.practice.profile.cooldown.CooldownType;
 import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.profile.task.ProfileAutoSaveTask;
 import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.option.Option;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 @Getter
@@ -33,7 +36,7 @@ public class PlayerProfile {
     private final Map<String, ProfileKitData> kitData = new HashMap<>();
     private final Map<ProfileSettings, Option> settings = new HashMap<>();
     private PlayerState playerState = PlayerState.LOADING;
-    private final Map<String, Cooldown> cooldowns = new HashMap<>();
+    private final Map<CooldownType, Cooldown> cooldowns = new ConcurrentHashMap<>();
     @Setter private Match match;
     @Setter private Party party;
 
@@ -149,6 +152,10 @@ public class PlayerProfile {
     private void loadDefault() {
         //Load all the current exist kits into profile kit data
         Kit.getKits().forEach(kit -> kitData.putIfAbsent(kit.getName(), new ProfileKitData()));
+        //Setup all default cooldown
+        for (CooldownType type : CooldownType.values()) {
+            cooldowns.put(type, new Cooldown(0));
+        }
     }
 
     private void loadDefaultAfter() {
