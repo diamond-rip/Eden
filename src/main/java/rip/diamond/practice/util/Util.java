@@ -1,5 +1,6 @@
 package rip.diamond.practice.util;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
@@ -31,10 +32,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.security.CodeSource;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -46,6 +44,14 @@ public class Util {
 
     public static boolean isNotNull(String str) {
         return !isNull(str);
+    }
+
+    public static List<Player> getOnlinePlayers() {
+        if (Eden.INSTANCE.getHookManager().getCitizensHook() != null) {
+            return Eden.INSTANCE.getHookManager().getCitizensHook().getOnlinePlayers();
+        } else {
+            return ImmutableList.copyOf(Bukkit.getOnlinePlayers());
+        }
     }
 
     public static void damage(Player player, double damage) {
@@ -333,6 +339,17 @@ public class Util {
         if (health > 0) {
             Language.MATCH_ARROW_DAMAGE.sendMessage(damager, entity.getName(), Eden.DECIMAL.format(health), Eden.DECIMAL.format(absorptionHealth));
         }
+    }
+
+    public static boolean isNPC(Player player) {
+        return isNPC(player.getUniqueId());
+    }
+
+    public static boolean isNPC(UUID uuid) {
+        if (Eden.INSTANCE.getHookManager().getCitizensHook() == null) {
+            return false;
+        }
+        return Eden.INSTANCE.getHookManager().getCitizensHook().isNPC(uuid);
     }
 
 }

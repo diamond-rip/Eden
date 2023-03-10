@@ -11,11 +11,13 @@ public class ProfileAutoSaveTask extends TaskTicker {
     @Override
     public void onRun() {
         PlayerProfile.getProfiles().values().forEach(playerProfile -> {
-            playerProfile.save(true, (success) -> {
-                if (success && playerProfile.getPlayer() == null) {
-                    PlayerProfile.getProfiles().remove(playerProfile.getUniqueId());
-                }
-            });
+            if (!playerProfile.isTemporary()) {
+                playerProfile.save(true, (success) -> {
+                    if (success && playerProfile.getPlayer() == null) {
+                        PlayerProfile.getProfiles().remove(playerProfile.getUniqueId());
+                    }
+                });
+            }
         });
     }
 

@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.github.paperspigot.Title;
+import rip.diamond.practice.Eden;
 import rip.diamond.practice.kits.KitLoadout;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -44,6 +45,9 @@ public class TeamPlayer {
 	}
 
 	public Player getPlayer() {
+		if (Util.isNPC(uuid)) {
+			return Eden.INSTANCE.getHookManager().getCitizensHook().getNPCPlayer(uuid);
+		}
 		return Bukkit.getPlayer(uuid);
 	}
 

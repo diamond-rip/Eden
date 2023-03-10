@@ -3,9 +3,11 @@ package rip.diamond.practice.match.task;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
+import rip.diamond.practice.event.MatchResetEvent;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchTaskTicker;
 import rip.diamond.practice.profile.PlayerProfile;
+import rip.diamond.practice.util.Util;
 
 import java.util.Objects;
 
@@ -22,6 +24,9 @@ public class MatchResetTask extends MatchTaskTicker {
     public void onRun() {
         if (getTicks() <= 0) {
             cancel();
+
+            MatchResetEvent event = new MatchResetEvent(match);
+            event.call();
 
             match.clearEntities(true);
             match.getMatchPlayers().stream().filter(player -> Objects.nonNull(player) && player.isOnline())
@@ -42,7 +47,9 @@ public class MatchResetTask extends MatchTaskTicker {
 
         //Give 'Play Again' item like Minemen Club
         if (plugin.getConfigFile().getBoolean("match.allow-requeue")) {
-            match.getMatchPlayers().forEach(player ->  EdenItems.giveItem(player, EdenItems.MATCH_REQUEUE));
+            match.getMatchPlayers().stream()
+                    .filter(Objects::nonNull) //If match players contains citizens NPC, because of it is already destroyed, it will be null
+                    .forEach(player -> EdenItems.giveItem(player, EdenItems.MATCH_REQUEUE));
         }
     }
 

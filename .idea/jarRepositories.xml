@@ -81,5 +81,10 @@
       <option name="name" value="MavenLocal" />
       <option name="url" value="file:/$PROJECT_DIR$/../../../Matthew%20Yu/.m2/repository/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="citizens-repo" />
+      <option name="name" value="citizens-repo" />
+      <option name="url" value="https://maven.citizensnpcs.co/repo" />
+    </remote-repository>
   </component>
 </project>

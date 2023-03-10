@@ -1,6 +1,7 @@
 package rip.diamond.practice.match.listener;
 
 import lombok.RequiredArgsConstructor;
+import net.citizensnpcs.api.npc.NPC;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -12,6 +13,7 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -115,7 +117,7 @@ public class MatchListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onDeath(PlayerDeathEvent event) {
         event.setDeathMessage(null);
 

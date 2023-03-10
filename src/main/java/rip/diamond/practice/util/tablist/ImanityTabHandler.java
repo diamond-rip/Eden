@@ -107,6 +107,7 @@ public class ImanityTabHandler {
                     event.setPacket(packet.getHandle());
                 }
             };
+            ProtocolLibrary.getProtocolManager().addPacketListener(protocolListener);
         }
 
         Eden.INSTANCE.getServer().getPluginManager().registerEvents(new Listener() {

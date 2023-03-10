@@ -4,6 +4,7 @@ import com.viaversion.viaversion.api.Via;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.tablist.util.packet.WrapperPlayServerScoreboardTeam;
 
 import java.util.Collection;

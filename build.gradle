@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.0.37-BETA-" + getGitHash()
+version = "1.0.38-BETA-" + getGitHash()
 
 processResources {
     def props = [version: version]
@@ -51,6 +51,11 @@ repositories {
     maven {
         url "https://repo.dmulloy2.net/repository/public/"
     }
+    //Citizens
+    maven {
+        name 'citizens-repo'
+        url 'https://maven.citizensnpcs.co/repo'
+    }
 }
 
 dependencies {
@@ -68,6 +73,7 @@ dependencies {
     //Libraries from others
     compileOnly 'me.clip:placeholderapi:2.11.2' //PlaceholderAPI
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0' //ProtocolLib
+    compileOnly 'net.citizensnpcs:citizensapi:2.0.30-SNAPSHOT' //Citizens
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'

@@ -5,4 +5,4 @@ author: GoodestEnglish
 description: The best practice plugin with premium features
 website: https://youtube.com/c/goodestenglishpvp
 depend: [WorldEdit, FastAsyncWorldEdit, ProtocolLib]
-softdepend: [ViaVersion, PlaceholderAPI]
+softdepend: [ViaVersion, PlaceholderAPI, Citizens]

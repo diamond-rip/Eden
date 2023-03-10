@@ -38,6 +38,7 @@ public class StatsCommand extends Command {
         }
 
         PlayerProfile finalProfile = PlayerProfile.createPlayerProfile(offlinePlayer.getUniqueId(), offlinePlayer.getName());
+        finalProfile.setTemporary(true);
         finalProfile.load(success -> {
             if (success) {
                 new KitStatsMenu(finalProfile).openMenu(player);

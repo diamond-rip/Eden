@@ -2,6 +2,7 @@ package io.github.epicgo.sconey;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.util.Util;
 
 public class SconeyThread extends Thread {
 
@@ -30,7 +31,7 @@ public class SconeyThread extends Thread {
      * Tick logic for thread.
      */
     private void tick() {
-        for (final Player player : Bukkit.getOnlinePlayers()) {
+        for (final Player player : Util.getOnlinePlayers()) {
             try {
                 final SconeyPlayer sconeyPlayer = this.sconeyHandler.getScoreboard(player);
                 if (sconeyPlayer == null) return;

@@ -19,7 +19,7 @@ public class ConfirmMenu extends Menu {
 	private final Button centerButtons;
 
 	public ConfirmMenu(TypeCallback<Boolean> response, boolean closeAfter, Button centerButtons) {
-		this.title = CC.YELLOW + Language.CONFIRM_TITLE.toString();
+		this.title = CC.YELLOW + Language.CONFIRM_TITLE;
 		this.response = response;
 		this.closeAfterResponse = closeAfter;
 		this.centerButtons = centerButtons;

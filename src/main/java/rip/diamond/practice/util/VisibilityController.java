@@ -18,7 +18,7 @@ public class VisibilityController {
 
     public void updateVisibility(Player player) {
         Tasks.run(() -> {
-            for (Player target : Bukkit.getOnlinePlayers()) {
+            for (Player target : Util.getOnlinePlayers()) {
                 if (shouldSeePlayer(target, player)) {
                     target.showPlayer(player);
                 } else {

@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.util.Tasks;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 import rip.diamond.practice.util.nametags.construct.NameTagComparator;
 import rip.diamond.practice.util.nametags.construct.NameTagInfo;
@@ -40,7 +41,7 @@ public class NameTagManager {
         new BukkitRunnable() {
             @Override
             public void run() {
-                Bukkit.getOnlinePlayers().forEach(player -> reload(player));
+                Util.getOnlinePlayers().forEach(player -> reload(player));
             }
         }.runTaskTimerAsynchronously(plugin, 0, 2);
     }

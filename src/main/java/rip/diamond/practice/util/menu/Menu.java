@@ -14,18 +14,18 @@ import rip.diamond.practice.event.MenuUpdateEvent;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.menu.task.MenuUpdateTask;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
 @Setter
 public abstract class Menu {
 
-	public static Map<UUID, Menu> currentlyOpenedMenus = new HashMap<>();
+	public static Map<UUID, Menu> currentlyOpenedMenus = new ConcurrentHashMap<>();
 
 	@Getter protected Eden plugin = Eden.INSTANCE;
-	private Map<Integer, Button> buttons = new HashMap<>();
+	private Map<Integer, Button> buttons = new ConcurrentHashMap<>();
 	private boolean autoUpdate = false;
 	private boolean updateAfterClick = true;
 	private boolean closedByMenu = false;

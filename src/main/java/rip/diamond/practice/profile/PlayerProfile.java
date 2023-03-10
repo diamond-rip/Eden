@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.events.EdenEvent;
+import rip.diamond.practice.hook.plugin.citizens.CitizensHook;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.party.Party;
@@ -40,6 +41,7 @@ public class PlayerProfile {
     @Setter private Match match;
     @Setter private Party party;
 
+    @Setter private boolean temporary = false;
     private boolean saving = false;
 
     public static void init() {
@@ -101,6 +103,9 @@ public class PlayerProfile {
     }
 
     public Player getPlayer() {
+        if (Util.isNPC(uniqueId)) {
+            return Eden.INSTANCE.getHookManager().getCitizensHook().getNPCPlayer(uniqueId);
+        }
         return Bukkit.getPlayer(uniqueId);
     }
 
@@ -149,7 +154,7 @@ public class PlayerProfile {
         player.updateInventory();
     }
 
-    private void loadDefault() {
+    public void loadDefault() {
         //Load all the current exist kits into profile kit data
         Kit.getKits().forEach(kit -> kitData.putIfAbsent(kit.getName(), new ProfileKitData()));
         //Setup all default cooldown
@@ -158,7 +163,7 @@ public class PlayerProfile {
         }
     }
 
-    private void loadDefaultAfter() {
+    public void loadDefaultAfter() {
         //Load it after, if I update the plugin and added a few new settings, then we will need this
         Arrays.asList(ProfileSettings.values()).forEach(profileSettings -> settings.putIfAbsent(profileSettings, profileSettings.getDefault()));
     }
