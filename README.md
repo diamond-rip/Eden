@@ -1,21 +1,21 @@
 # Eden
 Eden is a Minecraft 1.8 version-based plugin that offers the best practice core experience.
 
-_**Note: This is a freshly created project and is still in the beta phase. Bugs might appear. If you find a bug, please report it at issues [(Click here)](https://github.com/RealGoodestEnglish/Eden/issues).**_
+_**Note: This is a freshly created project and is still in the beta phase. Bugs might appear. If you find a bug, please report it at issues [(Click here)](https://github.com/diamond-rip/Eden/issues).**_
 
 ## How to Install?
 Please check out our wiki page. Most of the information is there.
-Please note that Eden doesn't support vanilla Spigot. We only support specific Spigot forks. For more information, please take a look at the list of the Supported Spigot Forks [(Click here)](https://github.com/RealGoodestEnglish/Eden/wiki/Getting-Started#supported-spigot-forks).
+Please note that Eden doesn't support vanilla Spigot. We only support specific Spigot forks. For more information, please take a look at the list of the Supported Spigot Forks [(Click here)](https://github.com/diamond-rip/Eden/wiki/Getting-Started#supported-spigot-forks).
 
 ## Supported Spigot Forks
 
-Eden supports spigot forks! Check out what other Spigot forks are supported at the Wiki Page [(Click here)](https://github.com/RealGoodestEnglish/Eden/wiki).
+Eden supports spigot forks! Check out what other Spigot forks are supported at the Wiki Page [(Click here)](https://github.com/diamond-rip/Eden/wiki).
 
 ## Supported Languages
-Eden currently offers support for two languages: English and Traditional Chinese (Simplified Chinese only works in support, not configuration!). If you wish to download any other language translation files, [click here](https://github.com/RealGoodestEnglish/Eden/wiki/Configurations.
+Eden currently offers support for two languages: English and Traditional Chinese (Simplified Chinese only works in support, not configuration!). If you wish to download any other language translation files, [click here](https://github.com/diamond-rip/Eden/wiki/Configurations).
 
 ## Bug Report
-Found a bug? Please file a bug report at issues [(Click here)](https://github.com/RealGoodestEnglish/Eden/issues/create)!
+Found a bug? Please file a bug report at issues [(Click here)](https://github.com/diamond-rip/Eden/issues/new)!
 
 ## Contributions
 As an open-source project, we'd love to see any improvements that happen to the project. We welcome anyone to contribute to this project and help us improve the plugin.
