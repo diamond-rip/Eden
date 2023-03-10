@@ -27,6 +27,11 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
     }
 
     @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
     public String getVersion() {
         return Eden.INSTANCE.getDescription().getVersion();
     }
