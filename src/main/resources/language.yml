@@ -1242,7 +1242,7 @@ profile:
     enter-cancel-to-cancel: "&e&lEnter &c&lcancel &e&lto stop the procedure"
     success-cancel: "&aProcedure has been cancelled"
   settings:
-    successfully-changed: "Successfully changed setting {}"
+    successfully-changed: "Successfully changed setting {0}"
     time-changer:
       name: "Time"
       lore:
