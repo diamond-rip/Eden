@@ -1,7 +1,7 @@
 # Eden
-Eden is a Minecraft 1.8 version-based plugin that offers the best practice core experience.
+Eden is a Minecraft 1.8 version-based plugin that offers the best Practice PvP core experience.
 
-_**Note: This is a freshly created project and is still in the beta phase. Bugs might appear. If you find a bug, please report it at issues [(Click here)](https://github.com/diamond-rip/Eden/issues).**_
+_**Note: This is a freshly created project and is still in it's beta phase, bugs might occur. If you find a bug, please report it at issues [(Click here)](https://github.com/diamond-rip/Eden/issues).**_
 
 ## How to Install?
 Please check out our wiki page. Most of the information is there.
@@ -25,8 +25,8 @@ Head over to the pull requests to create a PR! Please note that if you want to i
 ## To-do List
 Please note that things marked here aren't fully supported and may cause major bugs. Features listed here may also only support Traditional Chinese as of right now. Use these features at your own risk.
 
-Event Implementation - This feature needs more testing
-Tablist API - Needs more testing
+* Event Implementation - This feature needs more testing
+* Tablist API - Needs more testing
 All tasks that are marked in this list should be fixed or recoded.
 
 ## Credit
