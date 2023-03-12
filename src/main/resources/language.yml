@@ -76,6 +76,7 @@ scoreboard:
       - "&b&l┃ &bHits: {match-solo-boxing-difference-text}"
       - "&b&l┃ &a You: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c Them: &f{match-solo-boxing-opponent-hit}"
+      - "&b&l┃ &e Combo: &f{match-solo-boxing-combo}"
       - ""
       - "&b&l┃ &fYour Ping: &b{match-solo-self-ping}ms"
       - "&b&l┃ &fTheir Ping: &b{match-solo-opponent-ping}ms"
@@ -706,6 +707,11 @@ kit:
         - ""
         - "&e&nLeft click to preview this kit"
         - "&e&nRight click to get the kit preview"
+    save:
+      name: "&b&lSave Kit"
+      lore:
+        - ""
+        - "&e&nClick to save kit settings"
     rules-toggle:
       success: "&fChanged &b{0} &f{1} to &b{2}"
     rules-set-value:
@@ -1052,6 +1058,7 @@ match:
     golden-apple: "Golden Apple"
     god-apple: "Golden Apple"
   new-round-start:
+    countdown: "&e{0}..."
     message: "&aMatch started!"
     scored-title: "{0}{1} &escored!"
     scored-subtitle: "{0}{1} &7- {2}{3}"

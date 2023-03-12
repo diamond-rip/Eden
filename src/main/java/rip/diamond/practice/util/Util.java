@@ -243,7 +243,7 @@ public class Util {
         EntityItem entity = new EntityItem(world, loc.getX(), loc.getY(), loc.getZ(), CraftItemStack.asNMSCopy(item));
         entity.pickupDelay = 10;
         Eden.INSTANCE.getEntityHider().setPlayerWhoDropped(entity, player.getName());
-        world.addEntity(entity);
+        Tasks.run(() -> world.addEntity(entity));
 
         return new CraftItem(world.getServer(), entity);
     }

@@ -55,6 +55,7 @@ import rip.diamond.practice.queue.Queue;
 import rip.diamond.practice.queue.QueueListener;
 import rip.diamond.practice.queue.command.QueueCommand;
 import rip.diamond.practice.util.BasicConfigFile;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.EntityHider;
 import rip.diamond.practice.util.InventoryUtil;
 import rip.diamond.practice.util.command.CommandManager;
@@ -119,7 +120,7 @@ public class Eden extends JavaPlugin {
         if (tabHandler != null) Eden.INSTANCE.getTabHandler().stop();
         //Clean up matches
         for (Match match : Match.getMatches().values()) {
-            match.getPlacedBlocks().forEach(location -> location.getBlock().setType(Material.AIR));
+            match.getArenaDetail().restoreChunk(); // TODO: 12/3/2023
             match.getEntities().forEach(matchEntity -> matchEntity.getEntity().remove());
         }
         //Save all profiles

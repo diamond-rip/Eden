@@ -149,7 +149,7 @@ public class MatchListener implements Listener {
                 if (match.canEnd()) {
                     drops.removeIf(i -> i.getType() == Material.POTION || i.getType() == Material.GLASS_BOTTLE || i.getType() == Material.MUSHROOM_SOUP || i.getType() == Material.BOWL);
                 }
-
+                
                 for (ItemStack itemStack : drops) {
                     Item item = Util.dropItemNaturally(player.getLocation(), itemStack, player);
                     match.addDroppedItem(item, null); //Already modified the f value of EntityItem, therefore no need to put anything in 2nd variables
@@ -935,7 +935,7 @@ public class MatchListener implements Listener {
         Location location = event.getLocation();
         Match match = Match.getMatches().values().stream().filter(m -> m.getArenaDetail().getCuboid().contains(location)).findFirst().orElse(null);
         if (match == null) {
-            Common.log("ERROR: Cannot find match when explosion happens (" + LocationSerialization.toReadable(location) + ")");
+            Common.log("ERROR: Cannot find match when explosion happens (" + LocationSerialization.toReadable(location) + ", " + type.name() + ")");
             return;
         }
 

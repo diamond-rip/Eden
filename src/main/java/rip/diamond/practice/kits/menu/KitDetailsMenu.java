@@ -78,6 +78,7 @@ public class KitDetailsMenu extends PaginatedMenu {
         buttons.put(3, new KitEditMatchTypeButton(kit, this));
         buttons.put(4, new KitPreviewButton(kit, this));
         buttons.put(5, new KitToggleButton(kit, this));
+        buttons.put(8, new KitSaveButton(kit, this));
         buttons.put(9, new KitEditDisplayNameButton(kit));
         buttons.put(10, new KitEditDescriptionButton(kit));
         buttons.put(11, new KitEditIconButton(kit));

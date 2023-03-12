@@ -148,6 +148,8 @@ public class ImanityTabHandler {
             this.thread.shutdown();
             this.thread = null;
         }
-        ProtocolLibrary.getProtocolManager().removePacketListener(protocolListener);
+        if (this.protocolListener != null) {
+            ProtocolLibrary.getProtocolManager().removePacketListener(protocolListener);
+        }
     }
 }

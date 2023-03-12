@@ -28,7 +28,7 @@ public class MatchResetTask extends MatchTaskTicker {
             MatchResetEvent event = new MatchResetEvent(match);
             event.call();
 
-            match.clearEntities(true);
+            match.clearEntities(true); // TODO: 11/3/2023 Player might be able to see last match's entities due to a new 'play again' item
             match.getMatchPlayers().stream().filter(player -> Objects.nonNull(player) && player.isOnline())
                     .filter(player -> PlayerProfile.get(player).getMatch() == match) //This is to prevent player is in another match because of the requeue item
                     .forEach(player -> plugin.getLobbyManager().sendToSpawnAndReset(player));

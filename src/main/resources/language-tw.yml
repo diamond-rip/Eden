@@ -84,7 +84,7 @@ scoreboard:
       - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-text}"
       - "&b&l┃ &a 我方: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-solo-boxing-opponent-hit}"
-      - "&b&l┃ &f 連擊次數: &f{match-solo-boxing-combo}"
+      - "&b&l┃ &e 連擊次數: &f{match-solo-boxing-combo}"
       - ""
       - "&b&l┃ &f我方延遲: &b{match-solo-self-ping}ms"
       - "&b&l┃ &f對手延遲: &b{match-solo-opponent-ping}ms"
@@ -764,6 +764,11 @@ kit:
         - ""
         - "&e&n左鍵預覽職業"
         - "&e&n右鍵獲取職業排版"
+    save:
+      name: "&b&l儲存職業設定"
+      lore:
+        - ""
+        - "&e&n點擊儲存職業設定"
     rules-toggle:
       success: "&f設置 &b{0} &f{1}到&b{2}"
     rules-set-value:
@@ -1108,6 +1113,7 @@ match:
     golden-apple: "金蘋果"
     god-apple: "金蘋果"
   new-round-start:
+    countdown: "&e{0}..."
     message: "&a戰鬥開始!"
     title: "&a戰鬥開始!"
     score:
