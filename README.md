@@ -1,7 +1,7 @@
 # Eden
 Eden is a Minecraft 1.8 version-based plugin that offers the best Practice PvP core experience.
 
-_**Note: This is a freshly created project and is still in it's beta phase, bugs might occur. If you find a bug, please report it at issues [(Click here)](https://github.com/diamond-rip/Eden/issues).**_
+_**Note: This is a freshly created project and is still in its beta phase, bugs might occur. If you find a bug, please report it at issues [(Click here)](https://github.com/diamond-rip/Eden/issues).**_
 
 ## How to Install?
 Please check out our wiki page. Most of the information is there.
