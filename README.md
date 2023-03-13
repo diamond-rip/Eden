@@ -22,13 +22,6 @@ As an open-source project, we'd love to see any improvements that happen to the 
 
 Head over to the pull requests to create a PR! Please note that if you want to improve or add a feature, you will have to follow the current code base to prevent confusion.
 
-## To-do List
-Please note that things marked here aren't fully supported and may cause major bugs. Features listed here may also only support Traditional Chinese as of right now. Use these features at your own risk.
-
-* Event Implementation - This feature needs more testing
-* Tablist API - Needs more testing
-All tasks that are marked in this list should be fixed or recoded.
-
 ## Credit
 * [Array](https://github.com/RefineDevelopment/Array) - EntityHider
 * [Sconey](https://github.com/Saturn-Operations/Sconey) - Scoreboard API
