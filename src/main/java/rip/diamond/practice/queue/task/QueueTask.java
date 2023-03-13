@@ -6,6 +6,7 @@ import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.QueueMatchFoundEvent;
 import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.impl.SoloMatch;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
@@ -71,6 +72,10 @@ public class QueueTask extends TaskTicker {
                 ArenaDetail arena = Arena.getAvailableArenaDetail(kit);
                 if (arena == null) {
                     //Means no available arena
+                    continue;
+                }
+                //This is to prevent player who's going to be in the same arena as before, to prevent see last match entities because of MatchResetTask in last match isn't triggered yet
+                if (Match.getMatches().values().stream().filter(match -> match.getArenaDetail() == arena).anyMatch(match -> match.getTeamPlayer(player1) != null || match.getTeamPlayer(player2) != null)) {
                     continue;
                 }
 

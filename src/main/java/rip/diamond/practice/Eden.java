@@ -120,7 +120,7 @@ public class Eden extends JavaPlugin {
         if (tabHandler != null) Eden.INSTANCE.getTabHandler().stop();
         //Clean up matches
         for (Match match : Match.getMatches().values()) {
-            match.getArenaDetail().restoreChunk(); // TODO: 12/3/2023
+            match.getArenaDetail().restoreChunk();
             match.getEntities().forEach(matchEntity -> matchEntity.getEntity().remove());
         }
         //Save all profiles

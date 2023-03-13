@@ -14,11 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class Queue {
 
-    @Getter private static final Map<UUID, QueueProfile> players = new HashMap<>();
+    @Getter private static final Map<UUID, QueueProfile> players = new ConcurrentHashMap<>();
 
     public static void init() {
         new QueueTask();
