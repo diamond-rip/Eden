@@ -627,6 +627,12 @@ kit:
         message: "&e&lChanging &b&lkit damage cooldown&e&l... Please enter a new value in chat"
         success: "&fChanged &b{0} &fkit damage cooldown to &b{1}"
         additional-message: "&cYour message must be a number"
+    save:
+      name: "&6&lSave Kit"
+      lore:
+        - ""
+        - "&aClick to save the kit"
+        - ""
     edit-description:
       name: "&b&lEdit kit description"
       lore-start:
