@@ -583,7 +583,7 @@ kit-editor:
     load-loadout-button-name: "&fLoad layout &b{0}"
     rename-loadout-button-name: "&fRename layout &b{0}"
     delete-loadout-button-name: "&cRemove layout &b{0}"
-    rename-instructions: "&e&nRenaming &b{0}&e&n... Please enter a new value in chat"
+    rename-instructions: "&e&lRenaming &b{0}&e&l... Please enter a new value in chat"
     invalid-character: "&cID cannot contain special characters"
   select-kit-menu:
     name: "Select a kit"

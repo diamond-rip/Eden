@@ -231,6 +231,7 @@ public enum Language {
     EVENT_TOURNAMENT_NEW_ROUND_START("event.tournament.new-round.start"),
     EVENT_TOURNAMENT_NEW_ROUND_NO_AVAILABLE_ARENA("event.tournament.new-round.no-available-arena"),
     EVENT_TOURNAMENT_NEW_ROUND_AUTO_PROMOTION("event.tournament.new-round.auto-promotion"),
+    //EVENT_SUMO_EVENT_NAME("event.sumo-event.name"),
     HOOK_FOUND_CUSTOM_SPIGOT("hook.found-custom-spigot"),
     HOOK_CANNOT_FIND_CUSTOM_SPIGOT("hook.cannot-find-custom-spigot"),
     HOOK_ERROR_KNOCKBACK_NOT_FOUND("hook.error-knockback-not-found"),

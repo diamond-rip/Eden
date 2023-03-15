@@ -306,7 +306,7 @@ public abstract class Match {
 
         getPlayersAndSpectators().forEach(other -> {
             //We do not want to send useless stuff to NPC. 'other' might be null because the NPC might be already destroyed because it is dead
-            if (other != null && Util.isNPC(other)) {
+            if (other != null && !Util.isNPC(other)) {
                 PlayerProfile otherProfile = PlayerProfile.get(other);
                 if (otherProfile.getSettings().get(ProfileSettings.SPECTATOR_JOIN_LEAVE_MESSAGE).isEnabled()) {
                     Common.sendMessage(other, Language.MATCH_JOIN_SPECTATE.toString(player.getName()));
@@ -327,7 +327,7 @@ public abstract class Match {
 
         getPlayersAndSpectators().forEach(other -> {
             //We do not want to send useless stuff to NPC. 'other' might be null because the NPC might be already destroyed because it is dead
-            if (other != null && Util.isNPC(other)) {
+            if (other != null && !Util.isNPC(other)) {
                 PlayerProfile otherProfile = PlayerProfile.get(other);
                 if (otherProfile.getSettings().get(ProfileSettings.SPECTATOR_JOIN_LEAVE_MESSAGE).isEnabled()) {
                     Common.sendMessage(other, Language.MATCH_LEAVE_SPECTATE.toString(player.getName()));

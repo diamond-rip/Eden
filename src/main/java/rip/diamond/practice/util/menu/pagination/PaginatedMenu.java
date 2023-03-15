@@ -12,10 +12,6 @@ public abstract class PaginatedMenu extends Menu {
 
 	@Getter public int page = 1;
 
-	{
-		setUpdateAfterClick(false);
-	}
-
 	@Override
 	public String getTitle(Player player) {
 		return getPrePaginatedTitle(player);

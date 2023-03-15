@@ -640,7 +640,7 @@ kit-editor:
     load-loadout-button-name: "&f加載排版 &b{0}"
     rename-loadout-button-name: "&f命名排版 &b{0}"
     delete-loadout-button-name: "&c移除排版 &b{0}"
-    rename-instructions: "&e&n正在重新命名 &b{0}&e&n... 請在聊天室輸入一個新的數值"
+    rename-instructions: "&e&l正在重新命名 &b{0}&e&l... 請在聊天室輸入一個新的數值"
     invalid-character: "&c該名稱擁有不正當符號"
   select-kit-menu:
     name: "選擇一個職業"

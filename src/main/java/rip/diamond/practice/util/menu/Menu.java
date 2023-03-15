@@ -27,7 +27,6 @@ public abstract class Menu {
 	@Getter protected Eden plugin = Eden.INSTANCE;
 	private Map<Integer, Button> buttons = new ConcurrentHashMap<>();
 	private boolean autoUpdate = false;
-	private boolean updateAfterClick = true;
 	private boolean closedByMenu = false;
 	private boolean placeholder = false;
 	public Button placeholderButton = Button.placeholder(Material.STAINED_GLASS_PANE, (byte) 15, " ");

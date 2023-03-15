@@ -2,6 +2,7 @@ package rip.diamond.practice.profile.menu;
 
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.event.SettingsMenuOpenEvent;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.profile.menu.button.SettingsButton;
 import rip.diamond.practice.util.menu.Button;
@@ -23,6 +24,9 @@ public class ProfileSettingsMenu extends Menu {
         for (ProfileSettings settings : ProfileSettings.values()) {
             buttons.put(buttons.size(), new SettingsButton(settings));
         }
+
+        SettingsMenuOpenEvent event = new SettingsMenuOpenEvent(player, this);
+        event.call();
 
         return buttons;
     }
