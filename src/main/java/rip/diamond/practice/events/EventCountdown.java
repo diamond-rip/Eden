@@ -13,10 +13,10 @@ public abstract class EventCountdown extends Cooldown {
 
     private final BukkitTask task;
 
-    public EventCountdown(int seconds, int... tick) {
+    public EventCountdown(boolean async, int seconds, int... tick) {
         super(seconds);
 
-        task = new BukkitRunnable() {
+        BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
                 if (isExpired()) {
@@ -28,7 +28,13 @@ public abstract class EventCountdown extends Cooldown {
                     runUnexpired(getSecondsLeft());
                 }
             }
-        }.runTaskTimerAsynchronously(Eden.INSTANCE, 20L, 20L);
+        };
+
+        if (async) {
+            task = runnable.runTaskTimerAsynchronously(Eden.INSTANCE, 20L, 20L);
+        } else {
+            task = runnable.runTaskTimer(Eden.INSTANCE, 20L, 20L);
+        }
     }
 
     public abstract void runUnexpired(int tick);

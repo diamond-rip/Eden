@@ -579,7 +579,8 @@ event:
       auto-promotion: "&7[&bEvent&7] &eThere were an odd number of teams in this round - so your team has advanced to the next round. &a:)"
   sumo-event:
     name: "Sumo Event"
-    scoreboard:
+    match-end-message: "&7[&bEvent&7] &a{0} &fkilled &c{1}"
+    lobby-scoreboard:
       starting-event:
         - ""
         - "&b&l┃ &b&l{event-uncolored-name}"
@@ -590,9 +591,29 @@ event:
         - "&b&l┃ &b&l{event-uncolored-name}"
         - "&b&l┃  &fRound &b&l{0}"
         - "&b&l┃  &f{1} &bvs &f{2}"
+    in-game-scoreboard:
+      starting-match:
+        - "&7&m----------------------"
+        - "&b&l┃  &7&oStarting soon..."
+        - "&7&m----------------------"
+      fighting:
+        - "&7&m----------------------"
+        - "&b&l┃ &fEvent: &b{match-event-type}"
+        - "&b&l┃ &fDuration: &b{match-duration}"
+        - "&b&l┃ &fRound: &b{match-event-round}"
+        - ""
+        - "&b&l┃ &b{0}"
+        - "&b&l┃ &7vs"
+        - "&b&l┃ &b{1}"
+        - "&7&m----------------------"
+      ending:
+        - "&7&m----------------------"
+        - "&b&l┃ &aMatch Over!"
+        - "&b&l┃ &fWinner: &b{match-event-winner}"
+        - "&7&m----------------------"
     new-round:
-      countdown: "&7Round &b&l{0} &7will be starting in &b&l{1}&7..."
-      started: "&bRound started!"
+      countdown: "&7第 &b&l{0} &7回合將會在 &b&l{1} &7秒後開始..."
+      started: "&b回合開始!"
 hook:
   found-custom-spigot: "&aRunning spigot version: &b{0}&a, custom knockback will be applied"
   cannot-find-custom-spigot: "&eCannot find the custom spigot, vanilla knockback will be applied"

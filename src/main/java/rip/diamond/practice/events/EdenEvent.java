@@ -36,7 +36,7 @@ public abstract class EdenEvent {
     private final int maxPlayers;
     private final int teamSize;
     protected final List<Party> parties = new ArrayList<>();
-    private EventState state = EventState.WAITING;
+    protected EventState state = EventState.WAITING;
 
     private EventCountdown countdown;
     private Listener bukkitListener;
@@ -164,7 +164,7 @@ public abstract class EdenEvent {
     }
 
     public void countdown(int seconds) {
-        setCountdown(new EventCountdown(seconds, 45,30,15,10,5,4,3,2,1) {
+        setCountdown(new EventCountdown(true, seconds, 45,30,15,10,5,4,3,2,1) {
             @Override
             public void runUnexpired(int tick) {
                 Clickable clickable = new Clickable(Language.EVENT_EVENT_START_COUNTDOWN_MESSAGE.toString(getEventName(), tick));

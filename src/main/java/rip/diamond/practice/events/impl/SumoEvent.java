@@ -162,25 +162,27 @@ public class SumoEvent extends EdenEvent {
 
     @Override
     public List<String> getInGameScoreboard(Player player) {
-        /*
-         * 如果 sumoEventState == SumoEventState.NONE, 意思就是相撲比賽還沒開始
-         * 這個情況下, getState() 應該會回傳 EventState.WAITING
-         */
-        if (sumoEventState == SumoEventState.NONE) {
-            return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_STARTING_MATCH.toStringList(player);
+        if (state == EventState.RUNNING) {
+            /*
+             * 如果 sumoEventState == SumoEventState.NONE, 意思就是相撲比賽還沒開始
+             * 這個情況下, getState() 應該會回傳 EventState.WAITING
+             */
+            if (sumoEventState == SumoEventState.NONE) {
+                return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_STARTING_MATCH.toStringList(player);
+            }
+            /*
+             * 如果 sumoEventState == SumoEventState.STARTING_NEW_ROUND 或者 SumoEventState.FIGHTING, 意思就是相撲比賽回合已經開始, 活動內的玩家正在戰鬥中
+             * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+             *
+             * 這裏比較特別, 因為每輪戰鬥結束的時候, sumoEventState 都會是 SumoEventState.ENDING, 不代表整個活動已經結束, 所以當 sumoEventState == SumoEventState.ENDING 我們也可以顯示正在戰鬥的計分版
+             */
+            if (sumoEventState == SumoEventState.STARTING_NEW_ROUND || sumoEventState == SumoEventState.FIGHTING || sumoEventState == SumoEventState.ENDING) {
+                return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_FIGHTING.toStringList(player, getTeamName(teamA), getTeamName(teamB));
+            }
         }
-        /*
-         * 如果 sumoEventState == SumoEventState.STARTING_NEW_ROUND 或者 SumoEventState.FIGHTING, 意思就是相撲比賽回合已經開始, 活動內的玩家正在戰鬥中
-         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
-         */
-        if (sumoEventState == SumoEventState.STARTING_NEW_ROUND || sumoEventState == SumoEventState.FIGHTING) {
-            return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_FIGHTING.toStringList(player, getTeamName(teamA), getTeamName(teamB));
-        }
-        /*
-         * 如果 sumoEventState == SumoEventState.ENDING 或者 SumoEventState.FIGHTING, 意思就是相撲比賽已經結束
-         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
-         */
-        if (sumoEventState == SumoEventState.ENDING) {
+
+        //這裏就是代表整個活動已經結束的時候要顯示的東西
+        if (state == EventState.ENDING) {
             return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_ENDING.toStringList(player);
         }
         return null;
@@ -260,7 +262,6 @@ public class SumoEvent extends EdenEvent {
 
     private void startNewRound() {
         round++;
-        sumoEventState = SumoEventState.STARTING_NEW_ROUND;
 
         List<Team> teams = match.getTeams().stream().filter(team -> !team.isEliminated()).collect(Collectors.toList());
         Collections.shuffle(teams);
@@ -270,7 +271,10 @@ public class SumoEvent extends EdenEvent {
         teamA.teleport(match.getArenaDetail().getA());
         teamB.teleport(match.getArenaDetail().getB());
 
-        setCountdown(new EventCountdown(5, 5,4,3,2,1) {
+        //We need to set the teamA and teamB first before setting the SumoEventState. This is to prevent scoreboard throw an NPE error.
+        sumoEventState = SumoEventState.STARTING_NEW_ROUND;
+
+        setCountdown(new EventCountdown(false,5, 5,4,3,2,1) {
             @Override
             public void runUnexpired(int tick) {
                 broadcastToEventPlayers(Language.EVENT_SUMO_EVENT_NEW_ROUND_COUNTDOWN.toString(round, tick));
@@ -290,7 +294,7 @@ public class SumoEvent extends EdenEvent {
 
         party.teleport(match.getArenaDetail().getSpectator());
 
-        setCountdown(new EventCountdown(3) {
+        setCountdown(new EventCountdown(true, 3) {
             @Override
             public void runUnexpired(int tick) {
 

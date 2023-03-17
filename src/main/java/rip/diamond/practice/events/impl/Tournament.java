@@ -213,7 +213,7 @@ public class Tournament extends EdenEvent {
     private void startNewRound() {
         round++;
         tournamentState = TournamentState.STARTING_NEW_ROUND;
-        setCountdown(new EventCountdown(30, 30,20,15,10,5,4,3,2,1) {
+        setCountdown(new EventCountdown(false,30, 30,20,15,10,5,4,3,2,1) {
             @Override
             public void runUnexpired(int tick) {
                 broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_COUNTDOWN.toString(round, tick));
