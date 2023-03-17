@@ -35,13 +35,16 @@ public class ArenaGenerateTask extends TaskTicker {
                 double aZ = arena.getA().getZ() + this.getOffsetZ();
                 double bX = arena.getB().getX() + this.getOffsetX();
                 double bZ = arena.getB().getZ() + this.getOffsetZ();
+                double spectatorX = arena.getSpectator().getX() + this.getOffsetX();
+                double spectatorZ = arena.getSpectator().getZ() + this.getOffsetZ();
 
                 Location min = new Location(world, minX, arena.getMin().getY(), minZ, arena.getMin().getYaw(), arena.getMin().getPitch());
                 Location max = new Location(world, maxX, arena.getMax().getY(), maxZ, arena.getMax().getYaw(), arena.getMax().getPitch());
                 Location a = new Location(world, aX, arena.getA().getY(), aZ, arena.getA().getYaw(), arena.getA().getPitch());
                 Location b = new Location(world, bX, arena.getB().getY(), bZ, arena.getB().getYaw(), arena.getB().getPitch());
+                Location spectator = new Location(world, spectatorX, arena.getSpectator().getY(), spectatorZ, arena.getSpectator().getYaw(), arena.getSpectator().getPitch());
 
-                ArenaDetail arenaDetail = new ArenaDetail(arena, a, b, min, max);
+                ArenaDetail arenaDetail = new ArenaDetail(arena, a, b, spectator, min, max);
                 arena.getArenaDetails().add(arenaDetail);
 
                 new Clickable(Language.ARENA_GENERATE_DISPLAY.toString(arena.getName(), minX, minZ), Language.ARENA_GENERATE_HOVER.toString(), "/tp " + aX + " " + arena.getA().getY() + " " + aZ + " " + arena.getA().getYaw() + " " + arena.getA().getPitch()).sendToPlayer(player);

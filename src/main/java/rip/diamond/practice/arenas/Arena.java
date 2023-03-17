@@ -98,6 +98,11 @@ public class Arena {
         return enabled && isFinishedSetup() && !edited;
     }
 
+    //If an arena is locked, which means the arena can only be accessible by special cases, like event
+    public boolean isLocked() {
+        return Eden.INSTANCE.getConfigFile().getStringList("event.sumo-event.arenas").contains(name);
+    }
+
     public boolean hasClone() {
         return arenaDetails.size() > 1;
     }
@@ -108,6 +113,10 @@ public class Arena {
 
     public Location getB() {
         return arenaDetails.get(0).getB();
+    }
+
+    public Location getSpectator() {
+        return arenaDetails.get(0).getSpectator();
     }
 
     public Location getMin() {
@@ -124,6 +133,10 @@ public class Arena {
 
     public void setB(Location location) {
         arenaDetails.get(0).setB(location);
+    }
+
+    public void setSpectator(Location location) {
+        arenaDetails.get(0).setSpectator(location);
     }
 
     public void setMin(Location location) {
@@ -173,8 +186,9 @@ public class Arena {
                     Location locCloneB = LocationSerialization.deserializeLocation(details.getString(id + ".b"));
                     Location locCloneMin = LocationSerialization.deserializeLocation(details.getString(id + ".min"));
                     Location locCloneMax = LocationSerialization.deserializeLocation(details.getString(id + ".max"));
+                    Location locCloneSpectator = LocationSerialization.deserializeLocation(details.getString(id + ".spectator"));
 
-                    ArenaDetail arenaDetail = new ArenaDetail(arena, locCloneA, locCloneB, locCloneMin, locCloneMax);
+                    ArenaDetail arenaDetail = new ArenaDetail(arena, locCloneA, locCloneB, locCloneSpectator == null ? locCloneA : locCloneSpectator, locCloneMin, locCloneMax);
                     arenaDetail.copyChunk();
                     arena.getArenaDetails().add(arenaDetail);
                 });
@@ -203,6 +217,7 @@ public class Arena {
                 String arenaDetailsRoot = arenaRoot + ".details." + i;
                 fileConfig.set(arenaDetailsRoot + ".a", LocationSerialization.serializeLocation(arenaDetail.getA()));
                 fileConfig.set(arenaDetailsRoot + ".b", LocationSerialization.serializeLocation(arenaDetail.getB()));
+                fileConfig.set(arenaDetailsRoot + ".spectator", LocationSerialization.serializeLocation(arenaDetail.getSpectator()));
                 fileConfig.set(arenaDetailsRoot + ".min", LocationSerialization.serializeLocation(arenaDetail.getMin()));
                 fileConfig.set(arenaDetailsRoot + ".max", LocationSerialization.serializeLocation(arenaDetail.getMax()));
             }

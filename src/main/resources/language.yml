@@ -336,6 +336,10 @@ arena:
       name: "Position B Location"
       description: "Current location: {0}"
       action-description: "Click to set position B to your current location"
+    spectator-position:
+      name: "Position Spectator Location"
+      description: "Current location: {0}"
+      action-description: "Click to set spectator position to your current location"
     min:
       name: "Minimum Location"
       description: "Current value: {0}"
@@ -1119,6 +1123,7 @@ match:
     solo: "Solo"
     ffa: "FFA"
     split: "Teams"
+    sumo-event: "Sumo Event"
   end-title:
     win:
       title: "&aVICTORY!"

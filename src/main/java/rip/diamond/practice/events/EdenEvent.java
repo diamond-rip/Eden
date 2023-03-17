@@ -7,10 +7,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.imanity.imanityspigot.movement.MovementHandler;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.EventJoinEvent;
+import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -18,7 +18,6 @@ import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.util.Clickable;
 import rip.diamond.practice.util.Common;
-import rip.diamond.spigotapi.movementhandler.AbstractMovementHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +58,10 @@ public abstract class EdenEvent {
 
     public String getUncoloredEventName() {
         return ChatColor.stripColor(getEventName());
+    }
+
+    public String getTeamName(Team team) {
+        return team.getLeader().getUsername() + (team.getTeamPlayers().size() <= 1 ? "" : Language.EVENT_PARTY_NAME_FORMAT.toString());
     }
 
     public void broadcast(Clickable clickable) {
@@ -191,7 +194,9 @@ public abstract class EdenEvent {
         }
         onGoingEvent = null;
 
-        PlayerProfile.getProfiles().values().stream().filter(profile -> profile.getPlayer() != null && !profile.isSaving() && profile.getPlayerState() == PlayerState.IN_LOBBY).forEach(PlayerProfile::setupItems);
+        PlayerProfile.getProfiles().values().stream()
+                .filter(profile -> profile.getPlayer() != null && !profile.isSaving() && profile.getPlayerState() == PlayerState.IN_LOBBY)
+                .forEach(PlayerProfile::setupItems);
     }
 
     public void start() {
@@ -206,6 +211,10 @@ public abstract class EdenEvent {
         }
     }
 
+    public void eliminate(Party party) {
+        parties.remove(party);
+    }
+
     public void setCountdown(EventCountdown countdown) {
         if (this.countdown != null) {
             this.countdown.cancelCountdown();
@@ -214,8 +223,6 @@ public abstract class EdenEvent {
     }
 
     public abstract Listener constructListener();
-
-    public abstract String getNameTagPrefix(Player target, Player viewer);
 
     /**
      * The Scoreboard which displays to everyone who's in the lobby (Their profile state should be IN_LOBBY)

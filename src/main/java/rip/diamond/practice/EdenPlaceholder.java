@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.events.EdenEvent;
+import rip.diamond.practice.events.EventType;
+import rip.diamond.practice.events.impl.SumoEvent;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.impl.FFAMatch;
@@ -20,6 +22,7 @@ import rip.diamond.practice.queue.QueueProfile;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.TimeUtil;
 import rip.diamond.practice.util.Util;
+import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
 import java.util.List;
 
@@ -142,8 +145,18 @@ public class EdenPlaceholder {
                                 .replace("{match-ffa-player-size}", ffaTeams.size() + "")
                                 .replace("{match-ffa-winner}", ((FFAMatch) match).getWinningTeam().getLeader().getUsername())
                         ;
-
                         break;
+                    case SUMO_EVENT:
+                        EdenEvent edenEvent = EdenEvent.getOnGoingEvent();
+                        if (edenEvent.getEventType() != EventType.SUMO_EVENT) {
+                            throw new PracticeUnexpectedException("MatchType is SUMO_EVENT but EventType isn't SUMO_EVENT");
+                        }
+                        SumoEvent sumoEvent = (SumoEvent) edenEvent;
+                        str = str
+                                .replace("{match-event-type}", sumoEvent.getUncoloredEventName())
+                                .replace("{match-event-round}", sumoEvent.getRound() + "")
+                                .replace("{match-event-winner}", match.getState() == MatchState.ENDING ? sumoEvent.getTeamName(match.getWinningTeam()) : "")
+                        ;
                     default:
                         break;
                 }

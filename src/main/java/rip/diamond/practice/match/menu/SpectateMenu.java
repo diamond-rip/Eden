@@ -37,6 +37,7 @@ public class SpectateMenu extends PaginatedMenu {
         for (Match match : Match.getMatches().values()) {
             try {
                 String title;
+                // TODO: 17/3/2023 Implement SumoEvent
                 if (match.getMatchType() == MatchType.SOLO) {
                     title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_SOLO.toString(((SoloMatch) match).getPlayerA().getUsername(), ((SoloMatch) match).getPlayerB().getUsername());
                 } else if (match.getMatchType() == MatchType.SPLIT) {

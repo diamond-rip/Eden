@@ -35,12 +35,12 @@ public class FFAMatch extends Match {
 
     @Override
     public Team getOpponentTeam(Team team) {
-        throw new PracticeUnexpectedException("Unsupported (FFAMatch, getOpponentTeam(Team))");
+        throw new PracticeUnexpectedException("Unsupported (" + getClass().getSimpleName() + ", getOpponentTeam(Team))");
     }
 
     @Override
     public TeamPlayer getOpponent(TeamPlayer teamPlayer) {
-        throw new PracticeUnexpectedException("Unsupported (FFAMatch, getOpponent(TeamPlayer))");
+        throw new PracticeUnexpectedException("Unsupported (" + getClass().getSimpleName() + ", getOpponent(TeamPlayer))");
     }
 
     @Override

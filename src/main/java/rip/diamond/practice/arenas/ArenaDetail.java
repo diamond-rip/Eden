@@ -19,6 +19,7 @@ public class ArenaDetail {
 
     private Location a;
     private Location b;
+    private Location spectator;
 
     private Location min;
     private Location max;
@@ -30,11 +31,12 @@ public class ArenaDetail {
         this.cachedChunks = new ArrayList<>();
     }
 
-    public ArenaDetail(Arena arena, Location a, Location b, Location min, Location max) {
+    public ArenaDetail(Arena arena, Location a, Location b, Location spectator, Location min, Location max) {
         this.arena = arena;
         this.cachedChunks = new ArrayList<>();
         this.a = a;
         this.b = b;
+        this.spectator = spectator;
         this.min = min;
         this.max = max;
     }

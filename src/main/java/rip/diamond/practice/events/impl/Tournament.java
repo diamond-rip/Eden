@@ -1,5 +1,6 @@
 package rip.diamond.practice.events.impl;
 
+import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
@@ -53,10 +54,6 @@ public class Tournament extends EdenEvent {
         return getTeamSize() + "v" + getTeamSize() + " " + getKit().getDisplayName() + " " + getEventType().getName();
     }
 
-    private String getTeamName(Team team) {
-        return team.getLeader().getUsername() + (team.getTeamPlayers().size() <= 1 ? "" : Language.EVENT_PARTY_NAME_FORMAT.toString());
-    }
-
     private boolean canEnd() {
         return getState() == EventState.RUNNING && getParties().size() <= 1;
     }
@@ -78,7 +75,7 @@ public class Tournament extends EdenEvent {
                     Party party = Party.getByPlayer(loser.getLeader().getPlayer());
                     //如果玩家在戰鬥時退出伺服器的話, Party 可能會是null
                     if (party != null) {
-                        getParties().remove(party);
+                        eliminate(party);
                     }
 
                     if (canEnd()) {
@@ -102,11 +99,6 @@ public class Tournament extends EdenEvent {
     }
 
     @Override
-    public String getNameTagPrefix(Player target, Player viewer) {
-        return null;
-    }
-
-    @Override
     public List<String> getLobbyScoreboard(Player player) {
         /*
          * 如果 tournamentState == TournamentState.NONE, 意思就是錦標賽還沒開始
@@ -119,16 +111,17 @@ public class Tournament extends EdenEvent {
          * 如果 tournamentState == TournamentState.STARTING_NEW_ROUND, 意思就是錦標賽正在準備開始新的一個回合
          * 這個情況下, getState() 應該會回傳 EventState.RUNNING
          */
-        else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
+        if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
             return Language.EVENT_TOURNAMENT_SCOREBOARD_STARTING_NEW_ROUND.toStringList(player, round);
         }
         /*
          * 如果 tournamentState == TournamentState.FIGHTING, 意思就是錦標賽回合已經開始, 活動內的玩家正在戰鬥中
          * 這個情況下, getState() 應該會回傳 EventState.RUNNING
          */
-        else if (tournamentState == TournamentState.FIGHTING) {
+        if (tournamentState == TournamentState.FIGHTING) {
             return Language.EVENT_TOURNAMENT_SCOREBOARD_FIGHTING.toStringList(player, round, matches.size());
-        } else return new ArrayList<>();
+        }
+        return ImmutableList.of(EdenPlaceholder.SKIP_LINE);
     }
 
     @Override

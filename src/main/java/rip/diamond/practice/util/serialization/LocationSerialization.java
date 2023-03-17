@@ -11,7 +11,7 @@ import rip.diamond.practice.util.CC;
 public class LocationSerialization {
 
     public static Location deserializeLocation(String input) {
-        if (input.equals("null")) {
+        if (input == null || input.equals("null")) {
             return null;
         }
         String[] attributes = input.split(":");

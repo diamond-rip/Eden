@@ -35,7 +35,7 @@ public class ChooseArenaMenu extends PaginatedMenu {
 
         for (Arena arena : Arena.getArenas()) {
             ArenaDetail arenaDetail = Arena.getArenaDetail(arena);
-            if (arena.isEnabled() && arenaDetail != null && arena.getAllowedKits().contains(kit.getName())) {
+            if (arena.isEnabled() && !arena.isLocked() && arenaDetail != null && arena.getAllowedKits().contains(kit.getName())) {
                 buttons.put(buttons.size(), new Button() {
                     @Override
                     public ItemStack getButtonItem(Player player) {

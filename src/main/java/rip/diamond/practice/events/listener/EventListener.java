@@ -37,6 +37,7 @@ public class EventListener implements Listener {
         }
 
         List<String> bypassCommand = ImmutableList.of(
+                "/test",
                 "/settings",
                 "/editkits",
                 "/party list",

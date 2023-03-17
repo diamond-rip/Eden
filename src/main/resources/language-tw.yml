@@ -171,7 +171,7 @@ scoreboard:
     ending:
       - "&7&m----------------------"
       - "&b&l┃ &a本場戰鬥已結束!"
-      - "&b&l┃ &f勝利隊伍: &b{match-team-winner}的隊伍"
+      - "&b&l┃ &f勝利者: &b{match-team-winner}的隊伍"
       - ""
       - "&bdiamond.rip"
       - "&7&m----------------------"
@@ -289,7 +289,7 @@ scoreboard:
     ending:
       - "&7&m----------------------"
       - "&b&l┃ &a本場戰鬥已結束!"
-      - "&b&l┃ &f勝利隊伍: &b{spectate-team-winner}的隊伍"
+      - "&b&l┃ &f勝利者: &b{spectate-team-winner}的隊伍"
       - ""
       - "&bdiamond.rip"
       - "&7&m----------------------"
@@ -391,6 +391,10 @@ arena:
       name: "B點位置"
       description: "現時位置: {0}"
       action-description: "點擊把B點位置取代為你現時的位置"
+    spectator-position:
+      name: "觀察者位置"
+      description: "現時位置: {0}"
+      action-description: "點擊把觀察者位置取代為你現時的位置"
     min:
       name: "低點位置"
       description: "現時位置: {0}"
@@ -631,7 +635,7 @@ event:
   sumo-event:
     name: "相撲大賽"
     match-end-message: "&7[&b活動&7] &a{0} &f擊敗了 &c{1}"
-    scoreboard:
+    lobby-scoreboard:
       starting-event:
         - ""
         - "&b&l┃ &b&l{event-uncolored-name}"
@@ -642,6 +646,32 @@ event:
         - "&b&l┃ &b&l{event-uncolored-name}"
         - "&b&l┃  &f第 &b&l{0} &f回合"
         - "&b&l┃  &f{1} &bvs &f{2}"
+    in-game-scoreboard:
+      starting-match:
+        - "&7&m----------------------"
+        - "&b&l┃  &7&o活動即將開始..."
+        - ""
+        - "&bdiamond.rip"
+        - "&7&m----------------------"
+      fighting:
+        - "&7&m----------------------"
+        - "&b&l┃ &f活動: &b{match-event-type}"
+        - "&b&l┃ &f時間: &b{match-duration}"
+        - "&b&l┃ &f回合: &b{match-event-round}"
+        - ""
+        - "&b&l┃ &b{0}"
+        - "&b&l┃ &7vs"
+        - "&b&l┃ &b{1}"
+        - ""
+        - "&bdiamond.rip"
+        - "&7&m----------------------"
+      ending:
+        - "&7&m----------------------"
+        - "&b&l┃ &a本場戰鬥已結束!"
+        - "&b&l┃ &f勝利者: &b{match-event-winner}"
+        - ""
+        - "&bdiamond.rip"
+        - "&7&m----------------------"
     new-round:
       countdown: "&7第 &b&l{0} &7回合將會在 &b&l{1} &7秒後開始..."
       started: "&b回合開始!"
@@ -1130,11 +1160,12 @@ match:
   new-round-start:
     countdown: "&e{0}..."
     message: "&a戰鬥開始!"
-    title: "&a戰鬥開始!"
+    scored-title: "{0}{1} &e成功得分!"
+    scored-subtitle: "{0}{1} &7- {2}{3}"
     score:
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
       - ""
-      - "{0}&l{1}&7({2}&c❤) &e成功得分！"
+      - "{0}&l{1}&7({2}&c❤&7) &e成功得分！"
       - "{0}&l{3} &7- {4}&l{5}"
       - ""
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
@@ -1172,6 +1203,7 @@ match:
     solo: "單人對決"
     ffa: "隊伍對決"
     split: "隊伍大亂鬥"
+    sumo-event: "相撲大賽"
   end-title:
     win:
       title: "&a勝利!"

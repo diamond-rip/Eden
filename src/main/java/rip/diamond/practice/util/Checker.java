@@ -6,6 +6,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.potion.PotionEffectType;
+import rip.diamond.practice.events.EventType;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
@@ -98,6 +99,15 @@ public class Checker {
     public static boolean isQueueType(String index) {
         try {
             QueueType.valueOf(index.toUpperCase());
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    public static boolean isEventType(String index) {
+        try {
+            EventType.valueOf(index.toUpperCase());
             return true;
         } catch (Exception ignored) {
             return false;

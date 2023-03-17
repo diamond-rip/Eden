@@ -51,7 +51,7 @@ public abstract class Match {
     private final UUID uuid = UUID.randomUUID();
     @Setter private boolean duel = true;
     @Setter private QueueType queueType = QueueType.UNRANKED;
-    private final ArenaDetail arenaDetail;
+    protected final ArenaDetail arenaDetail;
     private final Kit kit;
     private final List<Team> teams;
     private MatchState state = MatchState.STARTING;
@@ -314,7 +314,7 @@ public abstract class Match {
             }
         });
 
-        Util.teleport(player, target.getLocation());
+        Util.teleport(player, getArenaDetail().getSpectator());
         PlayerUtil.spectator(player);
 
         profile.setMatch(this);

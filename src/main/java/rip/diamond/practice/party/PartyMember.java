@@ -3,6 +3,7 @@ package rip.diamond.practice.party;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.util.Common;
 
 import java.util.List;
@@ -17,6 +18,10 @@ public class PartyMember {
     public PartyMember(Player player) {
         this.uniqueID = player.getUniqueId();
         this.username = player.getName();
+    }
+
+    public PlayerProfile getProfile() {
+        return PlayerProfile.get(uniqueID);
     }
 
     public Player getPlayer() {

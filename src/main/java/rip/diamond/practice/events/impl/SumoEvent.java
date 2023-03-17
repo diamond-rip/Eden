@@ -1,75 +1,133 @@
 package rip.diamond.practice.events.impl;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
+import com.google.common.collect.ImmutableList;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.EdenPlaceholder;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.arenas.Arena;
+import rip.diamond.practice.arenas.ArenaDetail;
+import rip.diamond.practice.event.MatchPlayerDeathEvent;
+import rip.diamond.practice.event.MatchRoundStartEvent;
 import rip.diamond.practice.event.PartyDisbandEvent;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventCountdown;
 import rip.diamond.practice.events.EventState;
 import rip.diamond.practice.events.EventType;
+import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.match.Match;
+import rip.diamond.practice.match.impl.SumoEventMatch;
+import rip.diamond.practice.match.team.Team;
+import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
-import rip.diamond.practice.util.CC;
+import rip.diamond.practice.profile.PlayerProfile;
+import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.Util;
-import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
+@Getter
 public class SumoEvent extends EdenEvent {
 
     private SumoEventState sumoEventState = SumoEventState.NONE;
+    private SumoEventMatch match;
     private int round = 0;
-    private Party partyA, partyB;
-    private Location a, b, spectator;
+    private Team teamA, teamB;
 
     public SumoEvent(String hoster, int minPlayers, int maxPlayers, int teamSize) {
         super(hoster, EventType.SUMO_EVENT, minPlayers, maxPlayers, teamSize);
-
-        try {
-            a = LocationSerialization.deserializeLocation(Eden.INSTANCE.getLocationFile().getString("sumo-event.a"));
-            b = LocationSerialization.deserializeLocation(Eden.INSTANCE.getLocationFile().getString("sumo-event.b"));
-            spectator = LocationSerialization.deserializeLocation(Eden.INSTANCE.getLocationFile().getString("sumo-event.spectator"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            broadcastToEventPlayers("&c[Eden] An error occurred while setting up SumoEvent's location. Please contact an administrator for more information.");
-            end(true);
-        }
     }
 
     private boolean canEnd() {
         return getState() == EventState.RUNNING && getParties().size() <= 1;
     }
 
+    public boolean isFighting(Team team) {
+        return teamA == team || teamB == team;
+    }
+
     @Override
     public Listener constructListener() {
         return new Listener() {
+            //Use this event as detecting when the match start countdown is ended
+            @EventHandler
+            public void onStart(MatchRoundStartEvent event) {
+                if (event.getMatch() == match) {
+                    startNewRound();
+                }
+            }
+
             @EventHandler
             public void onMove(PlayerMoveEvent event) {
-                if (partyA == null || partyB == null) {
+                Player player = event.getPlayer();
+                PlayerProfile profile = PlayerProfile.get(player);
+
+                if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null && profile.getMatch() instanceof SumoEventMatch) {
+                    Match match = profile.getMatch();
+                    Team team = match.getTeam(player);
+
+                    if (isFighting(team) && sumoEventState == SumoEventState.STARTING_NEW_ROUND) {
+                        Util.teleport(player, event.getFrom());
+                    }
+                }
+            }
+
+            @EventHandler
+            public void onDamage(EntityDamageEvent event) {
+                if (!(event.getEntity() instanceof Player)) {
                     return;
                 }
+                Player player = (Player) event.getEntity();
+                PlayerProfile profile = PlayerProfile.get(player);
 
+                if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null && profile.getMatch() instanceof SumoEventMatch) {
+                    Match match = profile.getMatch();
+                    Team team = match.getTeam(player);
+                    TeamPlayer teamPlayer = match.getTeamPlayer(player);
+
+                    if (!isFighting(team)) {
+                        event.setCancelled(true);
+                        return;
+                    }
+
+                    event.setDamage(0);
+                }
+            }
+
+            @EventHandler
+            public void onDeath(MatchPlayerDeathEvent event) {
                 Player player = event.getPlayer();
-                Block block = event.getTo().getBlock();
+                PlayerProfile profile = PlayerProfile.get(player);
 
-                boolean isInPartyA = partyA.getMember(player) != null;
-                boolean isInPartyB = partyB.getMember(player) != null;
-                if (isInPartyA || isInPartyB) {
-                    if (sumoEventState == SumoEventState.STARTING_NEW_ROUND) {
-                        Util.teleport(player, isInPartyA ? a : b);
-                    } else if (sumoEventState == SumoEventState.FIGHTING && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
-                        eliminate(isInPartyA ? partyA : partyB);
+                if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null && profile.getMatch() instanceof SumoEventMatch) {
+                    Match match = profile.getMatch();
+                    Team team = match.getTeam(player);
+                    TeamPlayer teamPlayer = match.getTeamPlayer(player);
+
+                    if (team.isEliminated()) {
+                        broadcast(Language.EVENT_SUMO_EVENT_MATCH_END_MESSAGE.toString(match.getOpponentTeam(team).getLeader().getUsername(), team.getLeader().getUsername()));
+
+                        Party party = Party.getByPlayer(team.getLeader().getPlayer());
+                        //如果玩家在戰鬥時退出伺服器的話, Party 可能會是null
+                        if (party != null) {
+                            eliminate(party);
+                        }
+
+                        if (canEnd()) {
+                            end(false);
+                            return;
+                        }
                     }
                 }
             }
@@ -84,35 +142,53 @@ public class SumoEvent extends EdenEvent {
     }
 
     @Override
-    public String getNameTagPrefix(Player target, Player viewer) {
-        return CC.WHITE;
-    }
-
-    @Override
     public List<String> getLobbyScoreboard(Player player) {
         /*
-         * 如果 sumoEventState == SumoEventState.NONE, 意思就是錦標賽還沒開始
+         * 如果 sumoEventState == SumoEventState.NONE, 意思就是相撲比賽還沒開始
          * 這個情況下, getState() 應該會回傳 EventState.WAITING
          */
         if (sumoEventState == SumoEventState.NONE) {
-            return Language.EVENT_SUMO_EVENT_SCOREBOARD_STARTING_EVENT.toStringList(player);
+            return Language.EVENT_SUMO_EVENT_LOBBY_SCOREBOARD_STARTING_EVENT.toStringList(player);
         }
         /*
-         * 如果 sumoEventState == SumoEventState.STARTING_NEW_ROUND 或者 SumoEventState.FIGHTING, 意思就是錦標賽回合已經開始, 活動內的玩家正在戰鬥中
+         * 如果 sumoEventState == SumoEventState.STARTING_NEW_ROUND 或者 SumoEventState.FIGHTING, 意思就是相撲比賽回合已經開始, 活動內的玩家正在戰鬥中
          * 這個情況下, getState() 應該會回傳 EventState.RUNNING
          */
-        else if (sumoEventState == SumoEventState.STARTING_NEW_ROUND || sumoEventState == SumoEventState.FIGHTING) {
-            return Language.EVENT_SUMO_EVENT_SCOREBOARD_FIGHTING.toStringList(player, round, partyA.getLeader().getUsername(), partyB.getLeader().getUsername());
-        } else return new ArrayList<>();
+        if (sumoEventState == SumoEventState.STARTING_NEW_ROUND || sumoEventState == SumoEventState.FIGHTING) {
+            return Language.EVENT_SUMO_EVENT_LOBBY_SCOREBOARD_FIGHTING.toStringList(player, round, teamA.getLeader().getUsername(), teamB.getLeader().getUsername());
+        }
+        return ImmutableList.of(EdenPlaceholder.SKIP_LINE);
     }
 
     @Override
     public List<String> getInGameScoreboard(Player player) {
+        /*
+         * 如果 sumoEventState == SumoEventState.NONE, 意思就是相撲比賽還沒開始
+         * 這個情況下, getState() 應該會回傳 EventState.WAITING
+         */
+        if (sumoEventState == SumoEventState.NONE) {
+            return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_STARTING_MATCH.toStringList(player);
+        }
+        /*
+         * 如果 sumoEventState == SumoEventState.STARTING_NEW_ROUND 或者 SumoEventState.FIGHTING, 意思就是相撲比賽回合已經開始, 活動內的玩家正在戰鬥中
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        if (sumoEventState == SumoEventState.STARTING_NEW_ROUND || sumoEventState == SumoEventState.FIGHTING) {
+            return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_FIGHTING.toStringList(player, getTeamName(teamA), getTeamName(teamB));
+        }
+        /*
+         * 如果 sumoEventState == SumoEventState.ENDING 或者 SumoEventState.FIGHTING, 意思就是相撲比賽已經結束
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        if (sumoEventState == SumoEventState.ENDING) {
+            return Language.EVENT_SUMO_EVENT_IN_GAME_SCOREBOARD_ENDING.toStringList(player);
+        }
         return null;
     }
 
     @Override
     public List<String> getStatus(Player player) {
+        // TODO: 17/3/2023 Make this
         return null;
     }
 
@@ -120,12 +196,30 @@ public class SumoEvent extends EdenEvent {
     public void start() {
         super.start();
 
+        String kitName = Eden.INSTANCE.getConfigFile().getString("event.sumo-event.kit");
+        Kit kit = Kit.getByName(kitName);
+        if (kit == null) {
+            broadcastToEventPlayers("&c[Eden] Unable to find a kit named " + kitName + ", please contact an administrator.");
+            end(true);
+            return;
+        }
+        List<String> arenaNames = Eden.INSTANCE.getConfigFile().getStringList("event.sumo-event.arenas");
+        Arena arena = Arena.getArena(arenaNames.get(new Random().nextInt(arenaNames.size())));
+        ArenaDetail arenaDetail = Arena.getArenaDetail(arena);
+        if (arenaDetail == null) {
+            broadcastToEventPlayers("&c[Eden] Unable to find a usable arena, please contact an administrator.");
+            end(true);
+            return;
+        }
+        List<Team> teams = new ArrayList<>();
+        parties.forEach(party -> party.getAllPartyMembers().forEach(partyMember -> teams.add(new Team(new TeamPlayer(partyMember.getPlayer())))));
+        match = new SumoEventMatch(this, arenaDetail, kit, teams);
+        match.start();
+
         if (canEnd()) {
             end(false);
             return;
         }
-
-        startNewRound();
     }
 
     @Override
@@ -168,12 +262,13 @@ public class SumoEvent extends EdenEvent {
         round++;
         sumoEventState = SumoEventState.STARTING_NEW_ROUND;
 
-        Collections.shuffle(parties);
-        partyA = parties.get(0);
-        partyB = parties.get(1);
+        List<Team> teams = match.getTeams().stream().filter(team -> !team.isEliminated()).collect(Collectors.toList());
+        Collections.shuffle(teams);
+        teamA = teams.get(0);
+        teamB = teams.get(1);
 
-        partyA.teleport(a);
-        partyB.teleport(b);
+        teamA.teleport(match.getArenaDetail().getA());
+        teamB.teleport(match.getArenaDetail().getB());
 
         setCountdown(new EventCountdown(5, 5,4,3,2,1) {
             @Override
@@ -188,14 +283,12 @@ public class SumoEvent extends EdenEvent {
         });
     }
 
-    private void eliminate(Party party) {
+    @Override
+    public void eliminate(Party party) {
+        super.eliminate(party);
         sumoEventState = SumoEventState.ENDING;
 
-        party.teleport(spectator);
-        parties.remove(party);
-
-        Party winner = party == partyA ? partyB : partyA;
-        broadcastToEventPlayers(Language.EVENT_SUMO_EVENT_MATCH_END_MESSAGE.toString(winner.getLeader().getUsername(), party.getLeader().getUsername()));
+        party.teleport(match.getArenaDetail().getSpectator());
 
         setCountdown(new EventCountdown(3) {
             @Override

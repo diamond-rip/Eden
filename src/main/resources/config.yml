@@ -131,6 +131,17 @@ match:
       vertical: 1.1
       ## The knockback horizontal multiplier
       horizontal: 1.2
+## Overall event config
+event:
+  ## Sumo Event configuration
+  sumo-event:
+    ## Which arena should allow for Sumo Event to use?
+    ## Arena which listed in here cannot be used in normal fight
+    arenas:
+      - "sumoevent"
+    ## Which kit you want to be used in this event?
+    ## You should not change this unless your sumo kit has a different kit ID
+    kit: "sumo"
 ## Simple chat format
 chat-format:
   ## Set this to true if you want to enable chat format

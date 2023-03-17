@@ -100,6 +100,16 @@ public class ArenaCommand extends Command {
                         arena.setEdited(true);
                         arena.autoSave();
                         return;
+                    case "spectator":
+                        if (arena.hasClone()) {
+                            Language.ARENA_CANNOT_SET_BECAUSE_CLONE_FOUND.sendMessage(player);
+                            return;
+                        }
+                        arena.setSpectator(player.getLocation());
+                        Language.ARENA_SUCCESSFULLY_SET.sendMessage(player, "Spectator");
+                        arena.setEdited(true);
+                        arena.autoSave();
+                        return;
                     case "min":
                         if (arena.hasClone()) {
                             Language.ARENA_CANNOT_SET_BECAUSE_CLONE_FOUND.sendMessage(player);

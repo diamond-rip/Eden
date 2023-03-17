@@ -6,6 +6,7 @@ import rip.diamond.practice.Eden;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitGameRules;
+import rip.diamond.practice.match.impl.SumoEventMatch;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.profile.PlayerProfile;

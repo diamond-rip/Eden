@@ -81,6 +81,7 @@ public class MatchListener implements Listener {
                     opponents = ((TeamMatch)match).getOpponentTeam(p).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(Language.MATCH_SEPARATE.toString()));
                     break;
                 case FFA:
+                case SUMO_EVENT:
                     opponents = match.getTeams().stream().map(team -> team.getLeader().getUsername()).collect(Collectors.joining(Language.MATCH_SEPARATE.toString()));
                     break;
                 default:

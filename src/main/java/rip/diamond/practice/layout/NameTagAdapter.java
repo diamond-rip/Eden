@@ -25,10 +25,6 @@ public class NameTagAdapter extends NameTagProvider {
     }
 
     private String getPrefix(Player target, Player viewer) {
-        if (EdenEvent.isInEvent(target) && EdenEvent.getOnGoingEvent().getNameTagPrefix(target, viewer) != null) {
-            return EdenEvent.getOnGoingEvent().getNameTagPrefix(target, viewer);
-        }
-
         PlayerProfile profile = PlayerProfile.get(target);
 
         if (profile != null && (profile.getPlayerState() == PlayerState.IN_MATCH || profile.getPlayerState() == PlayerState.IN_SPECTATING) && profile.getMatch() != null) {
