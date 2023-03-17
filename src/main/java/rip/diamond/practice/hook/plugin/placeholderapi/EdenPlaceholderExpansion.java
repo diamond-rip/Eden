@@ -41,33 +41,11 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
         if (player == null) {
             return null;
         }
+        String[] args = param.split("_");
         PlayerProfile profile = PlayerProfile.get(player);
 
-        int rankedWon = profile.getKitData().values().stream().mapToInt(ProfileKitData::getRankedWon).sum();
-        int rankedLost = profile.getKitData().values().stream().mapToInt(ProfileKitData::getRankedLost).sum();
-        int unrankedWon = profile.getKitData().values().stream().mapToInt(ProfileKitData::getUnrankedWon).sum();
-        int unrankedLost = profile.getKitData().values().stream().mapToInt(ProfileKitData::getUnrankedLost).sum();
-
-        if (param.equalsIgnoreCase("ranked_win")) {
-            return rankedWon + "";
-        }
-        if (param.equalsIgnoreCase("ranked_loss")) {
-            return rankedLost + "";
-        }
-        if (param.equalsIgnoreCase("unranked_win")) {
-            return unrankedWon + "";
-        }
-        if (param.equalsIgnoreCase("unranked_loss")) {
-            return unrankedLost + "";
-        }
-        if (param.equalsIgnoreCase("overall_win")) {
-            return rankedWon + unrankedWon + "";
-        }
-        if (param.equalsIgnoreCase("overall_loss")) {
-            return rankedLost + unrankedLost + "";
-        }
         if (param.startsWith("queue_unranked_")) {
-            String kitName = param.split("_")[2];
+            String kitName = args[2];
             Kit kit = Kit.getByName(kitName);
             if (kit == null) {
                 return "Unable to find kit " + kitName;
@@ -75,7 +53,7 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             return Queue.getPlayers().values().stream().filter(qProfile -> qProfile.getKit() == kit && qProfile.getQueueType() == QueueType.UNRANKED).count() + "";
         }
         if (param.startsWith("queue_ranked_")) {
-            String kitName = param.split("_")[2];
+            String kitName = args[2];
             Kit kit = Kit.getByName(kitName);
             if (kit == null) {
                 return "Unable to find kit " + kitName;
@@ -83,7 +61,7 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             return Queue.getPlayers().values().stream().filter(qProfile -> qProfile.getKit() == kit && qProfile.getQueueType() == QueueType.RANKED).count() + "";
         }
         if (param.startsWith("match_unranked_")) {
-            String kitName = param.split("_")[2];
+            String kitName = args[2];
             Kit kit = Kit.getByName(kitName);
             if (kit == null) {
                 return "Unable to find kit " + kitName;
@@ -91,60 +69,104 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             return Match.getMatches().values().stream().filter(match -> match.getKit() == kit && match.getQueueType() == QueueType.UNRANKED).mapToInt(match -> match.getMatchPlayers().size()).sum() + "";
         }
         if (param.startsWith("match_ranked_")) {
-            String kitName = param.split("_")[2];
+            String kitName = args[2];
             Kit kit = Kit.getByName(kitName);
             if (kit == null) {
                 return "Unable to find kit " + kitName;
             }
             return Match.getMatches().values().stream().filter(match -> match.getKit() == kit && match.getQueueType() == QueueType.UNRANKED).mapToInt(match -> match.getMatchPlayers().size()).sum() + "";
         }
-        if (param.startsWith("best_winstreak_player_")) {
-            String kitName = param.split("_")[2];
-            Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+        if (args[0].equalsIgnoreCase("player")) {
+            int rankedWon = profile.getKitData().values().stream().mapToInt(ProfileKitData::getRankedWon).sum();
+            int rankedLost = profile.getKitData().values().stream().mapToInt(ProfileKitData::getRankedLost).sum();
+            int unrankedWon = profile.getKitData().values().stream().mapToInt(ProfileKitData::getUnrankedWon).sum();
+            int unrankedLost = profile.getKitData().values().stream().mapToInt(ProfileKitData::getUnrankedLost).sum();
+            int totalElo = profile.getKitData().values().stream().mapToInt(ProfileKitData::getElo).sum();
+
+            if (param.equalsIgnoreCase("player_ranked_win")) {
+                return rankedWon + "";
+            }
+            if (param.equalsIgnoreCase("player_ranked_loss")) {
+                return rankedLost + "";
+            }
+            if (param.equalsIgnoreCase("player_unranked_win")) {
+                return unrankedWon + "";
+            }
+            if (param.equalsIgnoreCase("player_unranked_loss")) {
+                return unrankedLost + "";
+            }
+            if (param.equalsIgnoreCase("player_overall_win")) {
+                return rankedWon + unrankedWon + "";
+            }
+            if (param.equalsIgnoreCase("player_overall_loss")) {
+                return rankedLost + unrankedLost + "";
+            }
+            if (param.equalsIgnoreCase("player_total_elo")) {
+                return totalElo + "";
+            }
+            if (param.equalsIgnoreCase("player_global_elo")) {
+                return totalElo / Kit.getKits().stream().filter(kit -> kit.isEnabled() && kit.isRanked()).count() + "";
+            }
+
+            String kitName = args[2];
+            if (param.startsWith("player_elo")) {
+                return profile.getKitData().get(kitName).getElo() + "";
+            }
+            if (param.startsWith("player_peakElo")) {
+                return profile.getKitData().get(kitName).getPeakElo() + "";
+            }
+            if (param.startsWith("player_unrankedWon")) {
+                return profile.getKitData().get(kitName).getUnrankedWon() + "";
+            }
+            if (param.startsWith("player_unrankedLost")) {
+                return profile.getKitData().get(kitName).getUnrankedLost() + "";
+            }
+            if (param.startsWith("player_rankedWon")) {
+                return profile.getKitData().get(kitName).getRankedWon() + "";
+            }
+            if (param.startsWith("player_rankedLost")) {
+                return profile.getKitData().get(kitName).getRankedLost() + "";
+            }
+            if (param.startsWith("player_bestWinstreak")) {
+                return profile.getKitData().get(kitName).getBestWinstreak() + "";
+            }
+            if (param.startsWith("player_winstreak")) {
+                return profile.getKitData().get(kitName).getWinstreak() + "";
+            }
         }
-        if (param.startsWith("best_winstreak_winstreak_")) {
-            String kitName = param.split("_")[2];
+        if (args[0].equalsIgnoreCase("leaderboard")) {
+            //If database is disabled, there will be no leaderboard data. So we are going to return "Database not enabled"
+            if (!plugin.getConfigFile().getBoolean("mongo.enabled")) {
+                return "Database isn't enabled";
+            }
+
+            String kitName = args[3];
             Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
-        }
-        if (param.startsWith("elo_player_")) {
-            String kitName = param.split("_")[2];
-            Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
-        }
-        if (param.startsWith("elo_elo_")) {
-            String kitName = param.split("_")[2];
-            Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
-        }
-        if (param.startsWith("wins_player_")) {
-            String kitName = param.split("_")[2];
-            Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
-        }
-        if (param.startsWith("wins_win_")) {
-            String kitName = param.split("_")[2];
-            Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
-        }
-        if (param.startsWith("winstreak_player_")) {
-            String kitName = param.split("_")[2];
-            Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
-        }
-        if (param.startsWith("winstreak_winstreak_")) {
-            String kitName = param.split("_")[2];
-            Kit kit = Kit.getByName(kitName);
-            int position = Integer.parseInt(param.split("_")[3]);
-            return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+            int position = Integer.parseInt(args[4]);
+            if (param.startsWith("leaderboard_bestWinstreak_player_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+            }
+            if (param.startsWith("leaderboard_bestWinstreak_winstreak_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+            }
+            if (param.startsWith("leaderboard_elo_player_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+            }
+            if (param.startsWith("leaderboard_elo_elo_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+            }
+            if (param.startsWith("leaderboard_wins_player_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+            }
+            if (param.startsWith("leaderboard_wins_win_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+            }
+            if (param.startsWith("leaderboard_winstreak_player_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+            }
+            if (param.startsWith("leaderboard_winstreak_winstreak_")) {
+                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+            }
         }
 
         return null; // Placeholder is unknown by the Expansion
