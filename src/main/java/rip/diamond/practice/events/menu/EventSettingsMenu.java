@@ -8,9 +8,11 @@ import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventType;
+import rip.diamond.practice.events.impl.SumoEvent;
 import rip.diamond.practice.events.impl.Tournament;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.Menu;
 
@@ -139,6 +141,12 @@ public class EventSettingsMenu extends Menu {
                         Tournament tournament = new Tournament(player.getName(), minPlayers, maxPlayers, kit, teamSize);
                         tournament.create();
                         return;
+                    case SUMO_EVENT:
+                        SumoEvent sumoEvent = new SumoEvent(player.getName(), minPlayers, maxPlayers, teamSize);
+                        sumoEvent.create();
+                        return;
+                    default:
+                        throw new PracticeUnexpectedException("Event type " + eventType.getName() + " is not initialized yet");
                 }
             }
         });

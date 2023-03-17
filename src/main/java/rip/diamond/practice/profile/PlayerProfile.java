@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
+import rip.diamond.practice.event.PlayerProfileDataLoadEvent;
+import rip.diamond.practice.event.PlayerProfileDataSaveEvent;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.hook.plugin.citizens.CitizensHook;
 import rip.diamond.practice.kits.Kit;
@@ -71,6 +73,9 @@ public class PlayerProfile {
             kitData.putIfAbsent(data, new ProfileKitData());
             kitData.get(data).fromBson(kitDataDocument.get(data, Document.class));
         }
+
+        PlayerProfileDataLoadEvent event = new PlayerProfileDataLoadEvent(this, document);
+        event.call();
     }
 
     public Document toBson() {
@@ -91,7 +96,7 @@ public class PlayerProfile {
                 ;
         //temporaryDocument End
 
-        return new Document()
+        Document document = new Document()
                 .append("uuid", uniqueId.toString())
                 .append("username", username)
                 .append("lowerCaseUsername", username.toLowerCase())
@@ -100,6 +105,11 @@ public class PlayerProfile {
 
                 .append("temporary", temporaryDocument)
                 ;
+
+        PlayerProfileDataSaveEvent event = new PlayerProfileDataSaveEvent(this, document);
+        event.call();
+
+        return document;
     }
 
     public Player getPlayer() {

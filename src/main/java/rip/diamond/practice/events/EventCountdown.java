@@ -5,6 +5,7 @@ import org.bukkit.scheduler.BukkitTask;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.profile.cooldown.Cooldown;
 import rip.diamond.practice.util.Tasks;
+import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
 import java.util.Arrays;
 
@@ -19,19 +20,29 @@ public abstract class EventCountdown extends Cooldown {
             @Override
             public void run() {
                 if (isExpired()) {
-                    EdenEvent.getOnGoingEvent().setCountdown(null);
-                    Tasks.run(EventCountdown.this::run);
+                    runExpired();
                     cancel();
                     return;
                 }
                 if (Arrays.stream(tick).anyMatch(i -> i == getSecondsLeft())) {
-                    runTick(getSecondsLeft());
+                    runUnexpired(getSecondsLeft());
                 }
             }
         }.runTaskTimerAsynchronously(Eden.INSTANCE, 20L, 20L);
     }
 
-    public abstract void runTick(int tick);
+    public abstract void runUnexpired(int tick);
+
+    @Override
+    public void runUnexpired() {
+        throw new PracticeUnexpectedException("Please use runUnexpired(int) instead of runUnexpired()");
+    }
+
+    @Override
+    public void runExpired() {
+        EdenEvent.getOnGoingEvent().setCountdown(null);
+        Tasks.run(EventCountdown.this::run);
+    }
 
     @Override
     public void cancelCountdown() {

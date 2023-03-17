@@ -1,8 +1,8 @@
 scoreboard:
   title: "&bPractice"
   boxing-counter:
-    no-combo: "No Combo"
-    text: "{match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference})"
+    no-combo: "&fNo Combo"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference}"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -48,6 +48,7 @@ scoreboard:
     - ""
     - "&b&l┃ &fQueuing: &b{queue-kit}"
     - "&b&l┃ &fTime: &b{queue-time}"
+    - "&b&l┃ &fPing Range: &b{ping-range}"
     - "{event-information}"
     - "&7&m----------------------"
   in-queue-ranked:
@@ -58,6 +59,7 @@ scoreboard:
     - ""
     - "&b&l┃ &fQueuing: &b{queue-kit}"
     - "&b&l┃ &fTime: &b{queue-time}"
+    - "&b&l┃ &fPing Range: &b{ping-range}"
     - "&b&l┃ &fRange: &7[&b{queue-ranked-min} &9-> &b{queue-ranked-max}&7]"
     - "{event-information}"
     - "&7&m----------------------"
@@ -73,10 +75,10 @@ scoreboard:
       - "&7&m----------------------"
       - "&b&l┃ &fFighting: &b{match-solo-opponent}"
       - ""
-      - "&b&l┃ &bHits: {match-solo-boxing-difference-text}"
+      - "&b&l┃ &bHits: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference-number})"
       - "&b&l┃ &a You: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c Them: &f{match-solo-boxing-opponent-hit}"
-      - "&b&l┃ &e Combo: &f{match-solo-boxing-combo}"
+      - "&b&l┃ &f {match-solo-boxing-difference-text}"
       - ""
       - "&b&l┃ &fYour Ping: &b{match-solo-self-ping}ms"
       - "&b&l┃ &fTheir Ping: &b{match-solo-opponent-ping}ms"
@@ -258,6 +260,7 @@ join-message:
   - "&7&m------------------------------------------------"
 invalid-syntax: "&cIncorrect format. Please try again."
 location-not-found: "&cLocation not found"
+location-changed: "&aSuccessfully changed {0}"
 no-permission: "&cNo permission."
 enabled: "Enabled"
 disabled: "Disabled"
@@ -444,6 +447,10 @@ event:
   cannot-join-party-because-in-event: "&cYou cannot join a party which is in the event!"
   leave-event-because-error: "&cError: System Error. You have been automatically remove from the event"
   force-cancel-event: "&c{0} has been cancelled by administrator"
+  no-winner-because-no-party: "&7[&bEvent&7] &cThis event doesn't have any winners due to no party was alive."
+  winner-announce:
+    message: "&7[&bEvent&7] &aWinners: &b{0}"
+    split-format: "&7, &b"
   event-create-menu:
     title: "Create an Event"
     button:
@@ -557,10 +564,6 @@ event:
         - "{2}"
         - ""
       fighting-team-format: "&b{0} &fvs &b{1}"
-    no-winner-because-no-party: "&7[&bEvent&7] &cThis event doesn't have any winners due to no party was alive."
-    winner-announce:
-      message: "&7[&bEvent&7] &aWinners: &b{0}"
-      split-format: "&7, &b"
     new-round:
       countdown: "&7[&bEvent&7] &fRound &b&l{0} &fis starting in &b&l{1} &fseconds..."
       start:
@@ -570,6 +573,22 @@ event:
         - ""
       no-available-arena: "&7[&bEvent&7] &cError: Not enough arena. Your party have been automatically promoted to next round."
       auto-promotion: "&7[&bEvent&7] &eThere were an odd number of teams in this round - so your team has advanced to the next round. &a:)"
+  sumo-event:
+    name: "Sumo Event"
+    scoreboard:
+      starting-event:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &fPlayers: &b{event-total-players}&7/&b{event-max-players}"
+        - "&b&l┃  &fStarting at &b&l{event-countdown} &fseconds"
+      fighting:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &fRound &b&l{0}"
+        - "&b&l┃  &f{1} &bvs &f{2}"
+    new-round:
+      countdown: "&7Round &b&l{0} &7will be starting in &b&l{1}&7..."
+      started: "&bRound started!"
 hook:
   found-custom-spigot: "&aRunning spigot version: &b{0}&a, custom knockback will be applied"
   cannot-find-custom-spigot: "&eCannot find the custom spigot, vanilla knockback will be applied"
@@ -594,7 +613,6 @@ kit-editor:
         - "&e&nClick to edit kit layout!"
   cannot-use-command-while-editing: "&cPlease exit your layout editor to use other commands"
   disallow-extra-item: "&cThis kit does not allow extra items"
-  editor-location-changed: "&aKit editor location has been changed!"
   cannot-find-editor-location: "&cError: cannot find kit editor location"
   editing:
     - ""
@@ -899,8 +917,6 @@ leaderboard:
       lore:
         - ""
         - "&e&nClick to view!"
-lobby:
-  changed-spawn-location: "&aThe lobby spawn has been changed!"
 match:
   separate: "&7, &b"
   start-unranked:

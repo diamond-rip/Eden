@@ -34,9 +34,19 @@ fancy-tablist:
 nametag:
   ## Toggle if the plugin should modify the nametag color or not
   enabled: true
-  ## What color should the nametag be when the player is in lobby?
-  ## Check https://hub.spigotmc.org/javadocs/spigot/org/bukkit/ChatColor.html for available colors
-  color: BLUE
+  ## Nametag prefix
+  prefix:
+    ## What prefix should the nametag display when the player is in lobby?
+    lobby: "&9"
+    ## What prefix should the nametag display when the player is a spectator?
+    spectator: "&7"
+    ## What prefix should the nametag display when the player is a teammate?
+    teammate: "&a"
+    ## What prefix should the nametag display when the player is a opponent?
+    opponent: "&c"
+    ## If it doesn't match any of the above, what prefix should the nametag display?
+    ## One of the scenario is a spectator tries to view match players. Those match players nametag will display as the follow prefix
+    other: "&e"
 party:
   ## When player creates a party, what is the default size?
   default-max-size: 30

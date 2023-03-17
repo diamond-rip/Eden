@@ -1,2 +1,6 @@
 spawn-location: ""
 editor-location: ""
+sumo-event:
+  a: ""
+  b: ""
+  spectate: ""

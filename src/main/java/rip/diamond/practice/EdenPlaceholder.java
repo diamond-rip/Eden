@@ -101,6 +101,7 @@ public class EdenPlaceholder {
                                 .replace("{match-solo-winner}", match.getState() == MatchState.ENDING ? match.getWinningPlayers().get(0).getUsername() : "")
                                 .replace("{match-solo-boxing-difference-text}", Language.SCOREBOARD_BOXING_COUNTER_TEXT.toString())
                                 .replace("{match-solo-boxing-difference}",  soloDifference == 0 ? Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString() : Math.abs(soloDifference) + "")
+                                .replace("{match-solo-boxing-difference-number}",  soloDifference + "")
                                 .replace("{match-solo-boxing-difference-symbol}", soloDifference == 0 ? "" : soloDifference > 0 ? "+" : "-")
                                 .replace("{match-solo-boxing-difference-color}", solo_x > solo_y ? CC.GREEN : solo_x == solo_y ? CC.YELLOW : CC.RED)
                                 .replace("{match-solo-boxing-self-hit}", solo_x + "")

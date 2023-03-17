@@ -1,6 +1,7 @@
 package rip.diamond.practice.kiteditor;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
@@ -21,7 +22,7 @@ public class KitEditorManager {
 
     private final Eden plugin;
     private final Map<UUID, KitEditProfile> editing = new HashMap<>();
-    private Location editorLocation = null;
+    @Setter private Location editorLocation = null;
 
     public KitEditorManager(Eden plugin) {
         this.plugin = plugin;
@@ -30,14 +31,6 @@ public class KitEditorManager {
         } catch (Exception e) {
             Common.log("Unable to deserialize editor-location from location file.");
         }
-    }
-
-    public void setEditorLocation(Player player) {
-        editorLocation = player.getLocation();
-        plugin.getLocationFile().getConfiguration().set("editor-location", LocationSerialization.serializeLocation(editorLocation));
-        plugin.getLocationFile().save();
-
-        Language.KIT_EDITOR_EDITOR_LOCATION_CHANGED.sendMessage(player);
     }
 
     public boolean isEditing(Player player) {

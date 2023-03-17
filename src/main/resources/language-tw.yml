@@ -1,8 +1,8 @@
 scoreboard:
   title: "&b戰鬥練習"
   boxing-counter:
-    no-combo: "沒有連擊"
-    text: "{match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference})"
+    no-combo: "&f沒有連擊"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference}"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -15,8 +15,8 @@ scoreboard:
     - "&b&l┃ &f玩家: &b{online-players}"
     - "&b&l┃ &f等待中: &b{queue-players}"
     - "&b&l┃ &f戰鬥中: &b{match-players}"
-    - ""
     - "{event-information}"
+    - ""
     - "&bdiamond.rip"
     - "&7&m----------------------"
   in-party:
@@ -28,8 +28,8 @@ scoreboard:
     - "&b&l┃ &f隊伍:"
     - "&b&l┃ &f 隊長: &b{party-leader}"
     - "&b&l┃ &f 人數: &b{party-members}&7/&b{party-max}"
-    - ""
     - "{event-information}"
+    - ""
     - "&bdiamond.rip"
     - "&7&m----------------------"
   in-edit:
@@ -49,8 +49,8 @@ scoreboard:
     - "&b&l┃ &f正在匹配: &b{queue-kit}"
     - "&b&l┃ &f等待時間: &b{queue-time}"
     - "&b&l┃ &f匹配延遲: &b{ping-range}"
-    - ""
     - "{event-information}"
+    - ""
     - "&bdiamond.rip"
     - "&7&m----------------------"
   in-queue-ranked:
@@ -63,8 +63,8 @@ scoreboard:
     - "&b&l┃ &f等待時間: &b{queue-time}"
     - "&b&l┃ &f匹配延遲: &b{ping-range}"
     - "&b&l┃ &f匹配範圍: &7[&b{queue-ranked-min} &9-> &b{queue-ranked-max}&7]"
-    - ""
     - "{event-information}"
+    - ""
     - "&bdiamond.rip"
     - "&7&m----------------------"
   in-match-solo:
@@ -134,10 +134,10 @@ scoreboard:
       - "&7&m----------------------"
     boxing:
       - "&7&m----------------------"
-      - "&b&l┃ &b擊中次數: {match-team-boxing-difference-text}"
+      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference-number})"
       - "&b&l┃ &a 我方: &f{match-team-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-team-boxing-opponent-hit}"
-      - "&b&l┃ &f 連擊次數: &f{match-team-boxing-combo}"
+      - "&b&l┃ &f {match-solo-boxing-difference-text}"
       - ""
       - "&b&l┃ &a我方隊伍: &7(&b{match-team-self-alive}&7/&b{match-team-self-size}&7)"
       - "&b&l┃ &c敵方隊伍: &7(&b{match-team-opponent-alive}&7/&b{match-team-opponent-size}&7)"
@@ -315,6 +315,7 @@ join-message:
 - "&7&m------------------------------------------------"
 invalid-syntax: "&c格式錯誤, 請重試"
 location-not-found: "&c位置未找到"
+location-changed: "&a成功更改 {0}"
 no-permission: "&c你沒有權限執行這個指令"
 enabled: "開啟"
 disabled: "關閉"
@@ -501,6 +502,10 @@ event:
   cannot-join-party-because-in-event: "&c你不能進去該隊伍, 因為該隊伍在一個活動裏面"
   leave-event-because-error: "&c錯誤: 你已被本活動移除, 這是一個系統錯誤, 請回報給系統管理員"
   force-cancel-event: "&c{0}已被管理員強制結束"
+  no-winner-because-no-party: "&7[&b活動&7] &c沒有派對生還, 本次活動沒有勝利者"
+  winner-announce:
+    message: "&7[&b活動&7] &a勝利者: &b{0}"
+    split-format: "&7, &b"
   event-create-menu:
     title: "建立活動"
     button:
@@ -614,10 +619,6 @@ event:
         - "{2}"
         - ""
       fighting-team-format: "&b{0} &fvs &b{1}"
-    no-winner-because-no-party: "&7[&b活動&7] &c沒有派對生還, 本次活動沒有勝利者"
-    winner-announce:
-      message: "&7[&b活動&7] &a勝利者: &b{0}"
-      split-format: "&7, &b"
     new-round:
       countdown: "&7[&b活動&7] &f第 &b&l{0} &f輪錦標賽將會在 &b&l{1} &f秒後開始..."
       start:
@@ -627,6 +628,23 @@ event:
         - ""
       no-available-arena: "&7[&b活動&7] &c錯誤: 場地不足, 你的派對將會放置到下一個回合才會開始"
       auto-promotion: "&7[&b活動&7] &e本回合派對總數為單數, 你的隊伍已被自動晉級 &a:)"
+  sumo-event:
+    name: "相撲大賽"
+    match-end-message: "&7[&b活動&7] &a{0} &f擊敗了 &c{1}"
+    scoreboard:
+      starting-event:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &f現時人數: &b{event-total-players}&7/&b{event-max-players}"
+        - "&b&l┃  &f將會在 &b&l{event-countdown} &f秒後開始"
+      fighting:
+        - ""
+        - "&b&l┃ &b&l{event-uncolored-name}"
+        - "&b&l┃  &f第 &b&l{0} &f回合"
+        - "&b&l┃  &f{1} &bvs &f{2}"
+    new-round:
+      countdown: "&7第 &b&l{0} &7回合將會在 &b&l{1} &7秒後開始..."
+      started: "&b回合開始!"
 hook:
   found-custom-spigot: "&a偵測到伺服器正在運行 &b{0}&a, 擊退運作將會使用這個伺服器核心"
   cannot-find-custom-spigot: "&e未能找到特定伺服器核心, 將不會進行任何的擊退更改"
@@ -651,7 +669,6 @@ kit-editor:
         - "&e&n點擊開始設置職業排版!"
   cannot-use-command-while-editing: "&c請先退出自定義排版編輯, 才使用其他指令"
   disallow-extra-item: "&c這個職業不允許擁有額外物品"
-  editor-location-changed: "&a職業編輯器位置已更改!"
   cannot-find-editor-location: "&c錯誤: 未能找到職業編輯器坐標"
   editing:
     - ""
@@ -956,8 +973,6 @@ leaderboard:
       lore:
         - ""
         - "&e&n點擊查看!"
-lobby:
-  changed-spawn-location: "&a大廳位置已更改!"
 match:
   separate: "&7, &b"
   start-unranked:

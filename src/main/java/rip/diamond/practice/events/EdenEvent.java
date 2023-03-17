@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.imanity.imanityspigot.movement.MovementHandler;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.EventJoinEvent;
@@ -17,6 +18,7 @@ import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.util.Clickable;
 import rip.diamond.practice.util.Common;
+import rip.diamond.spigotapi.movementhandler.AbstractMovementHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public abstract class EdenEvent {
     private final int minPlayers;
     private final int maxPlayers;
     private final int teamSize;
-    private final List<Party> parties = new ArrayList<>();
+    protected final List<Party> parties = new ArrayList<>();
     private EventState state = EventState.WAITING;
 
     private EventCountdown countdown;
@@ -48,7 +50,7 @@ public abstract class EdenEvent {
         this.teamSize = teamSize;
 
         bukkitListener = constructListener();
-        plugin.getServer().getPluginManager().registerEvents(bukkitListener, plugin);
+        if (bukkitListener != null) plugin.getServer().getPluginManager().registerEvents(bukkitListener, plugin);
     }
 
     public String getEventName() {
@@ -92,6 +94,18 @@ public abstract class EdenEvent {
             if (profile.getSettings().get(ProfileSettings.EVENT_ANNOUNCEMENT).isEnabled()) {
                 Common.sendMessage(player, string);
             }
+        });
+    }
+
+    public void broadcastToEventPlayers(String string) {
+        parties.forEach(party -> {
+            party.getAllPartyMembers().forEach(partyMember -> partyMember.sendMessage(string));
+        });
+    }
+
+    public void broadcastToEventPlayers(List<String> string) {
+        parties.forEach(party -> {
+            party.getAllPartyMembers().forEach(partyMember -> partyMember.sendMessage(string));
         });
     }
 
@@ -149,7 +163,7 @@ public abstract class EdenEvent {
     public void countdown(int seconds) {
         setCountdown(new EventCountdown(seconds, 45,30,15,10,5,4,3,2,1) {
             @Override
-            public void runTick(int tick) {
+            public void runUnexpired(int tick) {
                 Clickable clickable = new Clickable(Language.EVENT_EVENT_START_COUNTDOWN_MESSAGE.toString(getEventName(), tick));
                 clickable.add(Language.EVENT_EVENT_START_COUNTDOWN_CLICKABLE_MESSAGE.toString(), Language.EVENT_EVENT_START_COUNTDOWN_CLICKABLE_HOVER.toString(), "/joinevent");
                 broadcast(clickable);
@@ -200,6 +214,8 @@ public abstract class EdenEvent {
     }
 
     public abstract Listener constructListener();
+
+    public abstract String getNameTagPrefix(Player target, Player viewer);
 
     /**
      * The Scoreboard which displays to everyone who's in the lobby (Their profile state should be IN_LOBBY)

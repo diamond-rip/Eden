@@ -21,7 +21,6 @@ public class SpectateListener implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
 
-        //Profile will be null if the profile is not loaded in AsyncPlayerPreLoginEvent
         if (profile == null) {
             return;
         }

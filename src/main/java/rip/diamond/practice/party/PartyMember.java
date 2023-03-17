@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.util.Common;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +24,13 @@ public class PartyMember {
     }
 
     public void sendMessage(String... messages) {
+        if (getPlayer() == null) {
+            return;
+        }
+        Common.sendMessage(getPlayer(), messages);
+    }
+
+    public void sendMessage(List<String> messages) {
         if (getPlayer() == null) {
             return;
         }

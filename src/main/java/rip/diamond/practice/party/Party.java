@@ -3,6 +3,7 @@ package rip.diamond.practice.party;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.PartyDisbandEvent;
@@ -11,6 +12,7 @@ import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.Clickable;
 import rip.diamond.practice.util.Common;
+import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.VisibilityController;
 
 import java.util.*;
@@ -90,6 +92,15 @@ public class Party {
                 return;
             }
             Arrays.stream(message).forEach(msg -> partyMember.sendMessage(Language.PARTY_BROADCAST_FORMAT.toString(msg)));
+        });
+    }
+
+    public void teleport(Location location) {
+        getAllPartyMembers().forEach(partyMember -> {
+            if (partyMember == null) {
+                return;
+            }
+            Util.teleport(partyMember.getPlayer(), location);
         });
     }
 

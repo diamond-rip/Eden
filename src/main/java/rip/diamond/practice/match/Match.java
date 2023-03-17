@@ -405,22 +405,22 @@ public abstract class Match {
         return false;
     }
 
-    public ChatColor getRelationColor(Player viewer, Player target) {
+    public String getRelationColor(Player viewer, Player target) {
         if (viewer.equals(target)) {
-            return ChatColor.GREEN;
+            return CC.GREEN;
         }
 
         Team team = getTeam(target);
         Team viewerTeam = getTeam(viewer);
 
         if (team == null || viewerTeam == null) {
-            return ChatColor.YELLOW;
+            return plugin.getConfigFile().getString("nametag.prefix.other");
         }
 
         if (team.equals(viewerTeam)) {
-            return ChatColor.GREEN;
+            return plugin.getConfigFile().getString("nametag.prefix.teammate");
         } else {
-            return ChatColor.RED;
+            return plugin.getConfigFile().getString("nametag.prefix.opponent");
         }
     }
 

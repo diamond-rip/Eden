@@ -96,7 +96,6 @@ public class KitDetailsMenu extends PaginatedMenu {
     public Map<Integer, Button> getAllPagesButtons(Player player) {
         final Map<Integer, Button> buttons = new HashMap<>();
 
-
         for (Field field : kit.getGameRules().getClass().getDeclaredFields()) {
             field.setAccessible(true);
             if (field.getType() == boolean.class) {

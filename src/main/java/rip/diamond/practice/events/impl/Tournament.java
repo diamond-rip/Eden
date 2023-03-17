@@ -27,6 +27,7 @@ import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
 import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.Tasks;
+import rip.diamond.spigotapi.movementhandler.AbstractMovementHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,6 +99,11 @@ public class Tournament extends EdenEvent {
                 }
             }
         };
+    }
+
+    @Override
+    public String getNameTagPrefix(Player target, Player viewer) {
+        return null;
     }
 
     @Override
@@ -188,14 +194,14 @@ public class Tournament extends EdenEvent {
         }
 
         if (getParties().isEmpty()) {
-            broadcast(Language.EVENT_TOURNAMENT_NO_WINNER_BECAUSE_NO_PARTY.toString());
+            broadcast(Language.EVENT_NO_WINNER_BECAUSE_NO_PARTY.toString());
             //This line of code has to be run in the last. This is to unregister the events
             destroy();
             return;
         }
 
         new BukkitRunnable() {
-            private final String winners = getParties().get(0).getAllPartyMembers().stream().map(PartyMember::getUsername).collect(Collectors.joining(Language.EVENT_TOURNAMENT_WINNER_ANNOUNCE_SPLIT_FORMAT.toString()));
+            private final String winners = getParties().get(0).getAllPartyMembers().stream().map(PartyMember::getUsername).collect(Collectors.joining(Language.EVENT_WINNER_ANNOUNCE_SPLIT_FORMAT.toString()));
             private int count = 5;
             @Override
             public void run() {
@@ -204,7 +210,7 @@ public class Tournament extends EdenEvent {
                     //This line of code has to be run in the last. This is to unregister the events
                     destroy();
                 } else {
-                    broadcast(Language.EVENT_TOURNAMENT_WINNER_ANNOUNCE_MESSAGE.toString(winners));
+                    broadcast(Language.EVENT_WINNER_ANNOUNCE_MESSAGE.toString(winners));
                     count--;
                 }
             }
@@ -216,12 +222,12 @@ public class Tournament extends EdenEvent {
         tournamentState = TournamentState.STARTING_NEW_ROUND;
         setCountdown(new EventCountdown(30, 30,20,15,10,5,4,3,2,1) {
             @Override
-            public void runTick(int tick) {
+            public void runUnexpired(int tick) {
                 broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_COUNTDOWN.toString(round, tick));
             }
 
             @Override
-            public void run() {
+            public void runExpired() {
                 broadcast(Language.EVENT_TOURNAMENT_NEW_ROUND_START.toStringList(round));
 
                 List<Party> matchParties = new ArrayList<>(getParties());

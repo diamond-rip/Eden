@@ -1,11 +1,14 @@
 package rip.diamond.practice.misc.commands;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
+import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,16 +32,34 @@ public class LocationCommand extends Command {
                 return;
             }
 
+            Location location = player.getLocation();
             switch (type) {
                 case SPAWN:
-                    plugin.getLobbyManager().setSpawnLocation(player);
-                    return;
+                    plugin.getLobbyManager().setSpawnLocation(location);
+                    plugin.getLocationFile().getConfiguration().set("spawn-location", LocationSerialization.serializeLocation(location));
+                    plugin.getLocationFile().save();
+                    break;
                 case EDITOR:
-                    plugin.getKitEditorManager().setEditorLocation(player);
-                    return;
+                    plugin.getKitEditorManager().setEditorLocation(location);
+                    plugin.getLocationFile().getConfiguration().set("editor-location", LocationSerialization.serializeLocation(location));
+                    plugin.getLocationFile().save();
+                    break;
+                case SUMO_EVENT_A:
+                    plugin.getLocationFile().getConfiguration().set("sumo-event.a", LocationSerialization.serializeLocation(location));
+                    plugin.getLocationFile().save();
+                    break;
+                case SUMO_EVENT_B:
+                    plugin.getLocationFile().getConfiguration().set("sumo-event.b", LocationSerialization.serializeLocation(location));
+                    plugin.getLocationFile().save();
+                    break;
+                case SUMO_EVENT_SPECTATOR:
+                    plugin.getLocationFile().getConfiguration().set("sumo-event.spectator", LocationSerialization.serializeLocation(location));
+                    plugin.getLocationFile().save();
+                    break;
                 default:
                     return;
             }
+            Language.LOCATION_CHANGED.sendMessage(player, type.name());
         }
     }
 
@@ -49,6 +70,9 @@ public class LocationCommand extends Command {
 
     enum LocationType {
         SPAWN,
-        EDITOR
+        EDITOR,
+        SUMO_EVENT_A,
+        SUMO_EVENT_B,
+        SUMO_EVENT_SPECTATOR
     }
 }
