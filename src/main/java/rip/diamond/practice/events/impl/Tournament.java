@@ -136,14 +136,14 @@ public class Tournament extends EdenEvent {
          * 這個情況下, getState() 應該會回傳 EventState.WAITING
          */
         if (tournamentState == TournamentState.NONE) {
-            return Language.EVENT_TOURNAMENT_STATUS_STARTING_EVENT.toStringList(player, getUncoloredEventName());
+            return Language.EVENT_SUMO_EVENT_STATUS_STARTING_EVENT.toStringList(player, getUncoloredEventName());
         }
         /*
          * 如果 tournamentState == TournamentState.STARTING_NEW_ROUND, 意思就是錦標賽正在準備開始新的一個回合
          * 這個情況下, getState() 應該會回傳 EventState.RUNNING
          */
         else if (tournamentState == TournamentState.STARTING_NEW_ROUND) {
-            return Language.EVENT_TOURNAMENT_STATUS_STARTING_NEW_ROUND.toStringList(player, getUncoloredEventName(), round);
+            return Language.EVENT_SUMO_EVENT_STATUS_STARTING_NEW_ROUND.toStringList(player, getUncoloredEventName(), round);
         }
         /*
          * 如果 tournamentState == TournamentState.FIGHTING, 意思就是錦標賽回合已經開始, 活動內的玩家正在戰鬥中
@@ -155,10 +155,10 @@ public class Tournament extends EdenEvent {
             for (Match match : matches) {
                 String team1 = match.getTeams().get(0).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
                 String team2 = match.getTeams().get(1).getTeamPlayers().stream().map(TeamPlayer::getUsername).collect(Collectors.joining(", "));
-                listOfFightingPlayers.add(Language.EVENT_TOURNAMENT_STATUS_STARTING_FIGHTING_TEAM_FORMAT.toString(team1, team2));
+                listOfFightingPlayers.add(Language.EVENT_TOURNAMENT_STATUS_FIGHTING_TEAM_FORMAT.toString(team1, team2));
             }
 
-            return Language.EVENT_TOURNAMENT_STATUS_STARTING_FIGHTING.toStringList(player, getUncoloredEventName(), round, StringUtils.join(listOfFightingPlayers, EdenPlaceholder.NEW_LINE));
+            return Language.EVENT_SUMO_EVENT_STATUS_FIGHTING.toStringList(player, getUncoloredEventName(), round, StringUtils.join(listOfFightingPlayers, EdenPlaceholder.NEW_LINE));
         } else return null;
     }
 

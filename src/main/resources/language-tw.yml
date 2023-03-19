@@ -2,7 +2,7 @@ scoreboard:
   title: "&b戰鬥練習"
   boxing-counter:
     no-combo: "&f沒有連擊"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference}"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference-text} 連擊"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -81,10 +81,10 @@ scoreboard:
       - "&7&m----------------------"
       - "&b&l┃ &f對手: &b{match-solo-opponent}"
       - ""
-      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-text}"
+      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference-number})"
       - "&b&l┃ &a 我方: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-solo-boxing-opponent-hit}"
-      - "&b&l┃ &e 連擊次數: &f{match-solo-boxing-combo}"
+      - "&b&l┃ &f {match-solo-boxing-difference-text}"
       - ""
       - "&b&l┃ &f我方延遲: &b{match-solo-self-ping}ms"
       - "&b&l┃ &f對手延遲: &b{match-solo-opponent-ping}ms"
@@ -672,6 +672,23 @@ event:
         - ""
         - "&bdiamond.rip"
         - "&7&m----------------------"
+    status:
+      starting-event:
+        - ""
+        - "&b&l{0}"
+        - "&f正在準備開始..."
+        - ""
+      starting-new-round:
+        - ""
+        - "&b&l{0}"
+        - "&f第 &b&l{1} &f回合正在準備開始"
+        - ""
+      fighting:
+        - ""
+        - "&b&l{0}"
+        - "&f正在進行第 &b&l{1} &f回合"
+        - "{2} vs {3}"
+        - ""
     new-round:
       countdown: "&7第 &b&l{0} &7回合將會在 &b&l{1} &7秒後開始..."
       started: "&b回合開始!"
@@ -1084,6 +1101,7 @@ match:
       name-solo: "&b{0} &7vs &b{1}"
       name-split: "&b{0}的隊伍 &7vs &b{0}的隊伍"
       name-ffa: "&b{0}人&7FFA"
+      name-sumo-event: "&b相撲大賽"
       name-error: "&c錯誤"
       lore:
         - "&b戰鬥資訊"

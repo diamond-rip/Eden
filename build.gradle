@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.1.0-" + getGitHash()
+version = "1.1.1-" + getGitHash()
 
 processResources {
     def props = [version: version]
@@ -62,6 +62,9 @@ dependencies {
     implementation 'org.mongodb:mongodb-driver-sync:4.9.0' //MongoDB driver (This has to be included in the plugin jar file, so we use implementation)
     implementation 'rip.diamond:spigotapi:1.0-SNAPSHOT'
     implementation 'com.github.ben-manes.caffeine:caffeine:2.9.3' //https://github.com/ben-manes/caffeine - A high performance caching library
+
+    testImplementation 'dev.imanity.mockbukkit:MockBukkit1.8:1.0.31'
+    testImplementation 'junit:junit:4.13.1'
 
     //Libraries from local
     compileOnly name: 'ImanitySpigot-API-2022.08.1b2'

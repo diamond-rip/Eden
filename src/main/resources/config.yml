@@ -56,10 +56,6 @@ lobby:
 match:
   ## This option will give a 'Play Again' item to match players when a match is ended, like Minemen Club
   allow-requeue: true
-  ## Right now boxing will count hit as 2 hits if player is spam clicking and jumping (critical hits)
-  ## This option will change paperspigot's config 'disable-player-crits' to true. So crit hit will not be exists anymore.
-  ## Warning: This option will disable crit damage, and will change and save paperspigot's 'disable-player-crits' settings
-  fix-hit-count-error: true
   ## Should snow block be removed when the snowball hit the object?
   ## Set to true if you wish to remove the object (which is the snow block)
   remove-snow-block-when-snowball-hit: false
@@ -151,6 +147,9 @@ chat-format:
   format: "&a%1$s&f: %2$s"
 ## Player profile options
 profile:
+  ## Should Eden save all online player data while server is stopping
+  ## Disable this if you used Eden's API to modify eden's player data document
+  save-on-server-stop: true
   ## The default settings for a player
   ## Player can customize their settings via '/settings' menu, however, permissions are required to change the settings.
   ## Check https://github.com/diamond-rip/Eden/wiki/Permissions#Settings for more information about permissions

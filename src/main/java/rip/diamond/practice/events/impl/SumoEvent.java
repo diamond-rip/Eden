@@ -2,6 +2,7 @@ package rip.diamond.practice.events.impl;
 
 import com.google.common.collect.ImmutableList;
 import lombok.Getter;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -190,8 +191,27 @@ public class SumoEvent extends EdenEvent {
 
     @Override
     public List<String> getStatus(Player player) {
-        // TODO: 17/3/2023 Make this
-        return null;
+        /*
+         * 如果 tournamentState == TournamentState.NONE, 意思就是錦標賽還沒開始
+         * 這個情況下, getState() 應該會回傳 EventState.WAITING
+         */
+        if (sumoEventState == SumoEventState.NONE) {
+            return Language.EVENT_TOURNAMENT_STATUS_STARTING_EVENT.toStringList(player, getUncoloredEventName());
+        }
+        /*
+         * 如果 tournamentState == TournamentState.STARTING_NEW_ROUND, 意思就是錦標賽正在準備開始新的一個回合
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        else if (sumoEventState == SumoEventState.STARTING_NEW_ROUND) {
+            return Language.EVENT_TOURNAMENT_STATUS_STARTING_NEW_ROUND.toStringList(player, getUncoloredEventName(), round);
+        }
+        /*
+         * 如果 tournamentState == TournamentState.FIGHTING, 意思就是錦標賽回合已經開始, 活動內的玩家正在戰鬥中
+         * 這個情況下, getState() 應該會回傳 EventState.RUNNING
+         */
+        else if (sumoEventState == SumoEventState.FIGHTING) {
+            return Language.EVENT_TOURNAMENT_STATUS_FIGHTING.toStringList(player, getUncoloredEventName(), round, getTeamName(teamA), getTeamName(teamB));
+        } else return null;
     }
 
     @Override

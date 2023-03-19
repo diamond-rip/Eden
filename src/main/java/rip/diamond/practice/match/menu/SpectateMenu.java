@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.events.EdenEvent;
+import rip.diamond.practice.events.impl.SumoEvent;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchType;
 import rip.diamond.practice.match.impl.SoloMatch;
@@ -37,13 +39,14 @@ public class SpectateMenu extends PaginatedMenu {
         for (Match match : Match.getMatches().values()) {
             try {
                 String title;
-                // TODO: 17/3/2023 Implement SumoEvent
                 if (match.getMatchType() == MatchType.SOLO) {
                     title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_SOLO.toString(((SoloMatch) match).getPlayerA().getUsername(), ((SoloMatch) match).getPlayerB().getUsername());
                 } else if (match.getMatchType() == MatchType.SPLIT) {
                     title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_SPLIT.toString(((TeamMatch) match).getTeamA().getLeader(), ((TeamMatch) match).getTeamB().getLeader());
                 } else if (match.getMatchType() == MatchType.FFA) {
                     title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_FFA.toString(match.getTeamPlayers().size());
+                } else if (match.getMatchType() == MatchType.SUMO_EVENT && EdenEvent.getOnGoingEvent() != null) {
+                    title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_SUMO_EVENT.toString();
                 } else {
                     title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_ERROR.toString();
                 }

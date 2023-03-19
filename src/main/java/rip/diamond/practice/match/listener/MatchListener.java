@@ -27,6 +27,7 @@ import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.KitLoadoutReceivedEvent;
+import rip.diamond.practice.event.MatchPlayerDamageEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
 import rip.diamond.practice.kits.Kit;
@@ -167,43 +168,55 @@ public class MatchListener implements Listener {
     }
 
     @EventHandler
-    public void onDamage(EntityDamageEvent event) {
+    public void onEntityDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
-
         Player player = (Player) event.getEntity();
         PlayerProfile profile = PlayerProfile.get(player);
+        double damage = event.getDamage();
+        EntityDamageEvent.DamageCause cause = event.getCause();
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
-            TeamPlayer teamPlayer = match.getTeamPlayer(player);
 
-            if (teamPlayer.getProtectionUntil() > System.currentTimeMillis()) {
-                event.setCancelled(true);
-                return;
-            }
-            if (teamPlayer.isRespawning()) {
-                event.setCancelled(true);
-                return;
-            }
-            if (!teamPlayer.isAlive()) {
-                event.setCancelled(true);
-                return;
-            }
-            if (match.getKit().getGameRules().isNoFallDamage() && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                event.setCancelled(true);
-                return;
-            }
-            if (match.getKit().getGameRules().isNoDamage()) {
-                event.setDamage(0);
-                return;
-            }
-            if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
-                Util.damage(player, 99999);
-                event.setCancelled(true);
-                return;
-            }
+            MatchPlayerDamageEvent e = new MatchPlayerDamageEvent(player, match, cause, damage);
+            e.call();
+
+            event.setDamage(e.getDamage());
+        }
+    }
+
+    @EventHandler
+    public void onDamage(MatchPlayerDamageEvent event) {
+        Player player = event.getPlayer();
+        Match match = event.getMatch();
+        TeamPlayer teamPlayer = match.getTeamPlayer(player);
+
+        if (teamPlayer.getProtectionUntil() > System.currentTimeMillis() && !event.isIgnoreProtection()) {
+            event.setCancelled(true);
+            return;
+        }
+        if (teamPlayer.isRespawning()) {
+            event.setCancelled(true);
+            return;
+        }
+        if (!teamPlayer.isAlive()) {
+            event.setCancelled(true);
+            return;
+        }
+        if (match.getKit().getGameRules().isNoFallDamage() && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            event.setCancelled(true);
+            return;
+        }
+        if (match.getKit().getGameRules().isNoDamage()) {
+            event.setDamage(0);
+            return;
+        }
+        if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+            Util.damage(player, 99999, match, true);
+            event.setCancelled(true);
+            return;
         }
     }
 
@@ -224,6 +237,7 @@ public class MatchListener implements Listener {
 
             if (entityProfile.getPlayerState() == PlayerState.IN_MATCH && damagerProfile.getPlayerState() == PlayerState.IN_MATCH && entityProfile.getMatch() == damagerProfile.getMatch()) {
                 Match match = entityProfile.getMatch();
+                Kit kit = match.getKit();
 
                 //It is cancelled in EntityDamageEvent. Check this again to prevent Boxing hits.
                 if (match.getState() != MatchState.FIGHTING) {
@@ -241,12 +255,12 @@ public class MatchListener implements Listener {
                 }
 
                 //檢查職業是否只允許遠程攻擊傷害
-                if (match.getKit().getGameRules().isProjectileOnly() && event.getDamager() instanceof Player) {
+                if (kit.getGameRules().isProjectileOnly() && event.getDamager() instanceof Player) {
                     event.setCancelled(true);
                     return;
                 }
 
-                if (match.getKit().getGameRules().isBoxing() || match.getKit().getGameRules().isNoDamage()) {
+                if (kit.getGameRules().isBoxing() || kit.getGameRules().isNoDamage()) {
                     event.setDamage(0);
                     entity.setHealth(20.0);
                 }
@@ -261,6 +275,11 @@ public class MatchListener implements Listener {
 
                 teamPlayerDamager.handleHit(event.getFinalDamage());
                 teamPlayerEntity.handleGotHit(match.getTeamPlayer(damager), entity.isBlocking());
+                if (kit.getGameRules().isBoxing()) {
+                    //Only allow entity to be damaged after 0.05 seconds (1 tick). This is to fix the boxing 'double hit' count.
+                    teamPlayerEntity.setProtectionUntil(System.currentTimeMillis() + 50L);
+                }
+
 
                 //顯示造成的傷害
                 if (event.getDamager() instanceof Arrow && entity != damager) {
@@ -268,14 +287,16 @@ public class MatchListener implements Listener {
                 }
 
                 //檢查職業是否為Boxing, 和檢查是否達到最大Boxing攻擊數, 如果是的話就死亡
-                if (match.getKit().getGameRules().isBoxing() && match.getTeam(entity).getGotHits() >= match.getMaximumBoxingHits()) {
+                if (kit.getGameRules().isBoxing() && match.getTeam(entity).getGotHits() >= match.getMaximumBoxingHits()) {
                     switch (match.getMatchType()) {
                         case SOLO:
-                            Util.damage(entity, 99999);
+                            Util.damage(entity, 99999, match, true);
                             break;
                         case SPLIT:
                         case FFA:
-                            match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> Util.damage(entity, 99999));
+                            match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> Util.damage(entity, 99999, match, true));
+                            break;
+                        default:
                             break;
                     }
                 }

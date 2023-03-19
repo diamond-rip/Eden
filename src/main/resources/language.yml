@@ -2,7 +2,7 @@ scoreboard:
   title: "&bPractice"
   boxing-counter:
     no-combo: "&fNo Combo"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference}"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference-text} Combo"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -611,9 +611,26 @@ event:
         - "&b&l┃ &aMatch Over!"
         - "&b&l┃ &fWinner: &b{match-event-winner}"
         - "&7&m----------------------"
+    status:
+      starting-event:
+        - ""
+        - "&b&l{0}"
+        - "&fStarting soon..."
+        - ""
+      starting-new-round:
+        - ""
+        - "&b&l{0}"
+        - "&fRound &b&l{1} &fis starting soon..."
+        - ""
+      fighting:
+        - ""
+        - "&b&l{0}"
+        - "&fRound &b&l{1} &fis started!"
+        - "{2} vs {3}"
+        - ""
     new-round:
-      countdown: "&7第 &b&l{0} &7回合將會在 &b&l{1} &7秒後開始..."
-      started: "&b回合開始!"
+      countdown: "&7Round &b&l{0} &7will be starting in &b&l{1}&7..."
+      started: "&bRound started!"
 hook:
   found-custom-spigot: "&aRunning spigot version: &b{0}&a, custom knockback will be applied"
   cannot-find-custom-spigot: "&eCannot find the custom spigot, vanilla knockback will be applied"
@@ -1023,6 +1040,7 @@ match:
       name-solo: "&b{0} &7vs &b{1}"
       name-split: "&b{0}'s Team &7vs &b{0}'s Team"
       name-ffa: "&7FFA with &b{0} &7players"
+      name-sumo-event: "&bSumo Event"
       name-error: "&cError"
       lore:
         - "&bMatch Information"

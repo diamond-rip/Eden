@@ -25,6 +25,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
+import rip.diamond.practice.event.MatchPlayerDamageEvent;
+import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.spigotapi.SpigotType;
 
@@ -54,8 +56,9 @@ public class Util {
         }
     }
 
-    public static void damage(Player player, double damage) {
-        EntityDamageEvent event = new EntityDamageEvent(player, EntityDamageEvent.DamageCause.CUSTOM, damage);
+    public static void damage(Player player, double damage, Match match, boolean ignoreProtection) {
+        MatchPlayerDamageEvent event = new MatchPlayerDamageEvent(player, match, EntityDamageEvent.DamageCause.CUSTOM, damage);
+        event.setIgnoreProtection(ignoreProtection);
         Bukkit.getPluginManager().callEvent(event);
 
         if (!event.isCancelled()) {

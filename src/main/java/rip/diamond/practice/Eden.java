@@ -3,6 +3,7 @@ package rip.diamond.practice;
 import com.google.gson.Gson;
 import io.github.epicgo.sconey.SconeyHandler;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import rip.diamond.practice.arenas.Arena;
@@ -64,6 +65,8 @@ import rip.diamond.practice.util.menu.MenuListener;
 import rip.diamond.practice.util.nametags.NameTagManager;
 import rip.diamond.practice.util.tablist.ImanityTabHandler;
 import rip.diamond.spigotapi.SpigotAPI;
+import rip.diamond.spigotapi.SpigotType;
+import rip.diamond.spigotapi.movementhandler.AbstractMovementHandler;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -103,8 +106,6 @@ public class Eden extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
 
-        this.spigotAPI = new SpigotAPI().init(this);
-
         InventoryUtil.removeCrafting();
 
         loadFiles();
@@ -112,6 +113,8 @@ public class Eden extends JavaPlugin {
         loadListeners();
         loadCommands();
         loadGeneral();
+
+        spigotAPI = new SpigotAPI().init(this);
     }
 
     @Override
@@ -124,7 +127,9 @@ public class Eden extends JavaPlugin {
             match.getEntities().forEach(matchEntity -> matchEntity.getEntity().remove());
         }
         //Save all profiles
-        PlayerProfile.getProfiles().values().forEach(profile -> profile.save(false, (bool) -> {}));
+        if (configFile.getBoolean("profile.save-on-server-stop")) {
+            PlayerProfile.getProfiles().values().forEach(profile -> profile.save(false, (bool) -> {}));
+        }
     }
 
     private void loadFiles() {

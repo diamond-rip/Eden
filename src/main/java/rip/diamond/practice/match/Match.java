@@ -68,23 +68,6 @@ public abstract class Match {
         new ProfileCooldownTask();
 
         new MatchMovementHandler();
-
-        if (Eden.INSTANCE.getConfigFile().getBoolean("match.fix-hit-count-error")) {
-            Bukkit.getWorlds().forEach(world -> {
-                ((CraftWorld) world).getHandle().paperSpigotConfig.disablePlayerCrits = true;
-            });
-
-            try {
-                PaperSpigotConfig.config.set("world-settings.default.game-mechanics.disable-player-crits", true);
-                Field field = PaperSpigotConfig.class.getDeclaredField("CONFIG_FILE");
-                field.setAccessible(true);
-                File file = (File) field.get(null);
-                PaperSpigotConfig.config.save(file);
-            } catch (IllegalAccessException | IOException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException ignored) {
-            }
-        }
     }
 
     public Match(ArenaDetail arenaDetail, Kit kit, List<Team> teams) {
@@ -492,7 +475,8 @@ public abstract class Match {
         if (team == null) {
             throw new PracticeUnexpectedException("Cannot find a suitable team to calculate the maximum allowed hits in boxing");
         }
-        return team.getTeamPlayers().size() * 100;
+        return 10; // TODO: 18/3/2023
+        //return team.getTeamPlayers().size() * 100;
     }
 
     public long getElapsedDuration() {

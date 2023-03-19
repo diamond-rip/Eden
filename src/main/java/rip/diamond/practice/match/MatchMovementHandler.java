@@ -39,7 +39,7 @@ public class MatchMovementHandler {
                 }
 
                 if (arena.getYLimit() > player.getLocation().getY()) {
-                    Util.damage(player, 99999);
+                    Util.damage(player, 99999, match, true);
                     return;
                 }
 
@@ -58,7 +58,7 @@ public class MatchMovementHandler {
                                 }
                                 match.score(profile, null, lastHitDamager);
                             } else {
-                                Util.damage(player, 99999);
+                                Util.damage(player, 99999, match, true);
                             }
                             return;
                         }
@@ -75,7 +75,7 @@ public class MatchMovementHandler {
                                 match.score(profile, null, match.getTeamPlayer(player));
                             } else {
                                 //Prevent player scoring their own goal
-                                Util.damage(player, 99999);
+                                Util.damage(player, 99999, match, true);
                             }
                             return;
                         }
