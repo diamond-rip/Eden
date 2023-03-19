@@ -957,14 +957,14 @@ public class MatchListener implements Listener {
         Location location = event.getLocation();
         Match match = Match.getMatches().values().stream().filter(m -> m.getArenaDetail().getCuboid().contains(location)).findFirst().orElse(null);
         if (match == null) {
-            Common.log("ERROR: Cannot find match when explosion happens (" + LocationSerialization.toReadable(location) + ", " + type.name() + ")");
+            Common.log(CC.RED + "ERROR: Cannot find match when explosion happens (" + LocationSerialization.toReadable(location) + CC.RED + ") (" + type.name() + ")");
             return;
         }
 
         if (type == EntityType.FIREBALL && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {
-            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.fireball.allowed-breaking-blocks").contains(block.getType().name()) && match.isProtected(block.getLocation(), false));
+            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.fireball.allowed-breaking-blocks").contains(block.getType().name()) || match.isProtected(block.getLocation(), false) || block.getType() == Material.BED_BLOCK);
         } else if (type == EntityType.PRIMED_TNT && plugin.getConfigFile().getBoolean("match.tnt.enabled")) {
-            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.tnt.allowed-breaking-blocks").contains(block.getType().name()) && match.isProtected(block.getLocation(), false));
+            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.tnt.allowed-breaking-blocks").contains(block.getType().name()) || match.isProtected(block.getLocation(), false) || block.getType() == Material.BED_BLOCK);
         }
     }
 

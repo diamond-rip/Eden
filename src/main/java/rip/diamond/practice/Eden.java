@@ -106,6 +106,8 @@ public class Eden extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
 
+        spigotAPI = new SpigotAPI().init(this);
+
         InventoryUtil.removeCrafting();
 
         loadFiles();
@@ -113,8 +115,6 @@ public class Eden extends JavaPlugin {
         loadListeners();
         loadCommands();
         loadGeneral();
-
-        spigotAPI = new SpigotAPI().init(this);
     }
 
     @Override
