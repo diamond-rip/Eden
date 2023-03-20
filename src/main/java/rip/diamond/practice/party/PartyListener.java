@@ -20,6 +20,15 @@ public class PartyListener implements Listener {
         if (party == null) {
             return;
         }
+        if (party.getMember(player).isPartyChat()) {
+            event.setCancelled(true);
+            if (party.isMuted() && !party.getLeader().getUniqueID().equals(player.getUniqueId())) {
+                Language.PARTY_CHAT_OFF.sendMessage(player);
+                return;
+            }
+            party.broadcast(CC.PINK + player.getName() + CC.GRAY + ": " + CC.WHITE + ChatColor.stripColor(event.getMessage().substring(1)));
+            return;
+        }
         if (message.startsWith("!") || message.startsWith("@")) {
             event.setCancelled(true);
             if (party.isMuted() && !party.getLeader().getUniqueID().equals(player.getUniqueId())) {

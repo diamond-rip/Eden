@@ -1235,6 +1235,7 @@ party:
     - "&9Leader commands:"
     - "&b/party invite <ID> &7- &einvite a player to your party"
     - "&b/party mute &7- &eenable/disable party chat"
+    - "&b/party chat &7- &eenable/disable automatic party chat"
     - "&b/party kick <ID> &7- &ekick a player from your party"
     - "&b/party disband &7- &edisband your party"
     - "&b/party open &7- &esetting party status to public"

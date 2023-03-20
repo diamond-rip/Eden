@@ -76,6 +76,14 @@ public class PartyCommand extends Command {
                 party.setPrivacy(PartyPrivacy.CLOSED);
                 return;
             }
+            else if (args[0].equalsIgnoreCase("chat") || args[0].equalsIgnoreCase("c")) {
+                Party party = Party.getByPlayer(player);
+                if (party == null) {
+                    Language.PARTY_NOT_IN_A_PARTY.sendMessage(player);
+                    return;
+                }
+                party.getMember(player).toggleChat();
+            }
             else if (args[0].equalsIgnoreCase("mute")) {
                 Party party = Party.getByPlayer(player);
                 if (party == null) {

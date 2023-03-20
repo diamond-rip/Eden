@@ -14,6 +14,7 @@ public class PartyMember {
 
     private final UUID uniqueID;
     private final String username;
+    private boolean partyChat = false;
 
     public PartyMember(Player player) {
         this.uniqueID = player.getUniqueId();
@@ -42,4 +43,7 @@ public class PartyMember {
         Common.sendMessage(getPlayer(), messages);
     }
 
+    public void toggleChat() {
+        this.partyChat = !this.partyChat;
+    }
 }
