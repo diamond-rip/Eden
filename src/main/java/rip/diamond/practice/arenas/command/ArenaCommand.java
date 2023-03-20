@@ -2,7 +2,6 @@ package rip.diamond.practice.arenas.command;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
@@ -32,8 +31,8 @@ public class ArenaCommand extends Command {
                 new ArenasMenu().openMenu(player);
                 return;
             } else if (args[0].equalsIgnoreCase("saveall")) {
-                Eden.INSTANCE.getArenaFile().getConfiguration().set("arenas", null);
-                Eden.INSTANCE.getArenaFile().save();
+                plugin.getArenaFile().getConfiguration().set("arenas", null);
+                plugin.getArenaFile().save();
 
                 Arena.getArenas().forEach(Arena::save);
                 Language.ARENA_SAVED_ALL.sendMessage(player);
