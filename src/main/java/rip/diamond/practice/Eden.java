@@ -121,6 +121,8 @@ public class Eden extends JavaPlugin {
             match.getArenaDetail().restoreChunk();
             match.getEntities().forEach(matchEntity -> matchEntity.getEntity().remove());
         }
+        // Save all kits
+        Kit.getKits().forEach(Kit::save);
         //Save all profiles
         if (configFile.getBoolean("profile.save-on-server-stop")) {
             PlayerProfile.getProfiles().values().forEach(profile -> profile.save(false, (bool) -> {}));
