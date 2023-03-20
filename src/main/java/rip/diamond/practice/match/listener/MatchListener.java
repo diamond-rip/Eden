@@ -184,6 +184,7 @@ public class MatchListener implements Listener {
             e.call();
 
             event.setDamage(e.getDamage());
+            event.setCancelled(e.isCancelled());
         }
     }
 
