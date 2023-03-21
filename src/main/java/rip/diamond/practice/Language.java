@@ -547,6 +547,7 @@ public enum Language {
     PARTY_INVITE_HOVER("party.invite.hover"),
     PARTY_INFORMATION("party.information"),
     PARTY_CHAT_OFF("party.chat-off"),
+    PARTY_TOGGLE_PARTY_CHAT("party.toggle-party-chat"),
     PARTY_DISBAND_LEADER_LEFT("party.disband-leader-left"),
     PARTY_QUIT("party.quit"),
     PARTY_ONLY_LEADER("party.only-leader"),
@@ -738,7 +739,7 @@ public enum Language {
         if (player != null) {
             str = Eden.INSTANCE.getPlaceholder().translate(player, str);
             if (str != null && Checker.isPluginEnabled("PlaceholderAPI")) {
-                str = PlaceholderAPI.setPlaceholders(player, str);
+                str = Eden.INSTANCE.getHookManager().getPlaceholderAPIHook().setPlaceholders(player, str);
             }
         }
         return str;

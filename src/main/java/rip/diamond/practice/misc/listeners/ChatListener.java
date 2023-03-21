@@ -1,14 +1,13 @@
 package rip.diamond.practice.misc.listeners;
 
 import lombok.RequiredArgsConstructor;
-import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.util.Checker;
 
 @RequiredArgsConstructor
 public class ChatListener implements Listener {
@@ -21,8 +20,8 @@ public class ChatListener implements Listener {
 
         if (plugin.getConfigFile().getBoolean("chat-format.enabled")) {
             String format = plugin.getConfigFile().getString("chat-format.format");
-            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-                format = PlaceholderAPI.setPlaceholders(player, format);
+            if (Checker.isPluginEnabled("PlaceholderAPI")) {
+                format = plugin.getHookManager().getPlaceholderAPIHook().setPlaceholders(player, format);
             }
             event.setFormat(format);
         }

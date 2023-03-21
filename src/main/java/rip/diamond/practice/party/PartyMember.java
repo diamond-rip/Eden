@@ -3,6 +3,7 @@ package rip.diamond.practice.party;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.util.Common;
 
@@ -45,5 +46,7 @@ public class PartyMember {
 
     public void toggleChat() {
         this.partyChat = !this.partyChat;
+
+        Language.PARTY_TOGGLE_PARTY_CHAT.sendMessage(getPlayer(), this.partyChat ? Language.ENABLED : Language.DISABLED);
     }
 }

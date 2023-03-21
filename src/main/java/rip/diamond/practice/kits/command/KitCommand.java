@@ -49,7 +49,7 @@ public class KitCommand extends Command {
                 }
                 Kit newKit = new Kit(args[1]);
                 Kit.getKits().add(newKit);
-                newKit.save();
+                newKit.autoSave();
                 Language.KIT_SUCCESSFULLY_CREATE.sendMessage(player, newKit.getName());
             } else if (args[0].equalsIgnoreCase("delete")) {
                 if (kit == null) {

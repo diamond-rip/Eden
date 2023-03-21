@@ -20,22 +20,15 @@ public class PartyListener implements Listener {
         if (party == null) {
             return;
         }
-        if (party.getMember(player).isPartyChat()) {
+
+        boolean isPartyChat = party.getMember(player).isPartyChat();
+        if (message.startsWith("!") || message.startsWith("@") || isPartyChat) {
             event.setCancelled(true);
             if (party.isMuted() && !party.getLeader().getUniqueID().equals(player.getUniqueId())) {
                 Language.PARTY_CHAT_OFF.sendMessage(player);
                 return;
             }
-            party.broadcast(CC.PINK + player.getName() + CC.GRAY + ": " + CC.WHITE + ChatColor.stripColor(event.getMessage().substring(1)));
-            return;
-        }
-        if (message.startsWith("!") || message.startsWith("@")) {
-            event.setCancelled(true);
-            if (party.isMuted() && !party.getLeader().getUniqueID().equals(player.getUniqueId())) {
-                Language.PARTY_CHAT_OFF.sendMessage(player);
-                return;
-            }
-            party.broadcast(CC.PINK + player.getName() + CC.GRAY + ": " + CC.WHITE + ChatColor.stripColor(event.getMessage().substring(1)));
+            party.broadcast(CC.PINK + player.getName() + CC.GRAY + ": " + CC.WHITE + ChatColor.stripColor(isPartyChat ? event.getMessage() : event.getMessage().substring(1)));
         }
     }
 
