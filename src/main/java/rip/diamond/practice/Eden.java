@@ -3,8 +3,6 @@ package rip.diamond.practice;
 import com.google.gson.Gson;
 import io.github.epicgo.sconey.SconeyHandler;
 import lombok.Getter;
-import lombok.SneakyThrows;
-import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.command.ArenaCommand;
@@ -56,7 +54,6 @@ import rip.diamond.practice.queue.Queue;
 import rip.diamond.practice.queue.QueueListener;
 import rip.diamond.practice.queue.command.QueueCommand;
 import rip.diamond.practice.util.BasicConfigFile;
-import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.EntityHider;
 import rip.diamond.practice.util.InventoryUtil;
 import rip.diamond.practice.util.command.CommandManager;
@@ -65,8 +62,6 @@ import rip.diamond.practice.util.menu.MenuListener;
 import rip.diamond.practice.util.nametags.NameTagManager;
 import rip.diamond.practice.util.tablist.ImanityTabHandler;
 import rip.diamond.spigotapi.SpigotAPI;
-import rip.diamond.spigotapi.SpigotType;
-import rip.diamond.spigotapi.movementhandler.AbstractMovementHandler;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -126,6 +121,8 @@ public class Eden extends JavaPlugin {
             match.getArenaDetail().restoreChunk();
             match.getEntities().forEach(matchEntity -> matchEntity.getEntity().remove());
         }
+        // Save all kits
+        Kit.getKits().forEach(Kit::save);
         //Save all profiles
         if (configFile.getBoolean("profile.save-on-server-stop")) {
             PlayerProfile.getProfiles().values().forEach(profile -> profile.save(false, (bool) -> {}));
@@ -159,7 +156,7 @@ public class Eden extends JavaPlugin {
                 new EventListener(this),
                 new KitListener(),
                 new MatchListener(this),
-                new ChatListener(),
+                new ChatListener(this),
                 new GeneralListener(this),
                 new ProfileListener(this),
                 new ProcedureListener(),
