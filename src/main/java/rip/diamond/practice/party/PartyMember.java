@@ -47,6 +47,6 @@ public class PartyMember {
     public void toggleChat() {
         this.partyChat = !this.partyChat;
 
-        Language.PARTY_TOGGLE_PARTY_CHAT.sendMessage(getPlayer(), this.partyChat ? Language.ENABLED : Language.DISABLED);
+        Language.PARTY_TOGGLE_PARTY_CHAT.sendMessage(getPlayer(), this.partyChat ? Language.ENABLED.toString() : Language.DISABLED.toString());
     }
 }
