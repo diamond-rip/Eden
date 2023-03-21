@@ -48,6 +48,7 @@ public class ArenaCommand extends Command {
                 Arena arena = new Arena(name);
                 arena.getArenaDetails().add(new ArenaDetail(arena));
                 Arena.getArenas().add(arena);
+                arena.autoSave();
                 Language.ARENA_CREATED.sendMessage(player, name);
                 return;
             } else if (args[0].equalsIgnoreCase("edit")) {
