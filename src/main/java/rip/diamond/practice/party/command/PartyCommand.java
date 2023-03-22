@@ -10,6 +10,7 @@ import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.util.Checker;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
@@ -83,6 +84,7 @@ public class PartyCommand extends Command {
                     return;
                 }
                 party.getMember(player).toggleChat();
+                return;
             }
             else if (args[0].equalsIgnoreCase("mute")) {
                 Party party = Party.getByPlayer(player);
