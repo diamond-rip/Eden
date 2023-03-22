@@ -1,6 +1,7 @@
 items:
   lobby:
     unranked-queue:
+      enabled: true
       name: "&bUnranked Queue &7(Right-Click)"
       lore:
         - ""
@@ -8,6 +9,7 @@ items:
       durability: 0
       slot: 0
     ranked-queue:
+      enabled: true
       name: "&bRanked Queue &7(Right-Click)"
       lore:
         - ""
@@ -15,6 +17,7 @@ items:
       durability: 0
       slot: 1
     create-event:
+      enabled: true
       name: "&bCreate Event &7(Right-Click)"
       lore:
         - ""
@@ -22,6 +25,7 @@ items:
       durability: 0
       slot: 2
     join-event:
+      enabled: true
       name: "&bJoin Event &7(Right-Click)"
       lore:
         - ""
@@ -29,6 +33,7 @@ items:
       durability: 0
       slot: 2
     party-open:
+      enabled: true
       name: "&bCreate Party &7(Right-Click)"
       lore:
         - ""
@@ -36,6 +41,7 @@ items:
       durability: 0
       slot: 4
     leaderboard:
+      enabled: true
       name: "&bView Leaderboard &7(Right-Click)"
       lore:
         - ""
@@ -43,6 +49,7 @@ items:
       durability: 0
       slot: 6
     settings:
+      enabled: true
       name: "&bEdit Settings &7(Right-Click)"
       lore:
         - ""
@@ -50,6 +57,7 @@ items:
       durability: 0
       slot: 7
     editor:
+      enabled: true
       name: "&bEdit Kits &7(Right-Click)"
       lore:
         - ""
@@ -58,6 +66,7 @@ items:
       slot: 8
   party:
     party-list:
+      enabled: true
       name: "&bYour Party &7(Right-Click)"
       lore:
         - ""
@@ -65,6 +74,7 @@ items:
       durability: 0
       slot: 0
     party-fight:
+      enabled: true
       name: "&bParty Events &7(Right-Click)"
       lore:
         - ""
@@ -72,6 +82,7 @@ items:
       durability: 0
       slot: 1
     other-parties:
+      enabled: true
       name: "&bOther Parties &7(Right-Click)"
       lore:
         - ""
@@ -79,6 +90,7 @@ items:
       durability: 0
       slot: 6
     editor:
+      enabled: true
       name: "&bEdit kits &7(Right-Click)"
       lore:
         - ""
@@ -86,6 +98,7 @@ items:
       durability: 0
       slot: 7
     party-leave:
+      enabled: true
       name: "&cLeave Party &7(Right-Click)"
       lore:
         - ""
@@ -94,6 +107,7 @@ items:
       slot: 8
   queue:
     leave-queue:
+      enabled: true
       name: "&cLeave Queue &7(Right-Click)"
       lore:
         - ""
@@ -102,6 +116,7 @@ items:
       slot: 8
   match:
     requeue:
+      enabled: true
       name: "&bPlay Again &7(Right-Click)"
       lore:
         - ""
@@ -110,6 +125,7 @@ items:
       slot: -1
   spectate:
     teleporter:
+      enabled: true
       name: "&bTeleportation Tool &7(Right-Click)"
       lore:
         - ""
@@ -117,6 +133,7 @@ items:
       durability: 0
       slot: 3
     leave-spectate:
+      enabled: true
       name: "&cLeave Spectate &7(Right-Click)"
       lore:
         - ""
@@ -124,6 +141,7 @@ items:
       durability: 1
       slot: 4
     toggle-visibility-off:
+      enabled: true
       name: "&bDisable Spectators &7(Right-Click)"
       lore:
         - ""
@@ -131,6 +149,7 @@ items:
       durability: 0
       slot: 5
     toggle-visibility-on:
+      enabled: true
       name: "&bEnable Spectators &7(Right-Click)"
       lore:
         - ""

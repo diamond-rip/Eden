@@ -144,28 +144,28 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             Kit kit = Kit.getByName(kitName);
             int position = Integer.parseInt(args[4]);
             if (param.startsWith("leaderboard_bestWinstreak_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_bestWinstreak_winstreak_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
             }
             if (param.startsWith("leaderboard_elo_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_elo_elo_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
             }
             if (param.startsWith("leaderboard_wins_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_wins_win_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
             }
             if (param.startsWith("leaderboard_winstreak_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getPlayerName();
+                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_winstreak_winstreak_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position + 1).getData() + "";
+                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
             }
         }
 

@@ -1,6 +1,7 @@
 package rip.diamond.practice.match.task;
 
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchTaskTicker;
@@ -33,7 +34,7 @@ public class MatchRespawnTask extends MatchTaskTicker {
             match.respawn(teamPlayer);
             return;
         }
-        Common.sendMessage(player, CC.YELLOW + getTicks() + "...");
+        Common.sendMessage(player, Language.MATCH_RESPAWN_COUNTDOWN.toString(getTicks()));
     }
 
     @Override

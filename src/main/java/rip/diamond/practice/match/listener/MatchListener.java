@@ -1,7 +1,6 @@
 package rip.diamond.practice.match.listener;
 
 import lombok.RequiredArgsConstructor;
-import net.citizensnpcs.api.npc.NPC;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,7 +26,6 @@ import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.Language;
 import rip.diamond.practice.event.KitLoadoutReceivedEvent;
-import rip.diamond.practice.event.MatchPlayerDamageEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
 import rip.diamond.practice.kits.Kit;
@@ -168,60 +166,47 @@ public class MatchListener implements Listener {
     }
 
     @EventHandler
-    public void onEntityDamage(EntityDamageEvent event) {
+    public void onDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
+
         Player player = (Player) event.getEntity();
         PlayerProfile profile = PlayerProfile.get(player);
-        double damage = event.getDamage();
-        EntityDamageEvent.DamageCause cause = event.getCause();
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
+            TeamPlayer teamPlayer = match.getTeamPlayer(player);
 
-            MatchPlayerDamageEvent e = new MatchPlayerDamageEvent(player, match, cause, damage);
-            e.call();
-
-            event.setDamage(e.getDamage());
-            event.setCancelled(e.isCancelled());
+            if (teamPlayer.getProtectionUntil() > System.currentTimeMillis()) {
+                event.setCancelled(true);
+                return;
+            }
+            if (teamPlayer.isRespawning()) {
+                event.setCancelled(true);
+                return;
+            }
+            if (!teamPlayer.isAlive()) {
+                event.setCancelled(true);
+                return;
+            }
+            if (match.getKit().getGameRules().isNoFallDamage() && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                event.setCancelled(true);
+                return;
+            }
+            if (match.getKit().getGameRules().isNoDamage()) {
+                event.setDamage(0);
+                return;
+            }
+            if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+                Util.damage(player, 99999);
+                event.setCancelled(true);
+                return;
+            }
         }
     }
 
-    @EventHandler
-    public void onDamage(MatchPlayerDamageEvent event) {
-        Player player = event.getPlayer();
-        Match match = event.getMatch();
-        TeamPlayer teamPlayer = match.getTeamPlayer(player);
-
-        if (teamPlayer.getProtectionUntil() > System.currentTimeMillis() && !event.isIgnoreProtection()) {
-            event.setCancelled(true);
-            return;
-        }
-        if (teamPlayer.isRespawning()) {
-            event.setCancelled(true);
-            return;
-        }
-        if (!teamPlayer.isAlive()) {
-            event.setCancelled(true);
-            return;
-        }
-        if (match.getKit().getGameRules().isNoFallDamage() && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-            event.setCancelled(true);
-            return;
-        }
-        if (match.getKit().getGameRules().isNoDamage()) {
-            event.setDamage(0);
-            return;
-        }
-        if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
-            Util.damage(player, 99999, match, true);
-            event.setCancelled(true);
-            return;
-        }
-    }
-
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH) //Allow the above EntityDamageEvent run first
     public void onDamageEntity(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Arrow)) {
             Player entity = (Player) event.getEntity();
@@ -291,11 +276,11 @@ public class MatchListener implements Listener {
                 if (kit.getGameRules().isBoxing() && match.getTeam(entity).getGotHits() >= match.getMaximumBoxingHits()) {
                     switch (match.getMatchType()) {
                         case SOLO:
-                            Util.damage(entity, 99999, match, true);
+                            Util.damage(entity, 99999);
                             break;
                         case SPLIT:
                         case FFA:
-                            match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> Util.damage(entity, 99999, match, true));
+                            match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> Util.damage(entity, 99999));
                             break;
                         default:
                             break;

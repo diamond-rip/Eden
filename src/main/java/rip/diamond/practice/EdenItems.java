@@ -30,9 +30,12 @@ public class EdenItems {
     public static EdenItem SPECTATE_TELEPORTER = loadItem("items.spectate.teleporter");
     public static EdenItem SPECTATE_TOGGLE_VISIBILITY_OFF = loadItem("items.spectate.toggle-visibility-off");
     public static EdenItem SPECTATE_TOGGLE_VISIBILITY_ON = loadItem("items.spectate.toggle-visibility-on");
-    public static EdenItem INVALID = new EdenItem(new ItemBuilder(Material.BARRIER).name(CC.RED + "Invalid data!").build(), 0);
+    public static EdenItem INVALID = new EdenItem(true, new ItemBuilder(Material.BARRIER).name(CC.RED + "Invalid data!").build(), 0);
 
     public static void giveItem(Player player, EdenItem item) {
+        if (!item.isEnabled()) {
+            return;
+        }
         if (item.getSlot() == -1) {
             player.setItemInHand(item.getItemStack());
             return;
@@ -48,7 +51,7 @@ public class EdenItems {
                     .name(file.getString(path + ".name"))
                     .lore(file.getStringList(path + ".lore"))
                     .build();
-            return new EdenItem(itemStack, file.getInt(path + ".slot"));
+            return new EdenItem(file.getBoolean(path + ".enabled"), itemStack, file.getInt(path + ".slot"));
         } catch (Exception e) {
             return INVALID;
         }
@@ -57,6 +60,7 @@ public class EdenItems {
     @Getter
     @RequiredArgsConstructor
     public static class EdenItem {
+        private final boolean enabled;
         private final ItemStack itemStack;
         private final int slot;
     }

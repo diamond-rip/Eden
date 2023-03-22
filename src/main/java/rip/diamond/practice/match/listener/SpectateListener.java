@@ -12,7 +12,6 @@ import org.bukkit.event.player.*;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
-import rip.diamond.practice.util.Common;
 
 public class SpectateListener implements Listener {
 
@@ -82,7 +81,7 @@ public class SpectateListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW) //So when spectator try to hit invisible player, the remove invisible task will not trigger
+    @EventHandler(priority = EventPriority.LOW)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
             Player attacker = (Player) event.getDamager();

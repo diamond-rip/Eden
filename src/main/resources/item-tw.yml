@@ -1,6 +1,7 @@
 items:
   lobby:
     unranked-queue:
+      enabled: true
       name: "&b匹配經典模式 &7(點擊右鍵)"
       lore:
         - "&7點擊匹配經典模式"
@@ -8,6 +9,7 @@ items:
       durability: 0
       slot: 0
     ranked-queue:
+      enabled: true
       name: "&b匹配排位模式 &7(點擊右鍵)"
       lore:
         - "&7點擊匹配排位模式"
@@ -15,6 +17,7 @@ items:
       durability: 0
       slot: 1
     create-event:
+      enabled: true
       name: "&b舉辦活動 &7(點擊右鍵)"
       lore:
         - "&7點擊舉辦活動"
@@ -22,6 +25,7 @@ items:
       durability: 0
       slot: 2
     join-event:
+      enabled: true
       name: "&b加入活動 &7(點擊右鍵)"
       lore:
         - "&7點擊加入活動"
@@ -29,6 +33,7 @@ items:
       durability: 0
       slot: 2
     party-open:
+      enabled: true
       name: "&b建立隊伍 &7(點擊右鍵)"
       lore:
         - "&7點擊建立一個新的隊伍"
@@ -36,6 +41,7 @@ items:
       durability: 0
       slot: 4
     leaderboard:
+      enabled: true
       name: "&b檢視排行榜 &7(點擊右鍵)"
       lore:
         - "&7點擊開啟排行榜清單"
@@ -43,6 +49,7 @@ items:
       durability: 0
       slot: 6
     settings:
+      enabled: true
       name: "&b編輯設定 &7(點擊右鍵)"
       lore:
         - "&7點擊編輯你的個人設定"
@@ -50,6 +57,7 @@ items:
       durability: 0
       slot: 7
     editor:
+      enabled: true
       name: "&b編輯排版 &7(點擊右鍵)"
       lore:
         - "&7開啟編輯排版清單"
@@ -58,6 +66,7 @@ items:
       slot: 8
   party:
     party-list:
+      enabled: true
       name: "&b你的隊伍 &7(點擊右鍵)"
       lore:
         - "&7點擊查看你的隊伍狀態"
@@ -65,6 +74,7 @@ items:
       durability: 0
       slot: 0
     party-fight:
+      enabled: true
       name: "&b隊伍活動 &7(點擊右鍵)"
       lore:
         - "&7點擊舉辦隊伍活動"
@@ -72,6 +82,7 @@ items:
       durability: 0
       slot: 1
     other-parties:
+      enabled: true
       name: "&b其他隊伍 &7(點擊右鍵)"
       lore:
         - "&7點擊開啟其他隊伍清單"
@@ -79,6 +90,7 @@ items:
       durability: 0
       slot: 6
     editor:
+      enabled: true
       name: "&b編輯排版 &7(點擊右鍵)"
       lore:
         - "&7開啟編輯排版清單"
@@ -86,6 +98,7 @@ items:
       durability: 0
       slot: 7
     party-leave:
+      enabled: true
       name: "&c離開隊伍 &7(點擊右鍵)"
       lore:
         - "&7點擊離開現時的隊伍"
@@ -94,6 +107,7 @@ items:
       slot: 8
   queue:
     leave-queue:
+      enabled: true
       name: "&c離開匹配 &7(點擊右鍵)"
       lore:
         - "&7點擊離開匹配"
@@ -102,6 +116,7 @@ items:
       slot: 8
   match:
     requeue:
+      enabled: true
       name: "&b再玩一次 &7(點擊右鍵)"
       lore:
         - "&7點擊匹配相同的模式"
@@ -110,6 +125,7 @@ items:
       slot: -1
   spectate:
     teleporter:
+      enabled: true
       name: "&b玩家傳送 &7(點擊右鍵)"
       lore:
         - "&7點擊開啟玩家傳送清單"
@@ -117,6 +133,7 @@ items:
       durability: 0
       slot: 3
     leave-spectate:
+      enabled: true
       name: "&c離開觀戰 &7(點擊右鍵)"
       lore:
         - "&7點擊離開觀戰"
@@ -124,6 +141,7 @@ items:
       durability: 1
       slot: 4
     toggle-visibility-off:
+      enabled: true
       name: "&b關閉觀察者顯示 &7(點擊右鍵)"
       lore:
         - "&7點擊更改觀察者顯示的狀態"
@@ -131,6 +149,7 @@ items:
       durability: 0
       slot: 5
     toggle-visibility-on:
+      enabled: true
       name: "&b開啟觀察者顯示 &7(點擊右鍵)"
       lore:
         - "&7點擊更改觀察者顯示的狀態"

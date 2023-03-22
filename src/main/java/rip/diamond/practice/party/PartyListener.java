@@ -28,7 +28,7 @@ public class PartyListener implements Listener {
                 Language.PARTY_CHAT_OFF.sendMessage(player);
                 return;
             }
-            party.broadcast(CC.PINK + player.getName() + CC.GRAY + ": " + CC.WHITE + ChatColor.stripColor(isPartyChat ? event.getMessage() : event.getMessage().substring(1)));
+            party.broadcast(Language.PARTY_PARTY_CHAT_FORMAT.toString(player.getName(), ChatColor.stripColor(isPartyChat ? event.getMessage() : event.getMessage().substring(1))));
         }
     }
 

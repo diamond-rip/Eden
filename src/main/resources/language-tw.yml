@@ -2,7 +2,7 @@ scoreboard:
   title: "&b戰鬥練習"
   boxing-counter:
     no-combo: "&f沒有連擊"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference-number} 連擊"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference} 連擊"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -1188,6 +1188,7 @@ match:
       - ""
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
   respawn:
+    countdown: "&e{0}..."
     message: "&a你已重生!"
   ## As of right now, only red and blue are going to be usable.
   ## Not sure what I should do to the rest, but just in case
@@ -1242,6 +1243,8 @@ party:
     open: "公開"
     closed: "只限邀請"
   broadcast-format: "&f[&b隊伍&f] &r{0}"
+  ##Party chat is a party broadcast, meaning it will use the broadcast format above
+  party-chat-format: "&d{0}&7: &f{1}"
   own-profile-not-found: "&c錯誤: 未能找到你的資料"
   join-message:
     normal: "&b{0} &f加入了你的隊伍"
