@@ -122,7 +122,9 @@ public class Eden extends JavaPlugin {
             match.getEntities().forEach(matchEntity -> matchEntity.getEntity().remove());
         }
         // Save all kits
-        Kit.getKits().forEach(Kit::save);
+        Kit.getKits().forEach(Kit::autoSave);
+        // Save all arenas
+        Arena.getArenas().forEach(Arena::autoSave);
         //Save all profiles
         if (configFile.getBoolean("profile.save-on-server-stop")) {
             PlayerProfile.getProfiles().values().forEach(profile -> profile.save(false, (bool) -> {}));
