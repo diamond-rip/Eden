@@ -2,7 +2,7 @@ scoreboard:
   title: "&b戰鬥練習"
   boxing-counter:
     no-combo: "&f沒有連擊"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference-text} 連擊"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference-number} 連擊"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -81,7 +81,7 @@ scoreboard:
       - "&7&m----------------------"
       - "&b&l┃ &f對手: &b{match-solo-opponent}"
       - ""
-      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference-number})"
+      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference})"
       - "&b&l┃ &a 我方: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-solo-boxing-opponent-hit}"
       - "&b&l┃ &f {match-solo-boxing-difference-text}"

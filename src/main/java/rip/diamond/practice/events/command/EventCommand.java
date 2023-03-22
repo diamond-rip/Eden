@@ -67,6 +67,7 @@ public class EventCommand extends Command {
                     return;
                 }
                 event.end(true);
+                return;
             }
         }
     }

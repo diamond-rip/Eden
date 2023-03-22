@@ -1,8 +1,8 @@
-scoreboard:
+`scoreboard:
   title: "&bPractice"
   boxing-counter:
     no-combo: "&fNo Combo"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference-text} Combo"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference-number} Combo"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -75,7 +75,7 @@ scoreboard:
       - "&7&m----------------------"
       - "&b&l┃ &fFighting: &b{match-solo-opponent}"
       - ""
-      - "&b&l┃ &bHits: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference-number})"
+      - "&b&l┃ &bHits: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference})"
       - "&b&l┃ &a You: &f{match-solo-boxing-self-hit}"
       - "&b&l┃ &c Them: &f{match-solo-boxing-opponent-hit}"
       - "&b&l┃ &f {match-solo-boxing-difference-text}"
@@ -1448,3 +1448,4 @@ tablist:
   ## Note that you cannot only keep the header and disable the footer, you have to enable both or disable both
   header: "&bPractice"
   footer: "&bdiamond.rip"
+`
