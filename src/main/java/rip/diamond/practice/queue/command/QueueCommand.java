@@ -67,6 +67,10 @@ public class QueueCommand extends Command {
                 Language.INVALID_SYNTAX.sendMessage(player);
                 return;
             }
+            if (queueType == QueueType.RANKED && !kit.isRanked()) {
+                Language.INVALID_SYNTAX.sendMessage(player);
+                return;
+            }
 
             Queue.joinQueue(player, kit, queueType);
             return;

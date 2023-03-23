@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'rip.diamond'
-version = "1.1.5-" + getGitHash()
+version = "1.1.6-" + getGitHash()
 
 processResources {
     def props = [version: version]

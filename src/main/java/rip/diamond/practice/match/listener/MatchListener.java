@@ -274,17 +274,10 @@ public class MatchListener implements Listener {
 
                 //檢查職業是否為Boxing, 和檢查是否達到最大Boxing攻擊數, 如果是的話就死亡
                 if (kit.getGameRules().isBoxing() && match.getTeam(entity).getGotHits() >= match.getMaximumBoxingHits()) {
-                    switch (match.getMatchType()) {
-                        case SOLO:
-                            Util.damage(entity, 99999);
-                            break;
-                        case SPLIT:
-                        case FFA:
-                            match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> Util.damage(entity, 99999));
-                            break;
-                        default:
-                            break;
-                    }
+                    match.getTeam(entity).getAliveTeamPlayers().forEach(teamPlayer -> {
+                        teamPlayer.setProtectionUntil(0); //Allow our system to damage the player
+                        Util.damage(teamPlayer.getPlayer(), 99999);
+                    });
                 }
             }
         } else if (event.getEntity() instanceof Player && event.getDamager() instanceof Fireball && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {

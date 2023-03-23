@@ -19,7 +19,7 @@ public class EloLeaderboardMenu extends LeaderboardMenu {
     public Map<Integer, Button> getAllPagesButtons(Player player) {
         final Map<Integer, Button> buttons = new HashMap<>();
 
-        getPlugin().getLeaderboardManager().getEloLeaderboard().values().stream().sorted(Comparator.comparing(leaderboard -> leaderboard.getKit().getPriority())).forEach(leaderboard -> buttons.put(buttons.size(), new Button() {
+        getPlugin().getLeaderboardManager().getEloLeaderboard().values().stream().filter(leaderboard -> leaderboard.getKit().isRanked()).sorted(Comparator.comparing(leaderboard -> leaderboard.getKit().getPriority())).forEach(leaderboard -> buttons.put(buttons.size(), new Button() {
             @Override
             public ItemStack getButtonItem(Player player) {
                 return leaderboard.getDisplayIcon();
