@@ -42,7 +42,7 @@ nametag:
     spectator: "&7"
     ## What prefix should the nametag display when the player is a teammate?
     teammate: "&a"
-    ## What prefix should the nametag display when the player is a opponent?
+    ## What prefix should the nametag display when the player is an opponent?
     opponent: "&c"
     ## If it doesn't match any of the above, what prefix should the nametag display?
     ## One of the scenario is a spectator tries to view match players. Those match players nametag will display as the follow prefix

@@ -259,13 +259,18 @@ public class MatchListener implements Listener {
                     return;
                 }
 
-                teamPlayerDamager.handleHit(event.getFinalDamage());
-                teamPlayerEntity.handleGotHit(match.getTeamPlayer(damager), entity.isBlocking());
-                if (kit.getGameRules().isBoxing()) {
-                    //Only allow entity to be damaged after 0.05 seconds (1 tick). This is to fix the boxing 'double hit' count.
-                    teamPlayerEntity.setProtectionUntil(System.currentTimeMillis() + 50L);
+                //Check if the system should count the hit. We don't cancel the event because we still want critical hits exists, just do not count the hit into hit counter
+                if (teamPlayerEntity.getProtectionUntil() > System.currentTimeMillis()) {
+                    return;
                 }
 
+                if (kit.getGameRules().isBoxing()) {
+                    //Only allow entity to be damaged after 0.05 seconds (1 tick). This is to fix the boxing 'double hit' count.
+                    teamPlayerEntity.setProtectionUntil(System.currentTimeMillis() + (kit.getDamageTicks() * 50L / 2));
+                }
+
+                teamPlayerDamager.handleHit(event.getFinalDamage());
+                teamPlayerEntity.handleGotHit(match.getTeamPlayer(damager), entity.isBlocking());
 
                 //顯示造成的傷害
                 if (event.getDamager() instanceof Arrow && entity != damager) {
