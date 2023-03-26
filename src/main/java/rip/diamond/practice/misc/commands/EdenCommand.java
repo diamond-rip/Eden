@@ -9,6 +9,7 @@ import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
+import rip.diamond.spigotapi.SpigotAPI;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,6 +63,9 @@ public class EdenCommand extends Command {
                 plugin.getConfigFile().load();
                 Common.sendMessage(sender, CC.GREEN + "Debug is now: " + (plugin.getConfigFile().getBoolean("debug") ? CC.GREEN + Language.ENABLED.toString() : CC.RED + Language.DISABLED.toString()));
                 return;
+            case SPIGOT:
+                Common.sendMessage(sender, CC.YELLOW + "Eden is currently hooked to " + CC.AQUA + SpigotAPI.INSTANCE.getSpigotType().name());
+                return;
         }
     }
 
@@ -71,6 +75,6 @@ public class EdenCommand extends Command {
     }
 
     enum Action {
-        RELOAD, DEBUG
+        RELOAD, DEBUG, SPIGOT
     }
 }

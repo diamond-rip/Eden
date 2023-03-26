@@ -5,11 +5,17 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.leaderboard.Leaderboard;
+import rip.diamond.practice.leaderboard.LeaderboardManager;
+import rip.diamond.practice.leaderboard.LeaderboardPlayerCache;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.queue.Queue;
 import rip.diamond.practice.queue.QueueType;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class EdenPlaceholderExpansion extends PlaceholderExpansion {
@@ -143,29 +149,62 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             String kitName = args[3];
             Kit kit = Kit.getByName(kitName);
             int position = Integer.parseInt(args[4]);
+            LeaderboardManager manager = Eden.INSTANCE.getLeaderboardManager();
             if (param.startsWith("leaderboard_bestWinstreak_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getBestWinstreakLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_bestWinstreak_winstreak_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getBestWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getBestWinstreakLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getData() + "";
             }
             if (param.startsWith("leaderboard_elo_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getEloLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_elo_elo_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getEloLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getEloLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getData() + "";
             }
             if (param.startsWith("leaderboard_wins_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getWinsLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_wins_win_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinsLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getWinsLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getData() + "";
             }
             if (param.startsWith("leaderboard_winstreak_player_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getPlayerName();
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getWinstreakLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getPlayerName();
             }
             if (param.startsWith("leaderboard_winstreak_winstreak_")) {
-                return Eden.INSTANCE.getLeaderboardManager().getWinstreakLeaderboard().get(kit).getLeaderboard().get(position).getData() + "";
+                LinkedHashMap<Integer, LeaderboardPlayerCache> leaderboard = manager.getWinstreakLeaderboard().get(kit).getLeaderboard();
+                if (leaderboard.size() < position) {
+                    return "-";
+                }
+                return leaderboard.get(position).getData() + "";
             }
         }
 
