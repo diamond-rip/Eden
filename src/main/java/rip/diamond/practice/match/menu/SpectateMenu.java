@@ -24,10 +24,6 @@ import java.util.stream.Collectors;
 
 public class SpectateMenu extends PaginatedMenu {
 
-    {
-        setAutoUpdate(true);
-    }
-
     @Override
     public String getPrePaginatedTitle(Player player) {
         return Language.MATCH_SPECTATE_MENU_TITLE.toString();

@@ -21,10 +21,6 @@ public class QueueMenu extends Menu {
 
     private final QueueType queueType;
 
-    {
-        setAutoUpdate(true);
-    }
-
     @Override
     public String getTitle(Player player) {
         return Language.QUEUE_MENU_TITLE.toString(queueType.getName());

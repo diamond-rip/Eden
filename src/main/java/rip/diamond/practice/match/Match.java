@@ -353,14 +353,14 @@ public abstract class Match {
     }
 
     public boolean isProtected(Location location, boolean isPlacing) {
-        if (kit.getGameRules().isSpleef()) {
-            return location.getBlock().getType() != Material.SNOW_BLOCK && location.getBlock().getType() != Material.SAND;
-        }
         if (location.getBlockY() >= arenaDetail.getArena().getBuildMax() || location.getBlockY() <= arenaDetail.getArena().getYLimit()) {
             return true;
         }
         if (!arenaDetail.getCuboid().contains(location)) {
             return true;
+        }
+        if (kit.getGameRules().isSpleef()) {
+            return location.getBlock().getType() != Material.SNOW_BLOCK && location.getBlock().getType() != Material.SAND;
         }
         if (kit.getGameRules().isBed()) {
             switch (location.getBlock().getType()) {

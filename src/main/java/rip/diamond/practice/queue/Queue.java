@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class Queue {
 
-    @Getter private static final Map<UUID, QueueProfile> players = new ConcurrentHashMap<>();
+    @Getter private static final Map<UUID, QueueProfile> players = new HashMap<>();
 
     public static void init() {
         new QueueTask();

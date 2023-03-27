@@ -16,10 +16,6 @@ import java.util.stream.Collectors;
 
 public class OtherPartiesMenu extends PaginatedMenu {
 
-    {
-        setAutoUpdate(true);
-    }
-
     @Override
     public String getPrePaginatedTitle(Player player) {
         return Language.PARTY_OTHER_PARTIES_MENU_TITLE.toString();
