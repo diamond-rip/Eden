@@ -748,7 +748,7 @@ public class MatchListener implements Listener {
             match.getPlacedBlocks().remove(block.getLocation());
 
             Kit kit = match.getKit();
-            if (kit.getGameRules().isBed() && block.getType() == Material.BED_BLOCK) {
+            if (block.getType() == Material.BED_BLOCK) {
                 //Now get the bed location
                 Location bedLocation1 = new Location(block.getLocation().getWorld(), block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
                 Location bedLocation2 = Util.getBedBlockNearBy(bedLocation1).clone(); //因為一張床等於兩個方塊, 所以需要床的另一邊位置
@@ -765,32 +765,23 @@ public class MatchListener implements Listener {
                     Language.MATCH_CANNOT_BREAK_OWN_BED.sendMessage(player);
                     return;
                 }
-                match.broadcastSound(team, Sound.ENDERDRAGON_GROWL);
-                match.broadcastSound(opponentTeam, Sound.WITHER_DEATH);
-                match.broadcastSpectatorsSound(Sound.ENDERDRAGON_GROWL);
-                match.broadcastTitle(opponentTeam, Language.MATCH_BED_BREAK_TITLE.toString());
-                match.broadcastSubTitle(opponentTeam, Language.MATCH_BED_BREAK_SUBTITLE.toString());
-                match.broadcastMessage(Language.MATCH_BED_BREAK_MESSAGE.toStringList(opponentTeam.getTeamColor().getTeamName(), team.getTeamColor().getColor(), player.getName()));
-                opponentTeam.setBedDestroyed(true);
 
-                bedLocation1.getBlock().setType(Material.AIR);
-                bedLocation2.getBlock().setType(Material.AIR);
-                return;
-            }
-            if (kit.getGameRules().isBreakGoal() && block.getType() == Material.BED_BLOCK) {
-                Team playerTeam = match.getTeam(player);
-                Team bedBelongsTo = match.getTeams().stream().min(Comparator.comparing(team -> team.getSpawnLocation().distance(block.getLocation()))).orElse(null);
-                if (bedBelongsTo == null) {
-                    Common.log("An error occurred while finding bedBelongsTo, please contact GoodestEnglish to fix");
+                if (kit.getGameRules().isBed()) {
+                    match.broadcastSound(team, Sound.ENDERDRAGON_GROWL);
+                    match.broadcastSound(opponentTeam, Sound.WITHER_DEATH);
+                    match.broadcastSpectatorsSound(Sound.ENDERDRAGON_GROWL);
+                    match.broadcastTitle(opponentTeam, Language.MATCH_BED_BREAK_TITLE.toString());
+                    match.broadcastSubTitle(opponentTeam, Language.MATCH_BED_BREAK_SUBTITLE.toString());
+                    match.broadcastMessage(Language.MATCH_BED_BREAK_MESSAGE.toStringList(opponentTeam.getTeamColor().getTeamName(), team.getTeamColor().getColor(), player.getName()));
+                    opponentTeam.setBedDestroyed(true);
+
+                    bedLocation1.getBlock().setType(Material.AIR);
+                    bedLocation2.getBlock().setType(Material.AIR);
+                    return;
+                } else if (kit.getGameRules().isBreakGoal()) {
+                    match.score(profile, null, match.getTeamPlayer(player));
                     return;
                 }
-                event.setCancelled(true);
-                if (playerTeam == bedBelongsTo) {
-                    Language.MATCH_CANNOT_BREAK_OWN_BED.sendMessage(player);
-                    return;
-                }
-                match.score(profile, null, match.getTeamPlayer(player));
-                return;
             }
             if (kit.getGameRules().isSpleef()) {
                 if (block.getType() == Material.SNOW_BLOCK && player.getInventory().firstEmpty() != -1) {
