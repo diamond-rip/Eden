@@ -2,7 +2,7 @@ package rip.diamond.practice.util.option;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 
 @Getter
 public class TrueOption extends Option {

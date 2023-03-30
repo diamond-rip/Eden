@@ -24,7 +24,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.KitLoadoutReceivedEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
@@ -46,7 +46,6 @@ import rip.diamond.practice.profile.cooldown.Cooldown;
 import rip.diamond.practice.profile.cooldown.CooldownType;
 import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.*;
-import rip.diamond.practice.util.cuboid.Cuboid;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
@@ -106,7 +105,7 @@ public class MatchListener implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
 
-        //Profile will be null if the profile is not loaded in AsyncPlayerPreLoginEvent
+        //Profile will be null if the profile is not loaded in PlayerJoinEvent
         if (profile == null) {
             return;
         }

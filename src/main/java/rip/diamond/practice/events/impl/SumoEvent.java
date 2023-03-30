@@ -2,7 +2,6 @@ package rip.diamond.practice.events.impl;
 
 import com.google.common.collect.ImmutableList;
 import lombok.Getter;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,7 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenPlaceholder;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.MatchPlayerDeathEvent;

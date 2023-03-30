@@ -1,10 +1,12 @@
-package rip.diamond.practice;
+package rip.diamond.practice.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Eden;
+import rip.diamond.practice.EdenPlaceholder;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Checker;
 import rip.diamond.practice.util.Common;
@@ -669,10 +671,10 @@ public enum Language {
     }
 
     public String toString(Player player, Object... replacements) {
-        if (Util.isNull(Eden.INSTANCE.getLanguageFile().getString(path))) {
+        String str = Eden.INSTANCE.getLanguageFile().getString(path);
+        if (Util.isNull(str)) {
             return path;
         }
-        String str = Eden.INSTANCE.getLanguageFile().getString(path);
         str = translate(str, player);
         if (str == null) {
             return null;

@@ -2,7 +2,7 @@ package rip.diamond.practice.duel;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.kits.Kit;

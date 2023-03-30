@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 
 @Getter
 @AllArgsConstructor

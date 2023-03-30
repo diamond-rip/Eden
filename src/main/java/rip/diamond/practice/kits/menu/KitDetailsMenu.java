@@ -3,7 +3,7 @@ package rip.diamond.practice.kits.menu;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.menu.button.impl.*;
 import rip.diamond.practice.util.menu.Button;

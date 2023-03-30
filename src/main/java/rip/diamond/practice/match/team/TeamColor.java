@@ -3,7 +3,7 @@ package rip.diamond.practice.match.team;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.DyeColor;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.util.CC;
 
 @Getter

@@ -2,7 +2,7 @@ package rip.diamond.practice.party.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
 import rip.diamond.practice.party.PartyPrivacy;
@@ -10,7 +10,6 @@ import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.util.Checker;
-import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;

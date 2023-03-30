@@ -3,6 +3,7 @@ package rip.diamond.practice.hook;
 import lombok.Getter;
 import lombok.Setter;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.hook.plugin.citizens.CitizensHook;
 import rip.diamond.practice.hook.plugin.placeholderapi.EdenPlaceholderExpansion;
 import rip.diamond.practice.hook.plugin.placeholderapi.PlaceholderAPIHook;
@@ -31,7 +32,7 @@ public class HookManager {
             new EdenPlaceholderExpansion(plugin).register();
             this.placeholderAPIHook = new PlaceholderAPIHook();
         }
-        if (Checker.isPluginEnabled("Citizens")) {
+        if (Checker.isPluginEnabled("Citizens") && Config.OPTIMIZATION_CITIZENS_HOOK.toBoolean()) {
             this.citizensHook = new CitizensHook();
         }
     }

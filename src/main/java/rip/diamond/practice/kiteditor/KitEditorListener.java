@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kiteditor.menu.KitEditorExtraItemsMenu;
 import rip.diamond.practice.kiteditor.menu.KitEditorSaveMenu;
 import rip.diamond.practice.kits.Kit;

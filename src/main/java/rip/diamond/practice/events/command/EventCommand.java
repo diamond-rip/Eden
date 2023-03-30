@@ -1,7 +1,7 @@
 package rip.diamond.practice.events.command;
 
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventState;
 import rip.diamond.practice.events.menu.EventCreateMenu;

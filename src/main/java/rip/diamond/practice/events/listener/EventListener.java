@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.PartyDisbandEvent;
 import rip.diamond.practice.event.PartyJoinEvent;

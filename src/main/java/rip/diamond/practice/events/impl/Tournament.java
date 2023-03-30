@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenPlaceholder;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.MatchEndEvent;
@@ -28,7 +28,6 @@ import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
 import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.Tasks;
-import rip.diamond.spigotapi.movementhandler.AbstractMovementHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;

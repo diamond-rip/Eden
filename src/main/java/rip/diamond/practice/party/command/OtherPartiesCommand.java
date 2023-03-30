@@ -1,7 +1,7 @@
 package rip.diamond.practice.party.command;
 
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.fight.menu.OtherPartiesMenu;
 import rip.diamond.practice.profile.PlayerProfile;

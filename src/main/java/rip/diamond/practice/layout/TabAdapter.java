@@ -3,7 +3,7 @@ package rip.diamond.practice.layout;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.tablist.ImanityTabAdapter;
 import rip.diamond.practice.util.tablist.util.BufferedTabObject;

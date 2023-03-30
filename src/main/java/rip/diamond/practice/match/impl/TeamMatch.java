@@ -3,7 +3,7 @@ package rip.diamond.practice.match.impl;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.match.Match;

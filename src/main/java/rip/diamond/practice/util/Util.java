@@ -24,7 +24,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.spigotapi.SpigotType;
 

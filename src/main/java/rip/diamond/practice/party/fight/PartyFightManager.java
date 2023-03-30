@@ -2,7 +2,7 @@ package rip.diamond.practice.party.fight;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.kits.Kit;

@@ -2,7 +2,7 @@ package rip.diamond.practice.duel.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.duel.DuelRequest;
 import rip.diamond.practice.duel.menu.ChooseKitMenu;
 import rip.diamond.practice.party.Party;

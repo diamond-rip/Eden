@@ -1,7 +1,7 @@
 package rip.diamond.practice.queue.command;
 
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;

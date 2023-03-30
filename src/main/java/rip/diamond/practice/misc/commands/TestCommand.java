@@ -1,5 +1,6 @@
 package rip.diamond.practice.misc.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.util.Common;
@@ -19,7 +20,9 @@ public class TestCommand extends Command {
             Common.sendMessage(sender, "done 1");
             return;
         } else if (args[0].equalsIgnoreCase("2")) {
-
+            Bukkit.getPlayer("GoodestEnglish").performCommand("party create");
+            Bukkit.getPlayer("Fauzh").performCommand("party join GoodestEnglish");
+            Bukkit.getPlayer("DragonL").performCommand("party join GoodestEnglish");
         }
 
 

@@ -2,7 +2,7 @@ package rip.diamond.practice.kiteditor.command;
 
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kiteditor.menu.KitEditorSelectKitMenu;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.profile.PlayerProfile;

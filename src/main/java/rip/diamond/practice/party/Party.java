@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.PartyDisbandEvent;
 import rip.diamond.practice.event.PartyJoinEvent;
 import rip.diamond.practice.profile.PlayerProfile;

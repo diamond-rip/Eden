@@ -3,7 +3,7 @@ package rip.diamond.practice.events;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Material;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.events.impl.SumoEvent;
 import rip.diamond.practice.events.impl.Tournament;
 

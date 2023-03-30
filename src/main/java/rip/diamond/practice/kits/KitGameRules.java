@@ -3,7 +3,7 @@ package rip.diamond.practice.kits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.queue.QueueType;
 

@@ -3,7 +3,7 @@ package rip.diamond.practice.queue;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class Queue {

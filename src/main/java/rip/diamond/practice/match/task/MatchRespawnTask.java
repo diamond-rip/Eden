@@ -1,12 +1,11 @@
 package rip.diamond.practice.match.task;
 
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchTaskTicker;
 import rip.diamond.practice.match.team.TeamPlayer;
-import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.VisibilityController;

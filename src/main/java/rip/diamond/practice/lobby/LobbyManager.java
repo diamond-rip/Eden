@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.*;

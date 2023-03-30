@@ -7,8 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import rip.diamond.practice.Language;
-import rip.diamond.practice.util.CC;
+import rip.diamond.practice.config.Language;
 
 public class PartyListener implements Listener {
 

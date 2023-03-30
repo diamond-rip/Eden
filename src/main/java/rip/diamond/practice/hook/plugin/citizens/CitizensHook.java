@@ -18,7 +18,7 @@ public class CitizensHook {
     public List<Player> getOnlinePlayers() {
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         CitizensAPI.getNPCRegistry().forEach(npc -> {
-            if (npc.getEntity() instanceof Player) {
+            if (npc.getEntity() instanceof Player && npc.getEntity().hasMetadata("PvP-Bot")) {
                 players.add((Player) npc.getEntity());
             }
         });

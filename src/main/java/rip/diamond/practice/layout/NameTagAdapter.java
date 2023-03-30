@@ -1,14 +1,11 @@
 package rip.diamond.practice.layout;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
-import rip.diamond.practice.events.EdenEvent;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
-import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.nametags.construct.NameTagInfo;
 import rip.diamond.practice.util.nametags.provider.NameTagProvider;
 

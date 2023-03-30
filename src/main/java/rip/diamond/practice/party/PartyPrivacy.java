@@ -2,7 +2,7 @@ package rip.diamond.practice.party;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 
 @AllArgsConstructor
 @Getter

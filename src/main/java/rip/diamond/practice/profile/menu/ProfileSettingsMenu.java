@@ -1,7 +1,7 @@
 package rip.diamond.practice.profile.menu;
 
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.SettingsMenuOpenEvent;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.profile.menu.button.SettingsButton;

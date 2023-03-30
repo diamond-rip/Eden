@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 
 public class ProcedureListener implements Listener{
 

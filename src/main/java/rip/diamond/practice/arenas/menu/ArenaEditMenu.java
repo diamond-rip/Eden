@@ -2,7 +2,7 @@ package rip.diamond.practice.arenas.menu;
 
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.menu.button.impl.*;
 import rip.diamond.practice.util.menu.Button;

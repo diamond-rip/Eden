@@ -3,7 +3,7 @@ package rip.diamond.practice.arenas.menu.button.impl;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.menu.button.ArenaButton;
 import rip.diamond.practice.arenas.task.ArenaRemoveTask;

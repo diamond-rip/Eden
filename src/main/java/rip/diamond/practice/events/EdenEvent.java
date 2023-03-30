@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.EventJoinEvent;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.party.Party;

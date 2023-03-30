@@ -3,6 +3,7 @@ package rip.diamond.practice;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.events.EventType;
 import rip.diamond.practice.events.impl.SumoEvent;

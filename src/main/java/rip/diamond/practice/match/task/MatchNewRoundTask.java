@@ -5,7 +5,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.MatchRoundEndEvent;
 import rip.diamond.practice.event.MatchRoundStartEvent;
 import rip.diamond.practice.match.Match;
@@ -13,7 +13,6 @@ import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchTaskTicker;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
-import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.CenteredMessageSender;
 
 import java.util.stream.Collectors;
@@ -39,6 +38,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
         }
 
         if (getTicks() == 0) {
+            match.clearEntities(true); //Patch for #226 - Clear all entities when new round is happening, so things like arrow and pearl from last round will not be activated
             match.broadcastMessage(Language.MATCH_NEW_ROUND_START_MESSAGE.toString());
             match.broadcastSubTitle("");
             match.setState(MatchState.FIGHTING);

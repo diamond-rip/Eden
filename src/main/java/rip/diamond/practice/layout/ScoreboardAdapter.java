@@ -5,7 +5,7 @@ import io.github.epicgo.sconey.element.SconeyElementAdapter;
 import io.github.epicgo.sconey.element.SconeyElementMode;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.ScoreboardUpdateEvent;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.match.Match;

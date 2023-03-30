@@ -6,14 +6,12 @@ import net.minecraft.server.v1_8_R3.EntityLightning;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityWeather;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.github.paperspigot.PaperSpigotConfig;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.MatchEndEvent;
 import rip.diamond.practice.event.MatchPlayerDeathEvent;
@@ -34,9 +32,6 @@ import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -151,6 +146,8 @@ public abstract class Match {
      * @param scorer The TeamPlayer who scored the point
      */
     public void score(PlayerProfile profile, TeamPlayer entity, TeamPlayer scorer) {
+        getMatchPlayers().stream().map(PlayerProfile::get).filter(p -> !p.getCooldowns().get(CooldownType.SCORE).isExpired()).findFirst().ifPresent(lastScorerProfile -> Common.log("[Eden] " + scorer.getUsername() + " tries to score when " + lastScorerProfile.getUsername() + " scored in last 3 seconds (UUID: " + uuid + ")"));
+
         profile.getCooldowns().put(CooldownType.SCORE, new Cooldown(3));
 
         Team team = getTeam(scorer);
@@ -412,7 +409,14 @@ public abstract class Match {
      */
     public List<Player> getMatchPlayers() {
         List<Player> players = new ArrayList<>();
-        teams.forEach(team -> players.addAll(team.getTeamPlayers().stream().filter(tP -> !tP.isDisconnected()).map(TeamPlayer::getPlayer).collect(Collectors.toList())));
+        teams.forEach(team -> players.addAll(team.getTeamPlayers().stream()
+                //Filter all players who are already disconnected
+                .filter(tP -> !tP.isDisconnected())
+                //Convert all TeamPlayer to Player
+                .map(TeamPlayer::getPlayer)
+                //TeamPlayer#isDisconnected will be false if the player is already dead, and disconnected afterwards. This is why we have to filter nonNull objects
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList())));
         return players;
     }
 

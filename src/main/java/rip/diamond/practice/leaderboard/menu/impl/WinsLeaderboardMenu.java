@@ -2,7 +2,7 @@ package rip.diamond.practice.leaderboard.menu.impl;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.leaderboard.menu.LeaderboardMenu;
 import rip.diamond.practice.util.menu.Button;
 

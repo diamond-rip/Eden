@@ -3,7 +3,7 @@ package rip.diamond.practice.kits.menu.button.impl;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.menu.KitPreviewMenu;
 import rip.diamond.practice.kits.menu.button.KitButton;

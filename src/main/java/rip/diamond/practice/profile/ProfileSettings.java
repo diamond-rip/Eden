@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.util.option.FalseOption;
 import rip.diamond.practice.util.option.Option;
 import rip.diamond.practice.util.option.TrueOption;

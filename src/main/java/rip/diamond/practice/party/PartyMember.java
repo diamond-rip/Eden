@@ -3,7 +3,7 @@ package rip.diamond.practice.party;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Language;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.util.Common;
 

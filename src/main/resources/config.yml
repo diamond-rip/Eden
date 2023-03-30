@@ -177,3 +177,5 @@ profile:
 ## If you are not using, then turn every imanity related settings off
 imanity:
   teleport-async: true
+optimization:
+  citizens-hook: false
