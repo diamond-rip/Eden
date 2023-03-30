@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.arenas.Arena;
+import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.match.impl.SumoEventMatch;
@@ -29,7 +30,8 @@ public class MatchMovementHandler {
 
             if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
                 Match match = profile.getMatch();
-                Arena arena = match.getArenaDetail().getArena();
+                ArenaDetail arenaDetail = match.getArenaDetail();
+                Arena arena = arenaDetail.getArena();
                 Kit kit = match.getKit();
                 KitGameRules gameRules = kit.getGameRules();
 
@@ -38,7 +40,7 @@ public class MatchMovementHandler {
                     return;
                 }
 
-                if (arena.getYLimit() > player.getLocation().getY()) {
+                if (!arenaDetail.getCuboid().contains(player) || arena.getYLimit() > player.getLocation().getY()) {
                     Util.damage(player, 99999);
                     return;
                 }

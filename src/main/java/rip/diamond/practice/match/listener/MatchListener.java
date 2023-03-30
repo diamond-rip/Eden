@@ -580,9 +580,6 @@ public class MatchListener implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
         Block block = event.getBlockClicked().getRelative(event.getBlockFace());
-        int x = (int) block.getLocation().getX();
-        int y = (int) block.getLocation().getY();
-        int z = (int) block.getLocation().getZ();
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
@@ -599,13 +596,6 @@ public class MatchListener implements Listener {
                 return;
             }
             if (match.isProtected(block.getLocation(), true)) {
-                event.setCancelled(true);
-                return;
-            }
-
-            Cuboid cuboid = match.getArenaDetail().getCuboid();
-            if (x < cuboid.getX1() || x > cuboid.getX2() || y < cuboid.getY1() || y > cuboid.getY2() || z < cuboid.getZ1() || z > cuboid.getZ2()) {
-                Language.MATCH_CANNOT_BUILD_OUTSIDE.sendMessage(player);
                 event.setCancelled(true);
                 return;
             }
@@ -619,9 +609,6 @@ public class MatchListener implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
         Block block = event.getBlockClicked().getRelative(event.getBlockFace());
-        int x = (int) block.getLocation().getX();
-        int y = (int) block.getLocation().getY();
-        int z = (int) block.getLocation().getZ();
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
@@ -642,13 +629,6 @@ public class MatchListener implements Listener {
                 return;
             }
 
-            Cuboid cuboid = match.getArenaDetail().getCuboid();
-            if (x < cuboid.getX1() || x > cuboid.getX2() || y < cuboid.getY1() || y > cuboid.getY2() || z < cuboid.getZ1() || z > cuboid.getZ2()) {
-                Language.MATCH_CANNOT_BUILD_OUTSIDE.sendMessage(player);
-                event.setCancelled(true);
-                return;
-            }
-
             match.getPlacedBlocks().remove(block.getLocation());
         }
     }
@@ -658,9 +638,6 @@ public class MatchListener implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
         Block block = event.getBlockPlaced();
-        int x = (int) block.getLocation().getX();
-        int y = (int) block.getLocation().getY();
-        int z = (int) block.getLocation().getZ();
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
@@ -681,13 +658,6 @@ public class MatchListener implements Listener {
                 return;
             }
             if (match.isProtected(block.getLocation(), true)) {
-                event.setCancelled(true);
-                return;
-            }
-
-            Cuboid cuboid = match.getArenaDetail().getCuboid();
-            if (x < cuboid.getX1() || x > cuboid.getX2() || y < cuboid.getY1() || y > cuboid.getY2() || z < cuboid.getZ1() || z > cuboid.getZ2()) {
-                Language.MATCH_CANNOT_BUILD_OUTSIDE.sendMessage(player);
                 event.setCancelled(true);
                 return;
             }

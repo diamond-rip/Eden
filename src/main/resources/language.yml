@@ -986,7 +986,6 @@ match:
   use-again-fireball: "&cYou need to wait &c&l{0} &cseconds before using fireball again"
   received-kit-loadout: "&fYou have received &b{0} &fkit loadout"
   received-kit-loadout-because-timeout: "No selected kit loadout. You have been automatically equipped &bdefault &fkit loadout"
-  cannot-build-outside: "&cCannot build outside of the arena"
   cannot-break-own-bed: "&cYou cannot break your own bed!"
   can-use-enderpearl: "&aYou can now use Ender Pearl again."
   arrow-damage: "&c{0}&e's health: &c{1}❤ &e{2}❤"

@@ -427,7 +427,6 @@ public enum Language {
     MATCH_USE_AGAIN_FIREBALL("match.use-again-fireball"),
     MATCH_RECEIVED_KIT_LOADOUT("match.received-kit-loadout"),
     MATCH_RECEIVED_KIT_LOADOUT_BECAUSE_TIMEOUT("match.received-kit-loadout-because-timeout"),
-    MATCH_CANNOT_BUILD_OUTSIDE("match.cannot-build-outside"),
     MATCH_CANNOT_BREAK_OWN_BED("match.cannot-break-own-bed"),
     MATCH_CAN_USE_ENDERPEARL("match.can-use-enderpearl"),
     MATCH_ARROW_DAMAGE("match.arrow-damage"),

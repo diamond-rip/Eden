@@ -10,6 +10,7 @@ import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitMatchType;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.ItemBuilder;
 import rip.diamond.practice.util.menu.Button;
 import rip.diamond.practice.util.menu.pagination.PaginatedMenu;
@@ -70,6 +71,10 @@ public class ChooseArenaMenu extends PaginatedMenu {
             @Override
             public void clicked(Player player, ClickType clickType) {
                 Arena arena = Arena.getEnabledArena(kit);
+                if (arena == null) {
+                    Common.log("[Eden] There's no available arenas for kit " + kit.getName() + ", consider add more arenas.");
+                    return;
+                }
 
                 player.closeInventory();
                 plugin.getPartyFightManager().startPartyEvent(player, kitMatchType, kit, arena);
