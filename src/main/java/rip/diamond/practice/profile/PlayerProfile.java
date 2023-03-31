@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.event.PlayerProfileDataLoadEvent;
 import rip.diamond.practice.event.PlayerProfileDataSaveEvent;
 import rip.diamond.practice.events.EdenEvent;
@@ -186,7 +187,7 @@ public class PlayerProfile {
             try {
                 loadDefault();
 
-                if (Eden.INSTANCE.getConfigFile().getBoolean("mongo.enabled")) {
+                if (Config.MONGO_ENABLED.toBoolean()) {
                     Document document = Eden.INSTANCE.getMongoManager().getProfiles().find(Filters.eq("uuid", uniqueId.toString())).first();
                     //Document will be null if the player is new
                     if (document != null) {
@@ -217,7 +218,7 @@ public class PlayerProfile {
     private void save(Consumer<Boolean> callback) {
         try {
             saving = true;
-            if (playerState != PlayerState.LOADING && Eden.INSTANCE.getConfigFile().getBoolean("mongo.enabled")) {
+            if (playerState != PlayerState.LOADING && Config.MONGO_ENABLED.toBoolean()) {
                 Eden.INSTANCE.getMongoManager().getProfiles().replaceOne(Filters.eq("uuid", uniqueId.toString()), toBson(), new ReplaceOptions().upsert(true));
             }
             callback.accept(true);

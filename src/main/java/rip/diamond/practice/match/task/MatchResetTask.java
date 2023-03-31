@@ -3,6 +3,7 @@ package rip.diamond.practice.match.task;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.event.MatchResetEvent;
 import rip.diamond.practice.events.EdenEvent;
 import rip.diamond.practice.match.Match;
@@ -20,7 +21,7 @@ public class MatchResetTask extends MatchTaskTicker {
     private final Match match;
 
     public MatchResetTask(Match match) {
-        super(1, Eden.INSTANCE.getConfigFile().getInt("match.end-duration"), false, match);
+        super(1, Config.MATCH_END_DURATION.toInteger(), false, match);
         this.match = match;
     }
 
@@ -50,7 +51,7 @@ public class MatchResetTask extends MatchTaskTicker {
         match.getTasks().stream().filter(taskTicker -> taskTicker instanceof MatchClearBlockTask).forEach(BukkitRunnable::cancel);
 
         //Give 'Play Again' item like Minemen Club
-        if (plugin.getConfigFile().getBoolean("match.allow-requeue") && match instanceof SoloMatch) {
+        if (Config.MATCH_ALLOW_REQUEUE.toBoolean() && match instanceof SoloMatch) {
             match.getMatchPlayers().stream()
                     .filter(Objects::nonNull) //If match players contains citizens NPC, because of it is already destroyed, it will be null
                     .filter(player -> !EdenEvent.isInEvent(player)) //Do not give player 'Play Again' item if they are in an event

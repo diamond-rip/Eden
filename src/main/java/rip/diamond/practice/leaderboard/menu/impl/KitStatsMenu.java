@@ -57,7 +57,7 @@ public class KitStatsMenu extends LeaderboardMenu {
 
             return new ItemBuilder(Material.NETHER_STAR)
                     .name(Language.LEADERBOARD_KIT_STATS_MENU_GLOBAL_STATS_NAME.toString())
-                    .lore(Language.LEADERBOARD_KIT_STATS_MENU_GLOBAL_STATS_LORE.toStringList(
+                    .lore(Language.LEADERBOARD_KIT_STATS_MENU_GLOBAL_STATS_LORE.toStringList(player,
                             unrankedWon,
                             unrankedLost,
                             Eden.DECIMAL.format((double) unrankedWon / (double) (unrankedLost == 0 ? 1 : unrankedLost)),
@@ -88,7 +88,7 @@ public class KitStatsMenu extends LeaderboardMenu {
             int bestWinstreak = profile.getKitData().get(kitName).getBestWinstreak();
             return new ItemBuilder(kit.getDisplayIcon().clone())
                     .name(Language.LEADERBOARD_KIT_STATS_MENU_KIT_STATS_NAME.toString(kit.getDisplayName()))
-                    .lore(Language.LEADERBOARD_KIT_STATS_MENU_KIT_STATS_LORE.toStringList(
+                    .lore(Language.LEADERBOARD_KIT_STATS_MENU_KIT_STATS_LORE.toStringList(player,
                             unrankedWon,
                             unrankedLost,
                             winstreak,

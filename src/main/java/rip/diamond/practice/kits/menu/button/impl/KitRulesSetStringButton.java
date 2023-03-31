@@ -29,7 +29,7 @@ public class KitRulesSetStringButton extends Button {
         return new ItemBuilder(Material.DOUBLE_PLANT)
                 .durability(1)
                 .name(Language.KIT_BUTTON_RULES_SET_VALUE_NAME.toString(getName()))
-                .lore(Language.KIT_BUTTON_RULES_SET_VALUE_LORE.toStringList(KitGameRules.Readable.valueOf(field.getName()).getDescription(), getValue(player)))
+                .lore(Language.KIT_BUTTON_RULES_SET_VALUE_LORE.toStringList(player, KitGameRules.Readable.valueOf(field.getName()).getDescription(), getValue(player)))
                 .build();
     }
 

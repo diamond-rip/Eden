@@ -24,6 +24,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.spigotapi.SpigotType;
@@ -313,7 +314,7 @@ public class Util {
     }
 
     public static void teleport(Player player, Location location) {
-        if (Eden.INSTANCE.getConfigFile().getBoolean("imanity.teleport-async") && Eden.INSTANCE.getSpigotAPI().getSpigotType() == SpigotType.IMANITY_SPIGOT_3) {
+        if (Config.IMANITY_TELEPORT_ASYNC.toBoolean() && Eden.INSTANCE.getSpigotAPI().getSpigotType() == SpigotType.IMANITY_SPIGOT_3) {
             Eden.INSTANCE.getHookManager().getImanitySpigot3Hook().teleportAsync(player, location);
             return;
         }

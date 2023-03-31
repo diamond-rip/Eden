@@ -26,6 +26,7 @@ import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.ProfileSettings;
 import rip.diamond.practice.queue.Queue;
 import rip.diamond.practice.util.*;
+import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 import rip.diamond.practice.util.option.Option;
 
 @RequiredArgsConstructor
@@ -250,8 +251,12 @@ public class ProfileListener implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = event.getProfile();
         ProfileSettings settings = event.getSettings();
+        Match match = profile.getMatch();
 
         if (profile.getMatch() != null && settings == ProfileSettings.SPECTATOR_VISIBILITY) {
+            if (profile.getPlayerState() == PlayerState.IN_MATCH && match.getTeamPlayer(player).isAlive()) {
+                return;
+            }
             VisibilityController.updateVisibility(player);
             profile.setupItems();
         }

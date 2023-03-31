@@ -21,7 +21,7 @@ public class KitSaveLoadoutButton extends KitButton {
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.CHEST)
                 .name(Language.KIT_BUTTON_SAVE_LOADOUT_NAME.toString())
-                .lore(Language.KIT_BUTTON_SAVE_LOADOUT_LORE.toStringList())
+                .lore(Language.KIT_BUTTON_SAVE_LOADOUT_LORE.toStringList(player))
                 .build();
     }
 

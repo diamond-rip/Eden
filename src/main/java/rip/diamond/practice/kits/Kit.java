@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.util.GsonType;
 import rip.diamond.practice.util.serialization.BukkitSerialization;
 import rip.diamond.practice.util.serialization.EffectSerialization;
@@ -119,7 +120,7 @@ public class Kit {
 	}
 
 	public void autoSave() {
-		if (Eden.INSTANCE.getConfigFile().getBoolean("arena-kit-auto-save")) {
+		if (Config.ARENA_KIT_AUTO_SAVE.toBoolean()) {
 			save();
 		}
 	}

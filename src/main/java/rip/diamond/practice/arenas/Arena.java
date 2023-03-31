@@ -8,6 +8,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.ItemBuilder;
@@ -101,7 +102,7 @@ public class Arena {
 
     //If an arena is locked, which means the arena can only be accessible by special cases, like event
     public boolean isLocked() {
-        return Eden.INSTANCE.getConfigFile().getStringList("event.sumo-event.arenas").contains(name);
+        return Config.EVENT_SUMO_EVENT_ARENAS.toStringList().contains(name);
     }
 
     public boolean hasClone() {
@@ -149,7 +150,7 @@ public class Arena {
     }
 
     public void autoSave() {
-        if (Eden.INSTANCE.getConfigFile().getBoolean("arena-kit-auto-save")) {
+        if (Config.ARENA_KIT_AUTO_SAVE.toBoolean()) {
             save();
         }
     }

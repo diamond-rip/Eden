@@ -24,7 +24,7 @@ public class JumpToPageButton extends Button {
 		itemMeta.setDisplayName(Language.BUTTON_JUMP_TO_PAGE_NAME.toString(this.page));
 
 		if (this.current) {
-			itemMeta.setLore(Language.BUTTON_JUMP_TO_PAGE_CURRENT_PAGE_LORE.toStringList());
+			itemMeta.setLore(Language.BUTTON_JUMP_TO_PAGE_CURRENT_PAGE_LORE.toStringList(player));
 		}
 
 		itemStack.setItemMeta(itemMeta);

@@ -37,9 +37,9 @@ public class OtherPartiesMenu extends PaginatedMenu {
                             .headTexture(HeadUtil.getValue(party.getLeader().getPlayer()))
                             .amount(party.getAllPartyMembers().size())
                             .name(Language.PARTY_OTHER_PARTIES_MENU_BUTTON_NAME.toString(party.getLeader().getUsername()))
-                            .lore(Language.PARTY_OTHER_PARTIES_MENU_BUTTON_LORE_START.toStringList(party.getLeader().getUsername(), party.getAllPartyMembers().size(), party.getMaxSize()))
+                            .lore(Language.PARTY_OTHER_PARTIES_MENU_BUTTON_LORE_START.toStringList(player, party.getLeader().getUsername(), party.getAllPartyMembers().size(), party.getMaxSize()))
                             .lore(party.getPartyMembers().stream().map(pm -> CC.GRAY + " " + Symbols.BULLET + " " + CC.WHITE + pm.getUsername()).collect(Collectors.toList()))
-                            .lore(Language.PARTY_OTHER_PARTIES_MENU_BUTTON_LORE_END.toStringList())
+                            .lore(Language.PARTY_OTHER_PARTIES_MENU_BUTTON_LORE_END.toStringList(player))
                             .build();
                 }
 

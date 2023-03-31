@@ -21,7 +21,7 @@ public class KitEditExtraItemsButton extends KitButton {
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.ENDER_CHEST)
                 .name(Language.KIT_BUTTON_EDIT_EXTRA_ITEMS_NAME.toString())
-                .lore(Language.KIT_BUTTON_EDIT_EXTRA_ITEMS_LORE.toStringList())
+                .lore(Language.KIT_BUTTON_EDIT_EXTRA_ITEMS_LORE.toStringList(player))
                 .build();
     }
 

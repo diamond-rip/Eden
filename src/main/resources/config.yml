@@ -89,7 +89,7 @@ match:
     ## The block which allow to break by the explosion
     ## Blocks which is placed by match players will ALWAYS allow breaking
     allowed-breaking-blocks:
-      - BED_BLOCK
+      - WOOD
       - ENDER_STONE
     ## The knockback when player takes damage by fireball
     knockback:
@@ -117,7 +117,7 @@ match:
     ## The block which allow to break by the explosion
     ## Blocks which is placed by match players will ALWAYS allow breaking
     allowed-breaking-blocks:
-      - BED_BLOCK
+      - WOOD
       - ENDER_STONE
     ## The knockback when player takes damage by TNT
     knockback:

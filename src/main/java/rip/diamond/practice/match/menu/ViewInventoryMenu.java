@@ -93,7 +93,7 @@ public class ViewInventoryMenu extends Menu {
 					.durability(3)
 					.headTexture(info.getOwnerHeadValue())
 					.name(Language.MATCH_VIEW_INVENTORY_MENU_PLAYER_INFORMATION_BUTTON_NAME.toString())
-					.lore(Language.MATCH_VIEW_INVENTORY_MENU_PLAYER_INFORMATION_BUTTON_LORE.toStringList(info.getHealth(), info.getMaxHealth(), info.getHunger()))
+					.lore(Language.MATCH_VIEW_INVENTORY_MENU_PLAYER_INFORMATION_BUTTON_LORE.toStringList(player, info.getHealth(), info.getMaxHealth(), info.getHunger()))
 					.build();
 		}
 	}
@@ -105,7 +105,7 @@ public class ViewInventoryMenu extends Menu {
 			ItemBuilder builder = new ItemBuilder(Material.POTION).name(Language.MATCH_VIEW_INVENTORY_MENU_EFFECTS_BUTTON_NAME.toString());
 
 			if (info.getEffects().isEmpty()) {
-				builder.lore(Language.MATCH_VIEW_INVENTORY_MENU_EFFECTS_BUTTON_NO_EFFECTS_LORE.toStringList());
+				builder.lore(Language.MATCH_VIEW_INVENTORY_MENU_EFFECTS_BUTTON_NO_EFFECTS_LORE.toStringList(player));
 			} else {
 				List<String> lore = new ArrayList<>();
 				info.getEffects().forEach(effect -> {
@@ -127,7 +127,7 @@ public class ViewInventoryMenu extends Menu {
 		public ItemStack getButtonItem(Player player) {
 			return new ItemBuilder(info.getHealingMethod() == null ? new ItemBuilder(Material.STAINED_GLASS_PANE).durability(14).build() : info.getHealingMethod().getItem().clone())
 					.name(Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NAME.toString())
-					.lore(info.getHealingMethod() == null ? Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NO_HEALING_LORE.toStringList() : Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_HEALING_LORE.toStringList(info.getOwner(), HealingMethod.getHealingLeft(info.getHealingMethod(), info.getContents()), info.getHealingMethod().getName()))
+					.lore(info.getHealingMethod() == null ? Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_NO_HEALING_LORE.toStringList(player) : Language.MATCH_VIEW_INVENTORY_MENU_HEALING_BUTTON_HEALING_LORE.toStringList(info.getOwner(), HealingMethod.getHealingLeft(info.getHealingMethod(), info.getContents()), info.getHealingMethod().getName()))
 					.build();
 		}
 	}
@@ -137,7 +137,7 @@ public class ViewInventoryMenu extends Menu {
 		public ItemStack getButtonItem(Player player) {
 			return new ItemBuilder(Material.PAPER)
 					.name(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_NAME.toString())
-					.lore(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_LORE.toStringList(info.getHits(), info.getBlockedHits(), info.getLongestCombo(), info.getPotionsThrown(), info.getPotionsMissed(), info.getPotionAccuracy()))
+					.lore(Language.MATCH_VIEW_INVENTORY_MENU_STATISTICS_BUTTON_LORE.toStringList(player, info.getHits(), info.getBlockedHits(), info.getLongestCombo(), info.getPotionsThrown(), info.getPotionsMissed(), info.getPotionAccuracy()))
 					.build();
 		}
 	}

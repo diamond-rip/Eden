@@ -11,6 +11,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.event.MatchEndEvent;
@@ -269,7 +270,7 @@ public abstract class Match {
                 plugin.getScoreboardHandler().getScoreboard(player).unregisterHealthObjective();
             }
 
-            if (Eden.INSTANCE.getConfigFile().getBoolean("match.title.end")) {
+            if (Config.MATCH_TITLE_END.toBoolean()) {
                 displayMatchEndTitle();
             }
             displayMatchEndMessages();
@@ -394,13 +395,13 @@ public abstract class Match {
         Team viewerTeam = getTeam(viewer);
 
         if (team == null || viewerTeam == null) {
-            return plugin.getConfigFile().getString("nametag.prefix.other");
+            return Config.NAMETAG_PREFIX_OTHER.toString();
         }
 
         if (team.equals(viewerTeam)) {
-            return plugin.getConfigFile().getString("nametag.prefix.teammate");
+            return Config.NAMETAG_PREFIX_TEAMMATE.toString();
         } else {
-            return plugin.getConfigFile().getString("nametag.prefix.opponent");
+            return Config.NAMETAG_PREFIX_OPPONENT.toString();
         }
     }
 

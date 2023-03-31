@@ -23,7 +23,7 @@ public class KitPreviewButton extends KitButton {
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(kit.getDisplayIcon())
                 .name(kit.getDisplayName())
-                .lore(Language.KIT_BUTTON_PREVIEW_LORE.toStringList())
+                .lore(Language.KIT_BUTTON_PREVIEW_LORE.toStringList(player))
                 .build();
     }
 

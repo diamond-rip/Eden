@@ -5,6 +5,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.MatchRoundEndEvent;
 import rip.diamond.practice.event.MatchRoundStartEvent;
@@ -38,7 +39,6 @@ public class MatchNewRoundTask extends MatchTaskTicker {
         }
 
         if (getTicks() == 0) {
-            match.clearEntities(true); //Patch for #226 - Clear all entities when new round is happening, so things like arrow and pearl from last round will not be activated
             match.broadcastMessage(Language.MATCH_NEW_ROUND_START_MESSAGE.toString());
             match.broadcastSubTitle("");
             match.setState(MatchState.FIGHTING);
@@ -57,6 +57,8 @@ public class MatchNewRoundTask extends MatchTaskTicker {
 
     @Override
     public void preRun() {
+        match.clearEntities(true); //Patch for #226 - Clear all entities when new round is happening, so things like arrow and pearl from last round will not be activated
+
         //To prevent any duplicate MatchNewRoundTask happens
         //This will occur when the match is sumo, and player walked into the water without taking any hits from opponent
         if (match.getTasks().stream().filter(taskTicker -> taskTicker != this).anyMatch(taskTicker -> taskTicker instanceof MatchNewRoundTask)) {
@@ -70,7 +72,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             Player player = scoredPlayer.getPlayer();
 
             //Display scored message
-            match.broadcastMessage(Language.MATCH_NEW_ROUND_START_SCORE.toStringList(
+            match.broadcastMessage(Language.MATCH_NEW_ROUND_START_SCORE.toStringList(player,
                     team.getTeamColor().getColor(),
                     scoredPlayer.getUsername(),
                     Eden.DECIMAL.format((player.getHealth() + ((CraftPlayer) player).getHandle().getAbsorptionHearts())),
@@ -80,7 +82,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             ).stream().map(CenteredMessageSender::getCenteredMessage).collect(Collectors.toList()));
 
             //Display scored title
-            if (Eden.INSTANCE.getConfigFile().getBoolean("match.title.score")) {
+            if (Config.MATCH_TITLE_SCORE.toBoolean()) {
                 String scoredTeamColor = team.getTeamColor().getColor();
                 String opponentTeamColor = match.getOpponentTeam(team).getTeamColor().getColor();
 

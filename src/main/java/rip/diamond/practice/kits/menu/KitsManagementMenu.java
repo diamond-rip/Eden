@@ -28,7 +28,7 @@ public class KitsManagementMenu extends PaginatedMenu {
                 public ItemStack getButtonItem(Player player) {
                     return new ItemBuilder(kit.getDisplayIcon().clone())
                             .name(Language.KIT_KIT_MANAGEMENT_MENU_BUTTON_NAME.toString(kit.getDisplayName(), kit.getName()))
-                            .lore(Language.KIT_KIT_MANAGEMENT_MENU_BUTTON_LORE.toStringList())
+                            .lore(Language.KIT_KIT_MANAGEMENT_MENU_BUTTON_LORE.toStringList(player))
                             .build();
                 }
 

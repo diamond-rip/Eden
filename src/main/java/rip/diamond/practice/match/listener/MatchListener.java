@@ -24,6 +24,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.KitLoadoutReceivedEvent;
 import rip.diamond.practice.event.MatchStartEvent;
@@ -284,25 +285,25 @@ public class MatchListener implements Listener {
                     });
                 }
             }
-        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof Fireball && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {
+        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof Fireball && Config.MATCH_FIREBALL_ENABLED.toBoolean()) {
             Player player = (Player) event.getEntity();
 
-            if (plugin.getConfigFile().getBoolean("match.fireball.knockback.enabled")) {
+            if (Config.MATCH_FIREBALL_KNOCKBACK_ENABLED.toBoolean()) {
                 event.setCancelled(true);
-                player.damage(event.getDamage() / plugin.getConfigFile().getDouble("match.fireball.divide-damage"));
-                Util.pushAway(player, event.getDamager().getLocation(), plugin.getConfigFile().getDouble("match.fireball.knockback.vertical"), plugin.getConfigFile().getDouble("match.fireball.knockback.horizontal"));
+                player.damage(event.getDamage() / Config.MATCH_FIREBALL_DIVIDE_DAMAGE.toDouble());
+                Util.pushAway(player, event.getDamager().getLocation(), Config.MATCH_FIREBALL_KNOCKBACK_VERTICAL.toDouble(), Config.MATCH_FIREBALL_KNOCKBACK_HORIZONTAL.toDouble());
             } else {
-                event.setDamage(event.getDamage() / plugin.getConfigFile().getDouble("match.fireball.divide-damage"));
+                event.setDamage(event.getDamage() / Config.MATCH_FIREBALL_DIVIDE_DAMAGE.toDouble());
             }
-        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof TNTPrimed && plugin.getConfigFile().getBoolean("match.tnt.enabled")) {
+        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof TNTPrimed && Config.MATCH_TNT_ENABLED.toBoolean()) {
             Player player = (Player) event.getEntity();
 
-            if (plugin.getConfigFile().getBoolean("match.fireball.tnt.enabled")) {
+            if (Config.MATCH_TNT_ENABLED.toBoolean()) {
                 event.setCancelled(true);
-                player.damage(event.getDamage() / plugin.getConfigFile().getDouble("match.tnt.divide-damage"));
-                Util.pushAway(player, event.getDamager().getLocation(), plugin.getConfigFile().getDouble("match.tnt.knockback.vertical"), plugin.getConfigFile().getDouble("match.tnt.knockback.horizontal"));
+                player.damage(event.getDamage() / Config.MATCH_TNT_DIVIDE_DAMAGE.toDouble());
+                Util.pushAway(player, event.getDamager().getLocation(), Config.MATCH_TNT_KNOCKBACK_VERTICAL.toDouble(), Config.MATCH_TNT_KNOCKBACK_HORIZONTAL.toDouble());
             } else {
-                event.setDamage(event.getDamage() / plugin.getConfigFile().getDouble("match.tnt.divide-damage"));
+                event.setDamage(event.getDamage() / Config.MATCH_TNT_DIVIDE_DAMAGE.toDouble());
             }
         }
     }
@@ -379,7 +380,7 @@ public class MatchListener implements Listener {
                     player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
                     player.setHealth(20);
                     player.setFoodLevel(Math.min(player.getFoodLevel() + 6, 20));
-                    if (Eden.INSTANCE.getConfigFile().getBoolean("match.instant-gapple-effects")) {
+                    if (Config.MATCH_INSTANT_GAPPLE_EFFECTS.toBoolean()) {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
                     } else {
                         ((CraftPlayer) player).getHandle().setAbsorptionHearts(0);
@@ -475,7 +476,7 @@ public class MatchListener implements Listener {
                     return;
                 }
                 //Fireball
-                else if (itemStack.getType() == Material.FIREBALL && action.name().startsWith("RIGHT_") && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {
+                else if (itemStack.getType() == Material.FIREBALL && action.name().startsWith("RIGHT_") && Config.MATCH_FIREBALL_ENABLED.toBoolean()) {
                     Kit kit = match.getKit();
                     if (match.getState() == MatchState.STARTING && kit.getGameRules().isStartFreeze()) {
                         event.setCancelled(true);
@@ -490,7 +491,7 @@ public class MatchListener implements Listener {
                         final Vector direction = player.getEyeLocation().getDirection();
                         final Fireball f = player.launchProjectile(Fireball.class);
                         FireballUtil.setDirection(f, direction);
-                        f.setYield((float) plugin.getConfigFile().getDouble("match.fireball.yield"));
+                        f.setYield((float) Config.MATCH_FIREBALL_YIELD.toDouble());
                         f.setIsIncendiary(false);
 
                         itemStack.setAmount(itemStack.getAmount() - 1);
@@ -661,14 +662,14 @@ public class MatchListener implements Listener {
                 return;
             }
 
-            if (block.getType() == Material.TNT && plugin.getConfigFile().getBoolean("match.tnt.enabled")) {
+            if (block.getType() == Material.TNT && Config.MATCH_TNT_ENABLED.toBoolean()) {
                 ItemStack itemStack = player.getItemInHand();
                 itemStack.setAmount(itemStack.getAmount() - 1);
                 player.setItemInHand(itemStack);
 
                 final TNTPrimed tntPrimed = event.getBlock().getLocation().getWorld().spawn(event.getBlock().getLocation().clone().add(0.5, 0.0, 0.5), TNTPrimed.class);
-                tntPrimed.setYield(plugin.getConfigFile().getInt("match.tnt.yield"));
-                tntPrimed.setFuseTicks(plugin.getConfigFile().getInt("match.tnt.fuse-ticks"));
+                tntPrimed.setYield((float) Config.MATCH_TNT_YIELD.toDouble());
+                tntPrimed.setFuseTicks(Config.MATCH_TNT_FUSE_TICKS.toInteger());
                 Util.setSource(tntPrimed, player);
 
                 event.setCancelled(true);
@@ -854,7 +855,7 @@ public class MatchListener implements Listener {
         }
         if (event.getEntityType() == EntityType.SNOWBALL) {
             Location location = event.getEntity().getLocation().clone().add(0, -1, 0);
-            if (location.getBlock().getType() == Material.SNOW_BLOCK && Eden.INSTANCE.getConfigFile().getBoolean("match.remove-snow-block-when-snowball-hit")) {
+            if (location.getBlock().getType() == Material.SNOW_BLOCK && Config.MATCH_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT.toBoolean()) {
                 location.getBlock().setType(Material.AIR);
             }
         }
@@ -905,10 +906,10 @@ public class MatchListener implements Listener {
             return;
         }
 
-        if (type == EntityType.FIREBALL && plugin.getConfigFile().getBoolean("match.fireball.enabled")) {
-            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.fireball.allowed-breaking-blocks").contains(block.getType().name()) || match.isProtected(block.getLocation(), false) || block.getType() == Material.BED_BLOCK);
-        } else if (type == EntityType.PRIMED_TNT && plugin.getConfigFile().getBoolean("match.tnt.enabled")) {
-            event.blockList().removeIf(block -> !plugin.getConfigFile().getStringList("match.tnt.allowed-breaking-blocks").contains(block.getType().name()) || match.isProtected(block.getLocation(), false) || block.getType() == Material.BED_BLOCK);
+        if (type == EntityType.FIREBALL && Config.MATCH_FIREBALL_ENABLED.toBoolean()) {
+            event.blockList().removeIf(block -> !Config.MATCH_FIREBALL_ALLOWED_BREAKING_BLOCKS.toStringList().contains(block.getType().name()) || match.isProtected(block.getLocation(), false) || block.getType() == Material.BED_BLOCK);
+        } else if (type == EntityType.PRIMED_TNT && Config.MATCH_TNT_ENABLED.toBoolean()) {
+            event.blockList().removeIf(block -> !Config.MATCH_TNT_ALLOWED_BREAKING_BLOCKS.toStringList().contains(block.getType().name()) || match.isProtected(block.getLocation(), false) || block.getType() == Material.BED_BLOCK);
         }
     }
 

@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Fireball;
 import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -43,7 +44,7 @@ public class FireballUtil {
 
 
     public static Fireball setDirection(Fireball fireball, Vector direction) {
-        double speed = Eden.INSTANCE.getConfigFile().getDouble("match.fireball.speed");
+        double speed = Config.MATCH_FIREBALL_SPEED.toDouble();
 
         try {
             Object handle = craftFireballHandle.invoke(fireball);

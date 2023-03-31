@@ -39,7 +39,7 @@ public class ChooseKitMenu extends Menu {
                 public ItemStack getButtonItem(Player player) {
                     return new ItemBuilder(kit.getDisplayIcon().clone())
                             .name(Language.PARTY_CHOOSE_KIT_MENU_BUTTON_NAME.toString(kit.getDisplayName()))
-                            .lore(Language.PARTY_CHOOSE_KIT_MENU_BUTTON_LORE.toStringList())
+                            .lore(Language.PARTY_CHOOSE_KIT_MENU_BUTTON_LORE.toStringList(player))
                             .build();
                 }
 

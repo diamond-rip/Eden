@@ -31,7 +31,7 @@ public class KitEditMatchTypeButton extends KitButton {
                         (kit.getKitMatchTypes().contains(KitMatchType.FFA) ? CC.GREEN + " » " : CC.GRAY + "   ") + "FFA " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_MIDDLE.toString(),
                         (kit.getKitMatchTypes().contains(KitMatchType.SPLIT) ? CC.GREEN + " » " : CC.GRAY + "   ") + "Split " + Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE_CLICK_RIGHT.toString()
                 )
-                .lore(Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE.toStringList())
+                .lore(Language.KIT_BUTTON_EDIT_MATCH_TYPE_LORE.toStringList(player))
                 .build();
     }
 

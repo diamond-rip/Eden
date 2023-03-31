@@ -25,9 +25,9 @@ public class KitEditDescriptionButton extends KitButton {
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.BOOK)
                 .name(Language.KIT_BUTTON_EDIT_DESCRIPTION_NAME.toString())
-                .lore(Language.KIT_BUTTON_EDIT_DESCRIPTION_LORE_START.toStringList())
+                .lore(Language.KIT_BUTTON_EDIT_DESCRIPTION_LORE_START.toStringList(player))
                 .lore(kit.getDescription())
-                .lore(Language.KIT_BUTTON_EDIT_DESCRIPTION_LORE_END.toStringList())
+                .lore(Language.KIT_BUTTON_EDIT_DESCRIPTION_LORE_END.toStringList(player))
                 .build();
     }
 

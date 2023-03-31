@@ -20,25 +20,25 @@ public class PageButton extends Button {
 		if (this.mod > 0) {
 			if (hasNext(player)) {
 				return new ItemBuilder(Material.ARROW)
-						.name(Language.BUTTON_PAGE_NEXT_PAGE_AVAILABLE_NAME.toString())
-						.lore(Language.BUTTON_PAGE_NEXT_PAGE_AVAILABLE_LORE.toStringList())
+						.name(Language.BUTTON_PAGE_NEXT_PAGE_AVAILABLE_NAME.toString(player))
+						.lore(Language.BUTTON_PAGE_NEXT_PAGE_AVAILABLE_LORE.toStringList(player))
 						.build();
 			} else {
 				return new ItemBuilder(Material.ARROW)
-						.name(Language.BUTTON_PAGE_NEXT_PAGE_CURRENT_NAME.toString())
-						.lore(Language.BUTTON_PAGE_NEXT_PAGE_CURRENT_LORE.toStringList())
+						.name(Language.BUTTON_PAGE_NEXT_PAGE_CURRENT_NAME.toString(player))
+						.lore(Language.BUTTON_PAGE_NEXT_PAGE_CURRENT_LORE.toStringList(player))
 						.build();
 			}
 		} else {
 			if (hasPrevious(player)) {
 				return new ItemBuilder(Material.ARROW)
-						.name(Language.BUTTON_PAGE_PREVIOUS_PAGE_AVAILABLE_NAME.toString())
-						.lore(Language.BUTTON_PAGE_PREVIOUS_PAGE_AVAILABLE_LORE.toStringList())
+						.name(Language.BUTTON_PAGE_PREVIOUS_PAGE_AVAILABLE_NAME.toString(player))
+						.lore(Language.BUTTON_PAGE_PREVIOUS_PAGE_AVAILABLE_LORE.toStringList(player))
 						.build();
 			} else {
 				return new ItemBuilder(Material.ARROW)
-						.name(Language.BUTTON_PAGE_PREVIOUS_PAGE_CURRENT_NAME.toString())
-						.lore(Language.BUTTON_PAGE_PREVIOUS_PAGE_CURRENT_LORE.toStringList())
+						.name(Language.BUTTON_PAGE_PREVIOUS_PAGE_CURRENT_NAME.toString(player))
+						.lore(Language.BUTTON_PAGE_PREVIOUS_PAGE_CURRENT_LORE.toStringList(player))
 						.build();
 			}
 		}

@@ -34,7 +34,7 @@ public class ChooseMatchTypeMenu extends Menu {
             public ItemStack getButtonItem(Player player) {
                 return new ItemBuilder(Material.DIAMOND_SWORD)
                         .name(Language.PARTY_CHOOSE_MATCH_TYPE_MENU_SPLIT_BUTTON_NAME.toString())
-                        .lore(Language.PARTY_CHOOSE_MATCH_TYPE_MENU_SPLIT_BUTTON_LORE.toStringList())
+                        .lore(Language.PARTY_CHOOSE_MATCH_TYPE_MENU_SPLIT_BUTTON_LORE.toStringList(player))
                         .build();
             }
 
@@ -50,7 +50,7 @@ public class ChooseMatchTypeMenu extends Menu {
             public ItemStack getButtonItem(Player player) {
                 return new ItemBuilder(Material.GOLD_AXE)
                         .name(Language.PARTY_CHOOSE_MATCH_TYPE_MENU_FFA_BUTTON_NAME.toString())
-                        .lore(Language.PARTY_CHOOSE_MATCH_TYPE_MENU_FFA_BUTTON_LORE.toStringList())
+                        .lore(Language.PARTY_CHOOSE_MATCH_TYPE_MENU_FFA_BUTTON_LORE.toStringList(player))
                         .build();
             }
             @Override

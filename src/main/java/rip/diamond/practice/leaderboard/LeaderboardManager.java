@@ -2,6 +2,7 @@ package rip.diamond.practice.leaderboard;
 
 import lombok.Getter;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.leaderboard.impl.KitLeaderboard;
 import rip.diamond.practice.util.Common;
@@ -19,7 +20,7 @@ public class LeaderboardManager {
     private final Map<Kit, KitLeaderboard> bestWinstreakLeaderboard = new HashMap<>();
 
     public void init() {
-        if (!Eden.INSTANCE.getConfigFile().getBoolean("mongo.enabled")) {
+        if (!Config.MONGO_ENABLED.toBoolean()) {
             return;
         }
         for (Kit kit : Kit.getKits()) {

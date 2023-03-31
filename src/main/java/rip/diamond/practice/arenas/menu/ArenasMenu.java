@@ -29,7 +29,7 @@ public class ArenasMenu extends PaginatedMenu {
                 public ItemStack getButtonItem(Player player) {
                     return new ItemBuilder(arena.getIcon())
                             .name(Language.ARENA_MENU_ARENA_EDIT_NAME.toString(arena.getDisplayName(), arena.getName()))
-                            .lore(Language.ARENA_MENU_ARENA_EDIT_LORE.toStringList())
+                            .lore(Language.ARENA_MENU_ARENA_EDIT_LORE.toStringList(player))
                             .build();
                 }
 

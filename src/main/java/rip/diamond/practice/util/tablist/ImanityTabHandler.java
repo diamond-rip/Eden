@@ -37,6 +37,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.util.Checker;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.tablist.util.IImanityTabImpl;
@@ -67,7 +68,7 @@ public class ImanityTabHandler {
     public ImanityTabHandler(ImanityTabAdapter adapter) {
         this.adapter = adapter;
 
-        this.ticks = Eden.INSTANCE.getConfigFile().getInt("fancy-tablist.update-ticks");
+        this.ticks = Config.FANCY_TABLIST_UPDATE_TICKS.toInteger();
 
         this.registerImplementation();
         this.setup();

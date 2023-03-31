@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.util.Checker;
 
 @RequiredArgsConstructor
@@ -18,8 +19,8 @@ public class ChatListener implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
 
-        if (plugin.getConfigFile().getBoolean("chat-format.enabled")) {
-            String format = plugin.getConfigFile().getString("chat-format.format");
+        if (Config.CHAT_FORMAT_ENABLED.toBoolean()) {
+            String format = Config.CHAT_FORMAT_FORMAT.toString();
             if (Checker.isPluginEnabled("PlaceholderAPI")) {
                 format = plugin.getHookManager().getPlaceholderAPIHook().setPlaceholders(player, format);
             }

@@ -2,6 +2,7 @@ package rip.diamond.practice.party.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.party.PartyMember;
@@ -34,7 +35,7 @@ public class PartyCommand extends Command {
                     return;
                 }
 
-                Party party = new Party(player, plugin.getConfigFile().getInt("party.default-max-size"));
+                Party party = new Party(player, Config.PARTY_DEFAULT_MAX_SIZE.toInteger());
                 return;
             }
             else if (args[0].equalsIgnoreCase("leave") || args[0].equalsIgnoreCase("disband")) {
@@ -248,7 +249,7 @@ public class PartyCommand extends Command {
                     Language.PARTY_ERROR_LEADER_NOT_FOUND.sendMessage(player);
                     return;
                 }
-                int canSetMaxSize = party.getLeader().getPlayer().getEffectivePermissions().stream().filter(permissionAttachmentInfo -> permissionAttachmentInfo.getPermission().contains("eden.party.limits.")).mapToInt(permissionAttachmentInfo -> Integer.parseInt(permissionAttachmentInfo.getPermission().replaceAll("eden.party.limits.", ""))).max().orElse(plugin.getConfigFile().getInt("party.default-max-size"));
+                int canSetMaxSize = party.getLeader().getPlayer().getEffectivePermissions().stream().filter(permissionAttachmentInfo -> permissionAttachmentInfo.getPermission().contains("eden.party.limits.")).mapToInt(permissionAttachmentInfo -> Integer.parseInt(permissionAttachmentInfo.getPermission().replaceAll("eden.party.limits.", ""))).max().orElse(Config.PARTY_DEFAULT_MAX_SIZE.toInteger());
                 if (canSetMaxSize < size) {
                     Language.PARTY_MAX_SIZE.sendMessage(player, canSetMaxSize);
                     return;

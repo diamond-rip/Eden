@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import lombok.Getter;
 import org.bson.Document;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 
 @Getter
 public class MongoManager {
@@ -20,24 +21,24 @@ public class MongoManager {
     public MongoManager(Eden plugin) {
         this.plugin = plugin;
 
-        if (plugin.getConfigFile().getBoolean("mongo.enabled")) {
+        if (Config.MONGO_ENABLED.toBoolean()) {
             this.init();
         }
     }
 
     public void init() {
-        if (plugin.getConfigFile().getBoolean("mongo.uri-mode")) {
-            this.client = MongoClients.create(plugin.getConfigFile().getString("mongo.uri.connection-string"));
+        if (Config.MONGO_URI_MODE.toBoolean()) {
+            this.client = MongoClients.create(Config.MONGO_URI_CONNECTION_STRING.toString());
         } else {
-            boolean auth = plugin.getConfigFile().getBoolean("mongo.normal.auth.enabled");
-            String host = plugin.getConfigFile().getString("mongo.normal.host");
-            int port = plugin.getConfigFile().getInt("mongo.normal.port");
+            boolean auth = Config.MONGO_NORMAL_AUTH_ENABLED.toBoolean();
+            String host = Config.MONGO_NORMAL_HOST.toString();
+            int port = Config.MONGO_NORMAL_PORT.toInteger();
 
             String uri = "mongodb://" + host + ":" + port;
 
             if (auth) {
-                String username = plugin.getConfigFile().getString("mongo.normal.auth.username");
-                String password = plugin.getConfigFile().getString("mongo.normal.auth.password");
+                String username = Config.MONGO_NORMAL_AUTH_USERNAME.toString();
+                String password = Config.MONGO_NORMAL_AUTH_PASSWORD.toString();
 
                 password = password
                         .replaceAll("%(?![0-9a-fA-F]{2})", "%25")
@@ -48,7 +49,7 @@ public class MongoManager {
 
             this.client = MongoClients.create(uri);
         }
-        this.database = client.getDatabase(plugin.getConfigFile().getString("mongo.uri.database"));
+        this.database = client.getDatabase(Config.MONGO_URI_DATABASE.toString());
         this.loadCollections();
     }
 

@@ -27,7 +27,7 @@ public class ArenaDetailButton extends Button {
     public ItemStack getButtonItem(Player player) {
         ItemBuilder builder =  new ItemBuilder(Material.MAP)
                 .name(Language.ARENA_DETAILS_MENU_DETAIL_NAME.toString(number))
-                .lore(Language.ARENA_DETAILS_MENU_DETAIL_LORE.toStringList(LocationSerialization.toReadable(arenaDetail.getA()), LocationSerialization.toReadable(arenaDetail.getB()), LocationSerialization.toReadable(arenaDetail.getMin()), LocationSerialization.toReadable(arenaDetail.getMax())));
+                .lore(Language.ARENA_DETAILS_MENU_DETAIL_LORE.toStringList(player, LocationSerialization.toReadable(arenaDetail.getA()), LocationSerialization.toReadable(arenaDetail.getB()), LocationSerialization.toReadable(arenaDetail.getMin()), LocationSerialization.toReadable(arenaDetail.getMax())));
         if (arena.getArenaDetails().get(0) == arenaDetail) {
             builder.lore(Language.ARENA_DETAILS_MENU_DETAIL_LORE_NOT_DUPLICATED.toString());
         } else {

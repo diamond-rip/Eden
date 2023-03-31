@@ -20,7 +20,7 @@ public class KitEditIconButton extends KitButton {
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.EYE_OF_ENDER)
                 .name(Language.KIT_BUTTON_EDIT_ICON_NAME.toString())
-                .lore(Language.KIT_BUTTON_EDIT_ICON_LORE.toStringList(kit.getDisplayIcon().getType().name(), kit.getDisplayIcon().getDurability()))
+                .lore(Language.KIT_BUTTON_EDIT_ICON_LORE.toStringList(player, kit.getDisplayIcon().getType().name(), kit.getDisplayIcon().getDurability()))
                 .build();
     }
 

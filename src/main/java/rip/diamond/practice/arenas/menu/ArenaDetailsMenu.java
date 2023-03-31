@@ -47,7 +47,7 @@ public class ArenaDetailsMenu extends PaginatedMenu {
             public ItemStack getButtonItem(Player player) {
                 return new ItemBuilder(Material.GRASS)
                         .name(Language.ARENA_DETAILS_MENU_CREATE_DUPLICATE_NAME.toString())
-                        .lore(Language.ARENA_DETAILS_MENU_CREATE_DUPLICATE_LORE.toStringList(arena.getName()))
+                        .lore(Language.ARENA_DETAILS_MENU_CREATE_DUPLICATE_LORE.toStringList(player, arena.getName()))
                         .build();
             }
 

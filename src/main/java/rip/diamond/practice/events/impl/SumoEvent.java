@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenPlaceholder;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
@@ -217,14 +218,14 @@ public class SumoEvent extends EdenEvent {
     public void start() {
         super.start();
 
-        String kitName = Eden.INSTANCE.getConfigFile().getString("event.sumo-event.kit");
+        String kitName = Config.EVENT_SUMO_EVENT_KIT.toString();
         Kit kit = Kit.getByName(kitName);
         if (kit == null) {
             broadcastToEventPlayers("&c[Eden] Unable to find a kit named " + kitName + ", please contact an administrator.");
             end(true);
             return;
         }
-        List<String> arenaNames = Eden.INSTANCE.getConfigFile().getStringList("event.sumo-event.arenas");
+        List<String> arenaNames = Config.EVENT_SUMO_EVENT_ARENAS.toStringList();
         Arena arena = Arena.getArena(arenaNames.get(new Random().nextInt(arenaNames.size())));
         ArenaDetail arenaDetail = Arena.getArenaDetail(arena);
         if (arenaDetail == null) {

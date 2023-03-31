@@ -24,7 +24,7 @@ public class BackButton extends Button {
 		return new ItemBuilder(material)
 				.name(Language.BUTTON_BACK_NAME.toString())
 				.durability(durability)
-				.lore(Language.BUTTON_BACK_LORE.toStringList())
+				.lore(Language.BUTTON_BACK_LORE.toStringList(player))
 				.build();
 	}
 

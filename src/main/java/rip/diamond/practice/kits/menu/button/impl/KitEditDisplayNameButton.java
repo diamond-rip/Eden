@@ -23,7 +23,7 @@ public class KitEditDisplayNameButton extends KitButton {
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.ANVIL)
                 .name(Language.KIT_BUTTON_EDIT_DISPLAY_NAME_NAME.toString())
-                .lore(Language.KIT_BUTTON_EDIT_DISPLAY_NAME_LORE.toStringList(kit.getDisplayName()))
+                .lore(Language.KIT_BUTTON_EDIT_DISPLAY_NAME_LORE.toStringList(player, kit.getDisplayName()))
                 .build();
     }
 

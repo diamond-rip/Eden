@@ -5,6 +5,7 @@ import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Common {
     }
 
     public static void debug(String str) {
-        if (Eden.INSTANCE.getConfigFile().getBoolean("debug")) {
+        if (Config.DEBUG.toBoolean()) {
             Bukkit.getConsoleSender().sendMessage(CC.RED + "[除錯] " + CC.translate(str));
 
             for (Player player : Bukkit.getOnlinePlayers()) {

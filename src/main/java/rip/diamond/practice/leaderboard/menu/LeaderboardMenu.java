@@ -104,7 +104,7 @@ public abstract class LeaderboardMenu extends PaginatedMenu {
             ItemBuilder builder = new ItemBuilder(material)
                     .durability(durability)
                     .name(CC.AQUA + name)
-                    .lore(Language.LEADERBOARD_SWITCH_LEADERBOARD_BUTTON_VIEW_STATS_BUTTON_LORE.toStringList());
+                    .lore(Language.LEADERBOARD_SWITCH_LEADERBOARD_BUTTON_VIEW_STATS_BUTTON_LORE.toStringList(player));
             if (clazz.getName().equals(LeaderboardMenu.this.getClass().getName())) {
                 builder.glow();
             }

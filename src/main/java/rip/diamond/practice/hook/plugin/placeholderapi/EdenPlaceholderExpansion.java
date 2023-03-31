@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.leaderboard.Leaderboard;
 import rip.diamond.practice.leaderboard.LeaderboardManager;
@@ -142,7 +143,7 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
         }
         if (args[0].equalsIgnoreCase("leaderboard")) {
             //If database is disabled, there will be no leaderboard data. So we are going to return "Database not enabled"
-            if (!plugin.getConfigFile().getBoolean("mongo.enabled")) {
+            if (!Config.MONGO_ENABLED.toBoolean()) {
                 return "Database isn't enabled";
             }
 

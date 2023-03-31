@@ -40,7 +40,7 @@ public class ChooseArenaMenu extends PaginatedMenu {
                     public ItemStack getButtonItem(Player player) {
                         return new ItemBuilder(arena.getIcon().clone())
                                 .name(Language.PARTY_CHOOSE_ARENA_MENU_BUTTON_NAME.toString(arena.getDisplayName()))
-                                .lore(Language.PARTY_CHOOSE_ARENA_MENU_BUTTON_LORE.toStringList())
+                                .lore(Language.PARTY_CHOOSE_ARENA_MENU_BUTTON_LORE.toStringList(player))
                                 .build();
                     }
 

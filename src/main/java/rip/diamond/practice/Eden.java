@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.command.ArenaCommand;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.database.MongoManager;
 import rip.diamond.practice.duel.DuelRequest;
 import rip.diamond.practice.duel.DuelRequestManager;

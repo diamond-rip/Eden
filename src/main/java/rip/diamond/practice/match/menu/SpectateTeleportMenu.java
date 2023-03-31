@@ -41,7 +41,7 @@ public class SpectateTeleportMenu extends PaginatedMenu {
                             .durability(3)
                             .headTexture(HeadUtil.getValue(teamPlayer.getPlayer()))
                             .name(Language.MATCH_SPECTATE_TELEPORT_MENU_BUTTON_NAME.toString(teamPlayer.getUsername()))
-                            .lore(Language.MATCH_SPECTATE_TELEPORT_MENU_BUTTON_LORE.toStringList())
+                            .lore(Language.MATCH_SPECTATE_TELEPORT_MENU_BUTTON_LORE.toStringList(player))
                             .build();
                 }
 

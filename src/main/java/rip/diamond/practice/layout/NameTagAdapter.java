@@ -1,6 +1,7 @@
 package rip.diamond.practice.layout;
 
 import org.bukkit.entity.Player;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.team.Team;
@@ -30,14 +31,14 @@ public class NameTagAdapter extends NameTagProvider {
 
             //Means it is a spectator
             if (team == null) {
-                return getPlugin().getConfigFile().getString("nametag.prefix.spectator");
+                return Config.NAMETAG_PREFIX_SPECTATOR.toString();
             }
 
             return match.getRelationColor(viewer, target);
         }
         //Means the player is not in a match
         else {
-            return getPlugin().getConfigFile().getString("nametag.prefix.lobby");
+            return Config.NAMETAG_PREFIX_LOBBY.toString();
         }
     }
 }

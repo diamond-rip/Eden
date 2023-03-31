@@ -26,7 +26,7 @@ public class KitSaveButton extends KitButton {
         return new ItemBuilder(Material.INK_SACK)
                 .durability(10)
                 .name(Language.KIT_BUTTON_SAVE_NAME.toString())
-                .lore(Language.KIT_BUTTON_SAVE_LORE.toStringList())
+                .lore(Language.KIT_BUTTON_SAVE_LORE.toStringList(player))
                 .build();
     }
 

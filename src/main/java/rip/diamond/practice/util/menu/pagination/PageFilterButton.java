@@ -49,7 +49,7 @@ public class PageFilterButton<T> extends Button {
 			lore.add(decoration + color + icon + " " + filter.getName());
 		}
 
-		lore.addAll(Language.BUTTON_PAGE_FILTER_LORE.toStringList());
+		lore.addAll(Language.BUTTON_PAGE_FILTER_LORE.toStringList(player));
 
 		return new ItemBuilder(Material.HOPPER)
 				.name(Language.BUTTON_PAGE_FILTER_NAME.toString())

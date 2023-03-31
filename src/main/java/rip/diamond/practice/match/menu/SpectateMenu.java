@@ -51,7 +51,7 @@ public class SpectateMenu extends PaginatedMenu {
                     public ItemStack getButtonItem(Player player) {
                         return new ItemBuilder(match.getKit().getDisplayIcon().clone())
                                 .name(CC.AQUA + title)
-                                .lore(Language.MATCH_SPECTATE_MENU_BUTTON_LORE.toStringList(
+                                .lore(Language.MATCH_SPECTATE_MENU_BUTTON_LORE.toStringList(player,
                                         TimeUtil.millisToTimer(match.getElapsedDuration()),
                                         match.getKit().getDisplayName(),
                                         match.getArenaDetail().getArena().getDisplayName(),
@@ -75,7 +75,7 @@ public class SpectateMenu extends PaginatedMenu {
                     public ItemStack getButtonItem(Player player) {
                         return new ItemBuilder(Material.BEDROCK)
                                 .name(Language.MATCH_SPECTATE_MENU_ERROR_BUTTON_NAME.toString())
-                                .lore(Language.MATCH_SPECTATE_MENU_ERROR_BUTTON_LORE.toStringList(match.getUuid()))
+                                .lore(Language.MATCH_SPECTATE_MENU_ERROR_BUTTON_LORE.toStringList(player, match.getUuid()))
                                 .build();
                     }
                 });
