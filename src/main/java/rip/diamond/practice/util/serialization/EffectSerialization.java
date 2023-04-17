@@ -1,6 +1,5 @@
 package rip.diamond.practice.util.serialization;
 
-
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -9,11 +8,12 @@ import java.util.Collection;
 
 public class EffectSerialization {
 
+    private static final int INITIAL_CAPACITY = 128;
+
     public static String serializeEffects(Collection<PotionEffect> effects) {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder(INITIAL_CAPACITY);
         for (PotionEffect potionEffect : effects) {
-            builder.append(serializePotionEffect(potionEffect));
-            builder.append(";");
+            builder.append(serializePotionEffect(potionEffect)).append(";");
         }
         return builder.toString();
     }
@@ -24,53 +24,37 @@ public class EffectSerialization {
         }
         Collection<PotionEffect> effects = new ArrayList<>();
         String[] split = source.split(";");
-
         for (String piece : split) {
             effects.add(deserializePotionEffect(piece));
         }
-
         return effects;
     }
 
     public static String serializePotionEffect(PotionEffect potionEffect) {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder(INITIAL_CAPACITY);
+        String name = potionEffect == null ? "null" : potionEffect.getType().getName();
+        String duration = potionEffect == null ? "0" : String.valueOf(potionEffect.getDuration());
+        String amplifier = potionEffect == null ? "0" : String.valueOf(potionEffect.getAmplifier());
 
-        if (potionEffect == null) {
-            return "null";
-        }
-        String name = potionEffect.getType().getName();
-        builder.append("n@").append(name);
-
-        String duration = String.valueOf(potionEffect.getDuration());
-        builder.append(":d@").append(String.valueOf(duration));
-
-        String amplifier = String.valueOf(potionEffect.getAmplifier());
-        builder.append(":a@").append(amplifier);
+        builder.append("n@").append(name).append(":d@").append(duration).append(":a@").append(amplifier);
 
         return builder.toString();
     }
 
     public static PotionEffect deserializePotionEffect(String source) {
-        String name = "";
-        String duration = "";
-        String amplifier = "";
-
         if (source.equals("null")) {
             return null;
         }
         String[] split = source.split(":");
-
+        String name = "", duration = "", amplifier = "";
         for (String effectInfo : split) {
             String[] itemAttribute = effectInfo.split("@");
             String s2 = itemAttribute[0];
-
             if (s2.equalsIgnoreCase("n")) {
                 name = itemAttribute[1];
-            }
-            if (s2.equalsIgnoreCase("d")) {
+            } else if (s2.equalsIgnoreCase("d")) {
                 duration = itemAttribute[1];
-            }
-            if (s2.equalsIgnoreCase("a")) {
+            } else if (s2.equalsIgnoreCase("a")) {
                 amplifier = itemAttribute[1];
             }
         }
