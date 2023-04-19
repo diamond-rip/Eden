@@ -11,4 +11,15 @@ public class MenuOpenEvent extends BaseEvent {
 
     private final Menu menu;
 
+    public MenuOpenEvent(Menu menu) {
+        if (menu == null) {
+            throw new IllegalArgumentException("Menu cannot be null.");
+        }
+        this.menu = menu;
+    }
+
+    public MenuOpenEvent() {
+        this.menu = null;
+    }
+
 }
