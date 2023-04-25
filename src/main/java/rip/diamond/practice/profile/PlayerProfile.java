@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.SkullMeta;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.config.Config;
@@ -123,7 +124,10 @@ public class PlayerProfile {
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
 
-        VisibilityController.updateVisibility(getPlayer());
+        //getPlayer might be null because PlayerProfile.setPlayerState might be trigger when player disconnects
+        if (getPlayer() != null) {
+            VisibilityController.updateVisibility(getPlayer());
+        }
     }
 
     public void setupItems() {

@@ -246,13 +246,9 @@ public class MatchListener implements Listener {
                     return;
                 }
 
-                if (kit.getGameRules().isBoxing() || kit.getGameRules().isNoDamage()) {
-                    event.setDamage(0);
-                    entity.setHealth(20.0);
-                }
-
                 TeamPlayer teamPlayerEntity = match.getTeamPlayer(entity);
                 TeamPlayer teamPlayerDamager = match.getTeamPlayer(damager);
+                double damage = event.getDamage();
 
                 if (!teamPlayerEntity.isAlive() || !teamPlayerDamager.isAlive() || teamPlayerEntity.isRespawning() || teamPlayerDamager.isRespawning()) {
                     event.setCancelled(true);
@@ -264,9 +260,18 @@ public class MatchListener implements Listener {
                     return;
                 }
 
+                if (kit.getGameRules().isBoxing() || kit.getGameRules().isNoDamage()) {
+                    event.setDamage(0);
+                    entity.setHealth(20.0);
+                }
+
                 if (kit.getGameRules().isBoxing()) {
-                    //Only allow entity to be damaged after 0.05 seconds (1 tick). This is to fix the boxing 'double hit' count.
-                    teamPlayerEntity.setProtectionUntil(System.currentTimeMillis() + (kit.getDamageTicks() * 50L / 2));
+                    //Check if the damage is critical damage
+                    //The way bukkit handles critical damage is strange, because sometimes it might fire the same event two times with different damage
+                    double predictDamage = 1 + DamageCalculator.getEnchantedDamage(damager.getItemInHand());
+                    if (predictDamage > damage) {
+                        return;
+                    }
                 }
 
                 teamPlayerDamager.handleHit(event.getFinalDamage());
