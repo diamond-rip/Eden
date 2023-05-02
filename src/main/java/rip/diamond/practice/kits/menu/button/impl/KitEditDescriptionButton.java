@@ -1,5 +1,6 @@
 package rip.diamond.practice.kits.menu.button.impl;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -37,6 +38,11 @@ public class KitEditDescriptionButton extends KitButton {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
         player.closeInventory();
+        if (clickType == ClickType.DROP) {
+            kit.setDescription(Lists.newArrayList());
+            backMenu.openMenu(player);
+            return;
+        }
         Procedure.buildProcedure(player, Language.KIT_BUTTON_EDIT_DESCRIPTION_PROCEDURE_MESSAGE.toString(), ProcedureType.CHAT, (s) -> {
             String message = (String) s;
 
