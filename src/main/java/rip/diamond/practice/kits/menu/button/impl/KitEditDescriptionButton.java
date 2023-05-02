@@ -7,18 +7,21 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
-import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.kits.menu.button.KitButton;
 import rip.diamond.practice.profile.procedure.Procedure;
 import rip.diamond.practice.profile.procedure.ProcedureType;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.menu.Menu;
 
 import java.util.Arrays;
 
 public class KitEditDescriptionButton extends KitButton {
 
-    public KitEditDescriptionButton(Kit kit) {
+    private final Menu backMenu;
+
+    public KitEditDescriptionButton(Kit kit, Menu backMenu) {
         super(kit);
+        this.backMenu = backMenu;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class KitEditDescriptionButton extends KitButton {
             kit.setDescription(Arrays.asList(message.split(";")));
             Language.KIT_BUTTON_EDIT_DESCRIPTION_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), StringUtils.join(kit.getDescription(), ", "));
             kit.autoSave();
-            new KitDetailsMenu(kit, null).openMenu(player);
+            backMenu.openMenu(player);
         });
         Language.KIT_BUTTON_EDIT_DESCRIPTION_PROCEDURE_ADDITIONAL_MESSAGE.sendMessage(player);
     }
