@@ -6,15 +6,18 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
-import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.kits.menu.button.KitButton;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.menu.Menu;
 import rip.diamond.practice.util.menu.menus.ConfirmMenu;
 
 public class KitSaveLoadoutButton extends KitButton {
 
-    public KitSaveLoadoutButton(Kit kit) {
+    private final Menu backMenu;
+
+    public KitSaveLoadoutButton(Kit kit, Menu backMenu) {
         super(kit);
+        this.backMenu = backMenu;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class KitSaveLoadoutButton extends KitButton {
                 Language.KIT_BUTTON_SAVE_LOADOUT_SUCCESS.sendMessage(player, kit.getName());
                 kit.autoSave();
             }
-            new KitDetailsMenu(kit, null).openMenu(player);
+            backMenu.openMenu(player);
         }, true, null).openMenu(player);
     }
 }

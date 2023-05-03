@@ -695,6 +695,7 @@ kit:
       lore-end:
         - ""
         - "&e&nClick to edit kit description!"
+        - "&e&nDrop to remove current description!"
       procedure:
         message: "&e&lEditing &b&lkit description&e&l... Please enter a new value in chat"
         success: "&fChanged &b{0} &fkit description to &b{1}"

@@ -6,17 +6,20 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
-import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.kits.menu.button.KitButton;
 import rip.diamond.practice.profile.procedure.Procedure;
 import rip.diamond.practice.profile.procedure.ProcedureType;
 import rip.diamond.practice.util.Checker;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.menu.Menu;
 
 public class KitEditPriorityButton extends KitButton {
 
-    public KitEditPriorityButton(Kit kit) {
+    private final Menu backMenu;
+
+    public KitEditPriorityButton(Kit kit, Menu backMenu) {
         super(kit);
+        this.backMenu = backMenu;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class KitEditPriorityButton extends KitButton {
             Kit.sortKit();
             Language.KIT_BUTTON_EDIT_PRIORITY_PROCEDURE_SUCCESS.sendMessage(player, kit.getName(), kit.getPriority());
             kit.autoSave();
-            new KitDetailsMenu(kit, null).openMenu(player);
+            backMenu.openMenu(player);
         });
 
         Language.KIT_BUTTON_EDIT_PRIORITY_PROCEDURE_ADDITIONAL_MESSAGE.sendMessage(player);

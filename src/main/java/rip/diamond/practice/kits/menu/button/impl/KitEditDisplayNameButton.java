@@ -6,17 +6,20 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
-import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.kits.menu.button.KitButton;
 import rip.diamond.practice.profile.procedure.Procedure;
 import rip.diamond.practice.profile.procedure.ProcedureType;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.ItemBuilder;
+import rip.diamond.practice.util.menu.Menu;
 
 public class KitEditDisplayNameButton extends KitButton {
 
-    public KitEditDisplayNameButton(Kit kit) {
+    private final Menu backMenu;
+
+    public KitEditDisplayNameButton(Kit kit, Menu backMenu) {
         super(kit);
+        this.backMenu = backMenu;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class KitEditDisplayNameButton extends KitButton {
             kit.setDisplayName(message);
             Common.sendMessage(player, Language.KIT_BUTTON_EDIT_DISPLAY_NAME_PROCEDURE_SUCCESS.toString(kit.getName(), kit.getDisplayName()));
             kit.autoSave();
-            new KitDetailsMenu(kit, null).openMenu(player);
+            backMenu.openMenu(player);
         });
     }
 }

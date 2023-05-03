@@ -8,18 +8,21 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
-import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.kits.menu.button.KitButton;
 import rip.diamond.practice.profile.procedure.Procedure;
 import rip.diamond.practice.profile.procedure.ProcedureType;
 import rip.diamond.practice.util.*;
+import rip.diamond.practice.util.menu.Menu;
 
 import java.util.stream.Collectors;
 
 public class KitEditPotionEffectButton extends KitButton {
 
-    public KitEditPotionEffectButton(Kit kit) {
+    private final Menu backMenu;
+
+    public KitEditPotionEffectButton(Kit kit, Menu backMenu) {
         super(kit);
+        this.backMenu = backMenu;
     }
 
     @Override
@@ -70,7 +73,7 @@ public class KitEditPotionEffectButton extends KitButton {
                 Language.KIT_BUTTON_EDIT_POTION_EFFECT_PROCEDURE_SUCCESS_ADD.sendMessage(player, kit.getName(), WordUtil.toCapital(effect.getName()) + " " + (amplifier + 1) + " (" + TimeUtil.millisToTimer(duration / 20 * 1000L) + ")");
             }
             kit.autoSave();
-            new KitDetailsMenu(kit, null).openMenu(player);
+            backMenu.openMenu(player);
         });
 
         Language.KIT_BUTTON_EDIT_POTION_EFFECT_PROCEDURE_ADDITIONAL_MESSAGE.sendListOfMessage(player);
