@@ -44,7 +44,7 @@ public enum Config {
     //Match
     MATCH_ALLOW_REQUEUE("match.allow-requeue", true),
     MATCH_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT("match.remove-snow-block-when-snowball-hit", false),
-    MATCH_INSTANT_GAPPLE_EFFECTS("match.instant.gapple.effects", false),
+    MATCH_INSTANT_GAPPLE_EFFECTS("match.instant-gapple-effects", false),
     MATCH_TITLE_SCORE("match.title.score", true),
     MATCH_TITLE_END("match.title.end", true),
     MATCH_END_DURATION("match.end-duration", 100),

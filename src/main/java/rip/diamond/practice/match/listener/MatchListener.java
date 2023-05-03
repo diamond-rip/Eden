@@ -177,6 +177,7 @@ public class MatchListener implements Listener {
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
             TeamPlayer teamPlayer = match.getTeamPlayer(player);
+            KitGameRules rules = match.getKit().getGameRules();
 
             if (teamPlayer.getProtectionUntil() > System.currentTimeMillis()) {
                 event.setCancelled(true);
@@ -190,11 +191,11 @@ public class MatchListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
-            if (match.getKit().getGameRules().isNoFallDamage() && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            if (rules.isNoFallDamage() && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 event.setCancelled(true);
                 return;
             }
-            if (match.getKit().getGameRules().isNoDamage()) {
+            if (rules.isNoDamage() && !rules.isBoxing()) { //We handle boxing damages in MatchListener.onDamageEntity
                 event.setDamage(0);
                 return;
             }

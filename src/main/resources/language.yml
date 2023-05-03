@@ -1186,6 +1186,7 @@ party:
   ##Party chat is a party broadcast, meaning it will use the broadcast format above
   party-chat-format: "&d{0}&7: &f{1}"
   own-profile-not-found: "&cError: Profile cannot be found"
+  cannot-interact-self: "&cError: Cannot interact self"
   join-message:
     normal: "&b{0} &fhas joined your party"
     force: "&b{0} &fhas &cHACKED &finto your party"
