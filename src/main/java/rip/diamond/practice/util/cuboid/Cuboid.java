@@ -251,7 +251,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
     }
 
     public boolean containsWithoutY(double x, double z, int offset) {
-        Cuboid cuboid = expand(CuboidDirection.NORTH, offset).expand(CuboidDirection.SOUTH, offset).expand(CuboidDirection.EAST, offset).expand(CuboidDirection.WEST, offset);
+        Cuboid cuboid = outset(CuboidDirection.HORIZONTAL, offset);
         return cuboid.containsWithoutY(x,z);
     }
 

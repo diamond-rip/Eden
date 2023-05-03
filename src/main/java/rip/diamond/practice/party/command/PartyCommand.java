@@ -188,6 +188,10 @@ public class PartyCommand extends Command {
                     Language.PARTY_PLAYER_NOT_FOUND.sendMessage(player, args[1]);
                     return;
                 }
+                if (player == target) {
+                    Language.PARTY_CANNOT_INTERACT_SELF.sendMessage(player);
+                    return;
+                }
                 PlayerProfile targetProfile = PlayerProfile.get(player);
                 if (targetProfile == null) {
                     Language.PARTY_PLAYER_NOT_FOUND.sendMessage(player, args[1]);
@@ -209,6 +213,15 @@ public class PartyCommand extends Command {
                 party.invite(target);
                 return;
             } else if (args[0].equalsIgnoreCase("kick")) {
+                Player target = Bukkit.getPlayer(args[1]);
+                if (target == null) {
+                    Language.PARTY_PLAYER_NOT_FOUND.sendMessage(player, args[1]);
+                    return;
+                }
+                if (player == target) {
+                    Language.PARTY_CANNOT_INTERACT_SELF.sendMessage(player);
+                    return;
+                }
                 Party party = Party.getByPlayer(player);
                 if (party == null) {
                     Language.PARTY_NOT_IN_A_PARTY.sendMessage(player);
@@ -218,7 +231,7 @@ public class PartyCommand extends Command {
                     Language.PARTY_ONLY_LEADER.sendMessage(player);
                     return;
                 }
-                PartyMember partyMember = party.getMember(args[1]);
+                PartyMember partyMember = party.getMember(target);
                 if (partyMember == null) {
                     Language.PARTY_PLAYER_NOT_FOUND.sendMessage(player, args[1]);
                     return;

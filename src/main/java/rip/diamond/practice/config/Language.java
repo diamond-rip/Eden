@@ -539,6 +539,7 @@ public enum Language {
     PARTY_BROADCAST_FORMAT("party.broadcast-format"),
     PARTY_PARTY_CHAT_FORMAT("party.party-chat-format"),
     PARTY_OWN_PROFILE_NOT_FOUND("party.own-profile-not-found"),
+    PARTY_CANNOT_INTERACT_SELF("party.cannot-interact-self"),
     PARTY_JOIN_MESSAGE_NORMAL("party.join-message.normal"),
     PARTY_JOIN_MESSAGE_FORCE("party.join-message.force"),
     PARTY_LEAVE_MESSAGE_NORMAL("party.leave-message.normal"),

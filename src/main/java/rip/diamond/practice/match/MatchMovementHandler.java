@@ -15,6 +15,7 @@ import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.profile.cooldown.CooldownType;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
+import rip.diamond.practice.util.cuboid.CuboidDirection;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -40,7 +41,7 @@ public class MatchMovementHandler {
                     return;
                 }
 
-                if (!arenaDetail.getCuboid().contains(player) || arena.getYLimit() > player.getLocation().getY()) {
+                if (!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, 10).contains(player) || arena.getYLimit() > player.getLocation().getY()) {
                     Util.damage(player, 99999);
                     return;
                 }

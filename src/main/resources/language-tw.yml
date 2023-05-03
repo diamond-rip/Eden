@@ -1245,6 +1245,7 @@ party:
   ##Party chat is a party broadcast, meaning it will use the broadcast format above
   party-chat-format: "&d{0}&7: &f{1}"
   own-profile-not-found: "&c錯誤: 未能找到你的資料"
+  cannot-interact-self: "&c錯誤: 無法與自己互動"
   join-message:
     normal: "&b{0} &f加入了你的隊伍"
     force: "&b{0} &c駭進了&f你的隊伍"
