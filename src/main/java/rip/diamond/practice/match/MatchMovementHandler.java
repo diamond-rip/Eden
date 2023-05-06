@@ -5,6 +5,7 @@ import org.bukkit.block.Block;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.match.impl.SumoEventMatch;
@@ -41,7 +42,7 @@ public class MatchMovementHandler {
                     return;
                 }
 
-                if (!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, 10).contains(player) || arena.getYLimit() > player.getLocation().getY()) {
+                if ((!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, 10).contains(player) && Config.MATCH_OUTSIDE_CUBOID_INSTANT_DEATH.toBoolean()) || arena.getYLimit() > player.getLocation().getY()) {
                     Util.damage(player, 99999);
                     return;
                 }

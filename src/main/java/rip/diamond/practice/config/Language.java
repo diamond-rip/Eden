@@ -21,8 +21,6 @@ import java.util.List;
 public enum Language {
 
     SCOREBOARD_TITLE("scoreboard.title"),
-    SCOREBOARD_BOXING_COUNTER_NO_COMBO("scoreboard.boxing-counter.no-combo"),
-    SCOREBOARD_BOXING_COUNTER_TEXT("scoreboard.boxing-counter.text"),
     SCOREBOARD_LOADING("scoreboard.loading"),
     SCOREBOARD_IN_LOBBY("scoreboard.in-lobby"),
     SCOREBOARD_IN_PARTY("scoreboard.in-party"),
@@ -569,6 +567,7 @@ public enum Language {
     PARTY_SIZE_BELOW_1("party.size-below-1"),
     PARTY_ERROR_LEADER_NOT_FOUND("party.error-leader-not-found"),
     PARTY_MAX_SIZE("party.max-size"),
+    PARTY_ALREADY_INVITE("party.already-invite"),
     PARTY_HELP_MESSAGE("party.help-message"),
     PARTY_CHOOSE_ARENA_MENU_TITLE("party.choose-arena-menu.title"),
     PARTY_CHOOSE_ARENA_MENU_BUTTON_NAME("party.choose-arena-menu.button.name"),

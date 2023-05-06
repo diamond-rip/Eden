@@ -210,6 +210,10 @@ public class PartyCommand extends Command {
                     Language.PARTY_ONLY_LEADER.sendMessage(player);
                     return;
                 }
+                if (party.getInvites().stream().anyMatch(partyInvite -> partyInvite.getUuid().equals(target.getUniqueId()))) {
+                    Language.PARTY_ALREADY_INVITE.sendMessage(player);
+                    return;
+                }
                 party.invite(target);
                 return;
             } else if (args[0].equalsIgnoreCase("kick")) {

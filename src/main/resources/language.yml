@@ -1,8 +1,5 @@
 scoreboard:
   title: "&bPractice"
-  boxing-counter:
-    no-combo: "&fNo Combo"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference} Combo"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -118,7 +115,7 @@ scoreboard:
       - "&7&m----------------------"
     boxing:
       - "&7&m----------------------"
-      - "&b&l┃ &bHits: {match-team-boxing-difference-text}"
+      - "&b&l┃ &bHits: {match-team-boxing-difference-color}({match-team-boxing-difference-symbol}{match-team-boxing-difference})"
       - "&b&l┃ &a You: &f{match-team-boxing-self-hit}"
       - "&b&l┃ &c Them: &f{match-team-boxing-opponent-hit}"
       - ""
@@ -1228,6 +1225,7 @@ party:
   size-below-1: "&cParty size cannot be lower than 1"
   error-leader-not-found: "&cError: please report this issue to a moderator (ERROR_LEADER_PLAYER_NULL)"
   max-size: "&cYour party's max size is {0}!"
+  already-invite: "&cThere's already an on-going invite request. If you want to invite the same player again, please wait 30 seconds."
   help-message:
     - "&6&m------------------------------------------------"
     - "&dHelp party &7- &fHow to use party commands"

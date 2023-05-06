@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 public class PlayerProfile {
 
-    @Getter private static final Map<UUID, PlayerProfile> profiles = Collections.synchronizedMap(new HashMap<>());
+    @Getter private static final Map<UUID, PlayerProfile> profiles = new ConcurrentHashMap<>();
 
     private final UUID uniqueId;
     private final String username;

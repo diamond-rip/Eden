@@ -52,6 +52,7 @@ import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -760,8 +761,8 @@ public class MatchListener implements Listener {
                 }
             }
             if (kit.getGameRules().isSpleef()) {
-                if (block.getType() == Material.SNOW_BLOCK && player.getInventory().firstEmpty() != -1) {
-                    player.getInventory().addItem(new ItemStack(Material.SNOW_BALL, 4));
+                if (block.getType() == Material.SNOW_BLOCK && player.getInventory().firstEmpty() != -1 && Config.MATCH_SNOW_SNOWBALL_DROP_CHANCE.toInteger() > ThreadLocalRandom.current().nextInt(0, 100)) {
+                    player.getInventory().addItem(new ItemStack(Material.SNOW_BALL, Config.MATCH_SNOW_SNOWBALL_DROP_AMOUNT.toInteger()));
                 }
             } else {
                 block.getDrops().forEach(itemStack -> {
@@ -861,7 +862,7 @@ public class MatchListener implements Listener {
         }
         if (event.getEntityType() == EntityType.SNOWBALL) {
             Location location = event.getEntity().getLocation().clone().add(0, -1, 0);
-            if (location.getBlock().getType() == Material.SNOW_BLOCK && Config.MATCH_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT.toBoolean()) {
+            if (location.getBlock().getType() == Material.SNOW_BLOCK && Config.MATCH_SNOW_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT.toBoolean()) {
                 location.getBlock().setType(Material.AIR);
             }
         }

@@ -104,8 +104,6 @@ public class Eden extends JavaPlugin {
 
         spigotAPI = new SpigotAPI().init(this);
 
-        InventoryUtil.removeCrafting();
-
         loadFiles();
         loadManagers();
         loadListeners();
@@ -226,5 +224,7 @@ public class Eden extends JavaPlugin {
         this.placeholder = new EdenPlaceholder(this);
         if (configFile.getBoolean("nametag.enabled")) this.nameTagManager.registerAdapter(new NameTagAdapter());
         if (configFile.getBoolean("fancy-tablist.enabled")) tabHandler = new ImanityTabHandler(new TabAdapter());
+
+        InventoryUtil.handleRemoveCrafting();
     }
 }

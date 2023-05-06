@@ -56,12 +56,20 @@ lobby:
 match:
   ## This option will give a 'Play Again' item to match players when a match is ended, like Minemen Club
   allow-requeue: true
-  ## Should snow block be removed when the snowball hit the object?
-  ## Set to true if you wish to remove the object (which is the snow block)
-  remove-snow-block-when-snowball-hit: false
   ## When player consume a golden apple, should the system gives normal effects to the player (which contains instantly regenerate to full health, saturation and absorption hearts), or just regenerate to full health?
   ## Default is false which only set the player health to full, no effects are given
   instant-gapple-effects: false
+  ## When player is outside the cuboid (which uses arena min/max), should player receive a instant death damage?
+  outside-cuboid-instant-death: true
+  ## Snow related options - Only works in spleef kit game rules
+  snow:
+    ## Should snow block be removed when the snowball hit the object?
+    ## Set to true if you wish to remove the object (which is the snow block)
+    remove-snow-block-when-snowball-hit: false
+    ## Chance of getting snowball when break a snow block (In 0 - 100)
+    snowball-drop-chance: 50
+    ## When you break the snow block, how many snowball should system give you?
+    snowball-drop-amount: 4
   ## Titles - Which type of title should be shown?
   title:
     ## Shows title when someone scores a point?
@@ -173,6 +181,13 @@ profile:
     event-announcement: true
     ## Available options: infinite, 300, 200, 150, 100, 50
     ping-range: "infinite"
+## Option about crafting (Using crafting table/player's crafting inventory)
+crafting:
+  ## Should Eden allow crafting?
+  enabled: false
+  ## If Eden disallow crafting, what item should player allow to craft?
+  whitelisted-items:
+    - MUSHROOM_SOUP
 ## These options will only works if you are using ImanitySpigot
 ## If you are not using, then turn every imanity related settings off
 imanity:

@@ -37,7 +37,7 @@ public class SpectateMenu extends PaginatedMenu {
                 if (match.getMatchType() == MatchType.SOLO) {
                     title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_SOLO.toString(((SoloMatch) match).getPlayerA().getUsername(), ((SoloMatch) match).getPlayerB().getUsername());
                 } else if (match.getMatchType() == MatchType.SPLIT) {
-                    title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_SPLIT.toString(((TeamMatch) match).getTeamA().getLeader(), ((TeamMatch) match).getTeamB().getLeader());
+                    title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_SPLIT.toString(((TeamMatch) match).getTeamA().getLeader().getUsername(), ((TeamMatch) match).getTeamB().getLeader().getUsername());
                 } else if (match.getMatchType() == MatchType.FFA) {
                     title = Language.MATCH_SPECTATE_MENU_BUTTON_NAME_FFA.toString(match.getTeamPlayers().size());
                 } else if (match.getMatchType() == MatchType.SUMO_EVENT && EdenEvent.getOnGoingEvent() != null) {
@@ -75,7 +75,7 @@ public class SpectateMenu extends PaginatedMenu {
                     public ItemStack getButtonItem(Player player) {
                         return new ItemBuilder(Material.BEDROCK)
                                 .name(Language.MATCH_SPECTATE_MENU_ERROR_BUTTON_NAME.toString())
-                                .lore(Language.MATCH_SPECTATE_MENU_ERROR_BUTTON_LORE.toStringList(player, match.getUuid()))
+                                .lore(Language.MATCH_SPECTATE_MENU_ERROR_BUTTON_LORE.toStringList(player, match.getUuid().toString()))
                                 .build();
                     }
                 });

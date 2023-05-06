@@ -43,8 +43,11 @@ public enum Config {
     LOBBY_DISPLAY_PLAYERS("lobby.display-players", true),
     //Match
     MATCH_ALLOW_REQUEUE("match.allow-requeue", true),
-    MATCH_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT("match.remove-snow-block-when-snowball-hit", false),
     MATCH_INSTANT_GAPPLE_EFFECTS("match.instant-gapple-effects", false),
+    MATCH_OUTSIDE_CUBOID_INSTANT_DEATH("outside-cuboid-instant-death", true),
+    MATCH_SNOW_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT("match.snow.remove-snow-block-when-snowball-hit", false),
+    MATCH_SNOW_SNOWBALL_DROP_CHANCE("match.snow.snowball-drop-chance", 50),
+    MATCH_SNOW_SNOWBALL_DROP_AMOUNT("match.snow.snowball-drop-amount", 4),
     MATCH_TITLE_SCORE("match.title.score", true),
     MATCH_TITLE_END("match.title.end", true),
     MATCH_END_DURATION("match.end-duration", 100),
@@ -82,6 +85,9 @@ public enum Config {
     PROFILE_DEFAULT_SETTINGS_SPECTATOR_JOIN_LEAVE_MESSAGE("profile.default-settings.spectator-join-leave-message", true),
     PROFILE_DEFAULT_SETTINGS_EVENT_ANNOUNCEMENT("profile.default-settings.event-announcement", true),
     PROFILE_DEFAULT_SETTINGS_PING_RANGE("profile.default-settings.ping-range", "infinite"),
+    //Crafting Options
+    CRAFTING_ENABLED("crafting.enabled", false),
+    CRAFTING_WHITELISTED_ITEMS("crafting.whitelisted-items", ImmutableList.of("MUSHROOM_SOUP")),
     //Imanity Spigot Options
     IMANITY_TELEPORT_ASYNC("imanity.teleport-async", true),
     //Optimization

@@ -1,8 +1,5 @@
 scoreboard:
   title: "&b戰鬥練習"
-  boxing-counter:
-    no-combo: "&f沒有連擊"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference} 連擊"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -134,7 +131,7 @@ scoreboard:
       - "&7&m----------------------"
     boxing:
       - "&7&m----------------------"
-      - "&b&l┃ &b擊中次數: {match-solo-boxing-difference-color}({match-solo-boxing-difference-symbol}{match-solo-boxing-difference-number})"
+      - "&b&l┃ &b擊中次數: {match-team-boxing-difference-color}({match-team-boxing-difference-symbol}{match-team-boxing-difference})"
       - "&b&l┃ &a 我方: &f{match-team-boxing-self-hit}"
       - "&b&l┃ &c 對方: &f{match-team-boxing-opponent-hit}"
       - "&b&l┃ &f {match-solo-boxing-difference-text}"
@@ -756,6 +753,7 @@ kit:
       lore-end:
         - ""
         - "&e&n點擊更改職業介紹!"
+        - "&e&n放下刪除當前職業介紹!"
       procedure:
         message: "&e&l正在更改&b&l職業介紹&e&l... 請在聊天室輸入一個新的數值"
         success: "&f設置 &b{0} &f的職業介紹到 &b{1}"
@@ -1286,6 +1284,7 @@ party:
   size-below-1: "&c隊伍最大人數不能少於1"
   error-leader-not-found: "&c錯誤: 請跟管理員回報錯誤 (ERROR_LEADER_PLAYER_NULL)"
   max-size: "&c您創建的隊伍最大人數只可以為 {0}!"
+  already-invite: "&c已經有一個正在進行的邀請請求。 如果您想再次邀請同一個玩家，請等待30秒。"
   help-message:
     - "&6&m------------------------------------------------"
     - "&d隊伍幫助 &7- &f如何使用隊伍指令"

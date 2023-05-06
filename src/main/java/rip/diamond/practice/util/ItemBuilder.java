@@ -1,5 +1,7 @@
 package rip.diamond.practice.util;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Bukkit;
@@ -13,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -179,7 +182,19 @@ public class ItemBuilder implements Listener {
 
 	public ItemBuilder headTexture(String texture) {
 		if (texture != null) {
-			Bukkit.getUnsafe().modifyItemStack(is, "{SkullOwner:{Id:\"" + new UUID(texture.hashCode(), texture.hashCode()) + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
+			SkullMeta hm = (SkullMeta) is.getItemMeta();
+			GameProfile profile = new GameProfile(new UUID(texture.hashCode(), texture.hashCode()), null);
+			profile.getProperties().put("textures", new Property("Value", texture));
+
+			try{
+				Field profileField = hm.getClass().getDeclaredField("profile");
+				profileField.setAccessible(true);
+				profileField.set(hm, profile);
+			} catch(NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+
+			is.setItemMeta(hm);
 		}
 		return this;
 	}
