@@ -65,10 +65,14 @@ public class KitGameRules implements Cloneable {
 	@Override
 	public KitGameRules clone() {
 		KitGameRules rules = new KitGameRules();
+		for (Field field : this.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+		}
 		for (Field field : rules.getClass().getDeclaredFields()) {
 			field.setAccessible(true);
 			try {
-				field.set(rules, this.getClass().getField(field.getName()).get(this));
+				Object obj = this.getClass().getDeclaredField(field.getName()).get(this);
+				field.set(rules, obj);
 			} catch (IllegalAccessException | NoSuchFieldException e) {
 				throw new RuntimeException(e);
 			}
