@@ -86,9 +86,10 @@ public class MatchNewRoundTask extends MatchTaskTicker {
                 String scoredTeamColor = team.getTeamColor().getColor();
                 String opponentTeamColor = match.getOpponentTeam(team).getTeamColor().getColor();
 
-                match.getTeams().forEach(t -> t.broadcastTitle(
+                match.broadcastTitle(
                         Language.MATCH_NEW_ROUND_START_SCORED_TITLE.toString(scoredTeamColor, scoredPlayer.getUsername()),
-                        Language.MATCH_NEW_ROUND_START_SCORED_SUBTITLE.toString(scoredTeamColor, team.getPoints(), opponentTeamColor, match.getOpponentTeam(team).getPoints()), 20,60,20)
+                        Language.MATCH_NEW_ROUND_START_SCORED_SUBTITLE.toString(scoredTeamColor, team.getPoints(), opponentTeamColor, match.getOpponentTeam(team).getPoints()),
+                        20,60,20
                 );
             }
         }

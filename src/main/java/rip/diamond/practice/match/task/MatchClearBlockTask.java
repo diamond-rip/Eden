@@ -1,12 +1,14 @@
 package rip.diamond.practice.match.task;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchTaskTicker;
+import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.util.Util;
 
 import java.util.Collection;
@@ -19,14 +21,18 @@ public class MatchClearBlockTask extends MatchTaskTicker {
     private final int seconds;
     private final Location location;
     private final World world;
+    private final TeamPlayer blockPlacer;
     private final Consumer<Collection<ItemStack>> callback;
 
-    public MatchClearBlockTask(Match match, int seconds, World world, Location location, Consumer<Collection<ItemStack>> callback) {
+    @Setter private boolean activateCallback = true;
+
+    public MatchClearBlockTask(Match match, int seconds, World world, Location location, TeamPlayer blockPlacer, Consumer<Collection<ItemStack>> callback) {
         super(seconds * 20, 1, false, match);
         this.match = match;
         this.seconds = seconds;
         this.world = world;
         this.location = location;
+        this.blockPlacer = blockPlacer;
         this.callback = callback;
     }
 
@@ -40,7 +46,10 @@ public class MatchClearBlockTask extends MatchTaskTicker {
 
                 Util.setBlockFast(location, Material.AIR, false);
                 match.getPlacedBlocks().remove(location);
-                callback.accept(itemStacks);
+
+                if (activateCallback) {
+                    callback.accept(itemStacks);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

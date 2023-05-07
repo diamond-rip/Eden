@@ -80,6 +80,12 @@ match:
   ## 20 ticks is 1 second, so if 100 ticks then it will be 5 seconds
   ## Default is 100, and is recommended. Change this value with caution
   end-duration: 100
+  ## What block should player allow to break when kit game rule has build enabled?
+  allow-breaking-blocks:
+    - DEAD_BUSH
+    - GRASS
+    - LONG_GRASS
+    - CACTUS
   ## Fireball - Settings related to fireball
   fireball:
     ## Should Eden handle how fireball works? (Including modify the value of fireball, explosion, speed, etc.)

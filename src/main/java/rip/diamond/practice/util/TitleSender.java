@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+// TODO: 7/5/2023 Replace this to paperspigot title api
 public class TitleSender {
 
     public static void sendTitle(Player player, String text, PacketPlayOutTitle.EnumTitleAction titleAction, int fadeInTime, int showTime, int fadeOutTime) {
@@ -14,7 +15,6 @@ public class TitleSender {
 
         PacketPlayOutTitle title = new PacketPlayOutTitle(titleAction, chatTitle);
         PacketPlayOutTitle length = new PacketPlayOutTitle(fadeInTime, showTime, fadeOutTime);
-
 
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(length);

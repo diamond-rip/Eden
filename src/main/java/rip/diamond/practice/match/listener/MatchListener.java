@@ -22,6 +22,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
@@ -155,6 +156,14 @@ public class MatchListener implements Listener {
                     Item item = Util.dropItemNaturally(player.getLocation(), itemStack, player);
                     match.addDroppedItem(item, null); //Already modified the f value of EntityItem, therefore no need to put anything in 2nd variables
                 }
+            }
+
+            if (gameRules.isClearBlock()) {
+                match.getTasks().stream()
+                        .filter(task -> task instanceof MatchClearBlockTask)
+                        .map(task -> (MatchClearBlockTask) task)
+                        .filter(task -> task.getBlockPlacer() == teamPlayer)
+                        .forEach(task -> task.setActivateCallback(false));
             }
         }
 
@@ -688,7 +697,7 @@ public class MatchListener implements Listener {
             if (match.getKit().getGameRules().isClearBlock()) {
                 TeamPlayer teamPlayer = match.getTeamPlayer(player);
 
-                new MatchClearBlockTask(match, match.getKit().getGameRules().getClearBlockTime(), block.getWorld(), block.getLocation(), (itemStacks) -> {
+                new MatchClearBlockTask(match, match.getKit().getGameRules().getClearBlockTime(), block.getWorld(), block.getLocation(), teamPlayer, (itemStacks) -> {
                     if (player.isOnline() && match == profile.getMatch() && !teamPlayer.isRespawning() && teamPlayer.isAlive()) {
                         itemStacks.forEach(i -> player.getInventory().addItem(i));
                     }
@@ -855,7 +864,7 @@ public class MatchListener implements Listener {
     }
 
     @EventHandler
-    public void onProjectileHitEvent(ProjectileHitEvent event) {
+    public void onProjectileHit(ProjectileHitEvent event) {
         Projectile projectile = event.getEntity();
         if (event.getEntityType() == EntityType.ARROW) {
             projectile.remove();

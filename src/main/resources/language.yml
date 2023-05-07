@@ -1,5 +1,9 @@
 scoreboard:
   title: "&bPractice"
+  boxing-counter:
+    no-combo: "&fNo Combo"
+    text-solo: "{match-solo-boxing-difference-color}{match-solo-boxing-difference} Combo"
+    text-teams: "{match-team-boxing-difference-color}{match-team-boxing-difference} Combo"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -118,6 +122,7 @@ scoreboard:
       - "&b&l┃ &bHits: {match-team-boxing-difference-color}({match-team-boxing-difference-symbol}{match-team-boxing-difference})"
       - "&b&l┃ &a You: &f{match-team-boxing-self-hit}"
       - "&b&l┃ &c Them: &f{match-team-boxing-opponent-hit}"
+      - "&b&l┃ &f {match-team-boxing-difference-text}"
       - ""
       - "&b&l┃ &aTeam: &7(&b{match-team-self-alive}&7/&b{match-team-self-size}&7)"
       - "&b&l┃ &cOpponents: &7(&b{match-team-opponent-alive}&7/&b{match-team-opponent-size}&7)"
@@ -328,21 +333,33 @@ arena:
     a-position:
       name: "Position A Location"
       description: "Current location: {0}"
-      action-description: "Click to set position A to your current location"
+      action-description:
+        - "&e&nLeft-Click to set position A to your current location"
+        - "&e&nRight-Click to teleport to position A"
     b-position:
       name: "Position B Location"
       description: "Current location: {0}"
-      action-description: "Click to set position B to your current location"
+      action-description:
+        - "&e&nLeft-Click to set position B to your current location"
+        - "&e&nRight-Click to teleport to position B"
     spectator-position:
       name: "Position Spectator Location"
       description: "Current location: {0}"
-      action-description: "Click to set spectator position to your current location"
+      action-description:
+        - "&e&nLeft-Click to set spectator position to your current location"
+        - "&e&nRight-Click to teleport to spectator position"
     min:
       name: "Minimum Location"
       description: "Current value: {0}"
+      action-description:
+        - "&e&nLeft-Click to edit minimum location value"
+        - "&e&nRight-Click to teleport to minimum location"
     max:
       name: "Maximum Location"
       description: "Current value: {0}"
+      action-description:
+        - "&e&nLeft-Click to edit maximum location value"
+        - "&e&nRight-Click to teleport to maximum location"
     y-limit:
       name: "Y Limit"
       description: "Current value: {0}"
@@ -669,6 +686,7 @@ kit:
   kit-already-exists: "&cKit '{0}' already exsits, cannot create kits with the same ID"
   successfully-create: "&aKit created '{0}'!"
   successfully-delete: "&aKit deleted '{0}!"
+  successfully-clone: "&aKit '{0}' game rules has been cloned to '{1}'"
   cannot-save-extra-items: "&cannot save extra item, '{0}' == null"
   successfully-updated-extra-items: "&aUpdated &b{0} &a's extra item!"
   button:
@@ -1219,6 +1237,7 @@ party:
   party-not-found: "&cCannot find '{0}' 's party"
   full: "&cParty is full"
   already-in-party: "&cYou are already in this party"
+  target-already-in-party: "&cThe opponent is already in another party"
   not-invited: "&cYou have not been invited to this party!"
   disabled-party-invite: "&cThis player has disabled party invites!"
   not-integer: "'{0}' is not a valid number!"

@@ -8,6 +8,8 @@ import rip.diamond.practice.arenas.menu.button.ArenaButton;
 import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
+import java.util.List;
+
 public class ArenaMaxPositionButton extends ArenaButton {
     public ArenaMaxPositionButton(Arena arena) {
         super(arena);
@@ -24,9 +26,23 @@ public class ArenaMaxPositionButton extends ArenaButton {
     }
 
     @Override
+    public String getActionDescription() {
+        return null;
+    }
+
+    @Override
+    public List<String> getActionDescriptions() {
+        return Language.ARENA_EDIT_MENU_MAX_ACTION_DESCRIPTION.toStringList();
+    }
+
+    @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
-        player.closeInventory();
-        Util.performCommand(player, "arena setup " + getArena().getName() + " max");
+        if (clickType == ClickType.LEFT) {
+            player.closeInventory();
+            Util.performCommand(player, "arena setup " + getArena().getName() + " max");
+        } else if (clickType == ClickType.RIGHT) {
+            Util.teleport(player, arena.getMax());
+        }
     }
 
     @Override

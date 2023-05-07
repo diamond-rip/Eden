@@ -27,6 +27,8 @@ public class PlayerUtil {
 		player.setAllowFlight(false);
 		player.setFlying(false);
 		player.setGameMode(GameMode.SURVIVAL);
+		player.setItemOnCursor(null);
+		player.getOpenInventory().getTopInventory().clear();
 		player.getInventory().setArmorContents(new ItemStack[4]);
 		player.getInventory().setContents(new ItemStack[36]);
 		player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));

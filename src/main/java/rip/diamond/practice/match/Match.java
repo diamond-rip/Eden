@@ -10,6 +10,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.github.paperspigot.Title;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
@@ -380,6 +381,9 @@ public abstract class Match {
                 return false;
             }
         }
+        if (Config.MATCH_ALLOW_BREAKING_BLOCKS.toStringList().contains(location.getBlock().getType().name())) {
+            return false;
+        }
         if (!isPlacing) {
             return !getPlacedBlocks().contains(location);
         }
@@ -493,25 +497,28 @@ public abstract class Match {
     public void broadcastMessage(List<String> messages) {
         getPlayersAndSpectators().forEach(player -> Common.sendMessage(player, messages));
     }
-    public void broadcastTitle(String... message) {
-        for (String msg : message)
-            getPlayersAndSpectators().forEach(player -> TitleSender.sendTitle(player, msg, PacketPlayOutTitle.EnumTitleAction.TITLE, 0, 21, 5));
+
+    public void broadcastTitle(Title title) {
+        getPlayersAndSpectators().forEach(player -> player.sendTitle(title));
     }
-    public void broadcastSubTitle(String... message) {
-        for (String msg : message)
-            getPlayersAndSpectators().forEach(player -> TitleSender.sendTitle(player, msg, PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 0, 21, 5));
+    public void broadcastTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        getPlayersAndSpectators().forEach(player -> player.sendTitle(new Title(title, subtitle, fadeIn, stay, fadeOut)));
     }
-    public void broadcastTitle(Team team, String... message) {
+    public void broadcastTitle(String message) {
+        getPlayersAndSpectators().forEach(player -> TitleSender.sendTitle(player, message, PacketPlayOutTitle.EnumTitleAction.TITLE, 0, 21, 5));
+    }
+    public void broadcastSubTitle(String message) {
+        getPlayersAndSpectators().forEach(player -> TitleSender.sendTitle(player, message, PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 0, 21, 5));
+    }
+    public void broadcastTitle(Team team, String message) {
         for (TeamPlayer teamPlayer : team.getTeamPlayers())
             if (teamPlayer.getPlayer() != null)
-                for (String msg : message)
-                    TitleSender.sendTitle(teamPlayer.getPlayer(), msg, PacketPlayOutTitle.EnumTitleAction.TITLE, 0, 21, 5);
+                TitleSender.sendTitle(teamPlayer.getPlayer(), message, PacketPlayOutTitle.EnumTitleAction.TITLE, 0, 21, 5);
     }
-    public void broadcastSubTitle(Team team, String... message) {
+    public void broadcastSubTitle(Team team, String message) {
         for (TeamPlayer teamPlayer : team.getTeamPlayers())
             if (teamPlayer.getPlayer() != null)
-                for (String msg : message)
-                    TitleSender.sendTitle(teamPlayer.getPlayer(), msg, PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 0, 21, 5);
+                TitleSender.sendTitle(teamPlayer.getPlayer(), message, PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 0, 21, 5);
     }
     public void broadcastSound(Sound sound) {
         getPlayersAndSpectators().forEach(player -> player.playSound(player.getLocation(), sound, 10, 1));

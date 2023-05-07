@@ -42,7 +42,7 @@ public class DamageCalculator {
                 damage = 7;
                 break;
             default:
-                damage = 1;
+                damage = 0;
                 break;
         }
         return damage;

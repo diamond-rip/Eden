@@ -214,6 +214,10 @@ public class PartyCommand extends Command {
                     Language.PARTY_ALREADY_INVITE.sendMessage(player);
                     return;
                 }
+                Party targetParty = Party.getByPlayer(target);
+                if (targetParty != null) {
+                    Language.PARTY_TARGET_ALREADY_IN_PARTY.sendMessage(player);
+                }
                 party.invite(target);
                 return;
             } else if (args[0].equalsIgnoreCase("kick")) {

@@ -3,6 +3,7 @@ package rip.diamond.practice.kits.command;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.kits.KitGameRules;
 import rip.diamond.practice.kits.menu.KitDetailsMenu;
 import rip.diamond.practice.kits.menu.KitsManagementMenu;
 import rip.diamond.practice.util.command.Command;
@@ -65,6 +66,23 @@ public class KitCommand extends Command {
                 }
                 kit.save();
                 Language.KIT_SAVED.sendMessage(player, kit.getName());
+            }
+        } else if (args.length == 3) {
+            Kit kit = Kit.getByName(args[1]);
+            if (args[0].equalsIgnoreCase("clone")) {
+                if (kit == null) {
+                    Language.KIT_NOT_EXISTS.sendMessage(player, args[1]);
+                    return;
+                }
+                Kit newKit = Kit.getByName(args[2]);
+                if (newKit == null) {
+                    Language.KIT_NOT_EXISTS.sendMessage(player, args[2]);
+                    return;
+                }
+                KitGameRules rules = kit.getGameRules().clone();
+                newKit.setGameRules(rules);
+                newKit.autoSave();
+                Language.KIT_SUCCESSFULLY_CLONE.sendMessage(player, kit.getName(), newKit.getName());
             }
         }
     }

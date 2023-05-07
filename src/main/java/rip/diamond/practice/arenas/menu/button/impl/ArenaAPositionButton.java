@@ -8,6 +8,8 @@ import rip.diamond.practice.arenas.menu.button.ArenaButton;
 import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
+import java.util.List;
+
 public class ArenaAPositionButton extends ArenaButton {
     public ArenaAPositionButton(Arena arena) {
         super(arena);
@@ -25,11 +27,20 @@ public class ArenaAPositionButton extends ArenaButton {
 
     @Override
     public String getActionDescription() {
-        return Language.ARENA_EDIT_MENU_A_POSITION_ACTION_DESCRIPTION.toString();
+        return null;
+    }
+
+    @Override
+    public List<String> getActionDescriptions() {
+        return Language.ARENA_EDIT_MENU_A_POSITION_ACTION_DESCRIPTION.toStringList();
     }
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarSlot) {
-        Util.performCommand(player, "arena setup " + getArena().getName() + " a");
+        if (clickType == ClickType.LEFT) {
+            Util.performCommand(player, "arena setup " + getArena().getName() + " a");
+        } else if (clickType == ClickType.RIGHT) {
+            Util.teleport(player, arena.getA());
+        }
     }
 }

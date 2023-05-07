@@ -103,6 +103,7 @@ public class EdenPlaceholder {
                         str = str
                                 .replace("{match-solo-opponent}", opponent.getUsername())
                                 .replace("{match-solo-winner}", match.getState() == MatchState.ENDING ? match.getWinningPlayers().get(0).getUsername() : "")
+                                .replace("{match-solo-boxing-difference-text}", soloDifference == 0 ? Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString() : Language.SCOREBOARD_BOXING_COUNTER_TEXT_SOLO.toString())
                                 .replace("{match-solo-boxing-difference}", Math.abs(soloDifference) + "")
                                 .replace("{match-solo-boxing-difference-number}",  soloDifference + "")
                                 .replace("{match-solo-boxing-difference-symbol}", soloDifference == 0 ? "" : soloDifference > 0 ? "+" : "-")
@@ -127,6 +128,7 @@ public class EdenPlaceholder {
                                 .replace("{match-team-opponent-alive}", opponentTeam.getAliveCount() + "")
                                 .replace("{match-team-opponent-size}", opponentTeam.getTeamPlayers().size() + "")
                                 .replace("{match-team-winner}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getWinningTeam().getLeader().getUsername() : "")
+                                .replace("{match-team-boxing-difference-text}", teamsDifference == 0 ? Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString() : Language.SCOREBOARD_BOXING_COUNTER_TEXT_TEAM.toString())
                                 .replace("{match-team-boxing-difference}", Math.abs(teamsDifference) + "")
                                 .replace("{match-team-boxing-difference-number}",  teamsDifference + "")
                                 .replace("{match-team-boxing-difference-symbol}", teamsDifference == 0 ? "" : teamsDifference > 0 ? "+" : "-")

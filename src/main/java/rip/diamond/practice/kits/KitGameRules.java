@@ -4,11 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import rip.diamond.practice.config.Language;
+import rip.diamond.practice.kits.menu.button.impl.KitRulesSetIntegerButton;
+import rip.diamond.practice.kits.menu.button.impl.KitRulesSetStringButton;
+import rip.diamond.practice.kits.menu.button.impl.KitRulesToggleButton;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.queue.QueueType;
 
+import java.lang.reflect.Field;
+
 @Setter
-public class KitGameRules {
+public class KitGameRules implements Cloneable {
 
 	@Getter private boolean receiveKitLoadoutBook = true;
 	@Getter private boolean deathOnWater = false;
@@ -55,6 +60,20 @@ public class KitGameRules {
 				return false;
 		}
 		return false;
+	}
+
+	@Override
+	public KitGameRules clone() {
+		KitGameRules rules = new KitGameRules();
+		for (Field field : rules.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			try {
+				field.set(rules, this.getClass().getField(field.getName()).get(this));
+			} catch (IllegalAccessException | NoSuchFieldException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return rules;
 	}
 
 	@Getter

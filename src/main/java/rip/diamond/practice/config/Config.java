@@ -3,6 +3,7 @@ package rip.diamond.practice.config;
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.bukkit.Material;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.util.Util;
 
@@ -44,13 +45,14 @@ public enum Config {
     //Match
     MATCH_ALLOW_REQUEUE("match.allow-requeue", true),
     MATCH_INSTANT_GAPPLE_EFFECTS("match.instant-gapple-effects", false),
-    MATCH_OUTSIDE_CUBOID_INSTANT_DEATH("outside-cuboid-instant-death", true),
+    MATCH_OUTSIDE_CUBOID_INSTANT_DEATH("match.outside-cuboid-instant-death", true),
     MATCH_SNOW_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT("match.snow.remove-snow-block-when-snowball-hit", false),
     MATCH_SNOW_SNOWBALL_DROP_CHANCE("match.snow.snowball-drop-chance", 50),
     MATCH_SNOW_SNOWBALL_DROP_AMOUNT("match.snow.snowball-drop-amount", 4),
     MATCH_TITLE_SCORE("match.title.score", true),
     MATCH_TITLE_END("match.title.end", true),
     MATCH_END_DURATION("match.end-duration", 100),
+    MATCH_ALLOW_BREAKING_BLOCKS("match.allow-breaking-blocks", ImmutableList.of("DEAD_BUSH", "GRASS", "LONG_GRASS", "CACTUS")),
     MATCH_FIREBALL_ENABLED("match.fireball.enabled", true),
     MATCH_FIREBALL_DIVIDE_DAMAGE("match.fireball.divide-damage", 5.0),
     MATCH_FIREBALL_SPEED("match.fireball.speed", 2.0),

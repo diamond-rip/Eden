@@ -26,7 +26,8 @@ public abstract class ArenaButton extends Button {
         return new ItemBuilder(getIcon())
                 .durability(getDurability())
                 .name(CC.AQUA + getName())
-                .lore("", getDescription() == null ? null : CC.GRAY + getDescription(), getDescription() == null ? null : "", getActionDescription() == null ? null : CC.YELLOW + CC.UNDER_LINE + getActionDescription())
+                .lore("", getDescription() == null ? null : CC.GRAY + getDescription(), getDescription() == null ? null : "")
+                .lore(getActionDescription() == null ? null : CC.YELLOW + CC.UNDER_LINE + getActionDescription())
                 .lore(getActionDescriptions())
                 .build();
     }

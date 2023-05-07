@@ -1,5 +1,8 @@
 scoreboard:
   title: "&b戰鬥練習"
+  boxing-counter:
+    no-combo: "&f沒有連擊"
+    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference} 連擊"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."
@@ -383,21 +386,33 @@ arena:
     a-position:
       name: "A點位置"
       description: "現時位置: {0}"
-      action-description: "點擊把A點位置取代為你現時的位置"
+      action-description:
+        - "&e&n點擊左鍵把A點位置取代為你現時的位置"
+        - "&e&n點擊右鍵傳送到A點位置"
     b-position:
       name: "B點位置"
       description: "現時位置: {0}"
-      action-description: "點擊把B點位置取代為你現時的位置"
+      action-description:
+        - "&e&n點擊左鍵把B點位置取代為你現時的位置"
+        - "&e&n點擊右鍵傳送到B點位置"
     spectator-position:
       name: "觀察者位置"
       description: "現時位置: {0}"
-      action-description: "點擊把觀察者位置取代為你現時的位置"
+      action-description:
+        - "&e&n點擊左鍵把觀察者位置取代為你現時的位置"
+        - "&e&n點擊右鍵傳送到觀察者位置"
     min:
       name: "低點位置"
       description: "現時位置: {0}"
+      action-description:
+        - "&e&n點擊左鍵更改低點位置"
+        - "&e&n點擊右鍵傳送到低點位置"
     max:
       name: "高點位置"
       description: "現時位置: {0}"
+      action-description:
+        - "&e&n點擊左鍵更改高點位置"
+        - "&e&n點擊右鍵傳送到高點位置"
     y-limit:
       name: "死亡Y軸"
       description: "現時位置: {0}"
@@ -730,6 +745,7 @@ kit:
   kit-already-exists: "&c職業 '{0}' 已經存在, 不能創建同樣 ID 的職業"
   successfully-create: "&a成功創建職業 '{0}'!"
   successfully-delete: "&a成功刪除職業 '{0}!"
+  successfully-clone: "&a成功把職業 '{0}' 的遊戲規則複製到 '{1}'"
   cannot-save-extra-items: "&c無法儲存職業額外物品, '{0}' == null"
   successfully-updated-extra-items: "&a成功更新職業 &b{0} &a的額外物品!"
   button:
@@ -1278,6 +1294,7 @@ party:
   party-not-found: "&c未能找到 '{0}' 的隊伍"
   full: "&c隊伍人數已滿"
   already-in-party: "&c你已經在該隊伍"
+  target-already-in-party: "&c對方已經在其他隊伍"
   not-invited: "&c你沒有被邀請進入隊伍!"
   disabled-party-invite: "&c該玩家已關閉隊伍邀請!"
   not-integer: "'{0}' 並不是一個有效的數字!"
