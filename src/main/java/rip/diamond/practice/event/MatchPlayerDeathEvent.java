@@ -14,7 +14,7 @@ public class MatchPlayerDeathEvent extends BaseEvent {
 
     private final Match match;
     private final Player player;
-    private boolean playLightingEffect = true;
+    private boolean playLightningEffect = true;
     private boolean playDeathEffect = true;
 
 }

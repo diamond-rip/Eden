@@ -62,6 +62,7 @@ public class KitEditorSaveMenu extends Menu {
 
                     @Override
                     public void clicked(Player player, ClickType clickType) {
+                        player.getInventory().setArmorContents(null);
                         player.getInventory().setContents(kitLoadout.getContents());
                         player.updateInventory();
                         openMenu(player);

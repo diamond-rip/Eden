@@ -505,6 +505,8 @@ public enum Language {
     MATCH_NEW_ROUND_START_SCORED_TITLE("match.new-round-start.scored-title"),
     MATCH_NEW_ROUND_START_SCORED_SUBTITLE("match.new-round-start.scored-subtitle"),
     MATCH_NEW_ROUND_START_SCORE("match.new-round-start.score"),
+    MATCH_RESPAWN_TITLE("match.respawn.title"),
+    MATCH_RESPAWN_SUBTITLE("match.respawn.subtitle"),
     MATCH_RESPAWN_COUNTDOWN("match.respawn.countdown"),
     MATCH_RESPAWN_MESSAGE("match.respawn.message"),
     MATCH_TEAM_COLOR_RED_NAME("match.team-color.red.name"),

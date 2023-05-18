@@ -17,6 +17,7 @@ public enum Config {
 
     DEBUG("debug", false),
     ARENA_KIT_AUTO_SAVE("arena-kit-auto-save", false),
+    DISABLE_SAVE_WORLD("disable-save-world", true),
     //MongoDB
     MONGO_ENABLED("mongo.enabled", false),
     MONGO_URI_MODE("mongo.uri-mode", false),
@@ -46,6 +47,8 @@ public enum Config {
     MATCH_ALLOW_REQUEUE("match.allow-requeue", true),
     MATCH_INSTANT_GAPPLE_EFFECTS("match.instant-gapple-effects", false),
     MATCH_OUTSIDE_CUBOID_INSTANT_DEATH("match.outside-cuboid-instant-death", true),
+    MATCH_REMOVE_CACTUS_SUGAR_CANE_PHYSICS("match.remove-cactus-sugar-cane-physics", true),
+    MATCH_DEATH_LIGHTNING("match.death-lightning", true),
     MATCH_SNOW_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT("match.snow.remove-snow-block-when-snowball-hit", false),
     MATCH_SNOW_SNOWBALL_DROP_CHANCE("match.snow.snowball-drop-chance", 50),
     MATCH_SNOW_SNOWBALL_DROP_AMOUNT("match.snow.snowball-drop-amount", 4),

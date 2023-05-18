@@ -29,6 +29,7 @@ public class ArenaChunk extends Reflection {
     }
 
     public void restore() {
+        world.getChunkAt(x, z).load();
         ChunkSection[] sections = new ChunkSection[data.length];
         for (int i = 0; i < data.length; i++) {
             sections[i] = data[i].toChunkSection();

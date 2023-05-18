@@ -4,6 +4,10 @@ debug: false
 ## If auto save is disabled, you have to use command '/kit save <Kit Name>' or '/arena save <Arena Name>' to save them manually
 ## NOTE: Auto save will save each process after you made a changes into arena and kit, and changes are final (which means it cannot be reverted) if you set this to true
 arena-kit-auto-save: false
+## Should Eden disable auto saving world?
+## Note that you have to manually do `/save-all` if you want to save the world if this option is set to true
+## Disable auto saving world will reset the area if you close the server by not using `/stop` (which is a bad habit)
+disable-save-world: true
 ## MongoDB login information
 mongo:
   ## This option should be ALWAYS true. Unless you want to test specific stuff without modifying the database
@@ -61,6 +65,10 @@ match:
   instant-gapple-effects: false
   ## When player is outside the cuboid (which uses arena min/max), should player receive a instant death damage?
   outside-cuboid-instant-death: true
+  ## Should Eden remove cactus and sugar cane's physics?
+  ## If true, when player places a block near cactus and sugar cane, cactus won't be destroyed
+  remove-cactus-sugar-cane-physics: true
+  death-lightning: true
   ## Snow related options - Only works in spleef kit game rules
   snow:
     ## Should snow block be removed when the snowball hit the object?

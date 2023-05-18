@@ -6,6 +6,8 @@ import rip.diamond.practice.config.Language;
 import rip.diamond.practice.duel.DuelRequest;
 import rip.diamond.practice.duel.menu.ChooseKitMenu;
 import rip.diamond.practice.party.Party;
+import rip.diamond.practice.profile.PlayerProfile;
+import rip.diamond.practice.profile.PlayerState;
 import rip.diamond.practice.util.Checker;
 import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
@@ -26,11 +28,18 @@ public class DuelCommand extends Command {
                 Language.DUEL_CANNOT_FIND_PLAYER.sendMessage(player, args[0]);
                 return;
             }
+            PlayerProfile profile = PlayerProfile.get(player);
+            if (profile.getPlayerState() != PlayerState.IN_LOBBY) {
+                Language.DUEL_VERIFY_NEED_TO_BE_IN_LOBBY.sendMessage(player);
+                return;
+            }
             if (player == target) {
                 Language.DUEL_CANNOT_DUEL_SELF.sendMessage(player);
                 return;
             }
-            if (Party.getByPlayer(player) != null && Party.getByPlayer(target) == null) {
+            Party pParty = Party.getByPlayer(player);
+            Party tParty = Party.getByPlayer(target);
+            if (pParty != null && tParty == null) {
                 Language.DUEL_CANNOT_DUEL_NOT_IN_PARTY.sendMessage(player);
                 return;
             }
@@ -38,7 +47,7 @@ public class DuelCommand extends Command {
                 Language.DUEL_HAS_PENDING_DUEL_REQUEST.sendMessage(player);
                 return;
             }
-            new ChooseKitMenu(target.getUniqueId(), Party.getByPlayer(player) != null).openMenu(player);
+            new ChooseKitMenu(target.getUniqueId(), pParty != null).openMenu(player);
             return;
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("accept")) {

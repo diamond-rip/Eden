@@ -26,6 +26,7 @@ import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class EdenPlaceholder {
@@ -103,6 +104,7 @@ public class EdenPlaceholder {
                         str = str
                                 .replace("{match-solo-opponent}", opponent.getUsername())
                                 .replace("{match-solo-winner}", match.getState() == MatchState.ENDING ? match.getWinningPlayers().get(0).getUsername() : "")
+                                .replace("{match-solo-loser}", match.getState() == MatchState.ENDING ? match.getTeams().stream().filter(team -> team != match.getWinningTeam()).map(team -> team.getLeader().getUsername()).findFirst().orElse(""): "")
                                 .replace("{match-solo-boxing-difference-text}", soloDifference == 0 ? Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString() : Language.SCOREBOARD_BOXING_COUNTER_TEXT_SOLO.toString())
                                 .replace("{match-solo-boxing-difference}", Math.abs(soloDifference) + "")
                                 .replace("{match-solo-boxing-difference-number}",  soloDifference + "")
@@ -128,6 +130,7 @@ public class EdenPlaceholder {
                                 .replace("{match-team-opponent-alive}", opponentTeam.getAliveCount() + "")
                                 .replace("{match-team-opponent-size}", opponentTeam.getTeamPlayers().size() + "")
                                 .replace("{match-team-winner}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getWinningTeam().getLeader().getUsername() : "")
+                                .replace("{match-team-loser}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).findFirst().orElse("") : "")
                                 .replace("{match-team-boxing-difference-text}", teamsDifference == 0 ? Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString() : Language.SCOREBOARD_BOXING_COUNTER_TEXT_TEAM.toString())
                                 .replace("{match-team-boxing-difference}", Math.abs(teamsDifference) + "")
                                 .replace("{match-team-boxing-difference-number}",  teamsDifference + "")
@@ -146,6 +149,7 @@ public class EdenPlaceholder {
                                 .replace("{match-ffa-alive}", aliveCount + "")
                                 .replace("{match-ffa-player-size}", ffaTeams.size() + "")
                                 .replace("{match-ffa-winner}", ((FFAMatch) match).getWinningTeam().getLeader().getUsername())
+                                .replace("{match-ffa-loser}", ((FFAMatch) match).getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).collect(Collectors.joining(",")))
                         ;
                         break;
                     case SUMO_EVENT:
@@ -187,6 +191,7 @@ public class EdenPlaceholder {
                                 .replace("{spectate-solo-player1}", playerA.getUsername())
                                 .replace("{spectate-solo-player2}", playerB.getUsername())
                                 .replace("{spectate-solo-winner}", match.getState() == MatchState.ENDING ? match.getWinningPlayers().get(0).getUsername() : "")
+                                .replace("{spectate-solo-loser}", match.getState() == MatchState.ENDING ? match.getTeams().stream().filter(team -> team != match.getWinningTeam()).map(team -> team.getLeader().getUsername()).findFirst().orElse(""): "")
                                 .replace("{spectate-solo-boxing-player1-hit}", playerA.getHits() + "")
                                 .replace("{spectate-solo-boxing-player2-hit}", playerB.getHits() + "")
                                 .replace("{spectate-solo-boxing-player1-combo}", playerA.getCombo() + "")
@@ -207,6 +212,7 @@ public class EdenPlaceholder {
                                 .replace("{spectate-team1-size}", teamA.getTeamPlayers().size() + "")
                                 .replace("{spectate-team2-size}", teamB.getTeamPlayers().size() + "")
                                 .replace("{spectate-team-winner}", match.getState() == MatchState.ENDING ? ((TeamMatch) match).getWinningTeam().getLeader().getUsername() : "")
+                                .replace("{spectate-team-loser}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).findFirst().orElse("") : "")
                                 .replace("{spectate-team1-boxing-hit}", teamA.getHits() + "")
                                 .replace("{spectate-team2-boxing-hit}", teamB.getHits() + "")
                                 .replace("{spectate-team1-boxing-combo}", teamA.getCombo() + "")
@@ -221,6 +227,7 @@ public class EdenPlaceholder {
                                 .replace("{spectate-ffa-alive}", aliveCount + "")
                                 .replace("{spectate-ffa-player-size}", ffaTeams.size() + "")
                                 .replace("{spectate-ffa-winner}", ((FFAMatch) match).getWinningTeam().getLeader().getUsername())
+                                .replace("{spectate-ffa-loser}", ((FFAMatch) match).getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).collect(Collectors.joining(",")))
                         ;
                         break;
                     default:

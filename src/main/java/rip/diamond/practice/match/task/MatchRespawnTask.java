@@ -1,12 +1,14 @@
 package rip.diamond.practice.match.task;
 
 import org.bukkit.entity.Player;
+import org.github.paperspigot.Title;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.match.MatchTaskTicker;
 import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.util.Common;
+import rip.diamond.practice.util.TitleSender;
 import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.VisibilityController;
 
@@ -34,6 +36,7 @@ public class MatchRespawnTask extends MatchTaskTicker {
             return;
         }
         Common.sendMessage(player, Language.MATCH_RESPAWN_COUNTDOWN.toString(getTicks()));
+        Common.sendTitle(player, Language.MATCH_RESPAWN_TITLE.toString(), Language.MATCH_RESPAWN_SUBTITLE.toString(getTicks()), 0, 21, 0);
     }
 
     @Override

@@ -1201,6 +1201,8 @@ match:
       - ""
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
   respawn:
+    title: "&c你已死亡!"
+    subtitle: "&e{0}..."
     countdown: "&e{0}..."
     message: "&a你已重生!"
   ## As of right now, only red and blue are going to be usable.

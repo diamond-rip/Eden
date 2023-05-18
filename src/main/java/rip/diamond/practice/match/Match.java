@@ -190,7 +190,7 @@ public abstract class Match {
         //Play lightning effect and death animation
         MatchPlayerDeathEvent event = new MatchPlayerDeathEvent(this, deadPlayer);
         event.call();
-        if (event.isPlayLightingEffect()) {
+        if (event.isPlayLightningEffect() && Config.MATCH_DEATH_LIGHTNING.toBoolean()) {
             EntityLightning lightning = new EntityLightning(((CraftPlayer)deadPlayer).getHandle().getWorld(), deadPlayer.getLocation().getX(), deadPlayer.getLocation().getY(), deadPlayer.getLocation().getZ(), true, false);
             for (Player player : getPlayersAndSpectators()) {
                 ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutSpawnEntityWeather(lightning));
@@ -205,7 +205,9 @@ public abstract class Match {
         if (canEnd()) {
             end();
         } else {
-            PlayerUtil.spectator(deadPlayer);
+            if (!disconnected) {
+                PlayerUtil.spectator(deadPlayer);
+            }
             profile.setupItems();
         }
     }
@@ -302,6 +304,11 @@ public abstract class Match {
         profile.setMatch(this);
         profile.setPlayerState(PlayerState.IN_SPECTATING);
         profile.setupItems();
+
+        //Create the health display under NameTag, if needed
+        if (kit.getGameRules().isShowHealth()) {
+            plugin.getScoreboardHandler().getScoreboard(player).registerHealthObjective();
+        }
     }
 
     public void leaveSpectate(Player player) {
@@ -317,6 +324,7 @@ public abstract class Match {
             }
         });
 
+        plugin.getScoreboardHandler().getScoreboard(player).unregisterHealthObjective();
         plugin.getLobbyManager().sendToSpawnAndReset(player);
     }
 

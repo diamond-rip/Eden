@@ -17,6 +17,7 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.PortalCreateEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 
 @RequiredArgsConstructor
 public class GeneralListener implements Listener {
@@ -73,10 +74,12 @@ public class GeneralListener implements Listener {
     @EventHandler
     public void onPhysics(BlockPhysicsEvent event) {
         Material type = event.getBlock().getType();
-        if(type != Material.SUGAR_CANE_BLOCK && type != Material.CACTUS) {
+        if (!Config.MATCH_REMOVE_CACTUS_SUGAR_CANE_PHYSICS.toBoolean()) {
             return;
         }
-        event.setCancelled(true);
+        if(type == Material.SUGAR_CANE_BLOCK || type == Material.CACTUS) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler

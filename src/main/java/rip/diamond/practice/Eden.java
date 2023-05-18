@@ -3,9 +3,12 @@ package rip.diamond.practice;
 import com.google.gson.Gson;
 import io.github.epicgo.sconey.SconeyHandler;
 import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.command.ArenaCommand;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.database.MongoManager;
 import rip.diamond.practice.duel.DuelRequest;
 import rip.diamond.practice.duel.DuelRequestManager;
@@ -123,7 +126,7 @@ public class Eden extends JavaPlugin {
         // Save all arenas
         Arena.getArenas().forEach(Arena::autoSave);
         //Save all profiles
-        if (configFile.getBoolean("profile.save-on-server-stop")) {
+        if (Config.PROFILE_SAVE_ON_SERVER_STOP.toBoolean()) {
             PlayerProfile.getProfiles().values().forEach(profile -> profile.save(false, (bool) -> {}));
         }
     }
@@ -185,6 +188,7 @@ public class Eden extends JavaPlugin {
         new JoinEventCommand();
         new StatsCommand();
         new ForceEndCommand();
+        new GiveUpCommand();
         new LeaveSpectateCommand();
         new NoSpeedCommand();
         new SpectateCommand();
@@ -219,8 +223,13 @@ public class Eden extends JavaPlugin {
         this.scoreboardHandler = new SconeyHandler(this, new ScoreboardAdapter());
         this.cache = new EdenCache();
         this.placeholder = new EdenPlaceholder(this);
-        if (configFile.getBoolean("nametag.enabled")) this.nameTagManager.registerAdapter(new NameTagAdapter());
-        if (configFile.getBoolean("fancy-tablist.enabled")) tabHandler = new ImanityTabHandler(new TabAdapter());
+        if (Config.NAMETAG_ENABLED.toBoolean()) this.nameTagManager.registerAdapter(new NameTagAdapter());
+        if (Config.FANCY_TABLIST_ENABLED.toBoolean()) tabHandler = new ImanityTabHandler(new TabAdapter());
+        if (Config.DISABLE_SAVE_WORLD.toBoolean()) {
+            for (World world : Bukkit.getWorlds()) {
+                world.setAutoSave(false);
+            }
+        }
 
         InventoryUtil.handleRemoveCrafting();
     }

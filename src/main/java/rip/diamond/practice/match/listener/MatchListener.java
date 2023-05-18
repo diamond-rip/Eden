@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
@@ -25,6 +26,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.arenas.Arena;
+import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.KitLoadoutReceivedEvent;
@@ -48,6 +51,7 @@ import rip.diamond.practice.profile.cooldown.Cooldown;
 import rip.diamond.practice.profile.cooldown.CooldownType;
 import rip.diamond.practice.queue.QueueType;
 import rip.diamond.practice.util.*;
+import rip.diamond.practice.util.cuboid.Cuboid;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
@@ -175,7 +179,7 @@ public class MatchListener implements Listener {
         event.getDrops().clear();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true) //A fix for #307 point 1 - try to cancel the hits which anticheat cancelled
     public void onDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
@@ -217,7 +221,7 @@ public class MatchListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGH) //Allow the above EntityDamageEvent run first
+    @EventHandler(priority = EventPriority.HIGHEST) //Allow the above EntityDamageEvent run first
     public void onDamageEntity(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Arrow)) {
             Player entity = (Player) event.getEntity();
@@ -266,11 +270,6 @@ public class MatchListener implements Listener {
                     return;
                 }
 
-                //Check if the system should count the hit. We don't cancel the event because we still want critical hits exists, just do not count the hit into hit counter
-                if (teamPlayerEntity.getProtectionUntil() > System.currentTimeMillis()) {
-                    return;
-                }
-
                 if (kit.getGameRules().isBoxing() || kit.getGameRules().isNoDamage()) {
                     event.setDamage(0);
                     entity.setHealth(20.0);
@@ -284,6 +283,8 @@ public class MatchListener implements Listener {
                         return;
                     }
                 }
+
+                teamPlayerDamager.setProtectionUntil(0); //Fix for #307 point 2
 
                 teamPlayerDamager.handleHit(event.getFinalDamage());
                 teamPlayerEntity.handleGotHit(match.getTeamPlayer(damager), entity.isBlocking());
@@ -650,6 +651,29 @@ public class MatchListener implements Listener {
     }
 
     @EventHandler
+    public void onBlockFromTo(BlockFromToEvent event) {
+        Block block = event.getToBlock();
+        if (block == null) {
+            return;
+        }
+
+        for (Match match : Match.getMatches().values()) {
+            ArenaDetail arenaDetail = match.getArenaDetail();
+            if (arenaDetail == null) {
+                return;
+            }
+
+
+            Cuboid cuboid = arenaDetail.getCuboid();
+            Location blockLocation = block.getLocation();
+
+            if (cuboid.contains(blockLocation)) {
+                match.getPlacedBlocks().add(blockLocation);
+            }
+        }
+    }
+
+    @EventHandler
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
@@ -938,6 +962,7 @@ public class MatchListener implements Listener {
             for (TeamPlayer teamPlayer : match.getTeamPlayers()) {
                 Player player = teamPlayer.getPlayer();
                 if (player != null && teamPlayer.getKitLoadout() == null) {
+                    player.setItemOnCursor(null); //Fix for #308 point 1 - Prevent book duplicate
                     kit.getKitLoadout().apply(match, player);
                     Language.MATCH_RECEIVED_KIT_LOADOUT_BECAUSE_TIMEOUT.sendMessage(player);
                 }

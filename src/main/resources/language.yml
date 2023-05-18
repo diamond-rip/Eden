@@ -3,7 +3,7 @@ scoreboard:
   boxing-counter:
     no-combo: "&fNo Combo"
     text-solo: "{match-solo-boxing-difference-color}{match-solo-boxing-difference} Combo"
-    text-teams: "{match-team-boxing-difference-color}{match-team-boxing-difference} Combo"
+    text-team: "{match-team-boxing-difference-color}{match-team-boxing-difference} Combo"
   loading:
     - "&7&m----------------------"
     - "&cYour data is loading..."
@@ -1144,6 +1144,8 @@ match:
       - ""
       - "&b▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
   respawn:
+    title: "&cYOU DIED!"
+    subtitle: "&e{0}..."
     countdown: "&e{0}..."
     message: "&aRespawned!"
   ## As of right now, only red and blue are going to be usable.

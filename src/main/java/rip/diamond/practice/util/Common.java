@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.github.paperspigot.Title;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
 
@@ -84,6 +85,17 @@ public class Common {
         for (String s : str) {
             player.sendMessage(CC.translate(s));
         }
+    }
+
+    public static void sendTitle(Player player, String title, String subtitle) {
+        sendTitle(player, title, subtitle, 20, 200, 20);
+    }
+
+    public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        if (player == null) {
+            return;
+        }
+        player.sendTitle(new Title(CC.translate(title), CC.translate(subtitle), fadeIn, stay, fadeOut));
     }
 
     public static void playSound(Player player, Sound sound) {

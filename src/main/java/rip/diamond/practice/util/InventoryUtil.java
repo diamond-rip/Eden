@@ -24,7 +24,7 @@ public class InventoryUtil {
 
 			while (iterator.hasNext()) {
 				Recipe recipe = iterator.next();
-				if (recipe != null && Config.CRAFTING_WHITELISTED_ITEMS.toStringList().contains(recipe.getResult().getType().name())) {
+				if (recipe != null && !Config.CRAFTING_WHITELISTED_ITEMS.toStringList().contains(recipe.getResult().getType().name())) {
 					iterator.remove();
 				}
 			}

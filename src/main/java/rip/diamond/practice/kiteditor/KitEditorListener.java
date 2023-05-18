@@ -1,6 +1,7 @@
 package rip.diamond.practice.kiteditor;
 
 import lombok.RequiredArgsConstructor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -18,6 +20,9 @@ import rip.diamond.practice.kiteditor.menu.KitEditorExtraItemsMenu;
 import rip.diamond.practice.kiteditor.menu.KitEditorSaveMenu;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.profile.PlayerProfile;
+import rip.diamond.practice.util.Common;
+
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class KitEditorListener implements Listener {
@@ -91,6 +96,18 @@ public class KitEditorListener implements Listener {
             return;
         }
         if (event.getSlotType() == InventoryType.SlotType.ARMOR || event.getSlotType() == InventoryType.SlotType.CRAFTING) {
+            event.setCancelled(true);
+        }
+    }
+
+    //防止玩家放置物品到其他位置
+    @EventHandler
+    public void onDrag(InventoryDragEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (!plugin.getKitEditorManager().isEditing(player)) {
+            return;
+        }
+        if (event.getInventorySlots().stream().anyMatch(i -> i > 36)) {
             event.setCancelled(true);
         }
     }
