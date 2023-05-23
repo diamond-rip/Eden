@@ -10,6 +10,7 @@ import org.bukkit.event.block.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
@@ -18,11 +19,21 @@ import org.bukkit.event.world.PortalCreateEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
+import rip.diamond.practice.misc.task.EloResetTask;
+import rip.diamond.practice.util.CC;
+import rip.diamond.practice.util.TaskTicker;
 
 @RequiredArgsConstructor
 public class GeneralListener implements Listener {
 
     private final Eden plugin;
+
+    @EventHandler
+    public void onLogin(PlayerLoginEvent event) {
+        if (TaskTicker.getTickers().stream().anyMatch(taskTicker -> taskTicker instanceof EloResetTask)) {
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, CC.RED + "ELO is resetting...");
+        }
+    }
 
     @EventHandler
     public void onLoad(ChunkLoadEvent event) {

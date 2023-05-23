@@ -85,6 +85,15 @@ public class MatchMovementHandler {
                         }
                     }
                 }
+            } else if (profile.getPlayerState() == PlayerState.IN_SPECTATING && profile.getMatch() != null) {
+                Match match = profile.getMatch();
+                ArenaDetail arenaDetail = match.getArenaDetail();
+                Arena arena = arenaDetail.getArena();
+
+                if (!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, 10).contains(player) || arena.getYLimit() > player.getLocation().getY()) {
+                    player.teleport(arenaDetail.getSpectator());
+                    return;
+                }
             }
         });
     }

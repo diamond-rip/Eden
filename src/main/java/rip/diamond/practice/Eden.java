@@ -10,6 +10,8 @@ import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.command.ArenaCommand;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.database.MongoManager;
+import rip.diamond.practice.debug.TestCommand;
+import rip.diamond.practice.debug.TestListener;
 import rip.diamond.practice.duel.DuelRequest;
 import rip.diamond.practice.duel.DuelRequestManager;
 import rip.diamond.practice.duel.command.DuelCommand;
@@ -35,10 +37,7 @@ import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.command.*;
 import rip.diamond.practice.match.listener.MatchListener;
 import rip.diamond.practice.match.listener.SpectateListener;
-import rip.diamond.practice.misc.commands.EdenCommand;
-import rip.diamond.practice.misc.commands.LocationCommand;
-import rip.diamond.practice.misc.commands.TestCommand;
-import rip.diamond.practice.misc.commands.ToggleItemFlagCommand;
+import rip.diamond.practice.misc.commands.*;
 import rip.diamond.practice.misc.listeners.ChatListener;
 import rip.diamond.practice.misc.listeners.GeneralListener;
 import rip.diamond.practice.party.PartyListener;
@@ -167,6 +166,10 @@ public class Eden extends JavaPlugin {
                 new QueueListener(),
                 new SpectateListener()
         ).forEach(listener -> getServer().getPluginManager().registerEvents(listener, this));
+
+        if (Config.DEBUG.toBoolean()) {
+            getServer().getPluginManager().registerEvents(new TestListener(), this);
+        }
     }
 
     private void loadCommands() {
@@ -175,8 +178,8 @@ public class Eden extends JavaPlugin {
         new GoldenHeadCommand();
         new KitCommand();
         new EdenCommand();
+        new EloResetCommand();
         new LocationCommand();
-        new TestCommand();
         new ToggleItemFlagCommand();
         new QueueCommand();
         new EditKitsCommand();
@@ -192,6 +195,7 @@ public class Eden extends JavaPlugin {
         new LeaveSpectateCommand();
         new NoSpeedCommand();
         new SpectateCommand();
+        new TeleporterCommand();
         new ViewInventoryCommand();
         new ReloadLeaderboardCommand();
         new SettingsCommand();
@@ -207,6 +211,10 @@ public class Eden extends JavaPlugin {
         new TogglePartyInviteCommand();
         new ToggleSpectatorJoinLeaveMessageCommand();
         new ToggleSpectatorVisibilityCommand();
+
+        if (Config.DEBUG.toBoolean()) {
+            new TestCommand();
+        }
     }
 
     private void loadGeneral() {

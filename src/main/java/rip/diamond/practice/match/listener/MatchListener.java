@@ -11,6 +11,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -19,6 +20,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -123,6 +126,30 @@ public class MatchListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        ItemStack current = event.getCurrentItem();
+        ItemStack cursor = event.getCursor();
+
+        if (current.getType() == Material.BOOK || current.getType() == Material.ENCHANTED_BOOK) {
+            net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(current);
+            if (nmsItem.hasTag()) {
+                NBTTagCompound compound = nmsItem.getTag();
+                if (compound.hasKey("name") && compound.hasKey("armor") && compound.hasKey("contents")) {
+                    event.setCancelled(true);
+                }
+            }
+        } else if (cursor.getType() == Material.BOOK || cursor.getType() == Material.ENCHANTED_BOOK) {
+            net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(cursor);
+            if (nmsItem.hasTag()) {
+                NBTTagCompound compound = nmsItem.getTag();
+                if (compound.hasKey("name") && compound.hasKey("armor") && compound.hasKey("contents")) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+
     @EventHandler(priority = EventPriority.LOW)
     public void onDeath(PlayerDeathEvent event) {
         event.setDeathMessage(null);
@@ -188,6 +215,11 @@ public class MatchListener implements Listener {
         Player player = (Player) event.getEntity();
         PlayerProfile profile = PlayerProfile.get(player);
 
+        //profile will be null when damaged player is a citizens player NPC, but is not a pvp bot
+        if (profile == null) {
+            return;
+        }
+
         if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
             Match match = profile.getMatch();
             TeamPlayer teamPlayer = match.getTeamPlayer(player);
@@ -235,6 +267,11 @@ public class MatchListener implements Listener {
 
             PlayerProfile entityProfile = PlayerProfile.get(entity);
             PlayerProfile damagerProfile = PlayerProfile.get(damager);
+
+            //profile will be null when damaged player is a citizens player NPC, but is not a pvp bot
+            if (entityProfile == null) {
+                return;
+            }
 
             if (entityProfile.getPlayerState() == PlayerState.IN_MATCH && damagerProfile.getPlayerState() == PlayerState.IN_MATCH && entityProfile.getMatch() == damagerProfile.getMatch()) {
                 Match match = entityProfile.getMatch();
@@ -321,6 +358,29 @@ public class MatchListener implements Listener {
                 Util.pushAway(player, event.getDamager().getLocation(), Config.MATCH_TNT_KNOCKBACK_VERTICAL.toDouble(), Config.MATCH_TNT_KNOCKBACK_HORIZONTAL.toDouble());
             } else {
                 event.setDamage(event.getDamage() / Config.MATCH_TNT_DIVIDE_DAMAGE.toDouble());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onSpawn(ItemSpawnEvent event) {
+        Item item = event.getEntity();
+        if (item == null) {
+            return;
+        }
+
+        for (Match match : Match.getMatches().values()) {
+            ArenaDetail arenaDetail = match.getArenaDetail();
+            if (arenaDetail == null) {
+                return;
+            }
+
+
+            Cuboid cuboid = arenaDetail.getCuboid();
+            Location itemLocation = item.getLocation();
+
+            if (cuboid.contains(itemLocation)) {
+                match.getEntities().add(new MatchEntity(item));
             }
         }
     }
@@ -435,13 +495,16 @@ public class MatchListener implements Listener {
                         profile.getCooldowns().put(CooldownType.GOLDEN_HEAD, new Cooldown(1));
 
                         Common.playSound(player, Sound.EAT);
-                        player.removePotionEffect(PotionEffectType.REGENERATION);
-                        player.removePotionEffect(PotionEffectType.ABSORPTION);
-                        player.removePotionEffect(PotionEffectType.SPEED);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 2));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 0));
-                        player.setFoodLevel(Math.min(player.getFoodLevel() + 6, 20));
+                        for (String s : Config.MATCH_GOLDEN_HEAD_EFFECTS.toStringList()) {
+                            String[] effect = s.split(";");
+                            PotionEffectType type = PotionEffectType.getByName(effect[0]);
+                            int duration = Integer.parseInt(effect[1]);
+                            int amplifier = Integer.parseInt(effect[2]);
+
+                            player.removePotionEffect(type);
+                            player.addPotionEffect(new PotionEffect(type, duration, amplifier));
+                        }
+                        player.setFoodLevel(Math.min(player.getFoodLevel() + Config.MATCH_GOLDEN_HEAD_FOOD_LEVEL.toInteger(), 20));
                         player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
                         player.updateInventory();
                     }
@@ -463,6 +526,7 @@ public class MatchListener implements Listener {
                             event.setCancelled(true);
                             return;
                         } else {
+                            event.setUseItemInHand(Event.Result.ALLOW); // Try to fix issue #312 - Ender pearl issue
                             profile.getCooldowns().put(CooldownType.ENDER_PEARL, new Cooldown(16) {
                                 @Override
                                 public void cancelCountdown() {

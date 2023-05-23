@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitLoadout;
@@ -20,8 +21,8 @@ import java.util.List;
 
 public class ProfileKitData {
 
-	@Getter private int elo = 1000;
-	@Getter @Setter private int peakElo = 1000;
+	@Getter private int elo = Config.PROFILE_DEFAULT_ELO.toInteger();
+	@Getter @Setter private int peakElo = Config.PROFILE_DEFAULT_ELO.toInteger();
 	@Getter @Setter private int unrankedWon = 0;
 	@Getter @Setter private int unrankedLost = 0;
 	@Getter @Setter private int rankedWon = 0;

@@ -1,4 +1,4 @@
-package rip.diamond.practice.misc.commands;
+package rip.diamond.practice.debug;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

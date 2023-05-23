@@ -6,7 +6,7 @@ debug: false
 arena-kit-auto-save: false
 ## Should Eden disable auto saving world?
 ## Note that you have to manually do `/save-all` if you want to save the world if this option is set to true
-## Disable auto saving world will reset the area if you close the server by not using `/stop` (which is a bad habit)
+## Disable auto saving world will not save the world after you do `/stop`
 disable-save-world: true
 ## MongoDB login information
 mongo:
@@ -149,6 +149,18 @@ match:
       vertical: 1.1
       ## The knockback horizontal multiplier
       horizontal: 1.2
+  ##Option to set golden head related stuff
+  golden-head:
+    ## A potion effect is separated to 3 parts - Effect Type, Duration and Amplifier. Each part is separated by using ';'
+    ## Effect Type means the actual effect name. You can find effect name here: https://helpch.at/docs/1.10/index.html?org/bukkit/potion/PotionEffectType.html
+    ## Duration is the duration of the effect. Note that 20 ticks is equal to 1 second. Meaning 200 ticks will be 10 seconds.
+    ## Amplifier is the level if the effect. Level 1 potion effect will be 0; Level 3 potion effect will be 2, etc
+    effects:
+      - "REGENERATION;200;2"
+      - "ABSORPTION;2400;0"
+      - "SPEED;200;0"
+    ## How much food level should system gives to player when they eat a golden head?
+    food-level: 6
 ## Overall event config
 event:
   ## Sumo Event configuration
@@ -169,6 +181,8 @@ chat-format:
   format: "&a%1$s&f: %2$s"
 ## Player profile options
 profile:
+  ## The default elo for the player
+  default-elo: 1000
   ## Should Eden save all online player data while server is stopping
   ## Disable this if you used Eden's API to modify eden's player data document
   save-on-server-stop: true

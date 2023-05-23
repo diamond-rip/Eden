@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
+import rip.diamond.practice.event.SettingsChangeEvent;
 import rip.diamond.practice.util.option.FalseOption;
 import rip.diamond.practice.util.option.Option;
 import rip.diamond.practice.util.option.TrueOption;
@@ -243,6 +244,11 @@ public enum ProfileSettings {
 
     private int findIndex(Option option) {
         return getOptions().indexOf(option);
+    }
+
+    public void runSettingsChangeEvent(Player player, PlayerProfile profile) {
+        SettingsChangeEvent event = new SettingsChangeEvent(player, profile, this);
+        event.call();
     }
 
     private static List<Option> getBooleanDefaultOptions(boolean defaultValue) {

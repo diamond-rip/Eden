@@ -203,8 +203,7 @@ public class PartyCommand extends Command {
                 }
                 Party party = Party.getByPlayer(player);
                 if (party == null) {
-                    Language.PARTY_NOT_IN_A_PARTY.sendMessage(player);
-                    return;
+                    party = new Party(player, Config.PARTY_DEFAULT_MAX_SIZE.toInteger());
                 }
                 if (!party.getLeader().getUniqueID().equals(player.getUniqueId())) {
                     Language.PARTY_ONLY_LEADER.sendMessage(player);

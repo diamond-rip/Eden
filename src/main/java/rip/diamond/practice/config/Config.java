@@ -73,6 +73,8 @@ public enum Config {
     MATCH_TNT_KNOCKBACK_ENABLED("match.tnt.knockback.enabled", true),
     MATCH_TNT_KNOCKBACK_VERTICAL("match.tnt.knockback.vertical", 1.1),
     MATCH_TNT_KNOCKBACK_HORIZONTAL("match.tnt.knockback.horizontal", 1.2),
+    MATCH_GOLDEN_HEAD_EFFECTS("match.golden-head.effects", ImmutableList.of("REGENERATION;200;2", "ABSORPTION;2400;0", "SPEED;200;0")),
+    MATCH_GOLDEN_HEAD_FOOD_LEVEL("match.golden-head.food-level", 6),
     //Event
     EVENT_SUMO_EVENT_ARENAS("event.sumo-event.arenas", ImmutableList.of("sumoevent")),
     EVENT_SUMO_EVENT_KIT("event.sumo-event.kit", "sumo"),
@@ -80,6 +82,7 @@ public enum Config {
     CHAT_FORMAT_ENABLED("chat-format.enabled", true),
     CHAT_FORMAT_FORMAT("chat-format.format", "&a%1$s&f: %2$s"),
     //Profile
+    PROFILE_DEFAULT_ELO("profile.default-elo", 1000),
     PROFILE_SAVE_ON_SERVER_STOP("profile.save-on-server-stop", true),
     PROFILE_DEFAULT_SETTINGS_TIME_CHANGER("profile.default-settings.time-changer", "normal"),
     PROFILE_DEFAULT_SETTINGS_ARENA_SELECTION("profile.default-settings.arena-selection", false),

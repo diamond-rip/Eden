@@ -12,6 +12,7 @@ import org.bukkit.event.player.*;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.util.Util;
 
 public class SpectateListener implements Listener {
 
@@ -75,6 +76,10 @@ public class SpectateListener implements Listener {
             Player player = (Player) event.getEntity();
             PlayerProfile profile = PlayerProfile.get(player);
 
+            if (Util.isNPC(player)) {
+                return;
+            }
+
             if (profile.getPlayerState() == PlayerState.IN_SPECTATING) {
                 event.setCancelled(true);
             }
@@ -86,6 +91,10 @@ public class SpectateListener implements Listener {
         if (event.getDamager() instanceof Player) {
             Player attacker = (Player) event.getDamager();
             PlayerProfile attackProfile = PlayerProfile.get(attacker);
+
+            if (Util.isNPC(attacker)) {
+                return;
+            }
 
             if (attackProfile.getPlayerState() == PlayerState.IN_SPECTATING) {
                 event.setCancelled(true);

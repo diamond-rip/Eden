@@ -56,6 +56,10 @@ public class PlayerUtil {
 		player.updateInventory();
 		player.spigot().setCollidesWithEntities(false);
 
+		//Try to double set flying state and see if it fixes the multiworld problem - TODO
+		player.setAllowFlight(true);
+		player.setFlying(true);
+
 		clearArrow(player);
 	}
 

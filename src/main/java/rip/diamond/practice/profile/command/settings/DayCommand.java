@@ -19,6 +19,7 @@ public class DayCommand extends Command {
 
         profile.getSettings().replace(settings, settings.getOptions().get(1));
         profile.getSettings().get(settings).run(player);
+        settings.runSettingsChangeEvent(player, profile);
 
         Language.PROFILE_SETTINGS_SUCCESSFULLY_CHANGED.sendMessage(player, settings.getName(), profile.getSettings().get(settings).getName());
     }

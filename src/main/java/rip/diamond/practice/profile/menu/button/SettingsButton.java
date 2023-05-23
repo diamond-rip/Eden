@@ -49,8 +49,7 @@ public class SettingsButton extends Button {
             profile.getSettings().get(settings).run(player);
         }
 
-        SettingsChangeEvent event = new SettingsChangeEvent(player, profile, settings);
-        event.call();
+        settings.runSettingsChangeEvent(player, profile);
     }
 
     @Override

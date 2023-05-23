@@ -18,6 +18,7 @@ public class TogglePartyInviteCommand extends Command {
 
         profile.getSettings().replace(settings, settings.getNextOption(profile.getSettings().get(settings)));
         profile.getSettings().get(settings).run(player);
+        settings.runSettingsChangeEvent(player, profile);
 
         Language.PROFILE_SETTINGS_SUCCESSFULLY_CHANGED.sendMessage(player, settings.getName(), profile.getSettings().get(settings).getName());
     }

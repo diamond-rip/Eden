@@ -187,18 +187,27 @@ public class PlayerProfile {
         if (playerState != PlayerState.LOADING) {
             return;
         }
+        Document document = null;
+        if (Config.MONGO_ENABLED.toBoolean()) {
+            document = Eden.INSTANCE.getMongoManager().getProfiles().find(Filters.eq("uuid", uniqueId.toString())).first();
+        } else {
+            Common.sendMessage(getPlayer(), CC.RED + "[Eden] WARNING: Database connection is disabled. Statistics will not be loaded and saved.");
+        }
+
+        load(document, callback);
+    }
+
+    public void load(Document document, Consumer<Boolean> callback) {
+        if (playerState != PlayerState.LOADING) {
+            return;
+        }
         Tasks.runAsync(()-> {
             try {
                 loadDefault();
 
-                if (Config.MONGO_ENABLED.toBoolean()) {
-                    Document document = Eden.INSTANCE.getMongoManager().getProfiles().find(Filters.eq("uuid", uniqueId.toString())).first();
-                    //Document will be null if the player is new
-                    if (document != null) {
-                        fromBson(document);
-                    }
-                } else {
-                    Common.sendMessage(getPlayer(), CC.RED + "[Eden] WARNING: Database connection is disabled. Statistics will not be loaded and saved.");
+                //Document will be null if the player is new, or mongodb is not enabled
+                if (document != null) {
+                    fromBson(document);
                 }
 
                 loadDefaultAfter();

@@ -109,7 +109,7 @@ public class ItemBuilder implements Listener {
 	}
 
 	public ItemBuilder enchantments(Map<Enchantment, Integer> enchantments) {
-		this.is.addEnchantments(enchantments);
+		this.is.addUnsafeEnchantments(enchantments);
 		return this;
 	}
 
