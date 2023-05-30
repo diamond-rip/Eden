@@ -220,5 +220,8 @@ crafting:
 ## If you are not using, then turn every imanity related settings off
 imanity:
   teleport-async: true
+## Optimization related settings
+## These settings will sightly improve performance, but unexpected behavior might occur.
 optimization:
-  citizens-hook: false
+  ## If true, Eden will use NMS instead of bukkit API to set specific block
+  set-block-fast: true

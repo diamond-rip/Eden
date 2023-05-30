@@ -194,6 +194,7 @@ public class Eden extends JavaPlugin {
         new GiveUpCommand();
         new LeaveSpectateCommand();
         new NoSpeedCommand();
+        new RequeueCommand();
         new SpectateCommand();
         new TeleporterCommand();
         new ViewInventoryCommand();

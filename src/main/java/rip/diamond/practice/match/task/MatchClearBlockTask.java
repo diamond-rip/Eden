@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchTaskTicker;
 import rip.diamond.practice.match.team.TeamPlayer;
@@ -44,7 +45,11 @@ public class MatchClearBlockTask extends MatchTaskTicker {
             try {
                 Collection<ItemStack> itemStacks = location.clone().getBlock().getDrops();
 
-                Util.setBlockFast(location, Material.AIR, false);
+                if (Config.OPTIMIZATION_SET_BLOCK_FAST.toBoolean()) {
+                    Util.setBlockFast(location, Material.AIR, false);
+                } else {
+                    location.getBlock().setType(Material.AIR);
+                }
                 match.getPlacedBlocks().remove(location);
 
                 if (activateCallback) {

@@ -7,6 +7,9 @@ import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.arenas.Arena;
+import rip.diamond.practice.arenas.ArenaDetail;
+import rip.diamond.practice.util.cuboid.Cuboid;
+import rip.diamond.practice.util.cuboid.CuboidDirection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +41,7 @@ public abstract class DuplicateArenaRunnable extends BukkitRunnable {
     @Override
     public void run() {
         if (this.paste == null) {
-            Map<Location, Block> copy = this.blocksFromTwoPoints(this.copiedArena.getMin(), this.copiedArena.getMax());
+            Map<Location, Block> copy = this.blocksFromTwoPoints(copiedArena.getArenaDetails().get(0).getCuboid().outset(CuboidDirection.BOTH, 20));
             this.paste = new HashMap<>();
             for (Location loc : copy.keySet()) {
                 if (copy.get(loc).getType() != Material.AIR) {
@@ -81,7 +84,9 @@ public abstract class DuplicateArenaRunnable extends BukkitRunnable {
         }.runTaskTimer(this.plugin, 0L, 5L);
     }
 
-    public Map<Location, Block> blocksFromTwoPoints(Location loc1, Location loc2) {
+    public Map<Location, Block> blocksFromTwoPoints(Cuboid cuboid) {
+        Location loc1 = cuboid.getMinimumPoint();
+        Location loc2 = cuboid.getMaximumPoint();
         Map<Location, Block> blocks = new HashMap<>();
 
         int topBlockX = (Math.max(loc1.getBlockX(), loc2.getBlockX()));

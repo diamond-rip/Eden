@@ -99,7 +99,7 @@ public enum Config {
     //Imanity Spigot Options
     IMANITY_TELEPORT_ASYNC("imanity.teleport-async", true),
     //Optimization
-    OPTIMIZATION_CITIZENS_HOOK("optimization.citizens-hook", false),
+    OPTIMIZATION_SET_BLOCK_FAST("optimization.set-block-fast", true),
     ;
 
     @Getter private final String path;

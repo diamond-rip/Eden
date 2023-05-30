@@ -7,6 +7,8 @@ import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.util.CC;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.nametags.construct.NameTagInfo;
 import rip.diamond.practice.util.nametags.provider.NameTagProvider;
 
@@ -19,6 +21,11 @@ public class NameTagAdapter extends NameTagProvider {
     @Override
     public NameTagInfo fetchNameTag(Player target, Player viewer) {
         String prefix = Language.translate(getPrefix(target, viewer), target);
+        int length = prefix.length();
+        if (length > 16) {
+            Common.log(CC.RED + "[Eden] Nametag prefix should only contain 16 character. Currently prefix has " + length + " character. (" + prefix + ")");
+            return createNameTag("", "");
+        }
         return createNameTag(prefix, "");
     }
 

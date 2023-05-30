@@ -2,7 +2,6 @@ package rip.diamond.practice.layout;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.util.CC;
@@ -25,7 +24,7 @@ public class TabAdapter implements ImanityTabAdapter {
 
         int i = 0;
         int maxSlots = TablistUtil.getPossibleSlots(player);
-        List<Player> playerList = new ArrayList<Player>(Bukkit.getOnlinePlayers()).subList(0, Math.min(Bukkit.getOnlinePlayers().size(), TablistUtil.getPossibleSlots(player)));
+        List<Player> playerList = new ArrayList<Player>(Bukkit.getOnlinePlayers()).subList(0, Math.min(Bukkit.getOnlinePlayers().size(), maxSlots));
 
         for (Player target : playerList) {
             int x = i / (maxSlots / 20) + 1; //Somehow ImanityTablist slot count starts at 1, so we have to start at 1 :shrug:

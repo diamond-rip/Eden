@@ -32,7 +32,7 @@ public class HookManager {
             new EdenPlaceholderExpansion(plugin).register();
             this.placeholderAPIHook = new PlaceholderAPIHook();
         }
-        if (Checker.isPluginEnabled("Citizens") && Config.OPTIMIZATION_CITIZENS_HOOK.toBoolean()) {
+        if (Checker.isPluginEnabled("Citizens")) {
             this.citizensHook = new CitizensHook();
         }
     }

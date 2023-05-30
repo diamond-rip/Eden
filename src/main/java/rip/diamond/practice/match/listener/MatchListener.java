@@ -131,7 +131,7 @@ public class MatchListener implements Listener {
         ItemStack current = event.getCurrentItem();
         ItemStack cursor = event.getCursor();
 
-        if (current.getType() == Material.BOOK || current.getType() == Material.ENCHANTED_BOOK) {
+        if (current != null && (current.getType() == Material.BOOK || current.getType() == Material.ENCHANTED_BOOK)) {
             net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(current);
             if (nmsItem.hasTag()) {
                 NBTTagCompound compound = nmsItem.getTag();
@@ -139,7 +139,7 @@ public class MatchListener implements Listener {
                     event.setCancelled(true);
                 }
             }
-        } else if (cursor.getType() == Material.BOOK || cursor.getType() == Material.ENCHANTED_BOOK) {
+        } else if (cursor != null && (cursor.getType() == Material.BOOK || cursor.getType() == Material.ENCHANTED_BOOK)) {
             net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(cursor);
             if (nmsItem.hasTag()) {
                 NBTTagCompound compound = nmsItem.getTag();
