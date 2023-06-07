@@ -362,6 +362,8 @@ public enum Language {
     KIT_GAME_RULES_HYPIXELUHC_DESCRIPTION("kit.game-rules.hypixelUHC.description"),
     KIT_GAME_RULES_SPLEEF_RULES("kit.game-rules.spleef.rules"),
     KIT_GAME_RULES_SPLEEF_DESCRIPTION("kit.game-rules.spleef.description"),
+    KIT_GAME_RULES_REMOVE_SNOW_BLOCK_WHEN_SNOWBALL_HIT_RULES("kit.game-rules.spleef.rules"),
+    KIT_GAME_RULES_REMOVE_SNOW_BLOCK_WHEN_SNOWBALL_HIT_DESCRIPTION("kit.game-rules.spleef.description"),
     KIT_GAME_RULES_HEALTH_REGENERATION_RULES("kit.game-rules.health-regeneration.rules"),
     KIT_GAME_RULES_HEALTH_REGENERATION_DESCRIPTION("kit.game-rules.health-regeneration.description"),
     KIT_GAME_RULES_SHOW_HEALTH_RULES("kit.game-rules.show-health.rules"),

@@ -20,10 +20,11 @@ public class ViewInventoryCommand extends Command {
         PlayerProfile profile = PlayerProfile.get(player);
         String[] args = command.getArgs();
 
-        if (profile.getPlayerState() != PlayerState.IN_LOBBY) {
+        //Fix for #344 - Allow player to view post match inventory while in match
+        /*if (profile.getPlayerState() != PlayerState.IN_LOBBY) {
             Language.MATCH_VIEW_INVENTORY_WRONG_STATE.sendMessage(player);
             return;
-        }
+        }*/
 
         if (args.length != 1) {
             Language.MATCH_VIEW_INVENTORY_USAGE.sendMessage(player);

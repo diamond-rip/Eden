@@ -200,10 +200,13 @@ public class MatchListener implements Listener {
 
         player.setHealth(20);
         player.setVelocity(new Vector());
-        Util.teleport(player, player.getLocation().clone().add(0,2,0)); //Teleport 2 blocks higher, to try to re-do what MineHQ did (Make sure to place this line of code after setHealth, otherwise it won't work)
 
         event.setDroppedExp(0);
         event.getDrops().clear();
+
+        if (Config.MATCH_TP_2_BLOCKS_UP_WHEN_DIE.toBoolean()) {
+            Util.teleport(player, player.getLocation().clone().add(0,2,0)); //Teleport 2 blocks higher, to try to re-do what MineHQ did (Make sure to place this line of code after setHealth, otherwise it won't work)
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true) //A fix for #307 point 1 - try to cancel the hits which anticheat cancelled
@@ -366,6 +369,11 @@ public class MatchListener implements Listener {
     public void onSpawn(ItemSpawnEvent event) {
         Item item = event.getEntity();
         if (item == null) {
+            return;
+        }
+
+        if (item.getItemStack().getType() == Material.BED) {
+            event.setCancelled(true);
             return;
         }
 
@@ -957,12 +965,6 @@ public class MatchListener implements Listener {
         if (event.getEntityType() == EntityType.ARROW) {
             projectile.remove();
         }
-        if (event.getEntityType() == EntityType.SNOWBALL) {
-            Location location = event.getEntity().getLocation().clone().add(0, -1, 0);
-            if (location.getBlock().getType() == Material.SNOW_BLOCK && Config.MATCH_SNOW_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT.toBoolean()) {
-                location.getBlock().setType(Material.AIR);
-            }
-        }
         if (projectile.getShooter() instanceof Player) {
             Player player = (Player) projectile.getShooter();
             PlayerProfile profile = PlayerProfile.get(player);
@@ -976,6 +978,13 @@ public class MatchListener implements Listener {
                 }
                 if (!match.getTeamPlayer(player).isAlive() || match.getTeamPlayer(player).isRespawning()) {
                     return;
+                }
+
+                if (event.getEntityType() == EntityType.SNOWBALL) {
+                    Location location = event.getEntity().getLocation().clone().add(0, -1, 0);
+                    if (location.getBlock().getType() == Material.SNOW_BLOCK && match.getKit().getGameRules().isRemoveSnowBlockWhenSnowballHit()) {
+                        location.getBlock().setType(Material.AIR);
+                    }
                 }
                 match.getEntities().removeIf(matchEntity -> matchEntity.getEntity().getEntityId() == projectile.getEntityId());
             }

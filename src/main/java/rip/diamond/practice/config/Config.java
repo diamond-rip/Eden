@@ -49,7 +49,7 @@ public enum Config {
     MATCH_OUTSIDE_CUBOID_INSTANT_DEATH("match.outside-cuboid-instant-death", true),
     MATCH_REMOVE_CACTUS_SUGAR_CANE_PHYSICS("match.remove-cactus-sugar-cane-physics", true),
     MATCH_DEATH_LIGHTNING("match.death-lightning", true),
-    MATCH_SNOW_REMOVE_SHOW_BLOCK_WHEN_SNOWBALL_HIT("match.snow.remove-snow-block-when-snowball-hit", false),
+    MATCH_TP_2_BLOCKS_UP_WHEN_DIE("match.tp-2-blocks-up-when-die", false),
     MATCH_SNOW_SNOWBALL_DROP_CHANCE("match.snow.snowball-drop-chance", 50),
     MATCH_SNOW_SNOWBALL_DROP_AMOUNT("match.snow.snowball-drop-amount", 4),
     MATCH_TITLE_SCORE("match.title.score", true),

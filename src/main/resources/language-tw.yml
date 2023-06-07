@@ -918,6 +918,9 @@ kit:
     spleef:
       rules: "鏟雪"
       description: "設置該職業是否允許破壞雪地和沙子"
+    remove-snow-block-when-snowball-hit:
+      rules: "移除雪地"
+      description: "設置該職業是否在雪球碰觸雪地的時候移除雪地"
     health-regeneration:
       rules: "血量回復"
       description: "設置該職業是否允許血量自動回復"

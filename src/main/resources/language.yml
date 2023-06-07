@@ -858,7 +858,10 @@ kit:
       description: "Setting for match to replace golden apple's regeneration to Regeneration III, and enable golden head"
     spleef:
       rules: "Spleef"
-      description: "Setting for match to to allow breaking snow and sand"
+      description: "Setting for match to allow breaking snow and sand"
+    remove-snow-block-when-snowball-hit:
+      rules: "Remove Snow Block When Snowball Hit"
+      description: "Setting for snow block removal when snowball hit it"
     health-regeneration:
       rules: "Health Regeneration"
       description: "Setting for match to allow auto regeneration"

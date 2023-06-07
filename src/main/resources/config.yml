@@ -69,11 +69,10 @@ match:
   ## If true, when player places a block near cactus and sugar cane, cactus won't be destroyed
   remove-cactus-sugar-cane-physics: true
   death-lightning: true
+  ## When a player dies, should Eden teleport the player 2 blocks up?
+  tp-2-blocks-up-when-die: true
   ## Snow related options - Only works in spleef kit game rules
   snow:
-    ## Should snow block be removed when the snowball hit the object?
-    ## Set to true if you wish to remove the object (which is the snow block)
-    remove-snow-block-when-snowball-hit: false
     ## Chance of getting snowball when break a snow block (In 0 - 100)
     snowball-drop-chance: 50
     ## When you break the snow block, how many snowball should system give you?
@@ -89,6 +88,7 @@ match:
   ## Default is 100, and is recommended. Change this value with caution
   end-duration: 100
   ## What block should player allow to break when kit game rule has build enabled?
+  ## Do not let player break blocks which contain tile entities (For example: chest, sign)
   allow-breaking-blocks:
     - DEAD_BUSH
     - GRASS
