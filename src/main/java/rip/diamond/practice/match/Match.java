@@ -492,7 +492,7 @@ public abstract class Match {
         if (team == null) {
             throw new PracticeUnexpectedException("Cannot find a suitable team to calculate the maximum allowed hits in boxing");
         }
-        return team.getTeamPlayers().size() * 10; // TODO: 19/6/2023
+        return team.getTeamPlayers().size() * 100;
     }
 
     public long getElapsedDuration() {

@@ -61,6 +61,10 @@ public class QueueCommand extends Command {
                 return;
             }
             QueueType queueType = QueueType.valueOf(args[0].toUpperCase());
+            
+            if (queueType == QueueType.RANKED) {
+                // TODO: 21/6/2023  https://github.com/diamond-rip/Eden/issues/312 #4
+            }
 
             Kit kit = Kit.getByName(args[1]);
             if (kit == null) {
