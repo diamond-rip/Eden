@@ -27,7 +27,7 @@ public class Party {
     private final long createdAt = System.currentTimeMillis();
     @Setter private PartyMember leader;
     private final List<PartyMember> partyMembers = new ArrayList<>();
-    private final List<PartyInvite> invites = new ArrayList<>();
+    private final Map<UUID, PartyInvite> invites = new HashMap<>();
     private int maxSize;
     private boolean muted = false;
     private PartyPrivacy privacy = PartyPrivacy.CLOSED;
@@ -119,7 +119,7 @@ public class Party {
             return;
         }
 
-        invites.removeIf(invite -> invite.getUuid().equals(player.getUniqueId()));
+        invites.remove(player.getUniqueId());
         partyMembers.add(new PartyMember(player));
         profile.setParty(this);
         profile.setupItems();
@@ -174,7 +174,7 @@ public class Party {
 
     public void invite(Player player) {
         PartyInvite invite = new PartyInvite(player);
-        invites.add(invite);
+        invites.put(player.getUniqueId(), invite);
 
         broadcast(Language.PARTY_INVITE_TEAM_MESSAGE.toString(leader.getUsername(), invite.getUsername()));
 

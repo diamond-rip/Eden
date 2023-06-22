@@ -197,7 +197,7 @@ public abstract class Match {
                 player.playSound(deadPlayer.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
             }
         }
-        if (event.isPlayDeathEffect()) {
+        if (event.isPlayDeathEffect() && Config.MATCH_DEATH_ANIMATION.toBoolean()) {
             Util.playDeathAnimation(deadPlayer, getPlayersAndSpectators().stream().filter(player -> player != deadPlayer).collect(Collectors.toList()));
         }
 
@@ -492,7 +492,7 @@ public abstract class Match {
         if (team == null) {
             throw new PracticeUnexpectedException("Cannot find a suitable team to calculate the maximum allowed hits in boxing");
         }
-        return team.getTeamPlayers().size() * 100;
+        return team.getTeamPlayers().size() * 10; // TODO: 19/6/2023
     }
 
     public long getElapsedDuration() {

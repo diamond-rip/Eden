@@ -12,6 +12,7 @@ import rip.diamond.practice.match.MatchType;
 import rip.diamond.practice.match.impl.SoloMatch;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
+import rip.diamond.practice.util.TaskTicker;
 import rip.diamond.practice.util.Util;
 
 import java.util.Objects;
@@ -52,10 +53,20 @@ public class MatchResetTask extends MatchTaskTicker {
 
         //Give 'Play Again' item like Minemen Club
         if (Config.MATCH_ALLOW_REQUEUE.toBoolean() && match instanceof SoloMatch) {
-            match.getMatchPlayers().stream()
-                    .filter(Objects::nonNull) //If match players contains citizens NPC, because of it is already destroyed, it will be null
-                    .filter(player -> !EdenEvent.isInEvent(player)) //Do not give player 'Play Again' item if they are in an event
-                    .forEach(player -> EdenItems.giveItem(player, EdenItems.MATCH_REQUEUE));
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    match.getMatchPlayers().stream()
+                            .filter(Objects::nonNull) //If match players contains citizens NPC, because of it is already destroyed, it will be null
+                            .filter(player -> !EdenEvent.isInEvent(player)) //Do not give player 'Play Again' item if they are in an event
+                            .forEach(player -> {
+                                PlayerProfile profile = PlayerProfile.get(player);
+                                if (profile.getMatch() == match) {
+                                    EdenItems.giveItem(player, EdenItems.MATCH_REQUEUE);
+                                }
+                            });
+                }
+            }.runTaskLater(plugin, 20L);
         }
     }
 

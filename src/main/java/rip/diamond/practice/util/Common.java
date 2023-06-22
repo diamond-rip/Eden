@@ -74,6 +74,9 @@ public class Common {
             return;
         }
         for (String s : str) {
+            if (s.equals("null")) {
+                continue;
+            }
             player.sendMessage(CC.translate(s));
         }
     }
@@ -83,6 +86,9 @@ public class Common {
             return;
         }
         for (String s : str) {
+            if (s.equals("null")) {
+                continue;
+            }
             player.sendMessage(CC.translate(s));
         }
     }

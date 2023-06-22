@@ -504,6 +504,7 @@ public enum Language {
     MATCH_HEALING_METHOD_GOLDEN_APPLE("match.healing-method.golden-apple"),
     MATCH_HEALING_METHOD_GOD_APPLE("match.healing-method.god-apple"),
     MATCH_NEW_ROUND_START_COUNTDOWN("match.new-round-start.countdown"),
+    MATCH_NEW_ROUND_START_TITLE("match.new-round-start.title"),
     MATCH_NEW_ROUND_START_MESSAGE("match.new-round-start.message"),
     MATCH_NEW_ROUND_START_SCORED_TITLE("match.new-round-start.scored-title"),
     MATCH_NEW_ROUND_START_SCORED_SUBTITLE("match.new-round-start.scored-subtitle"),

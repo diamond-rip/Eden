@@ -124,10 +124,10 @@ public class Checker {
     }
 
     public static boolean canDamage(Player player) {
-        if (Util.isNPC(player)) {
-            return false;
-        }
         PlayerProfile profile = PlayerProfile.get(player);
+        if (Util.isNPC(player)) {
+            return profile != null;
+        }
         return profile.getPlayerState() == PlayerState.IN_MATCH
                 && profile.getMatch() != null
                 && profile.getMatch().getTeamPlayer(player).isAlive()

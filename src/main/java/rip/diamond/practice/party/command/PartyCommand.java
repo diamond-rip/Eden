@@ -158,8 +158,8 @@ public class PartyCommand extends Command {
                     Language.PARTY_ALREADY_IN_PARTY.sendMessage(player);
                     return;
                 }
-                if (party.getInvites().stream().anyMatch(partyInvite -> partyInvite.getUuid().equals(player.getUniqueId()))) {
-                    party.getInvites().removeIf(partyInvite -> partyInvite.getUuid().equals(player.getUniqueId()));
+                if (party.getInvites().containsKey(player.getUniqueId())) {
+                    party.getInvites().remove(player.getUniqueId());
                     party.join(player, false);
                 } else if (party.getPrivacy() == PartyPrivacy.OPEN) {
                     party.join(player, false);
@@ -209,7 +209,7 @@ public class PartyCommand extends Command {
                     Language.PARTY_ONLY_LEADER.sendMessage(player);
                     return;
                 }
-                if (party.getInvites().stream().anyMatch(partyInvite -> partyInvite.getUuid().equals(target.getUniqueId()))) {
+                if (party.getInvites().values().stream().filter(partyInvite -> !partyInvite.isExpired()).anyMatch(partyInvite -> partyInvite.getUuid().equals(target.getUniqueId()))) {
                     Language.PARTY_ALREADY_INVITE.sendMessage(player);
                     return;
                 }

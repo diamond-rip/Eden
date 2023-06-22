@@ -1193,6 +1193,7 @@ match:
     god-apple: "金蘋果"
   new-round-start:
     countdown: "&e{0}..."
+    title: "&e{0}..."
     message: "&a戰鬥開始!"
     scored-title: "{0}{1} &e成功得分!"
     scored-subtitle: "{0}{1} &7- {2}{3}"

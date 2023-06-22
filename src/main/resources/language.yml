@@ -1136,6 +1136,7 @@ match:
     god-apple: "Golden Apple"
   new-round-start:
     countdown: "&e{0}..."
+    title: "&e{0}..."
     message: "&aMatch started!"
     scored-title: "{0}{1} &escored!"
     scored-subtitle: "{0}{1} &7- {2}{3}"

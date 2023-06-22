@@ -2,6 +2,7 @@ package rip.diamond.practice.match.task;
 
 import org.bukkit.entity.Player;
 import org.github.paperspigot.Title;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchState;
@@ -49,7 +50,7 @@ public class MatchRespawnTask extends MatchTaskTicker {
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
         player.setAllowFlight(true);
         player.setFlying(true);
-        if (getStartTick() > 0) Util.teleport(player, match.getTeam(player).getSpawnLocation());
+        if (getStartTick() > 0 && Config.MATCH_RESPAWN_TELEPORT_TO_SPAWN_WHEN_DIE.toBoolean()) Util.teleport(player, match.getTeam(player).getSpawnLocation());
 
         //我也不知道為什麼, 這兩項東西需要重新用一次才能正常運作
         player.setAllowFlight(true);

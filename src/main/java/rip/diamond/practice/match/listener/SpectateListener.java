@@ -154,6 +154,21 @@ public class SpectateListener implements Listener {
     }
 
     /**
+     * Try to fix player fly state when player changes world
+     * A fix for <a href="https://github.com/diamond-rip/Eden/issues/374">#374</a>
+     */
+    @EventHandler
+    public void onChangeWorld(PlayerChangedWorldEvent event) {
+        Player player = event.getPlayer();
+        PlayerProfile profile = PlayerProfile.get(player);
+
+        if (profile.getPlayerState() == PlayerState.IN_SPECTATING) {
+            player.setAllowFlight(true);
+            player.setFlying(true);
+        }
+    }
+
+    /**
      * Don't let spectators be affected by potions dropped near them
      */
     @EventHandler

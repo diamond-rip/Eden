@@ -52,6 +52,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
         }
 
         match.broadcastMessage(Language.MATCH_NEW_ROUND_START_COUNTDOWN.toString(getTicks()));
+        match.broadcastTitle(Language.MATCH_NEW_ROUND_START_TITLE.toString(getTicks()));
         match.broadcastSound(Sound.CLICK);
     }
 

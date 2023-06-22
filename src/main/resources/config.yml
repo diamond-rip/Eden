@@ -69,8 +69,11 @@ match:
   ## If true, when player places a block near cactus and sugar cane, cactus won't be destroyed
   remove-cactus-sugar-cane-physics: true
   death-lightning: true
+  death-animation: true
   ## When a player dies, should Eden teleport the player 2 blocks up?
   tp-2-blocks-up-when-die: true
+  ## When player dies and if the kit allows respawn, should Eden teleport the player to their spawn?
+  respawn-teleport-to-spawn-when-die: true
   ## Snow related options - Only works in spleef kit game rules
   snow:
     ## Chance of getting snowball when break a snow block (In 0 - 100)

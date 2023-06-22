@@ -90,7 +90,7 @@ public class MatchMovementHandler {
                 ArenaDetail arenaDetail = match.getArenaDetail();
                 Arena arena = arenaDetail.getArena();
 
-                if (!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, 10).contains(player) || arena.getYLimit() > player.getLocation().getY()) {
+                if (!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, 20).contains(player) || arena.getYLimit() > player.getLocation().getY()) {
                     player.teleport(arenaDetail.getSpectator());
                     return;
                 }

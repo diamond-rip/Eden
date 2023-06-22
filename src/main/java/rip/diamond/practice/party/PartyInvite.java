@@ -16,7 +16,7 @@ public class PartyInvite {
 		this.username = player.getName();
 	}
 
-	public boolean hasExpired() {
+	public boolean isExpired() {
 		return System.currentTimeMillis() >= expiresAt;
 	}
 

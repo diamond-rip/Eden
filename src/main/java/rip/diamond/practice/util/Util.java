@@ -60,6 +60,9 @@ public class Util {
         Bukkit.getPluginManager().callEvent(event);
 
         if (!event.isCancelled()) {
+            if (Util.isNPC(player)) {
+                ((CraftPlayer)player).getHandle().invulnerableTicks = 0;
+            }
             player.damage(damage);
         }
     }
