@@ -918,9 +918,6 @@ kit:
     spleef:
       rules: "鏟雪"
       description: "設置該職業是否允許破壞雪地和沙子"
-    remove-snow-block-when-snowball-hit:
-      rules: "移除雪地"
-      description: "設置該職業是否在雪球碰觸雪地的時候移除雪地"
     health-regeneration:
       rules: "血量回復"
       description: "設置該職業是否允許血量自動回復"
@@ -1477,6 +1474,7 @@ queue:
   error-not-found-queue-profile: "&c錯誤: 未能成功找到 QueueProfile"
   wrong-state: "&c無法在此情況下加入隊列"
   error-kit-data-not-found: "&c無法加入隊列, 請重新登入伺服器"
+  error-not-enough-wins: "&c你需要 {0} 場勝利場數才能匹配排位賽, 你現在有 {1} 勝利場數"
   success-join: "&f你已被加進了 &b{0} &f的等候隊列"
   success-quit: "&f你已退出 &b{0} &f的等候隊列"
 button:

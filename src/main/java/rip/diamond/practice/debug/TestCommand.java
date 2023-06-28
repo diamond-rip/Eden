@@ -16,13 +16,13 @@ public class TestCommand extends Command {
         String[] args = command.getArgs();
 
         if (args[0].equalsIgnoreCase("1")) {
-            EdenEvent.getOnGoingEvent().countdown(2);
-            Common.sendMessage(sender, "done 1");
+            sender.setFoodLevel(10);
             return;
         } else if (args[0].equalsIgnoreCase("2")) {
             Bukkit.getPlayer("GoodestEnglish").performCommand("party create");
             Bukkit.getPlayer("Fauzh").performCommand("party join GoodestEnglish");
             Bukkit.getPlayer("DragonL").performCommand("party join GoodestEnglish");
+            return;
         }
 
 

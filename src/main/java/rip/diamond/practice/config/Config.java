@@ -43,6 +43,8 @@ public enum Config {
     PARTY_DEFAULT_MAX_SIZE("party.default-max-size", 30),
     //Lobby
     LOBBY_DISPLAY_PLAYERS("lobby.display-players", true),
+    //Queue
+    QUEUE_RANKED_REQUIRED_WINS("queue.ranked-required-wins", 10),
     //Match
     MATCH_ALLOW_REQUEUE("match.allow-requeue", true),
     MATCH_INSTANT_GAPPLE_EFFECTS("match.instant-gapple-effects", false),

@@ -33,7 +33,9 @@ import rip.diamond.practice.layout.TabAdapter;
 import rip.diamond.practice.leaderboard.LeaderboardManager;
 import rip.diamond.practice.leaderboard.command.ReloadLeaderboardCommand;
 import rip.diamond.practice.lobby.LobbyManager;
+import rip.diamond.practice.lobby.LobbyMovementHandler;
 import rip.diamond.practice.match.Match;
+import rip.diamond.practice.match.MatchMovementHandler;
 import rip.diamond.practice.match.command.*;
 import rip.diamond.practice.match.listener.MatchListener;
 import rip.diamond.practice.match.listener.SpectateListener;
@@ -227,6 +229,9 @@ public class Eden extends JavaPlugin {
         Queue.init();
         DuelRequest.init();
         leaderboardManager.init();
+
+        new LobbyMovementHandler(this);
+        new MatchMovementHandler();
 
         this.entityHider = new EntityHider(this, EntityHider.Policy.BLACKLIST).init();
         this.scoreboardHandler = new SconeyHandler(this, new ScoreboardAdapter());

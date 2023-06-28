@@ -24,7 +24,6 @@ public class KitGameRules implements Cloneable {
 	@Getter private boolean projectileOnly = false;
 	@Getter private boolean hypixelUHC = false;
 	@Getter private boolean spleef = false;
-	@Getter private boolean removeSnowBlockWhenSnowballHit = true;
 	@Getter private boolean healthRegeneration = true;
 	@Getter private boolean showHealth = true;
 	@Getter private boolean foodLevelChange = true;
@@ -94,7 +93,6 @@ public class KitGameRules implements Cloneable {
 		projectileOnly(Language.KIT_GAME_RULES_PROJECTILE_ONLY_RULES.toString(), Language.KIT_GAME_RULES_PROJECTILE_ONLY_DESCRIPTION.toString()),
 		hypixelUHC(Language.KIT_GAME_RULES_HYPIXELUHC_RULES.toString(), Language.KIT_GAME_RULES_HYPIXELUHC_DESCRIPTION.toString()),
 		spleef(Language.KIT_GAME_RULES_SPLEEF_RULES.toString(), Language.KIT_GAME_RULES_SPLEEF_DESCRIPTION.toString()),
-		removeSnowBlockWhenSnowballHit(Language.KIT_GAME_RULES_REMOVE_SNOW_BLOCK_WHEN_SNOWBALL_HIT_RULES.toString(), Language.KIT_GAME_RULES_REMOVE_SNOW_BLOCK_WHEN_SNOWBALL_HIT_DESCRIPTION.toString()),
 		healthRegeneration(Language.KIT_GAME_RULES_HEALTH_REGENERATION_RULES.toString(), Language.KIT_GAME_RULES_HEALTH_REGENERATION_DESCRIPTION.toString()),
 		showHealth(Language.KIT_GAME_RULES_SHOW_HEALTH_RULES.toString(), Language.KIT_GAME_RULES_SHOW_HEALTH_DESCRIPTION.toString()),
 		foodLevelChange(Language.KIT_GAME_RULES_FOOD_LEVEL_CHANGE_RULES.toString(), Language.KIT_GAME_RULES_FOOD_LEVEL_CHANGE_DESCRIPTION.toString()),

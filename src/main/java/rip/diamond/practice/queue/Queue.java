@@ -3,11 +3,13 @@ package rip.diamond.practice.queue;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.queue.task.QueueTask;
 
 import java.util.HashMap;
@@ -50,6 +52,15 @@ public class Queue {
         if (profile.getKitData().get(kit.getName()) == null) {
             Language.QUEUE_ERROR_KIT_DATA_NOT_FOUND.sendMessage(player);
             return;
+        }
+
+        if (queueType == QueueType.RANKED) {
+            int required = Config.QUEUE_RANKED_REQUIRED_WINS.toInteger();
+            int wins = profile.getKitData().values().stream().mapToInt(ProfileKitData::getUnrankedWon).sum();
+            if (wins < required) {
+                Language.QUEUE_ERROR_NOT_ENOUGH_WINS.sendMessage(player, required, wins);
+                return;
+            }
         }
 
         QueueProfile qProfile = new QueueProfile(player.getUniqueId(), kit, profile.getKitData().get(kit.getName()).getElo(), queueType);

@@ -982,7 +982,7 @@ public class MatchListener implements Listener {
 
                 if (event.getEntityType() == EntityType.SNOWBALL) {
                     Location location = event.getEntity().getLocation().clone().add(0, -1, 0);
-                    if (location.getBlock().getType() == Material.SNOW_BLOCK && match.getKit().getGameRules().isRemoveSnowBlockWhenSnowballHit()) {
+                    if (location.getBlock().getType() == Material.SNOW_BLOCK && match.getKit().getGameRules().isSpleef()) {
                         location.getBlock().setType(Material.AIR);
                     }
                 }

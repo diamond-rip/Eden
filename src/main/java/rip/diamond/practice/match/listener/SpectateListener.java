@@ -12,6 +12,7 @@ import org.bukkit.event.player.*;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.util.Tasks;
 import rip.diamond.practice.util.Util;
 
 public class SpectateListener implements Listener {
@@ -163,8 +164,10 @@ public class SpectateListener implements Listener {
         PlayerProfile profile = PlayerProfile.get(player);
 
         if (profile.getPlayerState() == PlayerState.IN_SPECTATING) {
-            player.setAllowFlight(true);
-            player.setFlying(true);
+            Tasks.runLater(() -> {
+                player.setAllowFlight(true);
+                player.setFlying(true);
+            }, 2L);
         }
     }
 

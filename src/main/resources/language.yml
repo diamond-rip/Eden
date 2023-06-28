@@ -859,9 +859,6 @@ kit:
     spleef:
       rules: "Spleef"
       description: "Setting for match to allow breaking snow and sand"
-    remove-snow-block-when-snowball-hit:
-      rules: "Remove Snow Block When Snowball Hit"
-      description: "Setting for snow block removal when snowball hit it"
     health-regeneration:
       rules: "Health Regeneration"
       description: "Setting for match to allow auto regeneration"
@@ -1421,6 +1418,7 @@ queue:
   error-not-found-queue-profile: "&cError: Cannot find QueueProfile"
   wrong-state: "&cCannot join a queue in the current state"
   error-kit-data-not-found: "&cCannot join a queue, please rejoin"
+  error-not-enough-wins: "&cYou need at least {0} wins to queue ranked. You now have {1} wins."
   success-join: "&fYou have joined &b{0} &f's game queue"
   success-quit: "&fYou have left &b{0} &f's game queue"
 button:

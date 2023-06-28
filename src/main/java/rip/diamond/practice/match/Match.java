@@ -20,6 +20,7 @@ import rip.diamond.practice.event.MatchPlayerDeathEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
 import rip.diamond.practice.kits.Kit;
+import rip.diamond.practice.lobby.LobbyMovementHandler;
 import rip.diamond.practice.match.task.*;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamColor;
@@ -63,8 +64,6 @@ public abstract class Match {
         new MatchClearItemTask();
         new MatchPostMatchInventoriesClearTask();
         new ProfileCooldownTask();
-
-        new MatchMovementHandler();
     }
 
     public Match(ArenaDetail arenaDetail, Kit kit, List<Team> teams) {

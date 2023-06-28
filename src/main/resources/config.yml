@@ -57,6 +57,9 @@ party:
 lobby:
   ## Should player allow to see other players?
   display-players: false
+queue:
+  ## How many wins should a player have to have access to queue ranked matches?
+  ranked-required-wins: 10
 match:
   ## This option will give a 'Play Again' item to match players when a match is ended, like Minemen Club
   allow-requeue: true

@@ -17,7 +17,7 @@ public class PlayerUtil {
 			return;
 		}
 		player.setHealth(20.0D);
-		player.setSaturation(20.0F);
+		player.setSaturation(0.0F);
 		player.setFallDistance(0.0F);
 		player.setFoodLevel(20);
 		player.setFireTicks(0);

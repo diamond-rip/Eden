@@ -362,8 +362,6 @@ public enum Language {
     KIT_GAME_RULES_HYPIXELUHC_DESCRIPTION("kit.game-rules.hypixelUHC.description"),
     KIT_GAME_RULES_SPLEEF_RULES("kit.game-rules.spleef.rules"),
     KIT_GAME_RULES_SPLEEF_DESCRIPTION("kit.game-rules.spleef.description"),
-    KIT_GAME_RULES_REMOVE_SNOW_BLOCK_WHEN_SNOWBALL_HIT_RULES("kit.game-rules.spleef.rules"),
-    KIT_GAME_RULES_REMOVE_SNOW_BLOCK_WHEN_SNOWBALL_HIT_DESCRIPTION("kit.game-rules.spleef.description"),
     KIT_GAME_RULES_HEALTH_REGENERATION_RULES("kit.game-rules.health-regeneration.rules"),
     KIT_GAME_RULES_HEALTH_REGENERATION_DESCRIPTION("kit.game-rules.health-regeneration.description"),
     KIT_GAME_RULES_SHOW_HEALTH_RULES("kit.game-rules.show-health.rules"),
@@ -647,6 +645,7 @@ public enum Language {
     QUEUE_ERROR_NOT_FOUND_QUEUE_PROFILE("queue.error-not-found-queue-profile"),
     QUEUE_WRONG_STATE("queue.wrong-state"),
     QUEUE_ERROR_KIT_DATA_NOT_FOUND("queue.error-kit-data-not-found"),
+    QUEUE_ERROR_NOT_ENOUGH_WINS("queue.error-not-enough-wins"),
     QUEUE_SUCCESS_JOIN("queue.success-join"),
     QUEUE_SUCCESS_QUIT("queue.success-quit"),
     BUTTON_BACK_NAME("button.back.name"),
@@ -685,13 +684,13 @@ public enum Language {
 
     public String toString(Player player, Object... replacements) {
         String str = Eden.INSTANCE.getLanguageFile().getString(path);
+        if (str.equalsIgnoreCase("null")) {
+            return null;
+        }
         if (Util.isNull(str)) {
             return path;
         }
         str = translate(str, player);
-        if (str == null) {
-            return null;
-        }
         for (int i = 0; i < replacements.length; i++) {
             String replacement = convert(replacements[i]);
             str = str.replace("{" + i + "}", replacement);
@@ -727,7 +726,11 @@ public enum Language {
     }
 
     public void sendMessage(Player player, Object... replacements) {
-        Common.sendMessage(player, toString(player, replacements));
+        String msg = toString(player, replacements);
+        if (msg == null) {
+            return;
+        }
+        Common.sendMessage(player, msg);
     }
 
     public void sendListOfMessage(Player player, Object... replacements) {
