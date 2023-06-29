@@ -40,7 +40,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
 
         if (getTicks() == 0) {
             match.broadcastMessage(Language.MATCH_NEW_ROUND_START_MESSAGE.toString());
-            match.broadcastSubTitle("");
+            match.broadcastTitle("");
             match.setState(MatchState.FIGHTING);
             match.broadcastSound(Sound.FIREWORK_BLAST);
 
