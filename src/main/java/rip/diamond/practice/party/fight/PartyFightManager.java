@@ -51,8 +51,8 @@ public class PartyFightManager {
             return;
         }
 
-        List<PartyMember> notInLobbyPlayers = new ArrayList<>();
-        party.getAllPartyMembers().stream().filter(partyMember -> PlayerProfile.get(partyMember.getPlayer()).getPlayerState() != PlayerState.IN_LOBBY).forEach(notInLobbyPlayers::add);
+        List<String> notInLobbyPlayers = new ArrayList<>();
+        party.getAllPartyMembers().stream().filter(partyMember -> PlayerProfile.get(partyMember.getPlayer()).getPlayerState() != PlayerState.IN_LOBBY).forEach(pm -> notInLobbyPlayers.add(pm.getUsername()));
         if (!notInLobbyPlayers.isEmpty()) {
             Language.PARTY_START_PARTY_FIGHT_PLAYERS_NOT_IN_LOBBY.sendMessage(leader, StringUtils.join(notInLobbyPlayers, ", "));
             return;

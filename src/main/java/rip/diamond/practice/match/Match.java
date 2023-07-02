@@ -6,6 +6,7 @@ import net.minecraft.server.v1_8_R3.EntityLightning;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityWeather;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -118,6 +119,7 @@ public abstract class Match {
             //Create the health display under NameTag, if needed
             if (kit.getGameRules().isShowHealth()) {
                 plugin.getScoreboardHandler().getScoreboard(player).registerHealthObjective();
+                player.setHealth(player.getMaxHealth() - 0.001); //Fix for health display as 0 - #379
             }
 
             //Set up the knockback
@@ -359,10 +361,14 @@ public abstract class Match {
     }
 
     public boolean isProtected(Location location, boolean isPlacing) {
+        return isProtected(location, isPlacing, null);
+    }
+
+    public boolean isProtected(Location location, boolean isPlacing, Block block) {
         if (location.getBlockY() >= arenaDetail.getArena().getBuildMax() || location.getBlockY() <= arenaDetail.getArena().getYLimit()) {
             return true;
         }
-        if (!arenaDetail.getCuboid().contains(location)) {
+        if (!arenaDetail.getCuboid().contains(location) && (block.getType() != Material.TNT && Config.MATCH_TNT_ENABLED.toBoolean())) { //Allow TNT placing above build limit
             return true;
         }
         if (kit.getGameRules().isSpleef()) {
@@ -380,7 +386,7 @@ public abstract class Match {
             return false;
         }
         if (kit.getGameRules().isPortalGoal()) {
-            long count = Util.getBlocksAroundCenter(location, arenaDetail.getArena().getPortalProtectionRadius()).stream().filter(block -> block.getType() == Material.ENDER_PORTAL).count();
+            long count = Util.getBlocksAroundCenter(location, arenaDetail.getArena().getPortalProtectionRadius()).stream().filter(b -> b.getType() == Material.ENDER_PORTAL).count();
             if (count > 0) {
                 return true;
             }

@@ -40,7 +40,7 @@ import java.util.jar.JarFile;
 public class Util {
 
     public static boolean isNull(String str) {
-        return str == null || str.equalsIgnoreCase("null");
+        return str == null || str.equalsIgnoreCase("null") || str.equalsIgnoreCase("");
     }
 
     public static boolean isNotNull(String str) {

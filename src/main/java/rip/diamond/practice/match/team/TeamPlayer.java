@@ -103,8 +103,9 @@ public class TeamPlayer {
 			return;
 		}
 		kitLoadout.apply(match, getPlayer());
-		getPlayer().setHealth(getPlayer().getMaxHealth()); //A fix for https://github.com/RealGoodestEnglish/Eden/issues/11 - Restore health each time when respawn
-		lastHitDamager = null; //A fix for https://github.com/RealGoodestEnglish/Eden/issues/11 - Prevent kill spam (https://www.youtube.com/watch?v=oD6k0rrNVTk)
+		getPlayer().setHealth(getPlayer().getMaxHealth()); //A fix for #11 - Restore health each time when respawn
+		getPlayer().getActivePotionEffects().clear(); //A fix for #389 - Remove effects like absorption when score
+		lastHitDamager = null; //A fix for #11 - Prevent kill spam (https://www.youtube.com/watch?v=oD6k0rrNVTk)
 	}
 
 }

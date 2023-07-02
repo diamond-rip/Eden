@@ -201,10 +201,12 @@ public class PartyCommand extends Command {
                     Language.PARTY_DISABLED_PARTY_INVITE.sendMessage(player);
                     return;
                 }
+
                 Party party = Party.getByPlayer(player);
                 if (party == null) {
                     party = new Party(player, Config.PARTY_DEFAULT_MAX_SIZE.toInteger());
                 }
+
                 if (!party.getLeader().getUniqueID().equals(player.getUniqueId())) {
                     Language.PARTY_ONLY_LEADER.sendMessage(player);
                     return;

@@ -2,7 +2,8 @@ scoreboard:
   title: "&b戰鬥練習"
   boxing-counter:
     no-combo: "&f沒有連擊"
-    text: "{match-solo-boxing-difference-color}{match-solo-boxing-difference} 連擊"
+    text-solo: "{match-solo-boxing-difference-color}{match-solo-boxing-combo} 連擊"
+    text-team: "{match-team-boxing-difference-color}{match-team-boxing-combo} 連擊"
   loading:
     - "&7&m----------------------"
     - "&c你的資料正在加載中..."

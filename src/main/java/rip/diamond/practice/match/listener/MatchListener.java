@@ -769,7 +769,7 @@ public class MatchListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
-            if (match.isProtected(block.getLocation(), true)) {
+            if (match.isProtected(block.getLocation(), true, block)) {
                 event.setCancelled(true);
                 return;
             }

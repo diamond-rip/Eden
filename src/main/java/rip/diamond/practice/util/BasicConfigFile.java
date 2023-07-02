@@ -58,7 +58,7 @@ public class BasicConfigFile {
         if (this.configuration.contains(path)) {
             return ChatColor.translateAlternateColorCodes('&', this.configuration.getString(path));
         }
-        return "null";
+        return path;
     }
 
     public List<String> getStringList(String path) {
@@ -69,7 +69,7 @@ public class BasicConfigFile {
             }
             return strings;
         }
-        return Collections.singletonList("null");
+        return Collections.singletonList(path);
     }
 
     public void load() {

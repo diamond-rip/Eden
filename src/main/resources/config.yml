@@ -64,8 +64,8 @@ match:
   ## This option will give a 'Play Again' item to match players when a match is ended, like Minemen Club
   allow-requeue: true
   ## When player consume a golden apple, should the system gives normal effects to the player (which contains instantly regenerate to full health, saturation and absorption hearts), or just regenerate to full health?
-  ## Default is false which only set the player health to full, no effects are given
-  instant-gapple-effects: false
+  ## If false, then system will only set the player health to full, no effects are given
+  instant-gapple-effects: true
   ## When player is outside the cuboid (which uses arena min/max), should player receive a instant death damage?
   outside-cuboid-instant-death: true
   ## Should Eden remove cactus and sugar cane's physics?

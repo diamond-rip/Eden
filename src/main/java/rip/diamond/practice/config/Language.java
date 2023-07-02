@@ -685,7 +685,7 @@ public enum Language {
     public String toString(Player player, Object... replacements) {
         String str = Eden.INSTANCE.getLanguageFile().getString(path);
         if (str.equalsIgnoreCase("null")) {
-            return null;
+            return "";
         }
         if (Util.isNull(str)) {
             return path;

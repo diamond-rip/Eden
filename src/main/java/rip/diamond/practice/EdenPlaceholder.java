@@ -101,11 +101,14 @@ public class EdenPlaceholder {
                         int solo_y = opponent.getHits();
                         int soloDifference = solo_x - solo_y;
 
+                        boolean selfComboing = self.getCombo() > 1;
+                        boolean opponentComboing = opponent.getCombo() > 1;
+
                         str = str
                                 .replace("{match-solo-opponent}", opponent.getUsername())
                                 .replace("{match-solo-winner}", match.getState() == MatchState.ENDING ? match.getWinningPlayers().get(0).getUsername() : "")
                                 .replace("{match-solo-loser}", match.getState() == MatchState.ENDING ? match.getTeams().stream().filter(team -> team != match.getWinningTeam()).map(team -> team.getLeader().getUsername()).findFirst().orElse(""): "")
-                                .replace("{match-solo-boxing-difference-text}", soloDifference == 0 ? Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString() : Language.SCOREBOARD_BOXING_COUNTER_TEXT_SOLO.toString())
+                                .replace("{match-solo-boxing-difference-text}", selfComboing || opponentComboing ? Language.SCOREBOARD_BOXING_COUNTER_TEXT_SOLO.toString(selfComboing ? CC.GREEN : CC.RED, selfComboing ? self.getCombo() : opponent.getCombo()) : Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString())
                                 .replace("{match-solo-boxing-difference}", Math.abs(soloDifference) + "")
                                 .replace("{match-solo-boxing-difference-number}",  soloDifference + "")
                                 .replace("{match-solo-boxing-difference-symbol}", soloDifference == 0 ? "" : soloDifference > 0 ? "+" : "-")
@@ -124,6 +127,9 @@ public class EdenPlaceholder {
                         int teams_y = opponentTeam.getHits();
                         int teamsDifference = teams_x - teams_y;
 
+                        boolean xComboing = team.getCombo() > 1;
+                        boolean yComboing = opponentTeam.getCombo() > 1;
+
                         str = str
                                 .replace("{match-team-self-alive}", team.getAliveCount() + "")
                                 .replace("{match-team-self-size}", team.getTeamPlayers().size() + "")
@@ -131,7 +137,7 @@ public class EdenPlaceholder {
                                 .replace("{match-team-opponent-size}", opponentTeam.getTeamPlayers().size() + "")
                                 .replace("{match-team-winner}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getWinningTeam().getLeader().getUsername() : "")
                                 .replace("{match-team-loser}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).findFirst().orElse("") : "")
-                                .replace("{match-team-boxing-difference-text}", teamsDifference == 0 ? Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString() : Language.SCOREBOARD_BOXING_COUNTER_TEXT_TEAM.toString())
+                                .replace("{match-team-boxing-difference-text}", xComboing || yComboing ? Language.SCOREBOARD_BOXING_COUNTER_TEXT_TEAM.toString(xComboing ? CC.GREEN : CC.RED, xComboing ? team.getCombo() : opponentTeam.getCombo()) : Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString())
                                 .replace("{match-team-boxing-difference}", Math.abs(teamsDifference) + "")
                                 .replace("{match-team-boxing-difference-number}",  teamsDifference + "")
                                 .replace("{match-team-boxing-difference-symbol}", teamsDifference == 0 ? "" : teamsDifference > 0 ? "+" : "-")
