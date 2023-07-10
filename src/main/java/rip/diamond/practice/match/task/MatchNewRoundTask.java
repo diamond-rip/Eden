@@ -43,7 +43,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
             match.broadcastMessage(Language.MATCH_NEW_ROUND_START_MESSAGE.toString());
             match.broadcastTitle("");
             match.setState(MatchState.FIGHTING);
-            match.broadcastSound(Sound.FIREWORK_BLAST);
+            match.broadcastSound(EdenSound.MATCH_START);
 
             MatchRoundStartEvent event = new MatchRoundStartEvent(match);
             event.call();

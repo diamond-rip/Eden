@@ -15,6 +15,7 @@ public enum EdenSound {
     SELF_BREAK_BED("self-break-bed", Sound.ENDERDRAGON_GROWL, 1f, 1f),
     OPPONENT_BREAK_BED("opponent-break-bed", Sound.WITHER_DEATH, 1f, 1f),
     NEW_ROUND_COUNTDOWN("new-round-countdown", Sound.CLICK, 1f, 1f),
+    MATCH_START("match-start", Sound.FIREWORK_BLAST, 1f, 1f),
     ;
 
     private final String path;

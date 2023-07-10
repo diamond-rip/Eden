@@ -369,10 +369,10 @@ public abstract class Match {
     }
 
     public boolean isProtected(Location location, boolean isPlacing, Block block) {
-        if (location.getBlockY() >= arenaDetail.getArena().getBuildMax() || location.getBlockY() <= arenaDetail.getArena().getYLimit()) {
-            return true;
+        if (block != null && block.getType() == Material.TNT && Config.MATCH_TNT_ENABLED.toBoolean()) { //Allow TNT placing above build limit
+            return false;
         }
-        if (!arenaDetail.getCuboid().contains(location) && (block.getType() != Material.TNT && Config.MATCH_TNT_ENABLED.toBoolean())) { //Allow TNT placing above build limit
+        if (location.getBlockY() >= arenaDetail.getArena().getBuildMax() || location.getBlockY() <= arenaDetail.getArena().getYLimit()) {
             return true;
         }
         if (kit.getGameRules().isSpleef()) {

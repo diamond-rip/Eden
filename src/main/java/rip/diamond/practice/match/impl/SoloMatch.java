@@ -124,8 +124,13 @@ public class SoloMatch extends Match {
         kWinner.calculateWinstreak(true);
         kLoser.calculateWinstreak(false);
 
-        for (String cmd : Config.MATCH_WIN_COMMANDS.toStringList()) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("{player}", tWinner.getUsername()));
+        List<String> winCommands = Config.MATCH_WIN_COMMANDS.toStringList();
+        if (!winCommands.isEmpty()) {
+            for (String cmd : winCommands) {
+                String c = cmd.replace("{player}", tWinner.getUsername());
+                Common.debug("正在執行後台指令 " + c);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), c);
+            }
         }
     }
 

@@ -116,7 +116,7 @@ public enum Config {
 
     public String toString() {
         String str = Eden.INSTANCE.getConfigFile().getString(path);
-        if (Util.isNull(str)) {
+        if (str.equals(path)) {
             return defaultValue.toString();
         }
         return str;
@@ -125,8 +125,11 @@ public enum Config {
 
     public List<String> toStringList() {
         List<String> str = Eden.INSTANCE.getConfigFile().getStringList(path);
-        if (str.get(0).equals("null")) {
+        if (str.get(0).equals(path)) {
             return (List<String>) defaultValue;
+        }
+        if (str.get(0).equals("null")) {
+            return ImmutableList.of();
         }
         return str;
     }
