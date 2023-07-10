@@ -125,7 +125,7 @@ public enum Config {
 
     public List<String> toStringList() {
         List<String> str = Eden.INSTANCE.getConfigFile().getStringList(path);
-        if (str.get(0).equals(path)) {
+        if (str.isEmpty() || str.get(0).equals(path)) {
             return (List<String>) defaultValue;
         }
         if (str.get(0).equals("null")) {
