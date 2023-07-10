@@ -5,7 +5,10 @@ import lombok.Setter;
 import net.minecraft.server.v1_8_R3.EntityLightning;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityWeather;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Item;
@@ -13,15 +16,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.github.paperspigot.Title;
 import rip.diamond.practice.Eden;
-import rip.diamond.practice.config.Config;
-import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.ArenaDetail;
+import rip.diamond.practice.config.Config;
+import rip.diamond.practice.config.EdenSound;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.MatchEndEvent;
 import rip.diamond.practice.event.MatchPlayerDeathEvent;
 import rip.diamond.practice.event.MatchStartEvent;
 import rip.diamond.practice.event.MatchStateChangeEvent;
 import rip.diamond.practice.kits.Kit;
-import rip.diamond.practice.lobby.LobbyMovementHandler;
 import rip.diamond.practice.match.task.*;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamColor;
@@ -42,7 +45,7 @@ import java.util.stream.Collectors;
 @Getter
 public abstract class Match {
 
-    private final Eden plugin = Eden.INSTANCE;
+    protected final Eden plugin = Eden.INSTANCE;
 
     @Getter private static final Map<UUID, Match> matches = new HashMap<>();
     @Getter private static final Map<UUID, PostMatchInventory> postMatchInventories = new HashMap<>();
@@ -100,6 +103,7 @@ public abstract class Match {
 
             PlayerUtil.reset(player);
 
+            player.setSaturation(Config.MATCH_START_SATURATION.toInteger());
             player.addPotionEffects(kit.getEffects());
             player.setMaximumNoDamageTicks(kit.getDamageTicks());
 
@@ -536,11 +540,20 @@ public abstract class Match {
     public void broadcastSound(Sound sound) {
         getPlayersAndSpectators().forEach(player -> player.playSound(player.getLocation(), sound, 10, 1));
     }
+    public void broadcastSound(EdenSound sound) {
+        getPlayersAndSpectators().forEach(sound::play);
+    }
     public void broadcastSound(Team team, Sound sound) {
         team.getTeamPlayers().stream().map(TeamPlayer::getPlayer).filter(Objects::nonNull).forEach(player -> player.playSound(player.getLocation(), sound, 10, 1));
     }
+    public void broadcastSound(Team team, EdenSound sound) {
+        team.getTeamPlayers().stream().map(TeamPlayer::getPlayer).filter(Objects::nonNull).forEach(sound::play);
+    }
     public void broadcastSpectatorsSound(Sound sound) {
         getSpectators().forEach(player -> player.playSound(player.getLocation(), sound, 10, 1));
+    }
+    public void broadcastSpectatorsSound(EdenSound sound) {
+        getSpectators().forEach(sound::play);
     }
 
     public abstract void setupTeamSpawnLocation();

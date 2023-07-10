@@ -32,6 +32,7 @@ import rip.diamond.practice.Eden;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.config.Config;
+import rip.diamond.practice.config.EdenSound;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.KitLoadoutReceivedEvent;
 import rip.diamond.practice.event.MatchStartEvent;
@@ -465,8 +466,11 @@ public class MatchListener implements Listener {
                     player.setItemInHand(new ItemBuilder(player.getItemInHand()).amount(player.getItemInHand().getAmount() - 1).build());
                     player.setHealth(20);
                     player.setFoodLevel(Math.min(player.getFoodLevel() + 6, 20));
-                    if (Config.MATCH_INSTANT_GAPPLE_EFFECTS.toBoolean()) {
+                    if (Config.MATCH_GOLDEN_APPLE_INSTANT_GAPPLE_EFFECTS.toBoolean()) {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
+                        if (Config.MATCH_GOLDEN_APPLE_GIVE_ABSORPTION_HEARTS_EVERYTIME.toBoolean()) {
+                            ((CraftPlayer) player).getHandle().setAbsorptionHearts(4);
+                        }
                     } else {
                         ((CraftPlayer) player).getHandle().setAbsorptionHearts(0);
                     }
@@ -502,7 +506,7 @@ public class MatchListener implements Listener {
                     } else {
                         profile.getCooldowns().put(CooldownType.GOLDEN_HEAD, new Cooldown(1));
 
-                        Common.playSound(player, Sound.EAT);
+                        EdenSound.GOLDEN_HEAD_EAT.play(player);
                         for (String s : Config.MATCH_GOLDEN_HEAD_EFFECTS.toStringList()) {
                             String[] effect = s.split(";");
                             PotionEffectType type = PotionEffectType.getByName(effect[0]);
@@ -849,9 +853,9 @@ public class MatchListener implements Listener {
                 }
 
                 if (kit.getGameRules().isBed()) {
-                    match.broadcastSound(team, Sound.ENDERDRAGON_GROWL);
-                    match.broadcastSound(opponentTeam, Sound.WITHER_DEATH);
-                    match.broadcastSpectatorsSound(Sound.ENDERDRAGON_GROWL);
+                    match.broadcastSound(team, EdenSound.SELF_BREAK_BED);
+                    match.broadcastSound(opponentTeam, EdenSound.OPPONENT_BREAK_BED);
+                    match.broadcastSpectatorsSound(EdenSound.SELF_BREAK_BED);
                     match.broadcastTitle(opponentTeam, Language.MATCH_BED_BREAK_TITLE.toString());
                     match.broadcastSubTitle(opponentTeam, Language.MATCH_BED_BREAK_SUBTITLE.toString());
                     match.broadcastMessage(Language.MATCH_BED_BREAK_MESSAGE.toStringList(opponentTeam.getTeamColor().getTeamName(), team.getTeamColor().getColor(), player.getName()));

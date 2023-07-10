@@ -242,14 +242,12 @@ public class Tournament extends EdenEvent {
                     Match match;
                     if (getTeamSize() == 1) {
                         match = new SoloMatch(arena, kit, team1, team2, QueueType.UNRANKED, true);
-                        Tasks.run(match::start);
                     } else {
                         team1.getTeamPlayers().addAll(party1.getPartyMembers().stream().map(partyMember -> new TeamPlayer(partyMember.getPlayer())).collect(Collectors.toList()));
                         team2.getTeamPlayers().addAll(party2.getPartyMembers().stream().map(partyMember -> new TeamPlayer(partyMember.getPlayer())).collect(Collectors.toList()));
-
                         match = new TeamMatch(arena, kit, team1, team2);
-                        Tasks.run(match::start);
                     }
+                    match.start();
                     matches.add(match);
                 }
 

@@ -1,0 +1,5 @@
+receive-duel-request: CHICKEN_EGG_POP;1;1
+golden-head-eat: EAT;1;1
+self-break-bed: ENDERDRAGON_GROWL;1;1
+opponent-break-bed: WITHER_DEATH;1;1
+new-round-countdown: CLICK;1;1

@@ -82,6 +82,7 @@ public class Eden extends JavaPlugin {
     private BasicConfigFile itemFile;
     private BasicConfigFile arenaFile;
     private BasicConfigFile kitFile;
+    private BasicConfigFile soundFile;
 
     private CommandManager commandManager;
     private MongoManager mongoManager;
@@ -139,6 +140,7 @@ public class Eden extends JavaPlugin {
         this.itemFile = new BasicConfigFile(this, "item.yml");
         this.arenaFile = new BasicConfigFile(this, "arena.yml");
         this.kitFile = new BasicConfigFile(this, "kit.yml");
+        this.soundFile = new BasicConfigFile(this, "sound.yml");
     }
 
     private void loadManagers() {

@@ -5,11 +5,13 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
+import rip.diamond.practice.config.Language;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.leaderboard.Leaderboard;
 import rip.diamond.practice.leaderboard.LeaderboardManager;
 import rip.diamond.practice.leaderboard.LeaderboardPlayerCache;
 import rip.diamond.practice.match.Match;
+import rip.diamond.practice.party.Party;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.data.ProfileKitData;
 import rip.diamond.practice.queue.Queue;
@@ -82,6 +84,25 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
                 return "Unable to find kit " + kitName;
             }
             return Match.getMatches().values().stream().filter(match -> match.getKit() == kit && match.getQueueType() == QueueType.UNRANKED).mapToInt(match -> match.getMatchPlayers().size()).sum() + "";
+        }
+        //Requested in #228
+        if (param.startsWith("kit_status")) {
+            String kitName = args[2];
+            Kit kit = Kit.getByName(kitName);
+            if (kit == null) {
+                return "Unable to find kit " + kitName;
+            }
+            return kit.isEnabled() ? Language.ENABLED.toString() : Language.DISABLED.toString();
+        }
+        if (param.startsWith("in_party")){
+            return profile.getParty() == null ? Language.DISABLED.toString() : Language.ENABLED.toString();
+        }
+        if (param.startsWith("party_privacy")) {
+            Party party = profile.getParty();
+            if (party == null) {
+                return "";
+            }
+            return party.getPrivacy().getReadable();
         }
         if (args[0].equalsIgnoreCase("player")) {
             int rankedWon = profile.getKitData().values().stream().mapToInt(ProfileKitData::getRankedWon).sum();

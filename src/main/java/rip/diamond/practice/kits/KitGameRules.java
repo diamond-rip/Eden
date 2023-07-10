@@ -12,6 +12,8 @@ import rip.diamond.practice.queue.QueueType;
 
 import java.lang.reflect.Field;
 
+// TODO: 8/7/2023 Add time limit (#420)
+
 @Setter
 public class KitGameRules implements Cloneable {
 

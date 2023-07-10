@@ -218,6 +218,7 @@ public class PartyCommand extends Command {
                 Party targetParty = Party.getByPlayer(target);
                 if (targetParty != null) {
                     Language.PARTY_TARGET_ALREADY_IN_PARTY.sendMessage(player);
+                    return;
                 }
                 party.invite(target);
                 return;

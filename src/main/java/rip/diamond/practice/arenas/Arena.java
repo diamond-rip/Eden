@@ -52,19 +52,6 @@ public class Arena {
                 .findAny().orElse(null);
     }
 
-    public static ArenaDetail getAvailableArenaDetail(String name, Kit kit) {
-        Collections.shuffle(arenas);
-        Arena arena = arenas.stream()
-                .filter(a -> a.getName().equals(name))
-                .filter(Arena::isEnabled)
-                .filter(a -> a.getAllowedKits().contains(kit.getName()))
-                .findAny().orElse(null);
-        if (arena == null) {
-            return null;
-        }
-        return getArenaDetail(arena);
-    }
-
     public static ArenaDetail getAvailableArenaDetail(Kit kit) {
         Collections.shuffle(arenas);
         Arena arena = arenas.stream()
@@ -80,6 +67,12 @@ public class Arena {
     public static ArenaDetail getArenaDetail(Arena arena) {
         return arena.getArenaDetails().stream()
                 .filter(arenaDetail -> !arenaDetail.isUsing())
+                .filter(arenaDetail -> {
+                    if (Config.EXPERIMENT_DISABLE_ORIGINAL_ARENA.toBoolean()) {
+                        return arena.getArenaDetails().get(0) == arenaDetail;
+                    }
+                    return true;
+                })
                 .findAny().orElse(null);
     }
 

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.github.paperspigot.Title;
 import rip.diamond.practice.Eden;
@@ -103,6 +104,7 @@ public class TeamPlayer {
 			return;
 		}
 		kitLoadout.apply(match, getPlayer());
+		((CraftPlayer) getPlayer()).getHandle().setAbsorptionHearts(0);
 		getPlayer().setHealth(getPlayer().getMaxHealth()); //A fix for #11 - Restore health each time when respawn
 		getPlayer().getActivePotionEffects().clear(); //A fix for #389 - Remove effects like absorption when score
 		lastHitDamager = null; //A fix for #11 - Prevent kill spam (https://www.youtube.com/watch?v=oD6k0rrNVTk)

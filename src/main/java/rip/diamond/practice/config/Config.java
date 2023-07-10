@@ -47,13 +47,16 @@ public enum Config {
     QUEUE_RANKED_REQUIRED_WINS("queue.ranked-required-wins", 10),
     //Match
     MATCH_ALLOW_REQUEUE("match.allow-requeue", true),
-    MATCH_INSTANT_GAPPLE_EFFECTS("match.instant-gapple-effects", true),
     MATCH_OUTSIDE_CUBOID_INSTANT_DEATH("match.outside-cuboid-instant-death", true),
     MATCH_REMOVE_CACTUS_SUGAR_CANE_PHYSICS("match.remove-cactus-sugar-cane-physics", true),
     MATCH_DEATH_LIGHTNING("match.death-lightning", true),
     MATCH_DEATH_ANIMATION("match.death-animation", true),
     MATCH_TP_2_BLOCKS_UP_WHEN_DIE("match.tp-2-blocks-up-when-die", false),
     MATCH_RESPAWN_TELEPORT_TO_SPAWN_WHEN_DIE("match.respawn-teleport-to-spawn-when-die", true),
+    MATCH_WIN_COMMANDS("match.win-commands", ImmutableList.of()),
+    MATCH_START_SATURATION("match.start-saturation", 15),
+    MATCH_GOLDEN_APPLE_INSTANT_GAPPLE_EFFECTS("match.golden-apple.instant-gapple-effects", true),
+    MATCH_GOLDEN_APPLE_GIVE_ABSORPTION_HEARTS_EVERYTIME("match.golden-apple.give-absorption-hearts-everytime", false),
     MATCH_SNOW_SNOWBALL_DROP_CHANCE("match.snow.snowball-drop-chance", 50),
     MATCH_SNOW_SNOWBALL_DROP_AMOUNT("match.snow.snowball-drop-amount", 4),
     MATCH_TITLE_SCORE("match.title.score", true),
@@ -104,6 +107,8 @@ public enum Config {
     IMANITY_TELEPORT_ASYNC("imanity.teleport-async", true),
     //Optimization
     OPTIMIZATION_SET_BLOCK_FAST("optimization.set-block-fast", true),
+    //Experiment
+    EXPERIMENT_DISABLE_ORIGINAL_ARENA("experiment.disable-original-arena", false),
     ;
 
     @Getter private final String path;

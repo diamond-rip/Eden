@@ -63,9 +63,6 @@ queue:
 match:
   ## This option will give a 'Play Again' item to match players when a match is ended, like Minemen Club
   allow-requeue: true
-  ## When player consume a golden apple, should the system gives normal effects to the player (which contains instantly regenerate to full health, saturation and absorption hearts), or just regenerate to full health?
-  ## If false, then system will only set the player health to full, no effects are given
-  instant-gapple-effects: true
   ## When player is outside the cuboid (which uses arena min/max), should player receive a instant death damage?
   outside-cuboid-instant-death: true
   ## Should Eden remove cactus and sugar cane's physics?
@@ -77,6 +74,23 @@ match:
   tp-2-blocks-up-when-die: true
   ## When player dies and if the kit allows respawn, should Eden teleport the player to their spawn?
   respawn-teleport-to-spawn-when-die: true
+  ## Command when the player wins. Only trigger when the player is playing unranked/ranked matches and not a custom duel match.
+  ## You can use {player} as the winner's name placeholder
+  ## Example:
+  ## win-commands:
+  ## - "say {player} hello you win!"
+  ## - "pay {player} 100"
+  win-commands: []
+  ## The saturation for all players when match starts
+  start-saturation: 15
+  ## Golden apple settings for instant gapple in kit game rules
+  golden-apple:
+    ## When player consume a golden apple, should the system gives normal effects to the player (which contains instantly regenerate to full health, saturation and absorption hearts), or just regenerate to full health?
+    ## If false, then system will only set the player health to full, no effects are given
+    instant-gapple-effects: true
+    ## Should Eden gives absorption hearts everytime when a player consume a golden apple?
+    ## Disable this if you want Hypixel styled golden apple in bridge
+    give-absorption-hearts-everytime: false
   ## Snow related options - Only works in spleef kit game rules
   snow:
     ## Chance of getting snowball when break a snow block (In 0 - 100)
@@ -231,3 +245,7 @@ imanity:
 optimization:
   ## If true, Eden will use NMS instead of bukkit API to set specific block
   set-block-fast: true
+## Experiment settings
+## Avoid to change any of these settings if the developer didn't tell you to change
+experiment:
+  disable-original-arena: false

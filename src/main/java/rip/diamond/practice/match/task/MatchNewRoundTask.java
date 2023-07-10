@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
+import rip.diamond.practice.config.EdenSound;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.event.MatchRoundEndEvent;
 import rip.diamond.practice.event.MatchRoundStartEvent;
@@ -53,7 +54,7 @@ public class MatchNewRoundTask extends MatchTaskTicker {
 
         match.broadcastMessage(Language.MATCH_NEW_ROUND_START_COUNTDOWN.toString(getTicks()));
         match.broadcastTitle(Language.MATCH_NEW_ROUND_START_TITLE.toString(getTicks()));
-        match.broadcastSound(Sound.CLICK);
+        match.broadcastSound(EdenSound.NEW_ROUND_COUNTDOWN);
     }
 
     @Override

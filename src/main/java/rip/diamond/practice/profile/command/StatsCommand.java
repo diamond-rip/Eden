@@ -10,6 +10,7 @@ import rip.diamond.practice.util.command.Command;
 import rip.diamond.practice.util.command.CommandArgs;
 import rip.diamond.practice.util.command.argument.CommandArguments;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class StatsCommand extends Command {
@@ -25,24 +26,28 @@ public class StatsCommand extends Command {
             username = args[0];
         }
 
-        OfflinePlayer offlinePlayer = CompletableFuture.supplyAsync(() -> Bukkit.getOfflinePlayer(username)).join();
-        if (offlinePlayer == null || !offlinePlayer.hasPlayedBefore()) {
+        Player target = Bukkit.getPlayer(username);
+        OfflinePlayer offlineTarget = CompletableFuture.supplyAsync(() -> Bukkit.getOfflinePlayer(username)).join();
+        if (offlineTarget == null || !offlineTarget.hasPlayedBefore()) {
             Language.PROFILE_CANNOT_FIND_PLAYER.sendMessage(player);
             return;
         }
 
-        PlayerProfile profile = PlayerProfile.get(offlinePlayer.getUniqueId());
+        UUID targetUUID = target == null ? offlineTarget.getUniqueId() : target.getUniqueId();
+        String targetName = target == null ? offlineTarget.getName() : target.getName();
+
+        PlayerProfile profile = PlayerProfile.get(targetUUID);
         if (profile != null) {
             new KitStatsMenu(profile).openMenu(player);
             return;
         }
 
-        PlayerProfile finalProfile = PlayerProfile.createPlayerProfile(offlinePlayer.getUniqueId(), offlinePlayer.getName());
+        PlayerProfile finalProfile = PlayerProfile.createPlayerProfile(targetUUID, targetName);
         finalProfile.setTemporary(true);
         finalProfile.load(success -> {
             if (success) {
                 new KitStatsMenu(finalProfile).openMenu(player);
-                PlayerProfile.getProfiles().remove(offlinePlayer.getUniqueId());
+                PlayerProfile.getProfiles().remove(offlineTarget.getUniqueId());
             } else {
                 Language.PROFILE_ERROR_CANNOT_LOAD_PLAYER.sendMessage(player);
             }

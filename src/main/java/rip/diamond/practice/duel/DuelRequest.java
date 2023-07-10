@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.config.EdenSound;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.arenas.Arena;
 import rip.diamond.practice.duel.task.DuelRequestClearTask;
@@ -67,7 +68,7 @@ public class DuelRequest {
 		clickable.add(" ");
 		clickable.add(Language.DUEL_DUEL_REQUEST_CLICK_TO_VIEW_PING.toString(), ping, null);
 		clickable.sendToPlayer(target);
-		Common.playSound(target, Sound.CHICKEN_EGG_POP);
+		EdenSound.RECEIVE_DUEL_REQUEST.play(target);
 
 		if (party) {
 			Language.DUEL_DUEL_REQUEST_SUCCESS_PARTY.sendMessage(sender, kit.getDisplayName(), arena.getDisplayName(), target.getName());
