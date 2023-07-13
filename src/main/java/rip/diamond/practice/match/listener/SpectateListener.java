@@ -12,6 +12,7 @@ import org.bukkit.event.player.*;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Tasks;
 import rip.diamond.practice.util.Util;
 
@@ -159,7 +160,7 @@ public class SpectateListener implements Listener {
      * A fix for <a href="https://github.com/diamond-rip/Eden/issues/374">#374</a>
      */
     @EventHandler
-    public void onChangeWorld(PlayerChangedWorldEvent event) {
+    public void onChangedWorld(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
 

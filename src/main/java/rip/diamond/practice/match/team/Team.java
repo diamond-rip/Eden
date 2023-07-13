@@ -3,6 +3,7 @@ package rip.diamond.practice.match.team;
 import lombok.Getter;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.github.paperspigot.Title;
 import rip.diamond.practice.util.CC;
 import rip.diamond.practice.util.Common;
+import rip.diamond.practice.util.TitleSender;
 import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.ArrayList;
@@ -173,11 +175,14 @@ public class Team {
 	}
 
 	public void broadcastTitle(String title, String subtitle) {
-		this.getPlayers().forEach(player -> player.sendTitle(new Title(title, subtitle)));
+		broadcastTitle(title, subtitle, 5, 60, 5);
 	}
 
 	public void broadcastTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
-		this.getPlayers().forEach(player -> player.sendTitle(new Title(title, subtitle, fadeIn, stay, fadeOut)));
+		this.getPlayers().forEach(player -> {
+			TitleSender.sendTitle(player, title, PacketPlayOutTitle.EnumTitleAction.TITLE, fadeIn, stay, fadeOut);
+			TitleSender.sendTitle(player, subtitle, PacketPlayOutTitle.EnumTitleAction.SUBTITLE, fadeIn, stay, fadeOut);
+		});
 	}
 
 	public void broadcast(List<String> messages) {

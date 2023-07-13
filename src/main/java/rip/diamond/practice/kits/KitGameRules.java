@@ -43,6 +43,8 @@ public class KitGameRules implements Cloneable {
 	@Getter private boolean noFallDamage = false;
 	@Getter private boolean giveBackArrow = false;
 	@Getter private boolean dropItems = true;
+	@Getter private boolean teamProjectile = true;
+	@Getter private boolean bowBoosting = true;
 	@Getter private int respawnTime = 5;
 	@Getter private int maximumPoints = 3;
 	@Getter private int matchCountdownDuration = 5;
@@ -112,6 +114,8 @@ public class KitGameRules implements Cloneable {
 		noFallDamage(Language.KIT_GAME_RULES_NO_FALL_DAMAGE_RULES.toString(), Language.KIT_GAME_RULES_NO_FALL_DAMAGE_DESCRIPTION.toString()),
 		giveBackArrow(Language.KIT_GAME_RULES_GIVE_BACK_ARROW_RULES.toString(), Language.KIT_GAME_RULES_GIVE_BACK_ARROW_DESCRIPTION.toString()),
 		dropItems(Language.KIT_GAME_RULES_DROP_ITEMS_RULES.toString(), Language.KIT_GAME_RULES_DROP_ITEMS_DESCRIPTION.toString()),
+		teamProjectile(Language.KIT_GAME_RULES_TEAM_PROJECTILE_RULES.toString(), Language.KIT_GAME_RULES_TEAM_PROJECTILE_DESCRIPTION.toString()),
+		bowBoosting(Language.KIT_GAME_RULES_BOW_BOOSTING_RULES.toString(), Language.KIT_GAME_RULES_BOW_BOOSTING_DESCRIPTION.toString()),
 		//integer
 		respawnTime(Language.KIT_GAME_RULES_RESPAWN_TIME_RULES.toString(), Language.KIT_GAME_RULES_RESPAWN_TIME_DESCRIPTION.toString()),
 		maximumPoints(Language.KIT_GAME_RULES_MAXIMUM_POINTS_RULES.toString(), Language.KIT_GAME_RULES_MAXIMUM_POINTS_DESCRIPTION.toString()),

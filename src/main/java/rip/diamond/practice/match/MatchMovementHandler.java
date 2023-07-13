@@ -1,5 +1,6 @@
 package rip.diamond.practice.match;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import rip.diamond.practice.Eden;
@@ -8,7 +9,6 @@ import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.kits.Kit;
 import rip.diamond.practice.kits.KitGameRules;
-import rip.diamond.practice.match.impl.SumoEventMatch;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.practice.match.team.TeamPlayer;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -19,7 +19,6 @@ import rip.diamond.practice.util.Util;
 import rip.diamond.practice.util.cuboid.CuboidDirection;
 
 import java.util.Comparator;
-import java.util.Objects;
 
 public class MatchMovementHandler {
 
@@ -38,7 +37,12 @@ public class MatchMovementHandler {
                 KitGameRules gameRules = kit.getGameRules();
 
                 if (gameRules.isStartFreeze() && match.getState() == MatchState.STARTING && (from.getX() != to.getX() || from.getZ() != to.getZ())) {
-                    Util.teleport(player, match.getTeam(player).getSpawnLocation());
+                    Location location = match.getTeam(player).getSpawnLocation();
+                    //https://github.com/diamond-rip/Eden/issues/389#issuecomment-1630048579 - Smoother looking by only changing the player's x and z location
+                    location.setY(from.getY());
+                    location.setPitch(from.getPitch());
+                    location.setYaw(from.getYaw());
+                    Util.teleport(player, location);
                     return;
                 }
 
@@ -51,16 +55,17 @@ public class MatchMovementHandler {
                 //If two people go into the portal at the same time in bridge, it will count as +2 points
                 //If player go into the water and PlayerMoveEvent is too slow to perform teleportation, it will run MatchNewRoundTask multiple times
                 if (match.getMatchPlayers().stream().allMatch(p -> PlayerProfile.get(p).getCooldowns().get(CooldownType.SCORE).isExpired())) {
-                    if (match.getState() == MatchState.FIGHTING && !match.getTeamPlayer(player).isRespawning()) {
+                    TeamPlayer teamPlayer = match.getTeamPlayer(player);
+                    if (match.getState() == MatchState.FIGHTING && !teamPlayer.isRespawning()) {
                         //檢查 KitGameRules 水上即死
                         if (gameRules.isDeathOnWater() && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
                             if (gameRules.isPoint(match)) {
-                                TeamPlayer lastHitDamager = match.getTeamPlayer(player).getLastHitDamager();
+                                TeamPlayer lastHitDamager = teamPlayer.getLastHitDamager();
                                 //玩家有機會在不被敵方攻擊的情況下死亡, 例如岩漿, 如果是這樣, 就在敵方隊伍隨便抽一個玩家出來
                                 if (lastHitDamager == null) {
                                     lastHitDamager = match.getOpponentTeam(match.getTeam(player)).getAliveTeamPlayers().get(0);
                                 }
-                                match.score(profile, null, lastHitDamager);
+                                match.score(profile, teamPlayer, lastHitDamager);
                             } else {
                                 Util.damage(player, 99999);
                             }
@@ -68,7 +73,7 @@ public class MatchMovementHandler {
                         }
 
                         //檢查 KitGameRules 進入目標
-                        if (gameRules.isPortalGoal() && underBlock.getType() == Material.ENDER_PORTAL) {
+                        if (gameRules.isPortalGoal() && block.getType() == Material.ENDER_PORTAL) {
                             Team playerTeam = match.getTeam(player);
                             Team portalBelongsTo = match.getTeams().stream().min(Comparator.comparing(team -> team.getSpawnLocation().distance(to))).orElse(null);
                             if (portalBelongsTo == null) {
@@ -90,7 +95,7 @@ public class MatchMovementHandler {
                 ArenaDetail arenaDetail = match.getArenaDetail();
                 Arena arena = arenaDetail.getArena();
 
-                if (!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, 20).contains(player) || arena.getYLimit() > player.getLocation().getY()) {
+                if (!arenaDetail.getCuboid().clone().outset(CuboidDirection.HORIZONTAL, Config.MATCH_SPECTATE_EXPEND_CUBOID.toInteger()).contains(player) || arena.getYLimit() > player.getLocation().getY()) {
                     player.teleport(arenaDetail.getSpectator());
                     return;
                 }

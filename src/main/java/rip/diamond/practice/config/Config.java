@@ -55,6 +55,7 @@ public enum Config {
     MATCH_RESPAWN_TELEPORT_TO_SPAWN_WHEN_DIE("match.respawn-teleport-to-spawn-when-die", true),
     MATCH_WIN_COMMANDS("match.win-commands", ImmutableList.of()),
     MATCH_START_SATURATION("match.start-saturation", 15),
+    MATCH_SPECTATE_EXPEND_CUBOID("match.spectate-expend-cuboid", 50),
     MATCH_GOLDEN_APPLE_INSTANT_GAPPLE_EFFECTS("match.golden-apple.instant-gapple-effects", true),
     MATCH_GOLDEN_APPLE_GIVE_ABSORPTION_HEARTS_EVERYTIME("match.golden-apple.give-absorption-hearts-everytime", false),
     MATCH_SNOW_SNOWBALL_DROP_CHANCE("match.snow.snowball-drop-chance", 50),
@@ -109,6 +110,7 @@ public enum Config {
     OPTIMIZATION_SET_BLOCK_FAST("optimization.set-block-fast", true),
     //Experiment
     EXPERIMENT_DISABLE_ORIGINAL_ARENA("experiment.disable-original-arena", false),
+    EXPERIMENT_NEW_ARENA_CHUNK_CACHE("experiment.new-arena-chunk-cache", false),
     ;
 
     @Getter private final String path;

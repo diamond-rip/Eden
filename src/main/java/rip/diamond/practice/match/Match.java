@@ -285,6 +285,11 @@ public abstract class Match {
             calculateMatchStats();
         }
 
+        //#442 - Teleport back to spawn location to prevent stuck in the portal
+        if (kit.getGameRules().isPortalGoal()) {
+            getTeams().forEach(t -> t.teleport(t.getSpawnLocation()));
+        }
+
         new MatchResetTask(this);
     }
 
@@ -303,12 +308,12 @@ public abstract class Match {
             }
         });
 
-        Util.teleport(player, getArenaDetail().getSpectator());
-        PlayerUtil.spectator(player);
-
         profile.setMatch(this);
         profile.setPlayerState(PlayerState.IN_SPECTATING);
+        PlayerUtil.spectator(player);
         profile.setupItems();
+
+        Util.teleport(player, getArenaDetail().getSpectator());
 
         //Create the health display under NameTag, if needed
         if (kit.getGameRules().isShowHealth()) {
@@ -373,6 +378,9 @@ public abstract class Match {
             return false;
         }
         if (location.getBlockY() >= arenaDetail.getArena().getBuildMax() || location.getBlockY() <= arenaDetail.getArena().getYLimit()) {
+            return true;
+        }
+        if (!arenaDetail.getCuboid().contains(location)) {
             return true;
         }
         if (kit.getGameRules().isSpleef()) {
@@ -514,12 +522,11 @@ public abstract class Match {
     public void broadcastMessage(List<String> messages) {
         getPlayersAndSpectators().forEach(player -> Common.sendMessage(player, messages));
     }
-
-    public void broadcastTitle(Title title) {
-        getPlayersAndSpectators().forEach(player -> player.sendTitle(title));
-    }
     public void broadcastTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
-        getPlayersAndSpectators().forEach(player -> player.sendTitle(new Title(title, subtitle, fadeIn, stay, fadeOut)));
+        getPlayersAndSpectators().forEach(player -> {
+            TitleSender.sendTitle(player, title, PacketPlayOutTitle.EnumTitleAction.TITLE, fadeIn, stay, fadeOut);
+            TitleSender.sendTitle(player, subtitle, PacketPlayOutTitle.EnumTitleAction.SUBTITLE, fadeIn, stay, fadeOut);
+        });
     }
     public void broadcastTitle(String message) {
         getPlayersAndSpectators().forEach(player -> TitleSender.sendTitle(player, message, PacketPlayOutTitle.EnumTitleAction.TITLE, 0, 21, 5));

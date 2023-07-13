@@ -93,17 +93,6 @@ public class Common {
         }
     }
 
-    public static void sendTitle(Player player, String title, String subtitle) {
-        sendTitle(player, title, subtitle, 20, 200, 20);
-    }
-
-    public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
-        if (player == null) {
-            return;
-        }
-        player.sendTitle(new Title(CC.translate(title), CC.translate(subtitle), fadeIn, stay, fadeOut));
-    }
-
     public static void playSound(Player player, Sound sound) {
         if (player == null) {
             return;

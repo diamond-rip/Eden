@@ -396,6 +396,10 @@ public enum Language {
     KIT_GAME_RULES_GIVE_BACK_ARROW_DESCRIPTION("kit.game-rules.give-back-arrow.description"),
     KIT_GAME_RULES_DROP_ITEMS_RULES("kit.game-rules.drop-items.rules"),
     KIT_GAME_RULES_DROP_ITEMS_DESCRIPTION("kit.game-rules.drop-items.description"),
+    KIT_GAME_RULES_TEAM_PROJECTILE_RULES("kit.game-rules.team-projectile.rules"),
+    KIT_GAME_RULES_TEAM_PROJECTILE_DESCRIPTION("kit.game-rules.team-projectile.description"),
+    KIT_GAME_RULES_BOW_BOOSTING_RULES("kit.game-rules.bow-boosting.rules"),
+    KIT_GAME_RULES_BOW_BOOSTING_DESCRIPTION("kit.game-rules.bow-boosting.description"),
     KIT_GAME_RULES_RESPAWN_TIME_RULES("kit.game-rules.respawn-time.rules"),
     KIT_GAME_RULES_RESPAWN_TIME_DESCRIPTION("kit.game-rules.respawn-time.description"),
     KIT_GAME_RULES_MAXIMUM_POINTS_RULES("kit.game-rules.maximum-points.rules"),
@@ -685,7 +689,7 @@ public enum Language {
     public String toString(Player player, Object... replacements) {
         String str = Eden.INSTANCE.getLanguageFile().getString(path);
         if (str.equalsIgnoreCase("null")) {
-            return "";
+            return null; //Fix for #437 - If return a "null" string, it will send an empty message
         }
         if (Util.isNull(str)) {
             return path;

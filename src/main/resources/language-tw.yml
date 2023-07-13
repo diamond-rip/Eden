@@ -970,6 +970,12 @@ kit:
     drop-items:
       rules: "掉落物品"
       description: "設置該職業是否允許玩家掉落物品"
+    team-projectile:
+      rules: "隊伍拋擲物"
+      description: "設置該職業是否允許玩家使用拋擲物攻擊隊友"
+    bow-boosting:
+      rules: "弓箭攻擊自己"
+      description: "設置該職業是否允許玩家使用弓箭攻擊自己"
     respawn-time:
       rules: "重生時間"
       description: "設置該職業在玩家死亡後的重生時間 (只有在 '進入目標' 或 '床' 開啟才會有效)"

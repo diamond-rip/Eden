@@ -7,7 +7,7 @@ import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftChunk;
 
-public class ArenaChunk extends Reflection {
+public class ArenaChunk extends Reflection implements IArenaChunk {
 
     private final World world;
     @Getter private final int x, z;
@@ -28,6 +28,7 @@ public class ArenaChunk extends Reflection {
         }
     }
 
+    @Override
     public void restore() {
         world.getChunkAt(x, z).load();
         ChunkSection[] sections = new ChunkSection[data.length];

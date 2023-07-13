@@ -69,7 +69,7 @@ public class Arena {
                 .filter(arenaDetail -> !arenaDetail.isUsing())
                 .filter(arenaDetail -> {
                     if (Config.EXPERIMENT_DISABLE_ORIGINAL_ARENA.toBoolean()) {
-                        return arena.getArenaDetails().get(0) == arenaDetail;
+                        return arena.getArenaDetails().get(0) != arenaDetail;
                     }
                     return true;
                 })

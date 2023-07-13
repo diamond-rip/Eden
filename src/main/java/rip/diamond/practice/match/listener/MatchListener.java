@@ -259,9 +259,9 @@ public class MatchListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST) //Allow the above EntityDamageEvent run first
     public void onDamageEntity(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Arrow)) {
+        if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Projectile)) {
             Player entity = (Player) event.getEntity();
-            Player damager = event.getDamager() instanceof Arrow ? (Player) ((Arrow) event.getDamager()).getShooter() : (Player) event.getDamager();
+            Player damager = event.getDamager() instanceof Projectile ? (Player) ((Projectile) event.getDamager()).getShooter() : (Player) event.getDamager();
 
             //Damager might be null because there might be a chance when arrow hit the entity, the damager isn't online
             if (damager == null) {
@@ -291,9 +291,19 @@ public class MatchListener implements Listener {
                 Team teamDamager = match.getTeam(damager);
 
                 //檢查攻擊方和被攻擊方是不是同隊
-                if (teamEntity == teamDamager && entity != damager) {
-                    event.setCancelled(true);
-                    return;
+                if (teamEntity == teamDamager) {
+                    //檢查攻擊方和被攻擊方是不是同一個人
+                    if (entity != damager) {
+                        if (!kit.getGameRules().isTeamProjectile() && event.getDamager() instanceof Projectile) {
+                            event.setCancelled(true);
+                            return;
+                        }
+                    } else {
+                        if (!kit.getGameRules().isBowBoosting() && event.getDamager() instanceof Arrow) {
+                            event.setCancelled(true);
+                            return;
+                        }
+                    }
                 }
 
                 //檢查職業是否只允許遠程攻擊傷害

@@ -910,6 +910,12 @@ kit:
     drop-items:
       rules: "Drop Items"
       description: "Settings for player to drop item using 'Q' button"
+    team-projectile:
+      rules: "Team Projectile"
+      description: "Settings for player to allow to use projectile to shoot their teammate"
+    bow-boosting:
+      rules: "Bow Boosting"
+      description: "Settings for player to allow arrow to damage themselves"
     respawn-time:
       rules: "Respawn Time"
       description: "Settings for the respawn timer (Only works if bed or goal is on)"

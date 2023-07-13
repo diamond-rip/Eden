@@ -243,7 +243,11 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
     }
 
     public boolean containsWithoutY(Player player) {
-        return this.containsWithoutY(player.getLocation().getX(), player.getLocation().getZ());
+        return this.containsWithoutY(player.getLocation());
+    }
+
+    public boolean containsWithoutY(Location location) {
+        return this.containsWithoutY(location.getX(), location.getZ());
     }
 
     public boolean containsWithoutY(double x, double z) {

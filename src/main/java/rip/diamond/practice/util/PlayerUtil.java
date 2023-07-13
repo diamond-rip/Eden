@@ -52,7 +52,6 @@ public class PlayerUtil {
 		player.setGameMode(GameMode.ADVENTURE);
 		player.setAllowFlight(true);
 		player.setFlying(true);
-		player.setFlySpeed(0.1F);
 		player.updateInventory();
 		player.spigot().setCollidesWithEntities(false);
 

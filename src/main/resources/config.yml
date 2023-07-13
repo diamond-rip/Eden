@@ -83,6 +83,10 @@ match:
   win-commands: []
   ## The saturation for all players when match starts
   start-saturation: 15
+  ## So each arena is a 'rectangle', which works similar to WorldEdit (Refer to https://github.com/diamond-rip/Eden/wiki/Arenas-Setup#edit-arenas-location)
+  ## This option will expend the 'rectangle' for spectator so spectator can spectate in a better view
+  ## This option will expend in horizontal, meaning it will expend in East/West/North/South side
+  spectate-expend-cuboid: 50
   ## Golden apple settings for instant gapple in kit game rules
   golden-apple:
     ## When player consume a golden apple, should the system gives normal effects to the player (which contains instantly regenerate to full health, saturation and absorption hearts), or just regenerate to full health?
@@ -249,3 +253,4 @@ optimization:
 ## Avoid to change any of these settings if the developer didn't tell you to change
 experiment:
   disable-original-arena: false
+  new-arena-chunk-cache: false

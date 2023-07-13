@@ -1,8 +1,7 @@
 package rip.diamond.practice.match.task;
 
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.entity.Player;
-import org.github.paperspigot.Title;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.match.Match;
@@ -38,7 +37,8 @@ public class MatchRespawnTask extends MatchTaskTicker {
             return;
         }
         Common.sendMessage(player, Language.MATCH_RESPAWN_COUNTDOWN.toString(getTicks()));
-        Common.sendTitle(player, Language.MATCH_RESPAWN_TITLE.toString(), Language.MATCH_RESPAWN_SUBTITLE.toString(getTicks()), 0, 21, 0);
+        TitleSender.sendTitle(player, Language.MATCH_RESPAWN_TITLE.toString(), PacketPlayOutTitle.EnumTitleAction.TITLE, 0, 21, 0);
+        TitleSender.sendTitle(player, Language.MATCH_RESPAWN_SUBTITLE.toString(getTicks()), PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 0, 21, 0);
     }
 
     @Override
