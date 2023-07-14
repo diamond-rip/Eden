@@ -1242,6 +1242,7 @@ party:
   not-in-a-party: "&cYou are not in the same party, cannot use this command"
   wrong-state: "&cYou must be in a lobby to create a party"
   party-not-open: "&cYour party must be public to use this command, use '/party open' to set it to public"
+  announce-cooldown: "&cThe announce command is in cooldown. Please wait {0} seconds to use it again"
   player-not-found: "&cCannot find player '{0}'"
   party-not-found: "&cCannot find '{0}' 's party"
   full: "&cParty is full"

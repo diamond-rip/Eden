@@ -1300,6 +1300,7 @@ party:
   not-in-a-party: "&c你現在不在一個隊伍, 無法執行這個指令"
   wrong-state: "&c你必須要在大廳裏才能創建一個隊伍"
   party-not-open: "&c你的隊伍必須為公開狀態才能使用這個指令, 您可以使用指令 '/party open' 把隊伍設置為對外公開狀態"
+  announce-cooldown: "&c指令正在冷卻, 請等待 {0} 秒再使用該指令 {0}"
   player-not-found: "&c未能找到玩家 '{0}'"
   party-not-found: "&c未能找到 '{0}' 的隊伍"
   full: "&c隊伍人數已滿"

@@ -53,38 +53,6 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
         String[] args = param.split("_");
         PlayerProfile profile = PlayerProfile.get(player);
 
-        if (param.startsWith("queue_unranked_")) {
-            String kitName = args[2];
-            Kit kit = Kit.getByName(kitName);
-            if (kit == null) {
-                return "Unable to find kit " + kitName;
-            }
-            return Queue.getPlayers().values().stream().filter(qProfile -> qProfile.getKit() == kit && qProfile.getQueueType() == QueueType.UNRANKED).count() + "";
-        }
-        if (param.startsWith("queue_ranked_")) {
-            String kitName = args[2];
-            Kit kit = Kit.getByName(kitName);
-            if (kit == null) {
-                return "Unable to find kit " + kitName;
-            }
-            return Queue.getPlayers().values().stream().filter(qProfile -> qProfile.getKit() == kit && qProfile.getQueueType() == QueueType.RANKED).count() + "";
-        }
-        if (param.startsWith("match_unranked_")) {
-            String kitName = args[2];
-            Kit kit = Kit.getByName(kitName);
-            if (kit == null) {
-                return "Unable to find kit " + kitName;
-            }
-            return Match.getMatches().values().stream().filter(match -> match.getKit() == kit && match.getQueueType() == QueueType.UNRANKED).mapToInt(match -> match.getMatchPlayers().size()).sum() + "";
-        }
-        if (param.startsWith("match_ranked_")) {
-            String kitName = args[2];
-            Kit kit = Kit.getByName(kitName);
-            if (kit == null) {
-                return "Unable to find kit " + kitName;
-            }
-            return Match.getMatches().values().stream().filter(match -> match.getKit() == kit && match.getQueueType() == QueueType.UNRANKED).mapToInt(match -> match.getMatchPlayers().size()).sum() + "";
-        }
         //Requested in #228
         if (param.startsWith("kit_status")) {
             String kitName = args[2];
@@ -104,7 +72,67 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             }
             return party.getPrivacy().getReadable();
         }
+        if (param.startsWith("queue")) {
+            if (param.startsWith("queue_unranked_")) {
+                String kitName = args[2];
+                Kit kit = Kit.getByName(kitName);
+                if (kit == null) {
+                    return "Unable to find kit " + kitName;
+                }
+                return Queue.getPlayers().values().stream().filter(qProfile -> qProfile.getKit() == kit && qProfile.getQueueType() == QueueType.UNRANKED).count() + "";
+            }
+            if (param.startsWith("queue_ranked_")) {
+                String kitName = args[2];
+                Kit kit = Kit.getByName(kitName);
+                if (kit == null) {
+                    return "Unable to find kit " + kitName;
+                }
+                return Queue.getPlayers().values().stream().filter(qProfile -> qProfile.getKit() == kit && qProfile.getQueueType() == QueueType.RANKED).count() + "";
+            }
+        }
+        if (param.startsWith("match")) {
+            Match match = profile.getMatch();
+            if (match == null) {
+                return "Player isn't in a match";
+            }
+            if (param.startsWith("match_unranked_")) {
+                String kitName = args[2];
+                Kit kit = Kit.getByName(kitName);
+                if (kit == null) {
+                    return "Unable to find kit " + kitName;
+                }
+                return Match.getMatches().values().stream().filter(m -> m.getKit() == kit && m.getQueueType() == QueueType.UNRANKED).mapToInt(m -> m.getMatchPlayers().size()).sum() + "";
+            }
+            if (param.startsWith("match_ranked_")) {
+                String kitName = args[2];
+                Kit kit = Kit.getByName(kitName);
+                if (kit == null) {
+                    return "Unable to find kit " + kitName;
+                }
+                return Match.getMatches().values().stream().filter(m -> m.getKit() == kit && m.getQueueType() == QueueType.UNRANKED).mapToInt(m -> m.getMatchPlayers().size()).sum() + "";
+            }
+            //Requested in #445
+            if (param.equalsIgnoreCase("match_player_team_color")) {
+                return match.getTeam(player).getTeamColor().getColor();
+            }
+            if (param.equalsIgnoreCase("match_player_team_name")) {
+                return match.getTeam(player).getTeamColor().getTeamName();
+            }
+            if (param.equalsIgnoreCase("match_player_team_logo")) {
+                return match.getTeam(player).getTeamColor().getTeamLogo();
+            }
+            if (param.equalsIgnoreCase("match_arena_name")) {
+                return match.getArenaDetail().getArena().getDisplayName();
+            }
+            if (param.equalsIgnoreCase("match_kit_name")) {
+                return match.getKit().getDisplayName();
+            }
+        }
         if (args[0].equalsIgnoreCase("player")) {
+            if (param.equalsIgnoreCase("player_status")) {
+                return profile.getPlayerState().name();
+            }
+
             int rankedWon = profile.getKitData().values().stream().mapToInt(ProfileKitData::getRankedWon).sum();
             int rankedLost = profile.getKitData().values().stream().mapToInt(ProfileKitData::getRankedLost).sum();
             int unrankedWon = profile.getKitData().values().stream().mapToInt(ProfileKitData::getUnrankedWon).sum();

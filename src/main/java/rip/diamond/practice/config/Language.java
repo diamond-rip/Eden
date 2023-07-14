@@ -571,6 +571,7 @@ public enum Language {
     PARTY_NOT_IN_A_PARTY("party.not-in-a-party"),
     PARTY_WRONG_STATE("party.wrong-state"),
     PARTY_PARTY_NOT_OPEN("party.party-not-open"),
+    PARTY_ANNOUNCE_COOLDOWN("party.announce-cooldown"),
     PARTY_PLAYER_NOT_FOUND("party.player-not-found"),
     PARTY_PARTY_NOT_FOUND("party.party-not-found"),
     PARTY_FULL("party.full"),

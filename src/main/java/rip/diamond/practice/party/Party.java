@@ -32,6 +32,8 @@ public class Party {
     private boolean muted = false;
     private PartyPrivacy privacy = PartyPrivacy.CLOSED;
 
+    @Setter private long lastAnnounced = 0;
+
     public static Party getByPlayer(Player player) {
         return PlayerProfile.get(player).getParty();
     }
@@ -78,6 +80,8 @@ public class Party {
         clickable.add(Language.PARTY_ANNOUNCE_CLICKABLE.toString(), Language.PARTY_ANNOUNCE_HOVER.toString(), "/party join " + leader.getUsername());
 
         Bukkit.getOnlinePlayers().forEach(clickable::sendToPlayer);
+
+        lastAnnounced = System.currentTimeMillis();
     }
 
     public void setPrivacy(PartyPrivacy privacy) {

@@ -2,16 +2,19 @@ package rip.diamond.practice.match.team;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.github.paperspigot.Title;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.config.Config;
 import rip.diamond.practice.kits.KitLoadout;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.util.Tasks;
+import rip.diamond.practice.util.TitleSender;
 import rip.diamond.practice.util.Util;
 
 import java.util.UUID;
@@ -62,7 +65,8 @@ public class TeamPlayer {
 	}
 
 	public void broadcastTitle(String title, String subtitle) {
-		getPlayer().sendTitle(new Title(title, subtitle));
+		TitleSender.sendTitle(getPlayer(), title, PacketPlayOutTitle.EnumTitleAction.TITLE, 0, Config.MATCH_END_DURATION.toInteger() ,5);
+		TitleSender.sendTitle(getPlayer(), subtitle, PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 0, Config.MATCH_END_DURATION.toInteger() ,5);
 	}
 
 	public void teleport(Location location) {

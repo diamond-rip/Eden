@@ -122,6 +122,10 @@ public class PartyCommand extends Command {
                     Language.PARTY_PARTY_NOT_OPEN.sendMessage(player);
                     return;
                 }
+                if (party.getLastAnnounced() + (Config.PARTY_ANNOUNCE_COOLDOWN.toInteger() * 1000L) > System.currentTimeMillis()) {
+                    Language.PARTY_ANNOUNCE_COOLDOWN.sendMessage(player, Config.PARTY_ANNOUNCE_COOLDOWN);
+                    return;
+                }
                 party.announce();
                 return;
             }

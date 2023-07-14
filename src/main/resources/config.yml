@@ -54,6 +54,8 @@ nametag:
 party:
   ## When player creates a party, what is the default size?
   default-max-size: 30
+  ## How many seconds should the party leader wait after use the announce command?
+  announce-cooldown: 10
 lobby:
   ## Should player allow to see other players?
   display-players: false

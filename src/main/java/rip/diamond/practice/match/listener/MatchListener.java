@@ -259,7 +259,7 @@ public class MatchListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST) //Allow the above EntityDamageEvent run first
     public void onDamageEntity(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Projectile)) {
+        if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Snowball || event.getDamager() instanceof Egg || event.getDamager() instanceof Arrow)) {
             Player entity = (Player) event.getEntity();
             Player damager = event.getDamager() instanceof Projectile ? (Player) ((Projectile) event.getDamager()).getShooter() : (Player) event.getDamager();
 
@@ -295,6 +295,9 @@ public class MatchListener implements Listener {
                     //檢查攻擊方和被攻擊方是不是同一個人
                     if (entity != damager) {
                         if (!kit.getGameRules().isTeamProjectile() && event.getDamager() instanceof Projectile) {
+                            event.setCancelled(true);
+                            return;
+                        } else if (event.getDamager() instanceof Player) {
                             event.setCancelled(true);
                             return;
                         }

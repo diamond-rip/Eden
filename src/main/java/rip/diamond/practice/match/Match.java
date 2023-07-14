@@ -14,7 +14,6 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.github.paperspigot.Title;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.arenas.ArenaDetail;
 import rip.diamond.practice.config.Config;

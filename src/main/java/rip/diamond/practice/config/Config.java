@@ -41,6 +41,7 @@ public enum Config {
     NAMETAG_PREFIX_OTHER("nametag.prefix.other", "&e"),
     //Party
     PARTY_DEFAULT_MAX_SIZE("party.default-max-size", 30),
+    PARTY_ANNOUNCE_COOLDOWN("party.announce-cooldown", 10),
     //Lobby
     LOBBY_DISPLAY_PLAYERS("lobby.display-players", true),
     //Queue
