@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import rip.diamond.practice.config.Language;
+import rip.diamond.practice.profile.PlayerProfile;
 
 public class PartyListener implements Listener {
 
@@ -34,6 +35,12 @@ public class PartyListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+        PlayerProfile profile = PlayerProfile.get(player);
+
+        //Profile will be null if the profile is not loaded in PlayerJoinEvent
+        if (profile == null) {
+            return;
+        }
         Party party = Party.getByPlayer(player);
         if (party == null) {
             return;

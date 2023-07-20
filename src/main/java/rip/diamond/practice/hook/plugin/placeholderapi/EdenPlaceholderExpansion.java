@@ -90,26 +90,27 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
                 return Queue.getPlayers().values().stream().filter(qProfile -> qProfile.getKit() == kit && qProfile.getQueueType() == QueueType.RANKED).count() + "";
             }
         }
+        if (param.startsWith("match_unranked_")) {
+            String kitName = args[2];
+            Kit kit = Kit.getByName(kitName);
+            if (kit == null) {
+                return "Unable to find kit " + kitName;
+            }
+            return Match.getMatches().values().stream().filter(m -> m.getKit() == kit && m.getQueueType() == QueueType.UNRANKED).mapToInt(m -> m.getMatchPlayers().size()).sum() + "";
+        }
+        if (param.startsWith("match_ranked_")) {
+            String kitName = args[2];
+            Kit kit = Kit.getByName(kitName);
+            if (kit == null) {
+                return "Unable to find kit " + kitName;
+            }
+            return Match.getMatches().values().stream().filter(m -> m.getKit() == kit && m.getQueueType() == QueueType.UNRANKED).mapToInt(m -> m.getMatchPlayers().size()).sum() + "";
+        }
+
         if (param.startsWith("match")) {
             Match match = profile.getMatch();
             if (match == null) {
                 return "Player isn't in a match";
-            }
-            if (param.startsWith("match_unranked_")) {
-                String kitName = args[2];
-                Kit kit = Kit.getByName(kitName);
-                if (kit == null) {
-                    return "Unable to find kit " + kitName;
-                }
-                return Match.getMatches().values().stream().filter(m -> m.getKit() == kit && m.getQueueType() == QueueType.UNRANKED).mapToInt(m -> m.getMatchPlayers().size()).sum() + "";
-            }
-            if (param.startsWith("match_ranked_")) {
-                String kitName = args[2];
-                Kit kit = Kit.getByName(kitName);
-                if (kit == null) {
-                    return "Unable to find kit " + kitName;
-                }
-                return Match.getMatches().values().stream().filter(m -> m.getKit() == kit && m.getQueueType() == QueueType.UNRANKED).mapToInt(m -> m.getMatchPlayers().size()).sum() + "";
             }
             //Requested in #445
             if (param.equalsIgnoreCase("match_player_team_color")) {

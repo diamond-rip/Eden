@@ -69,6 +69,6 @@ public class MatchFireworkTask extends MatchTaskTicker {
 
     @Override
     public int getStartTick() {
-        return 5;
+        return match.getKit().getGameRules().getNewRoundTime();
     }
 }

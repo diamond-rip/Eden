@@ -8,6 +8,9 @@ arena-kit-auto-save: false
 ## Note that you have to manually do `/save-all` if you want to save the world if this option is set to true
 ## Disable auto saving world will not save the world after you do `/stop`
 disable-save-world: true
+## What command should only be able to use in lobby?
+## Command like /nick, /skin should ONLY be usable while in lobby
+lobby-only-commands: []
 ## MongoDB login information
 mongo:
   ## This option should be ALWAYS true. Unless you want to test specific stuff without modifying the database

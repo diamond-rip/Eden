@@ -64,6 +64,7 @@ public enum Language {
     DISABLED("disabled"),
     CONFIRM_TITLE("confirm-title"),
     REACHED_BUILD_LIMIT("reached-build-limit"),
+    BANNED_COMMAND("banned-command"),
     ARENA_ALREADY_EXISTS("arena.exists"),
     ARENA_NOT_EXISTS("arena.not-exists"),
     ARENA_CREATED("arena.created"),

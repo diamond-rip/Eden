@@ -322,6 +322,7 @@ enabled: "開啟"
 disabled: "關閉"
 confirm-title: "你確定嗎?"
 reached-build-limit: "已到上限"
+banned-command: "&c你只能在大廳狀態使用這個指令"
 arena:
   exists: "&c場地 '{0}' 已存在!"
   not-exists: "&c場地 '{0}' 不存在! 請先使用指令 '/arena create {0}' 去創建場地"
