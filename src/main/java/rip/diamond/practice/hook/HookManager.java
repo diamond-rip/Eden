@@ -5,6 +5,7 @@ import lombok.Setter;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.hook.plugin.citizens.CitizensHook;
+import rip.diamond.practice.hook.plugin.citizens.CitizensListener;
 import rip.diamond.practice.hook.plugin.placeholderapi.EdenPlaceholderExpansion;
 import rip.diamond.practice.hook.plugin.placeholderapi.PlaceholderAPIHook;
 import rip.diamond.practice.hook.spigot.ImanitySpigot3Hook;
@@ -34,6 +35,7 @@ public class HookManager {
         }
         if (Checker.isPluginEnabled("Citizens")) {
             this.citizensHook = new CitizensHook();
+            plugin.getServer().getPluginManager().registerEvents(new CitizensListener(plugin, citizensHook), plugin);
         }
     }
 

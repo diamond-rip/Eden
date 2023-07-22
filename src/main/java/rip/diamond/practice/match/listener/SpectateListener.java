@@ -168,6 +168,9 @@ public class SpectateListener implements Listener {
             Tasks.runLater(() -> {
                 player.setAllowFlight(true);
                 player.setFlying(true);
+
+                player.setAllowFlight(true);
+                player.setFlying(true);
             }, 2L);
         }
     }

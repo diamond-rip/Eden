@@ -36,8 +36,9 @@ public class PlayerUtil {
 
 		clearArrow(player);
 
-		TitleSender.sendTitle(player, "", PacketPlayOutTitle.EnumTitleAction.TITLE, 0, 1, 0);
-		TitleSender.sendTitle(player, "", PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 0, 1, 0);
+		//Since Player#sendTitle only reset the title, not subtitle, so we do some tricky stuff here
+		TitleSender.sendTitle(player, "&r", PacketPlayOutTitle.EnumTitleAction.TITLE, 1, 10, 1);
+		TitleSender.sendTitle(player, "&r", PacketPlayOutTitle.EnumTitleAction.SUBTITLE, 1, 10, 1);
 
 		if (resetHeldSlot) {
 			player.getInventory().setHeldItemSlot(0);
