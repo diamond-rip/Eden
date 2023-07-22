@@ -23,7 +23,7 @@ public class QueueMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return Language.QUEUE_MENU_TITLE.toString(queueType.getName());
+        return Language.QUEUE_MENU_TITLE.toString(queueType.getReadable());
     }
 
     @Override

@@ -930,6 +930,12 @@ public class MatchListener implements Listener {
 
             if (profile.getPlayerState() == PlayerState.IN_MATCH && profile.getMatch() != null) {
                 Match match = profile.getMatch();
+                if (match.getState() == MatchState.STARTING && !Config.MATCH_ALLOW_PREFIRE.toBoolean() && projectile instanceof Arrow) {
+                    event.setCancelled(true);
+                    Language.MATCH_CANNOT_PREFIRE.sendMessage(player);
+                    Tasks.runLater(() -> Util.giveBackArrow(match, player), 1L);
+                    return;
+                }
                 if (match.getState() == MatchState.ENDING) {
                     event.setCancelled(true);
                     return;
@@ -953,19 +959,7 @@ public class MatchListener implements Listener {
                         @Override
                         public void runExpired() {
                             if (!player.getInventory().contains(Material.ARROW)) {
-                                int slot = -1;
-                                //No KitLoadout is received. This will be null when a player didn't select a kit
-                                //Should not happen anymore because kitLoadout is now automatically applied, but just in-case
-                                if (match.getTeamPlayer(player).getKitLoadout() != null) {
-                                    for (int i = 0; i < 36; i++) {
-                                        if (match.getTeamPlayer(player).getKitLoadout().getContents()[i] != null && match.getTeamPlayer(player).getKitLoadout().getContents()[i].getType() == Material.ARROW) slot = i;
-                                    }
-                                }
-                                if (slot == -1 || player.getInventory().getItem(slot) != null) {
-                                    player.getInventory().addItem(new ItemStack(Material.ARROW));
-                                } else {
-                                    player.getInventory().setItem(slot, new ItemStack(Material.ARROW));
-                                }
+                                Util.giveBackArrow(match, player);
                             }
                             if (player.getLevel() > 0) player.setLevel(0);
                             if (player.getExp() > 0.0F) player.setExp(0.0F);

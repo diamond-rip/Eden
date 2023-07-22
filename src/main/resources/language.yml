@@ -410,11 +410,13 @@ duel:
   cannot-duel-self: "&cYou cannot duel yourself!"
   cannot-duel-not-in-party: "&cYour opponent is not in a party"
   has-pending-duel-request: "&cYou already have a pending duel request, please try again in 30 seconds"
-  invalid-uuid: "&cInvalid UUID!"
+  invalid-player: "&cInvalid player with name '{0}'"
+  invalid-kit: "&cInvalid kit with name '{0}'"
+  invalid-arena: "&cInvalid arena with name '{0}'"
   invalid-duel-request: "&cInvalid duel request! It may have already expired!"
   help-message:
     - "&cCommand usage:"
-    - "&c/duel <Player ID> - Duel a player/party"
+    - "&c/duel <Player> [Kit] [Arena] - Duel a player/party"
     - "&c/duel accept <UUID> - Accept a duel"
   choose-arena-menu:
     name: "Select Arena"
@@ -1013,6 +1015,7 @@ match:
   can-use-enderpearl: "&aYou can now use Ender Pearl again."
   arrow-damage: "&c{0}&e's health: &c{1}❤ &e{2}❤"
   requeue-not-in-match: "&cError: You are not in a match"
+  cannot-prefire: "&cYou cannot prefire in your current state"
   bed-break:
     title: "&cBed Destroyed！"
     subtitle: "&fYou will not respawn after die！"
@@ -1256,6 +1259,9 @@ party:
   error-leader-not-found: "&cError: please report this issue to a moderator (ERROR_LEADER_PLAYER_NULL)"
   max-size: "&cYour party's max size is {0}!"
   already-invite: "&cThere's already an on-going invite request. If you want to invite the same player again, please wait 30 seconds."
+  invalid-match-type: "&cInvalid match type '{0}'"
+  invalid-kit: "&cInvalid kit with name '{0}'"
+  invalid-arena: "&cInvalid arena with name '{0}'"
   help-message:
     - "&6&m------------------------------------------------"
     - "&dHelp party &7- &fHow to use party commands"

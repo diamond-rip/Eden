@@ -26,6 +26,7 @@ import org.bukkit.plugin.Plugin;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Config;
 import rip.diamond.practice.config.Language;
+import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.team.Team;
 import rip.diamond.spigotapi.SpigotType;
 
@@ -343,6 +344,28 @@ public class Util {
         if (health > 0) {
             Language.MATCH_ARROW_DAMAGE.sendMessage(damager, entity.getName(), Eden.DECIMAL.format(health), Eden.DECIMAL.format(absorptionHealth));
         }
+    }
+
+    public static int getArrowSlot(Match match, Player player) {
+        int slot = -1;
+        //No KitLoadout is received. This will be null when a player didn't select a kit
+        //Should not happen anymore because kitLoadout is now automatically applied, but just in-case
+        if (match.getTeamPlayer(player).getKitLoadout() != null) {
+            for (int i = 0; i < 36; i++) {
+                if (match.getTeamPlayer(player).getKitLoadout().getContents()[i] != null && match.getTeamPlayer(player).getKitLoadout().getContents()[i].getType() == Material.ARROW) slot = i;
+            }
+        }
+        return slot;
+    }
+
+    public static void giveBackArrow(Match match, Player player) {
+        int slot = getArrowSlot(match, player);
+        if (slot == -1 || player.getInventory().getItem(slot) != null) {
+            player.getInventory().addItem(new ItemStack(Material.ARROW));
+        } else {
+            player.getInventory().setItem(slot, new ItemStack(Material.ARROW));
+        }
+        player.updateInventory();
     }
 
     public static boolean isNPC(Player player) {

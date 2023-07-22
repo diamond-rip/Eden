@@ -65,12 +65,17 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
         if (param.startsWith("in_party")){
             return profile.getParty() == null ? Language.DISABLED.toString() : Language.ENABLED.toString();
         }
-        if (param.startsWith("party_privacy")) {
+        if (param.startsWith("party")) {
             Party party = profile.getParty();
             if (party == null) {
                 return "";
             }
-            return party.getPrivacy().getReadable();
+            if (param.equalsIgnoreCase("party_privacy")) {
+                return party.getPrivacy().getReadable();
+            }
+            if (param.equalsIgnoreCase("party_leader")) {
+                return party.getLeader().getUsername();
+            }
         }
         if (param.startsWith("queue")) {
             if (param.startsWith("queue_unranked_")) {
@@ -111,6 +116,13 @@ public class EdenPlaceholderExpansion extends PlaceholderExpansion {
             Match match = profile.getMatch();
             if (match == null) {
                 return "Player isn't in a match";
+            }
+            //Requested in #467
+            if (param.equalsIgnoreCase("match_match_type")) {
+                return match.getMatchType().getReadable();
+            }
+            if (param.equalsIgnoreCase("match_queue_type")) {
+                return match.getQueueType().getReadable();
             }
             //Requested in #445
             if (param.equalsIgnoreCase("match_player_team_color")) {

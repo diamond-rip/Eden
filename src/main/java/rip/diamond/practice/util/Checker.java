@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.potion.PotionEffectType;
 import rip.diamond.practice.events.EventType;
+import rip.diamond.practice.kits.KitMatchType;
 import rip.diamond.practice.match.MatchState;
 import rip.diamond.practice.profile.PlayerProfile;
 import rip.diamond.practice.profile.PlayerState;
@@ -108,6 +109,15 @@ public class Checker {
     public static boolean isEventType(String index) {
         try {
             EventType.valueOf(index.toUpperCase());
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    public static boolean isKitMatchType(String index) {
+        try {
+            KitMatchType.valueOf(index.toUpperCase());
             return true;
         } catch (Exception ignored) {
             return false;

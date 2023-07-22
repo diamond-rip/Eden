@@ -48,6 +48,7 @@ public enum Config {
     //Queue
     QUEUE_RANKED_REQUIRED_WINS("queue.ranked-required-wins", 10),
     //Match
+    MATCH_ALLOW_PREFIRE("match.allow-prefire", true),
     MATCH_ALLOW_REQUEUE("match.allow-requeue", true),
     MATCH_OUTSIDE_CUBOID_INSTANT_DEATH("match.outside-cuboid-instant-death", true),
     MATCH_REMOVE_CACTUS_SUGAR_CANE_PHYSICS("match.remove-cactus-sugar-cane-physics", true),

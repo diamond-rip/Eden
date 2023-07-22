@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.match.Match;
 import rip.diamond.practice.match.MatchTaskTicker;
+import rip.diamond.practice.util.Common;
 
 import java.util.Random;
 
@@ -42,7 +43,7 @@ public class MatchFireworkTask extends MatchTaskTicker {
         int randomX = new Random().nextInt(40) - 20;
         int randomZ = new Random().nextInt(40) - 20;
 
-        EntityFireworks firework = new EntityFireworks(((CraftWorld) match.getArenaDetail().getCuboid().getWorld()).getHandle(), match.getArenaDetail().getCuboid().getCenter().getX() + randomX, match.getArenaDetail().getA().getY(), match.getArenaDetail().getCuboid().getCenter().getZ() + randomZ, CraftItemStack.asNMSCopy(stackFirework));
+        EntityFireworks firework = new EntityFireworks(((CraftWorld) match.getArenaDetail().getCuboid().getWorld()).getHandle(), match.getArenaDetail().getCuboid().getCenter().getX() + randomX, match.getArenaDetail().getCuboid().getCenter().getY(), match.getArenaDetail().getCuboid().getCenter().getZ() + randomZ, CraftItemStack.asNMSCopy(stackFirework));
         for (Player player : match.getPlayersAndSpectators()) {
             ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutSpawnEntity(firework, 76));
         }

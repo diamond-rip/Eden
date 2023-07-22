@@ -464,11 +464,13 @@ duel:
   cannot-duel-self: "&c你不能跟自己對戰!"
   cannot-duel-not-in-party: "&c對方不在一個隊伍"
   has-pending-duel-request: "&c你目前已有一個正在等待對手接受的的決鬥邀請, 請在30秒後再發送"
-  invalid-uuid: "&c無效的UUID!"
+  invalid-player: "&c無效的玩家 '{0}'"
+  invalid-kit: "&c無效的職業 '{0}'"
+  invalid-arena: "&c無效的場地 '{0}'"
   invalid-duel-request: "&c無效的決鬥邀請! 決鬥邀請可能已經過期!"
   help-message:
     - "&c指令用法:"
-    - "&c/duel <玩家名稱> - 跟一位玩家決鬥/跟對方的隊伍決鬥"
+    - "&c/duel <玩家名稱> [職業] [場地] - 跟一位玩家決鬥/跟對方的隊伍決鬥"
     - "&c/duel accept <UUID> - 接受玩家的決鬥邀請"
   choose-arena-menu:
     name: "選擇場地"
@@ -1073,6 +1075,7 @@ match:
   can-use-enderpearl: "&a你現在可以使用終界珍珠"
   arrow-damage: "&c{0} &7現在的血量是 &c{1}❤ &e{2}❤"
   requeue-not-in-match: "&c錯誤: 不在一個戰鬥中"
+  cannot-prefire: "&c你目前不能發射投擲物"
   bed-break:
     title: "&c床遭到破壞了！"
     subtitle: "&f死後您將無法重生！"
@@ -1314,6 +1317,9 @@ party:
   error-leader-not-found: "&c錯誤: 請跟管理員回報錯誤 (ERROR_LEADER_PLAYER_NULL)"
   max-size: "&c您創建的隊伍最大人數只可以為 {0}!"
   already-invite: "&c已經有一個正在進行的邀請請求。 如果您想再次邀請同一個玩家，請等待30秒。"
+  invalid-match-type: "&c無效的模式 '{0}'"
+  invalid-kit: "&c無效的職業 '{0}'"
+  invalid-arena: "&c無效的場地 '{0}'"
   help-message:
     - "&6&m------------------------------------------------"
     - "&d隊伍幫助 &7- &f如何使用隊伍指令"

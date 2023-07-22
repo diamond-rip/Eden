@@ -12,6 +12,6 @@ public enum QueueType {
     RANKED(Language.QUEUE_TYPE_RANKED.toString()),
     ;
 
-    private final String name;
+    private final String readable;
 
 }

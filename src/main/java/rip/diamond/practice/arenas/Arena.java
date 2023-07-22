@@ -40,7 +40,20 @@ public class Arena {
 
     public static Arena getArena(String name) {
         return arenas.stream()
-                .filter(arena -> arena.getName().equals(name))
+                .filter(arena -> arena.getName().equalsIgnoreCase(name))
+                .findAny().orElse(null);
+    }
+
+    public static Arena getEnabledArena(String name, Kit kit) {
+        Collections.shuffle(arenas);
+        return arenas.stream()
+                .filter(arena ->
+                        arena.isEnabled() &&
+                        !arena.isLocked() &&
+                        !arena.getArenaDetails().isEmpty() &&
+                        arena.getAllowedKits().contains(kit.getName()) &&
+                        arena.getName().equalsIgnoreCase(name)
+                )
                 .findAny().orElse(null);
     }
 
@@ -48,7 +61,7 @@ public class Arena {
         Collections.shuffle(arenas);
         return arenas.stream()
                 .filter(Arena::isEnabled)
-                .filter(a -> a.getAllowedKits().contains(kit.getName()))
+                .filter(arena -> arena.getAllowedKits().contains(kit.getName()))
                 .findAny().orElse(null);
     }
 
