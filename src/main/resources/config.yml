@@ -256,8 +256,6 @@ imanity:
 optimization:
   ## If true, Eden will use NMS instead of bukkit API to set specific block
   set-block-fast: true
-  ## If true, Eden will check if the player has played the server first, then load the /stats command information
-  check-offline-player-before-load-stats: true
 ## Experiment settings
 ## Avoid to change any of these settings if the developer didn't tell you to change
 experiment:

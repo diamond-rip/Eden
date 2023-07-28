@@ -111,7 +111,6 @@ public enum Config {
     IMANITY_TELEPORT_ASYNC("imanity.teleport-async", true),
     //Optimization
     OPTIMIZATION_SET_BLOCK_FAST("optimization.set-block-fast", true),
-    OPTIMIZATION_CHECK_OFFLINE_PLAYER_BEFORE_LOAD_STATS("optimization.check-offline-player-before-load-stats", true),
     //Experiment
     EXPERIMENT_DISABLE_ORIGINAL_ARENA("experiment.disable-original-arena", false),
     EXPERIMENT_NEW_ARENA_CHUNK_CACHE("experiment.new-arena-chunk-cache", false),
