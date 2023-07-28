@@ -8,7 +8,9 @@ import lombok.Setter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 import rip.diamond.practice.Eden;
 import rip.diamond.practice.EdenItems;
 import rip.diamond.practice.config.Config;
@@ -31,7 +33,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 @Getter
-@RequiredArgsConstructor
 public class PlayerProfile {
 
     @Getter private static final Map<UUID, PlayerProfile> profiles = new ConcurrentHashMap<>();
@@ -47,6 +48,11 @@ public class PlayerProfile {
 
     @Setter private boolean temporary = false;
     private boolean saving = false;
+
+    public PlayerProfile(UUID uniqueId, String username) {
+        this.uniqueId = uniqueId;
+        this.username = username;
+    }
 
     public static void init() {
         new ProfileAutoSaveTask();
@@ -244,6 +250,9 @@ public class PlayerProfile {
 
     public static PlayerProfile get(Player player) {
         return get(player.getUniqueId());
+    }
+    public static PlayerProfile get(String username) {
+        return profiles.values().stream().filter(profile -> profile.getUsername().equalsIgnoreCase(username)).findAny().orElse(null);
     }
     public static PlayerProfile get(UUID uuid) {
         return profiles.get(uuid);

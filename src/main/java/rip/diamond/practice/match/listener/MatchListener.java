@@ -61,6 +61,7 @@ import rip.diamond.practice.util.serialization.LocationSerialization;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -259,7 +260,7 @@ public class MatchListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST) //Allow the above EntityDamageEvent run first
     public void onDamageEntity(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof Snowball || event.getDamager() instanceof Egg || event.getDamager() instanceof Arrow)) {
+        if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player || event.getDamager() instanceof FishHook || event.getDamager() instanceof Snowball || event.getDamager() instanceof Egg || event.getDamager() instanceof Arrow)) {
             Player entity = (Player) event.getEntity();
             Player damager = event.getDamager() instanceof Projectile ? (Player) ((Projectile) event.getDamager()).getShooter() : (Player) event.getDamager();
 
@@ -277,9 +278,13 @@ public class MatchListener implements Listener {
                 return;
             }
 
-            if (entityProfile.getPlayerState() == PlayerState.IN_MATCH && damagerProfile.getPlayerState() == PlayerState.IN_MATCH && entityProfile.getMatch() == damagerProfile.getMatch()) {
+            if (entityProfile.getPlayerState() == PlayerState.IN_MATCH && damagerProfile.getPlayerState() == PlayerState.IN_MATCH) {
                 Match match = entityProfile.getMatch();
                 Kit kit = match.getKit();
+
+                if (damagerProfile.getMatch() != entityProfile.getMatch()) {
+                    throw new PracticeUnexpectedException("Damager's match does not match with entity's match");
+                }
 
                 //It is cancelled in EntityDamageEvent. Check this again to prevent Boxing hits.
                 if (match.getState() != MatchState.FIGHTING) {
@@ -388,22 +393,6 @@ public class MatchListener implements Listener {
 
         if (item.getItemStack().getType() == Material.BED) {
             event.setCancelled(true);
-            return;
-        }
-
-        for (Match match : Match.getMatches().values()) {
-            ArenaDetail arenaDetail = match.getArenaDetail();
-            if (arenaDetail == null) {
-                return;
-            }
-
-
-            Cuboid cuboid = arenaDetail.getCuboid();
-            Location itemLocation = item.getLocation();
-
-            if (cuboid.contains(itemLocation)) {
-                match.getEntities().add(new MatchEntity(item));
-            }
         }
     }
 
@@ -449,9 +438,9 @@ public class MatchListener implements Listener {
             }
 
             Match match = profile.getMatch();
-            boolean found = match.getEntities().stream().anyMatch(matchEntity -> matchEntity.getEntity().getEntityId() == item.getEntityId());
-            if (found) {
-                match.getEntities().removeIf(matchEntity -> matchEntity.getEntity() == item);
+            MatchEntity entity = match.getEntities().stream().filter(matchEntity -> matchEntity.getEntity().getEntityId() == item.getEntityId()).findFirst().orElse(null);
+            if (entity != null) {
+                match.getEntities().remove(entity);
             } else {
                 event.setCancelled(true);
             }
@@ -944,7 +933,7 @@ public class MatchListener implements Listener {
                     event.setCancelled(true);
                     return;
                 }
-                match.getEntities().add(new MatchEntity(projectile));
+                match.getEntities().add(new MatchEntity(match, projectile));
                 if (projectile instanceof ThrownPotion) {
                     match.getTeamPlayer(player).addPotionsThrown();
                 } else if (projectile instanceof Arrow && match.getKit().getGameRules().isGiveBackArrow()) {

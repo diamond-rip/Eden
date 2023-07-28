@@ -119,6 +119,9 @@ public class FFAMatch extends Match {
     public Team getWinningTeam() {
         List<Team> all = new ArrayList<>(getTeams());
         all.removeIf(Team::isEliminated);
+        if (all.isEmpty()) {
+            return null;
+        }
         return all.get(0);
     }
 

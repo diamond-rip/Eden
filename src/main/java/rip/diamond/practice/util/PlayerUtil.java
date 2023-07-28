@@ -53,7 +53,9 @@ public class PlayerUtil {
 		player.setGameMode(GameMode.ADVENTURE);
 		player.setAllowFlight(true);
 		player.setFlying(true);
-		player.updateInventory();
+
+		player.setAllowFlight(true);
+		player.setFlying(true);
 		player.spigot().setCollidesWithEntities(false);
 
 		clearArrow(player);

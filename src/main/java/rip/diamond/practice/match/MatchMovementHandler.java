@@ -54,7 +54,11 @@ public class MatchMovementHandler {
                 //Prevent any duplicate scoring
                 //If two people go into the portal at the same time in bridge, it will count as +2 points
                 //If player go into the water and PlayerMoveEvent is too slow to perform teleportation, it will run MatchNewRoundTask multiple times
-                if (match.getMatchPlayers().stream().allMatch(p -> PlayerProfile.get(p).getCooldowns().get(CooldownType.SCORE).isExpired())) {
+                if (match.getMatchPlayers().stream().allMatch(p -> PlayerProfile
+                        .get(p)
+                        .getCooldowns()
+                        .get(CooldownType.SCORE)
+                        .isExpired())) {
                     TeamPlayer teamPlayer = match.getTeamPlayer(player);
                     if (match.getState() == MatchState.FIGHTING && !teamPlayer.isRespawning()) {
                         //檢查 KitGameRules 水上即死

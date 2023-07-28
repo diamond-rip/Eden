@@ -1024,8 +1024,16 @@ match:
       - "&f&lBed Destroyed > {0}'s bed &7has been destroyed by {1}{2}!"
       - ""
   death-message:
+    ## {0} - Entity relation color
+    ## {2} - Entity team color
     disconnect: "{0}{1} &7disconnected."
+    ## {0} - Entity relation color
+    ## {2} - Killer relation color
+    ## {4} - Entity team color
+    ## {5} - Killer team color
     killed: "{2}{3} &7killed {0}{1}&7."
+    ## {0} - Entity relation color
+    ## {2} - Entity team color
     default: "{0}{1} &7died."
   post-match-inventory:
     winner: "&aWinner: &e"

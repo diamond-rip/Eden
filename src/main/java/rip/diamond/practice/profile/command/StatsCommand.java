@@ -1,8 +1,11 @@
 package rip.diamond.practice.profile.command;
 
+import com.mongodb.client.model.Filters;
+import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import rip.diamond.practice.Eden;
 import rip.diamond.practice.config.Language;
 import rip.diamond.practice.leaderboard.menu.impl.KitStatsMenu;
 import rip.diamond.practice.profile.PlayerProfile;
@@ -27,27 +30,28 @@ public class StatsCommand extends Command {
         }
 
         Player target = Bukkit.getPlayer(username);
-        OfflinePlayer offlineTarget = CompletableFuture.supplyAsync(() -> Bukkit.getOfflinePlayer(username)).join();
-        if (offlineTarget == null || !offlineTarget.hasPlayedBefore()) {
-            Language.PROFILE_CANNOT_FIND_PLAYER.sendMessage(player);
-            return;
-        }
-
-        UUID targetUUID = target == null ? offlineTarget.getUniqueId() : target.getUniqueId();
-        String targetName = target == null ? offlineTarget.getName() : target.getName();
-
-        PlayerProfile profile = PlayerProfile.get(targetUUID);
-        if (profile != null) {
+        if (target != null) {
+            PlayerProfile profile = PlayerProfile.get(target);
             new KitStatsMenu(profile).openMenu(player);
             return;
         }
 
+        //If player isn't online...
+        Document document = Eden.INSTANCE.getMongoManager().getProfiles().find(Filters.eq("lowerCaseUsername", username.toLowerCase())).first();
+        if (document == null) {
+            Language.PROFILE_CANNOT_FIND_PLAYER.sendMessage(player);
+            return;
+        }
+
+        UUID targetUUID = UUID.fromString(document.getString("uuid"));
+        String targetName = document.getString("username");
+
         PlayerProfile finalProfile = PlayerProfile.createPlayerProfile(targetUUID, targetName);
         finalProfile.setTemporary(true);
-        finalProfile.load(success -> {
+        finalProfile.load(document, success -> {
             if (success) {
                 new KitStatsMenu(finalProfile).openMenu(player);
-                PlayerProfile.getProfiles().remove(offlineTarget.getUniqueId());
+                PlayerProfile.getProfiles().remove(targetUUID);
             } else {
                 Language.PROFILE_ERROR_CANNOT_LOAD_PLAYER.sendMessage(player);
             }

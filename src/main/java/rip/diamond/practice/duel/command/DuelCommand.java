@@ -28,6 +28,11 @@ public class DuelCommand extends Command {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
 
+        if (args.length == 0) {
+            Language.DUEL_HELP_MESSAGE.sendListOfMessage(player);
+            return;
+        }
+
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("accept")) {
                 InsertUtil.InsertType type = InsertUtil.check(args[1]);
@@ -110,7 +115,5 @@ public class DuelCommand extends Command {
             Eden.INSTANCE.getDuelRequestManager().sendDuelRequest(player, target, kit, arena);
             return;
         }
-
-        Language.DUEL_HELP_MESSAGE.sendListOfMessage(player);
     }
 }

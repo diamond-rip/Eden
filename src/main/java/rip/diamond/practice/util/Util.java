@@ -223,17 +223,18 @@ public class Util {
             connection.sendPacket(entityDeath);
         }
 
-        Tasks.runLater(()-> {
+        Tasks.runAsyncLater(()-> {
             for (Player o : viewers) {
                 if (o.isOnline()) {
                     PlayerConnection connection = ((CraftPlayer) o).getHandle().playerConnection;
+
                     connection.sendPacket(removePlayer);
                     if (cp.isOnline()) {
                         connection.sendPacket(addRealPlayer);
                     }
                 }
             }
-        }, 1L);
+        }, 2L);
     }
 
     //Need a custom dropItemNaturally function, so I can modify the f value of EntityItem

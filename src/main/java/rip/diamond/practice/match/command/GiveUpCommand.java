@@ -17,6 +17,7 @@ public class GiveUpCommand extends Command {
 
         if (profile.getPlayerState() == PlayerState.IN_MATCH && match != null && match.getTeamPlayer(player) != null) {
             match.die(player, true);
+            plugin.getScoreboardHandler().getScoreboard(player).unregisterHealthObjective();
             plugin.getLobbyManager().sendToSpawnAndReset(player);
         }
     }

@@ -22,30 +22,14 @@ import rip.diamond.practice.util.command.argument.CommandArguments;
 
 public class TestCommand extends Command {
 
-    @CommandArgs(name = "test", permission = "eden.command.test", async = true)
+    @CommandArgs(name = "test", permission = "eden.command.test", async = false)
     public void execute(CommandArguments command) {
         Player player = command.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
         String[] args = command.getArgs();
 
         if (args[0].equalsIgnoreCase("1")) {
-            ItemStack stackFirework = new ItemStack(Material.FIREWORK);
-            FireworkMeta fireworkMeta = (FireworkMeta) stackFirework.getItemMeta();
-            fireworkMeta.addEffect(FireworkEffect.builder().flicker(true).trail(true).withColor(Color.AQUA).withFade(Color.WHITE).build());
-            fireworkMeta.setPower(2);
-            stackFirework.setItemMeta(fireworkMeta);
-
-            EntityFireworks firework = new EntityFireworks(((CraftWorld) player.getWorld()).getHandle(), player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), CraftItemStack.asNMSCopy(stackFirework));
-
-            ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutSpawnEntity(firework, 76));
-
-            Bukkit.getScheduler().runTaskLaterAsynchronously(Eden.INSTANCE, () -> {
-                firework.expectedLifespan = 0;
-                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutEntityMetadata(firework.getId(), firework.getDataWatcher(), true));
-                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutEntityStatus(firework, (byte) 17));
-                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutEntityDestroy(firework.getId()));
-            }, 5L);
-            Common.log("done");
+            Common.sendMessage(player, profile.getMatch().getArenaDetail().isUsing() + "");
             return;
         } else if (args[0].equalsIgnoreCase("2")) {
             Bukkit.getPlayer("GoodestEnglish").performCommand("party create");

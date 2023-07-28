@@ -176,13 +176,13 @@ public abstract class Match {
         PlayerProfile profile = PlayerProfile.get(deadPlayer);
         Team team = getTeam(deadPlayer);
 
+        teamPlayer.setDisconnected(disconnected); //Set the disconnect state here, so player who already die, do /giveup, and do /spec to join back the match will not have duplicate messages
+
         if (!teamPlayer.isAlive()) {
             return;
         }
 
         teamPlayer.setAlive(false);
-        teamPlayer.setDisconnected(disconnected);
-
         getMatchPlayers().forEach(VisibilityController::updateVisibility);
 
         //Setup Post-Match Inventory
@@ -208,11 +208,9 @@ public abstract class Match {
         //Check if there's only one team survives. If yes, end the match
         if (canEnd()) {
             end();
-        } else {
-            if (!disconnected) {
-                PlayerUtil.spectator(deadPlayer);
-            }
-            profile.setupItems();
+        } else if (!disconnected) {
+            PlayerUtil.spectator(deadPlayer);
+            Tasks.runLater(profile::setupItems, 1L);
         }
     }
 
@@ -241,11 +239,26 @@ public abstract class Match {
 
     public void displayDeathMessage(TeamPlayer teamPlayer, Player deadPlayer) {
         if (teamPlayer.isDisconnected()) {
-            getPlayersAndSpectators().forEach(player -> Language.MATCH_DEATH_MESSAGE_DISCONNECT.sendMessage(player, getRelationColor(player, deadPlayer), teamPlayer.getUsername()));
+            getPlayersAndSpectators().forEach(player -> Language.MATCH_DEATH_MESSAGE_DISCONNECT.sendMessage(player,
+                    getRelationColor(player, deadPlayer),
+                    teamPlayer.getUsername(),
+                    getTeam(teamPlayer).getTeamColor().getColor()
+            ));
         } else if (teamPlayer.getLastHitDamager() != null && teamPlayer.getLastHitDamager().getPlayer() != null) {
-            getPlayersAndSpectators().forEach(player -> Language.MATCH_DEATH_MESSAGE_KILLED.sendMessage(player, getRelationColor(player, deadPlayer), teamPlayer.getUsername(), getRelationColor(player, teamPlayer.getLastHitDamager().getPlayer()), teamPlayer.getLastHitDamager().getUsername()));
+            getPlayersAndSpectators().forEach(player -> Language.MATCH_DEATH_MESSAGE_KILLED.sendMessage(player,
+                    getRelationColor(player, deadPlayer),
+                    teamPlayer.getUsername(),
+                    getRelationColor(player, teamPlayer.getLastHitDamager().getPlayer()),
+                    teamPlayer.getLastHitDamager().getUsername(),
+                    getTeam(teamPlayer).getTeamColor().getColor(),
+                    getTeam(teamPlayer.getLastHitDamager()).getTeamColor().getColor()
+            ));
         } else {
-            getPlayersAndSpectators().forEach(player -> Language.MATCH_DEATH_MESSAGE_DEFAULT.sendMessage(player, getRelationColor(player, deadPlayer), teamPlayer.getUsername()));
+            getPlayersAndSpectators().forEach(player -> Language.MATCH_DEATH_MESSAGE_DEFAULT.sendMessage(player,
+                    getRelationColor(player, deadPlayer),
+                    teamPlayer.getUsername(),
+                    getTeam(teamPlayer).getTeamColor().getColor()
+            ));
         }
     }
 
@@ -341,7 +354,7 @@ public abstract class Match {
         if (whoDropped != null) {
             plugin.getEntityHider().setPlayerWhoDropped(item, whoDropped);
         }
-        getEntities().add(new MatchEntity(item));
+        getEntities().add(new MatchEntity(this, item));
     }
 
     public void clearEntities(boolean forced) {

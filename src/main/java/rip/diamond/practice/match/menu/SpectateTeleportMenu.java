@@ -48,7 +48,7 @@ public class SpectateTeleportMenu extends PaginatedMenu {
                 @Override
                 public void clicked(Player player, ClickType clickType) {
                     PlayerProfile profile = PlayerProfile.get(player);
-                    if (profile.getPlayerState() != PlayerState.IN_SPECTATING || profile.getMatch() == null) {
+                    if ((profile.getPlayerState() != PlayerState.IN_MATCH && profile.getPlayerState() != PlayerState.IN_SPECTATING) || profile.getMatch() == null) {
                         Language.MATCH_SPECTATE_TELEPORT_MENU_WRONG_STATE.sendMessage(player);
                         return;
                     }
