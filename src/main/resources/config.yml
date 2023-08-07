@@ -261,3 +261,4 @@ optimization:
 experiment:
   disable-original-arena: false
   new-arena-chunk-cache: false
+  k-factor: 32
