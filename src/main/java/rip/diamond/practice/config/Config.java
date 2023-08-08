@@ -113,6 +113,7 @@ public enum Config {
     OPTIMIZATION_SET_BLOCK_FAST("optimization.set-block-fast", true),
     //Experiment
     EXPERIMENT_DISABLE_ORIGINAL_ARENA("experiment.disable-original-arena", false),
+    EXPERIMENT_K_FACTOR("experiment.k-factor", 32),
     EXPERIMENT_NEW_ARENA_CHUNK_CACHE("experiment.new-arena-chunk-cache", false),
     ;
 
