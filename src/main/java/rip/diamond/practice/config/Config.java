@@ -57,6 +57,7 @@ public enum Config {
     MATCH_TP_2_BLOCKS_UP_WHEN_DIE("match.tp-2-blocks-up-when-die", false),
     MATCH_RESPAWN_TELEPORT_TO_SPAWN_WHEN_DIE("match.respawn-teleport-to-spawn-when-die", true),
     MATCH_WIN_COMMANDS("match.win-commands", ImmutableList.of()),
+    MATCH_LOSE_COMMANDS("match.lose-commands", ImmutableList.of()),
     MATCH_START_SATURATION("match.start-saturation", 15),
     MATCH_SPECTATE_EXPEND_CUBOID("match.spectate-expend-cuboid", 50),
     MATCH_GOLDEN_APPLE_INSTANT_GAPPLE_EFFECTS("match.golden-apple.instant-gapple-effects", true),

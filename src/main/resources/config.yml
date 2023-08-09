@@ -82,12 +82,16 @@ match:
   ## When player dies and if the kit allows respawn, should Eden teleport the player to their spawn?
   respawn-teleport-to-spawn-when-die: true
   ## Command when the player wins. Only trigger when the player is playing unranked/ranked matches and not a custom duel match.
-  ## You can use {player} as the winner's name placeholder
+  ## You can use {player} as the placeholder for the winner's name, and {loser-player} as the placeholder for the loser's name.
   ## Example:
   ## win-commands:
   ## - "say {player} hello you win!"
   ## - "pay {player} 100"
+  ## lose-commands:
+  ## - "say {player} hello you lost!"
+  ## - "pay {player} 1"
   win-commands: []
+  lose-commands: []
   ## The saturation for all players when match starts
   start-saturation: 15
   ## So each arena is a 'rectangle', which works similar to WorldEdit (Refer to https://github.com/diamond-rip/Eden/wiki/Arenas-Setup#edit-arenas-location)
