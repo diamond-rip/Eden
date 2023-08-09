@@ -134,8 +134,8 @@ public class SoloMatch extends Match {
             }
         }
         if (!loseCommands.isEmpty()) {
-            for (String cmd : loseCommands) {
-                String d = cmd.replace("{loser-player}", tLoser.getUsername());
+            for (String cmd1 : loseCommands) {
+                String d = cmd1.replace("{loser-player}", tLoser.getUsername());
                 Common.debug("正在執行後台指令 " + d);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), d);
             }
