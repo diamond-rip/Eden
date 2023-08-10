@@ -43,7 +43,8 @@ public class EventListener implements Listener {
                 "/party list",
                 "/party disband",
                 "/party leave",
-                "/event"
+                "/event",
+                "/viewinventory"
         );
         for (String cmd : bypassCommand) {
             String message = event.getMessage().toLowerCase().replace("eden:", "");

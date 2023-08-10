@@ -110,7 +110,7 @@ public class ProfileListener implements Listener {
 
         if (event.getAction().name().startsWith("RIGHT_")) {
             if (profile.getPlayerState() == PlayerState.LOADING) {
-                Common.sendMessage(player, CC.RED + "[Eden] System is loading your profile... Please wait for a few seconds.");
+                Language.LOADING_PROFILE.sendMessage(player);
                 return;
             }
 
@@ -199,7 +199,7 @@ public class ProfileListener implements Listener {
         PlayerProfile profile = PlayerProfile.get(player);
 
         if (profile.getPlayerState() == PlayerState.LOADING) {
-            Common.sendMessage(player, CC.RED + "[Eden] System is loading your profile... Please wait for a few seconds.");
+            Language.LOADING_PROFILE.sendMessage(player);
             event.setCancelled(true);
             return;
         }

@@ -5,12 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Material;
 import rip.diamond.practice.Eden;
+import rip.diamond.practice.util.BasicConfigFile;
+import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.Util;
 
 import java.util.List;
-
-// TODO: 30/3/2023 Slowly migrate all config options into this file, with default options (Add to language enum class soon)
-// TODO: 30/3/2023 Auto import missing field to config.yml
 
 @AllArgsConstructor
 public enum Config {
@@ -115,7 +114,6 @@ public enum Config {
     //Experiment
     EXPERIMENT_DISABLE_ORIGINAL_ARENA("experiment.disable-original-arena", false),
     EXPERIMENT_K_FACTOR("experiment.k-factor", 32),
-    EXPERIMENT_NEW_ARENA_CHUNK_CACHE("experiment.new-arena-chunk-cache", false),
     ;
 
     @Getter private final String path;
@@ -151,6 +149,22 @@ public enum Config {
 
     public double toDouble() {
         return Double.parseDouble(toString());
+    }
+
+    public static void loadDefault() {
+        BasicConfigFile configFile = Eden.INSTANCE.getConfigFile();
+
+        for (Config config : Config.values()) {
+            String path = config.getPath();
+            String str = configFile.getString(path);
+            if (str.equals(path)) {
+                Common.debug("沒有找到 '" + path + "'... 正在加入到 config.yml");
+                configFile.getConfiguration().set(path, config.getDefaultValue());
+            }
+        }
+
+        configFile.save();
+        configFile.load();
     }
 
 }

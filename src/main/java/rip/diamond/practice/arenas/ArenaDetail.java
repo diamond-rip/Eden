@@ -5,8 +5,6 @@ import lombok.Setter;
 import org.bukkit.Location;
 import rip.diamond.practice.arenas.chunk.ArenaChunk;
 import rip.diamond.practice.arenas.chunk.IArenaChunk;
-import rip.diamond.practice.arenas.chunk.NewArenaChunk;
-import rip.diamond.practice.config.Config;
 import rip.diamond.practice.util.Common;
 import rip.diamond.practice.util.cuboid.Cuboid;
 import rip.diamond.practice.util.serialization.LocationSerialization;
@@ -56,7 +54,7 @@ public class ArenaDetail {
     public void copyChunk() {
         Cuboid cuboid = new Cuboid(min, max);
         try {
-            cuboid.getChunks().forEach(chunk -> cachedChunks.add(Config.EXPERIMENT_NEW_ARENA_CHUNK_CACHE.toBoolean() ? new NewArenaChunk(chunk) : new ArenaChunk(chunk)));
+            cuboid.getChunks().forEach(chunk -> cachedChunks.add(new ArenaChunk(chunk)));
         } catch (Exception e) {
             Common.log("&c[Eden] An error occurred while trying to copy your arena. This will cause arena will not reset and strongly recommend to fix it ASAP. (min:" + LocationSerialization.toReadable(min) + " &cmax:" + LocationSerialization.toReadable(max) + "&c)");
             e.printStackTrace();

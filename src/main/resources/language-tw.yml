@@ -314,6 +314,7 @@ join-message:
 - "&f歡迎來到 &b鑽石&e戰鬥練習"
 - ""
 - "&7&m------------------------------------------------"
+loading-profile: "&c[Eden] 系統正在加載您的資料... 請等待幾秒後再試"
 invalid-syntax: "&c格式錯誤, 請重試"
 location-not-found: "&c位置未找到"
 location-changed: "&a成功更改 {0}"

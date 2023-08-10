@@ -141,6 +141,8 @@ public class Eden extends JavaPlugin {
         this.arenaFile = new BasicConfigFile(this, "arena.yml");
         this.kitFile = new BasicConfigFile(this, "kit.yml");
         this.soundFile = new BasicConfigFile(this, "sound.yml");
+
+        Config.loadDefault();
     }
 
     private void loadManagers() {

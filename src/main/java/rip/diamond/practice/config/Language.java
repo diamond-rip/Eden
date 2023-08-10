@@ -56,6 +56,7 @@ public enum Language {
     SCOREBOARD_IN_SPECTATE_FFA_FIGHTING("scoreboard.in-spectate-ffa.fighting"),
     SCOREBOARD_IN_SPECTATE_FFA_ENDING("scoreboard.in-spectate-ffa.ending"),
     JOIN_MESSAGE("join-message"),
+    LOADING_PROFILE("loading-profile"),
     INVALID_SYNTAX("invalid-syntax"),
     LOCATION_NOT_FOUND("location-not-found"),
     LOCATION_CHANGED("location-changed"),

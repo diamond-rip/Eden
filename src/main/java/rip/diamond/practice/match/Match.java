@@ -39,6 +39,7 @@ import rip.diamond.practice.util.*;
 import rip.diamond.practice.util.exception.PracticeUnexpectedException;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Getter
@@ -46,7 +47,7 @@ public abstract class Match {
 
     protected final Eden plugin = Eden.INSTANCE;
 
-    @Getter private static final Map<UUID, Match> matches = new HashMap<>();
+    @Getter private static final Map<UUID, Match> matches = new ConcurrentHashMap<>();
     @Getter private static final Map<UUID, PostMatchInventory> postMatchInventories = new HashMap<>();
 
     private final UUID uuid = UUID.randomUUID();

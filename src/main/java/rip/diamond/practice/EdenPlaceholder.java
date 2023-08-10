@@ -135,8 +135,8 @@ public class EdenPlaceholder {
                                 .replace("{match-team-self-size}", team.getTeamPlayers().size() + "")
                                 .replace("{match-team-opponent-alive}", opponentTeam.getAliveCount() + "")
                                 .replace("{match-team-opponent-size}", opponentTeam.getTeamPlayers().size() + "")
-                                .replace("{match-team-winner}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getWinningTeam().getLeader().getUsername() : "")
-                                .replace("{match-team-loser}", match.getState() == MatchState.ENDING ? match.getWinningTeam() == null ? "" : match.getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).findFirst().orElse("") : "")
+                                .replace("{match-team-winner}", match.getState() != MatchState.ENDING ? "" : match.getWinningTeam() == null ? "" : match.getWinningTeam().getLeader().getUsername())
+                                .replace("{match-team-loser}", match.getState() != MatchState.ENDING ? "" : match.getWinningTeam() == null ? "" : match.getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).findFirst().orElse(""))
                                 .replace("{match-team-boxing-difference-text}", xComboing || yComboing ? Language.SCOREBOARD_BOXING_COUNTER_TEXT_TEAM.toString(xComboing ? CC.GREEN : CC.RED, xComboing ? team.getCombo() : opponentTeam.getCombo()) : Language.SCOREBOARD_BOXING_COUNTER_NO_COMBO.toString())
                                 .replace("{match-team-boxing-difference}", Math.abs(teamsDifference) + "")
                                 .replace("{match-team-boxing-difference-number}",  teamsDifference + "")
@@ -154,8 +154,8 @@ public class EdenPlaceholder {
                         str = str
                                 .replace("{match-ffa-alive}", aliveCount + "")
                                 .replace("{match-ffa-player-size}", ffaTeams.size() + "")
-                                .replace("{match-ffa-winner}", ((FFAMatch) match).getWinningTeam().getLeader().getUsername())
-                                .replace("{match-ffa-loser}", ((FFAMatch) match).getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).collect(Collectors.joining(",")))
+                                .replace("{match-ffa-winner}", match.getState() != MatchState.ENDING ? "" : match.getWinningTeam() == null ? "" : match.getWinningTeam().getLeader().getUsername())
+                                .replace("{match-ffa-loser}", match.getState() != MatchState.ENDING ? "" : match.getWinningTeam() == null ? "" : match.getTeams().stream().filter(t -> match.getWinningTeam() != t).map(t -> t.getLeader().getUsername()).collect(Collectors.joining(",")))
                         ;
                         break;
                     case SUMO_EVENT:

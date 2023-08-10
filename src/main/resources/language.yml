@@ -260,6 +260,7 @@ join-message:
   - "&fWelcome to NA Practice"
   - ""
   - "&7&m------------------------------------------------"
+loading-profile: "&c[Eden] System is loading your profile... Please wait for a few seconds."
 invalid-syntax: "&cIncorrect format. Please try again."
 location-not-found: "&cLocation not found"
 location-changed: "&aSuccessfully changed {0}"

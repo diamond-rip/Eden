@@ -540,7 +540,7 @@ public class MatchListener implements Listener {
                             event.setCancelled(true);
                             return;
                         } else {
-                            event.setUseItemInHand(Event.Result.ALLOW); // Try to fix issue #312 - Ender pearl issue
+                            Util.throwEnderPearl(event); //Try to fix #514
                             profile.getCooldowns().put(CooldownType.ENDER_PEARL, new Cooldown(16) {
                                 @Override
                                 public void cancelCountdown() {
@@ -740,7 +740,6 @@ public class MatchListener implements Listener {
             if (arenaDetail == null) {
                 return;
             }
-
 
             Cuboid cuboid = arenaDetail.getCuboid();
             Location blockLocation = block.getLocation();

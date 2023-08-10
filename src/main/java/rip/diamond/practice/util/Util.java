@@ -14,13 +14,12 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftTNTPrimed;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
-import org.bukkit.entity.Arrow;
+import org.bukkit.entity.*;
 import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import rip.diamond.practice.Eden;
@@ -345,6 +344,15 @@ public class Util {
         if (health > 0) {
             Language.MATCH_ARROW_DAMAGE.sendMessage(damager, entity.getName(), Eden.DECIMAL.format(health), Eden.DECIMAL.format(absorptionHealth));
         }
+    }
+
+    public static void throwEnderPearl(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        ItemStack itemStack = player.getItemInHand();
+
+        event.setCancelled(true);
+        player.launchProjectile(EnderPearl.class);
+        itemStack.setAmount(itemStack.getAmount() - 1);
     }
 
     public static int getArrowSlot(Match match, Player player) {
