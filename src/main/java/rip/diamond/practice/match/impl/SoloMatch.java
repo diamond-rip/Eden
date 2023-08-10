@@ -125,11 +125,19 @@ public class SoloMatch extends Match {
         kLoser.calculateWinstreak(false);
 
         List<String> winCommands = Config.MATCH_WIN_COMMANDS.toStringList();
+        List<String> loseCommands = Config.MATCH_LOSE_COMMANDS.toStringList();
         if (!winCommands.isEmpty()) {
             for (String cmd : winCommands) {
                 String c = cmd.replace("{player}", tWinner.getUsername());
                 Common.debug("正在執行後台指令 " + c);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), c);
+            }
+        }
+        if (!loseCommands.isEmpty()) {
+            for (String cmd1 : loseCommands) {
+                String d = cmd1.replace("{loser-player}", tLoser.getUsername());
+                Common.debug("正在執行後台指令 " + d);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), d);
             }
         }
     }
